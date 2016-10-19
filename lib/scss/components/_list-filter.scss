@@ -1,0 +1,26 @@
+.list-filter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        padding: 10px 0;
+        text-align: center;
+        border-top: 1px solid #d7d7d7;
+
+        li {
+            padding: 4px 10px;
+            list-style: none;
+            display: inline-block;
+            cursor: pointer;
+            font-size: 12px;
+
+            &.active {
+                border: 1px solid #656565;
+            }
+        }
+    }
+}

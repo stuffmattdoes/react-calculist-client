@@ -25,7 +25,8 @@ html {
     padding: 60px 0;
 }
 
-.wrapper {
+.app {
+    position: relative;
     width: 100%;
     max-width: 320px;
     min-height: 600px;

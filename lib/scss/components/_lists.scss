@@ -1,10 +1,10 @@
 .list {
-
+    // margin-top: 15px;
 }
 
 .list-item,
 .list-item-add {
-    // padding: 10px 12px;
+    font-size: 14px;
 
     input {
         display: inline-block;
@@ -29,6 +29,21 @@
         text-align: right;
         width: 30%;
         float: right;
+    }
+}
+
+.list-item {
+    background-color: white;
+    border-bottom: 1px solid #d7d7d7;
+
+    &.list-item-checked {
+        background: none;
+        color: #898989;
+        font-style: italic;
+
+        .list-item-title {
+            text-decoration: line-through;
+        }
     }
 }
 
