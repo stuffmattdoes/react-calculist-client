@@ -1,0 +1,19 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+
+.header {
+    padding: 15px;
+    background-color: white;
+
+    h1 {
+        display: inline-block;
+        text-align: left;
+    }
+
+    .items-total {
+        margin: 0;
+        display: inline-block;
+        float: right;
+    }
+}

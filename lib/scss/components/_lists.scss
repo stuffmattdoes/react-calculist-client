@@ -1,0 +1,46 @@
+.list {
+
+}
+
+.list-item,
+.list-item-add {
+    // padding: 10px 12px;
+
+    input {
+        display: inline-block;
+        padding: 5px 12px;
+        margin: 5px 0;
+        width: 33%;
+        outline: none;
+        border: none;
+        background: none;
+    }
+
+    .list-item-checkbox {
+        display: inline-block;
+        width: 10%;
+    }
+
+    .list-item-title {
+        width: 60%;
+    }
+
+    .list-item-amount {
+        text-align: right;
+        width: 30%;
+        float: right;
+    }
+}
+
+.list-item-add {
+    input {
+        display: block;
+        width: auto;
+    }
+}
+
+.list-item-reset {
+    display: inline-block;
+    float: left;
+    width: 10%;
+}

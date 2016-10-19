@@ -1,0 +1,15 @@
+form {
+    width: 100%;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin: 15px 0;
+
+    &[type="submit"] {
+        display: inline-block;
+        width: auto;
+        float: right;
+    }
+}
