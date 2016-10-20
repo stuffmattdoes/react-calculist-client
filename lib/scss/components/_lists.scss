@@ -2,13 +2,17 @@
     // margin-top: 15px;
 }
 
+.list-form {
+    display: flex;
+}
+
 .list-item,
 .list-item-add {
     font-size: 14px;
 
     input {
         display: inline-block;
-        padding: 5px 12px;
+        padding: 5px;
         margin: 5px 0;
         width: 33%;
         outline: none;
@@ -16,19 +20,40 @@
         background: none;
     }
 
+    .list-item-checkbox-label {
+        display: block;
+        width: 35px;
+        padding: 10px;
+    }
+
     .list-item-checkbox {
-        display: inline-block;
-        width: 10%;
+        position: relative;
+        display: block;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #999999;
+    }
+
+    input[type="checkbox"] {
+        display: none;
     }
 
     .list-item-title {
-        width: 60%;
+        width: 100%;
     }
 
     .list-item-amount {
         text-align: right;
-        width: 30%;
-        float: right;
+        padding-right: 0;
+        width: 80px;
+        // border: 1px solid black;
+    }
+
+    .list-item-options {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        padding: 6px 12px 6px 20px;
     }
 }
 
@@ -41,6 +66,15 @@
         color: #898989;
         font-style: italic;
 
+        .list-item-checkbox {
+            width: 6px;
+            border-left: none;
+            border-top: none;
+            transform: rotate(45deg);
+            bottom: 2px;
+            left: 5px;
+        }
+
         .list-item-title {
             text-decoration: line-through;
         }
@@ -48,8 +82,26 @@
 }
 
 .list-item-add {
-    input {
-        display: block;
+    display: flex;
+
+    .input-group-buttons {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+
+        button {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            &.list-item-reset-button {
+                display: none;
+            }
+        }
+    }
+
+    input.list-item-title {
+        // display: inline-block;
         width: auto;
     }
 }
