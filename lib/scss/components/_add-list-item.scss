@@ -1,0 +1,69 @@
+.list-item-add {
+
+    .list-item-add-form {
+        display: flex;
+    }
+
+    .input-group-buttons {
+        display: block;
+        width: 35px;
+        height: 35px;
+    }
+
+    .list-item-reset-button,
+    .list-item-add-button {
+        display: block;
+        padding: 10px 12px;
+
+        span {
+            display: block;
+            background-color: #999;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            color: #F5F5F5;
+            padding: 1px 6px;
+        }
+    }
+
+    .list-item-reset-button {
+        display: none;
+
+        span {
+            padding: 0 5px;
+            background: none;
+            border: 1px solid #999;
+            color: #999;
+            transform: rotate(45deg);
+        }
+    }
+
+    input {
+        padding: 8px;
+
+        &.list-item-title {
+            width: auto;
+        }
+    }
+
+    .list-item-add-form-active {
+        .list-item-add-button {
+            display: none;
+        }
+
+        .list-item-reset-button {
+            display: block;
+        }
+    }
+
+}
+
+.list-item-reset {
+    display: inline-block;
+    float: left;
+    width: 10%;
+}
+
+input.input-hidden {
+    display: none !important;
+}

@@ -9,7 +9,7 @@
     color: white;
 
     .items-count {
-        display: inline-block;
+        display: none;
         background-color: white;
         height: 20px;
         font-size: 12px;
@@ -19,12 +19,18 @@
         border-radius: 2px;
     }
 
+    .header-options {
+        position: absolute;
+        width: 40px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        padding: 12px;
+        text-align: center;
+    }
+
     .icon-dots-vertical {
         background-color: white;
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        margin-top: -2px;
 
         &:before,
         &:after {

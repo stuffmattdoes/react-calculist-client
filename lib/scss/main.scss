@@ -29,10 +29,12 @@
 
 // 5. Components
 @import
+  'components/add-list-item',
   'components/buttons',
   'components/forms',
   'components/lists',
-  'components/list-filter';
+  'components/list-filter',
+  'components/list-item-settings';
 
 // 6. Page-specific styles
 @import
