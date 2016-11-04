@@ -26,21 +26,19 @@ const ListApp = React.createClass({
 
     componentWillMount() {
         ListStore.on("change", this.getAllLists);
-        console.log("Render");
+        // console.log("Render");
     },
 
     componentDidUnmonut() {
         ListStore.removeListener("change", this.getAllLists);
-        console.log("Re-render");
+        // console.log("Re-render");
     },
 
     getAllLists: function() {
         // console.log("Change listener");
-        // console.log(this.state.listsData[0]["items"]);
         this.setState({
             listsData: ListStore.getAll()
         });
-
         // console.log(this.state.listsData);
     },
 

@@ -17,7 +17,7 @@ const ListItem = React.createClass({
 
     getInitialState: function () {
 
-        console.log(this.props.listProps.amount);
+        // console.log(this.props.listProps);
 
         return {
             amount: this.props.listProps.amount,
@@ -31,7 +31,6 @@ const ListItem = React.createClass({
         const inputValue = e.target.value;
 
         // Currency formatter here
-
         this.setState({
             amount: inputValue
         });
@@ -162,7 +161,6 @@ const ListItem = React.createClass({
                 {this.state.expanded ?
                     <ListItemSettings
                         listProps={this.props.listProps}
-                        listData={this.props.listData}
                     />
                 : null}
             </div>

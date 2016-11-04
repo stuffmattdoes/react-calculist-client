@@ -149,12 +149,10 @@ class ListStore extends EventEmitter {
 
                 // Iterate through our updates and apply them
                 for (var update in updates) {
-                    // console.log(updates, update);
-
-                    // console.log(typeof updates[update]);
 
                     // Is this property an object?
                     if (typeof updates[update] != "object") {
+
                         // If our store object has a similar property, update it
                         if (value.hasOwnProperty(update)) {
                             value[update] = updates[update];
@@ -170,8 +168,8 @@ class ListStore extends EventEmitter {
                         }
                     }
 
-                };
-                // console.log(value);
+                }
+                console.log(value);
             }
 
         }.bind(this));
@@ -197,7 +195,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "UPDATE_ITEM_AMOUNT" : {
-                console.log("UPDATE_ITEM_AMOUNT");
+                // console.log("UPDATE_ITEM_AMOUNT", action.amount);
                 this.updateListItem(action.id, {amount: action.amount});
                 break;
             }

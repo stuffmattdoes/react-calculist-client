@@ -8,7 +8,6 @@ const ListItemSettings = React.createClass({
 
     propTypes: {
         listProps: React.PropTypes.object.isRequired,
-        listData: React.PropTypes.object.isRequired,
     },
 
     getInitialState: function () {
@@ -88,7 +87,7 @@ const ListItemSettings = React.createClass({
     },
 
     getTaxPricing: function() {
-        var taxRate = this.props.listData.taxRate;
+        var taxRate = 6.5;
         var amountTaxed = this.props.listProps.amount;
 
         if (this.state.taxed) {
@@ -98,7 +97,6 @@ const ListItemSettings = React.createClass({
             // Curency formatter here
             return (amountTaxed);
         }
-
     },
 
     getUnitPricing: function() {
@@ -111,12 +109,10 @@ const ListItemSettings = React.createClass({
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
         // Curency formatter here
         // console.log(calcUnitPrice);
-
+        // console.log("Unit price calc");
         ListActions.default.updateListItemAmount(
             this.props.listProps.id,
-            {
-                amount: calcUnitPrice
-            }
+            calcUnitPrice
         );
         // return calcUnitPrice;
     },
