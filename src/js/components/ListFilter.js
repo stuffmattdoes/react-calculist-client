@@ -2,11 +2,11 @@ import React from 'react';
 
 const ListFilter = React.createClass({
 
-    propTypes: {
-        listFilter: React.PropTypes.string.isRequired,
-        listData: React.PropTypes.object.isRequired,
-        onFilterClick: React.PropTypes.func.isRequired
-    },
+    // propTypes: {
+    //     listFilter: React.PropTypes.string.isRequired,
+    //     listData: React.PropTypes.object.isRequired,
+    //     onFilterClick: React.PropTypes.func.isRequired
+    // },
 
     render: function() {
         var filterActiveClass = "active"

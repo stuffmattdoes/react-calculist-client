@@ -1,7 +1,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './lib/index.js',                    // The main file for our app
+    entry: './src/js/app.js',                    // The main file for our app
 
     output: {
         path: './',                             // The path to write our compiled app to
@@ -28,6 +28,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('./lib/css/main.css')
+        new ExtractTextPlugin('./src/css/main.css')
     ]
 };

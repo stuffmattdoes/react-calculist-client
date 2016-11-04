@@ -9,33 +9,27 @@ const ListItemSettings = React.createClass({
     propTypes: {
         listProps: React.PropTypes.object.isRequired,
         listData: React.PropTypes.object.isRequired,
-
-        // Passing up
-        onTaxChecked: React.PropTypes.func.isRequired,
-        onTaxChanged: React.PropTypes.func.isRequired,
-        onUnitPricingChecked: React.PropTypes.func.isRequired,
-        onUnitPricingChanged: React.PropTypes.func.isRequired,
-        onUnitQuantityChanged: React.PropTypes.func.isRequired,
-        onAmountChanged: React.PropTypes.func.isRequired
     },
 
     getInitialState: function () {
-
         return {
-            tax: this.props.listProps.tax.active,
-            taxRate: this.props.listData.taxRate,
-            unitPricing: this.props.listProps.unitPricing.active,
+            taxed: this.props.listProps.tax.active,
+            taxRate: this.props.listProps.tax.singleTaxRate,
+            unitPriceActive: this.props.listProps.unitPricing.active,
             unitPrice: this.props.listProps.unitPricing.price,
-            unitQuantity: this.props.listProps.unitPricing.quantity
+            unitQuantity: this.props.listProps.unitPricing.quantity,
         };
     },
 
     onTaxChecked: function(e) {
         const inputValue = e.target.checked;
+        ListActions.default.updateListItemTaxed (
+            this.props.listProps.id,
+            inputValue
+        );
         this.setState({
-            tax: inputValue
+            taxed: inputValue
         });
-        this.props.onTaxChecked(inputValue);
     },
 
     onTaxChanged: function(e) {
@@ -43,35 +37,60 @@ const ListItemSettings = React.createClass({
         this.setState({
             taxRate: inputValue
         });
-        this.props.onTaxChanged(inputValue);
     },
 
     onUnitPricingChecked: function(e) {
+        // console.log("onUnitPricingChecked");
         const inputValue = e.target.checked;
-        this.state.unitPricing = inputValue;
         this.getUnitPricing();
-        this.props.onUnitPricingChecked(inputValue);
+        ListActions.default.updateListItemUnitPriceActive(
+            this.props.listProps.id,
+            inputValue
+        );
+        this.setState({
+            unitPriceActive: inputValue
+        });
     },
 
     onUnitPricingChanged: function(e) {
         const inputValue = e.target.value;
-        this.state.unitPrice = inputValue;
         this.getUnitPricing();
-        this.props.onUnitPricingChanged(inputValue);
+        this.setState({
+            unitPrice: inputValue
+        });
+    },
+
+    onUnitPricingSaved: function() {
+        ListActions.default.updateListItemUnitPrice(
+            this.props.listProps.id,
+            this.state.unitPrice,
+            this.getUnitPricing()
+        );
+        this.setState(this.state);
     },
 
     onUnitQuantityChanged: function(e) {
         const inputValue = e.target.value;
-        this.state.unitQuantity = inputValue;
         this.getUnitPricing();
-        this.props.onUnitQuantityChanged(inputValue);
+        this.setState({
+            unitQuantity: inputValue
+        });
+    },
+
+    onUnitQuantitySaved : function() {
+        ListActions.default.updateListItemUnitQuantity(
+            this.props.listProps.id,
+            this.state.unitQuantity,
+            this.getUnitPricing()
+        );
+        this.setState(this.state);
     },
 
     getTaxPricing: function() {
         var taxRate = this.props.listData.taxRate;
         var amountTaxed = this.props.listProps.amount;
 
-        if (this.props.listProps.tax.active) {
+        if (this.state.taxed) {
             taxRate = (taxRate / 100) + 1;
             amountTaxed *= taxRate;
             amountTaxed = (Math.round(amountTaxed * 100) / 100 ).toFixed(2);
@@ -82,31 +101,26 @@ const ListItemSettings = React.createClass({
     },
 
     getUnitPricing: function() {
-        var unitPricing = this.state.unitPrice * this.state.unitQuantity;
+        var calcUnitPrice = this.state.unitPrice * this.state.unitQuantity;
 
-        if (!this.state.unitPricing) {
+        if (!this.state.unitPriceActive) {
             return;
         }
-        // console.log(unitPricing);
-        unitPricing = (Math.round(unitPricing * 100) / 100 ).toFixed(2);
+
+        calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
         // Curency formatter here
-        this.props.onAmountChanged(unitPricing);
-        this.setState(this.state);
+        return calcUnitPrice;
     },
 
     onListItemDelete: function() {
-        // console.log("Delete list item: ", this.props.listProps.id);
-        ListActions.deleteListItem(this.props.listProps.id);
+        ListActions.default.deleteListItem(this.props.listProps.id);
         this.setState(this.state);
-
     },
 
     render: function() {
         var uniqueId2 = "checkbox-" + this.props.listProps.id + "-2";
         var uniqueId3 = "checkbox-" + this.props.listProps.id + "-3";
         var checkboxClass = 'list-item-checkbox';
-
-        this.getTaxPricing();
 
         return (
             <div className="list-item-options">
@@ -119,7 +133,7 @@ const ListItemSettings = React.createClass({
                             id={uniqueId3}
                             type="checkbox"
                             onChange={this.onUnitPricingChecked}
-                            checked={this.props.unitPricing}
+                            checked={this.state.unitPriceActive}
                             value=""
                         />
                         <label className="list-item-checkbox-label" htmlFor={uniqueId3}><span className={checkboxClass}></span></label>
@@ -129,14 +143,15 @@ const ListItemSettings = React.createClass({
                     {/* ----------
                         Unit price
                         ---------- */}
-                    {this.state.unitPricing ?
+                    {this.state.unitPriceActive ?
                         <div className="input-group-sub">
                             <p>Price per unit</p>
                             <input
                                 className="list-item-input-number"
                                 type="text"
                                 onChange={this.onUnitPricingChanged}
-                                value={this.props.unitPrice != 0 ? this.props.unitPrice : ''}
+                                onBlur={this.onUnitPricingSaved}
+                                value={this.state.unitPrice != 0 ? this.state.unitPrice : ''}
                                 placeholder="0.00"
                             />
 
@@ -150,7 +165,8 @@ const ListItemSettings = React.createClass({
                                 className="list-item-input-number"
                                 type="text"
                                 onChange={this.onUnitQuantityChanged}
-                                value={this.props.unitQuantity != 0 ? this.props.unitQuantity : ''}
+                                onBlur={this.onUnitQuantitySaved}
+                                value={this.state.unitQuantity != 0 ? this.state.unitQuantity : ''}
                                 placeholder="0"
                             />
                         </div>
@@ -164,7 +180,7 @@ const ListItemSettings = React.createClass({
                             id={uniqueId2}
                             type="checkbox"
                             onChange={this.onTaxChecked}
-                            checked={this.state.tax.active}
+                            checked={this.state.taxed}
                             value=""
                         />
                         <label className="list-item-checkbox-label" htmlFor={uniqueId2}><span className={checkboxClass}></span></label>
@@ -174,18 +190,9 @@ const ListItemSettings = React.createClass({
                     {/* --------
                         Tax rate
                         -------- */}
-                    {this.state.tax ?
+                    {this.state.taxed ?
                         <div className="input-group-sub">
-                            {/*<p>Tax rate</p>
-                            <input
-                                className="list-item-input-number"
-                                type="text"
-                                value={this.state.taxRate != 0 ? this.state.taxRate : ''}
-                                onChange={this.onTaxChanged}
-                                placeholder="0.0"
-                            />
-                            <br></br>*/}
-                            <p>Amount after tax:</p>
+                            <p>Price after tax:</p>
                             <input
                                 className="list-item-input-number"
                                 type="text"

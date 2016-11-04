@@ -38,14 +38,7 @@ const AddListItem = React.createClass({
     onSubmit: function(e) {
         e.preventDefault();
 
-        // this.props.onAdd(this.state.title);
-
-        // ListStore.handleActions({
-        //     type: "CREATE_ITEM",
-        //     text: this.state.title
-        // });
-
-        ListActions.createListItem(this.state.title);
+        ListActions.default.createListItem(this.state.title);
 
         // Reset the input to blank
         this.setState({

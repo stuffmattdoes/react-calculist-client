@@ -1,6 +1,6 @@
 // Libraries
 import { EventEmitter } from "events";
-import dispatcher from '../stores/Dispatcher';
+import dispatcher from '../dispatcher/Dispatcher';
 
 class ListStore extends EventEmitter {
     constructor() {
@@ -22,7 +22,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930616475
+                        id: 'iv2r6zml'
                     },
                     {
                         title: "Eggs",
@@ -37,7 +37,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930628428
+                        id: 'iv2rlmbl'
                     },
                     {
                         title: "Cat food",
@@ -52,7 +52,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930639107
+                        id: 'iv2rtpsl'
                     },
                     {
                         title: "Vegetable oil",
@@ -67,7 +67,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930647994
+                        id: 'iv2rkedc'
                     },
                     {
                         title: "Butter",
@@ -82,7 +82,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930654154
+                        id: 'iv2rxbgq'
                     },
                     {
                         title: "More cat food",
@@ -97,7 +97,7 @@ class ListStore extends EventEmitter {
                             price: 0.00,
                             quantity: 0
                         },
-                        id: 1477930663042
+                        id: 'iv2rsurb'
                     },
                 ],
                 taxRate: 6.5
@@ -106,6 +106,7 @@ class ListStore extends EventEmitter {
     }
 
     createListItem(title) {
+        var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
         this.lists[0].items.push({
             title: title,
@@ -120,7 +121,7 @@ class ListStore extends EventEmitter {
                 price: 0.00,
                 quantity: 0
             },
-            id: Date.now()
+            id: id
         });
 
         // console.log("ListStore: List item created");
@@ -139,13 +140,21 @@ class ListStore extends EventEmitter {
         this.emit("change");
     }
 
-    updateListeItem(id, key, inputValue) {
-        // console.log(id, key, value);
-
+    updateListItem(id, updates) {
         this.lists[0].items.forEach(function(value, index) {
+
+            // Match our item ID
             if (id == value.id) {
-                this.lists[0].items[index][key] = inputValue;
+
+                // Iterate through our updates and apply them
+                for (var update in updates) {
+                    if (updates.hasOwnProperty(update)) {
+                        value[update] = updates[update];
+                    }
+                };
+                console.log(value.amount);
             }
+
         }.bind(this));
 
         this.emit("change");
@@ -166,16 +175,79 @@ class ListStore extends EventEmitter {
                 this.deleteListItem(action.id);
                 break;
             }
-            case "UPDATE_ITEM" : {
-                this.updateListeItem(action.id, action.key, action.value);
+            case "UPDATE_ITEM_AMOUNT" : {
+                this.updateListItem(action.id, {amount: action.amount});
                 break;
             }
+            case "UPDATE_ITEM_CHECKED" : {
+                this.updateListItem(action.id, {checked: action.checked});
+                break;
+            }
+            case "UPDATE_ITEM_TITLE" : {
+                this.updateListItem(action.id, {title: action.title});
+                break;
+            }
+            case "UPDATE_ITEM_TAXED" : {
+                this.updateListItem(
+                    action.id,
+                    {
+                        tax: {
+                            active: action.taxed
+                        }
+                    }
+                );
+                break;
+            }
+            case "UPDATE_ITEM_UNIT_PRICE_ACTIVE" : {
+                this.updateListItem(
+                    action.id,
+                    {
+                        unitPricing: {
+                            active: action.unitPriceActive
+                        }
+                    }
+                );
+                break;
+            }
+            case "UPDATE_ITEM_UNIT_PRICE" : {
+                console.log(action.totalPrice);
+                this.updateListItem(
+                    action.id,
+                    {
+                        amount: action.totalPrice,
+                        unitPricing: {
+                            price: action.unitPrice
+                        }
+                    }
+                );
+                break;
+            }
+            case "UPDATE_ITEM_UNIT_QUANTITY" : {
+                console.log(action.totalPrice);
+                this.updateListItem(
+                    action.id,
+                    {
+                        amount: action.totalPrice,
+                        unitPricing: {
+                            quantity: action.quantity
+                        }
+                    }
+                );
+                break;
+            }
+
         }
     }
 }
 
 const listStore = new ListStore;
+
+/*
+    Registers our store with our dispatcher to provide it with callback functions
+    (pretty much any of the functions above). These callback functions receive
+    actions as parameters, which are then interpreted by the Switch statement.
+    Finally, the payload of the action is taken in by the store's internal methods
+*/
 dispatcher.register(listStore.handleActions.bind(listStore));
-// window.dispatcher = dispatcher;
 
 export default listStore;

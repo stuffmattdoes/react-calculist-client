@@ -29,7 +29,8 @@ html {
     position: relative;
     width: 100%;
     max-width: 320px;
-    min-height: 600px;
+    height: 600px;
+    overflow: hidden;
     margin: 0 auto;
     background-color: #F5F5F5;
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);

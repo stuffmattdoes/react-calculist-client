@@ -2,9 +2,6 @@
 import React from 'react';
 // var currencyFormatter = require('currency-formatter');
 
-// Stores
-// import ListStore from '../stores/ListStore';
-
 // Actions
 import * as ListActions from '../actions/ListActions';
 
@@ -15,85 +12,79 @@ const ListItem = React.createClass({
 
     propTypes: {
         listProps: React.PropTypes.object.isRequired,
-        listData: React.PropTypes.object.isRequired,
-
-        // Passing up
-        // onChecked: React.PropTypes.func.isRequired,
-        // onAmountChanged: React.PropTypes.func.isRequired,
-        onTaxChecked: React.PropTypes.func.isRequired,
-        onTaxChanged: React.PropTypes.func.isRequired,
-        onUnitPricingChecked: React.PropTypes.func.isRequired,
-        onUnitPricingChanged: React.PropTypes.func.isRequired,
-        onUnitQuantityChanged: React.PropTypes.func.isRequired,
+        listData: React.PropTypes.object.isRequired
     },
 
     getInitialState: function () {
 
         return {
-            title: this.props.listProps.title,
             amount: this.props.listProps.amount,
             checked: this.props.listProps.checked,
-            taxed: this.props.listProps.tax.active,
-            expanded: false
+            expanded: false,
+            title: this.props.listProps.title
         };
     },
 
-    onCheckedChange: function(e) {
-        const inputValue = e.target.checked;
-
-        this.setState({
-            checked: inputValue
-        });
-
-        // console.log(inputValue);
-
-        ListActions.updateListItem({
-            id: this.props.listProps.id,
-            key: "checked",
-            value: inputValue
-        });
-
-        // this.props.onChecked(inputValue);
-    },
-
-    onTitleChange: function(e) {
-        const inputValue = e.target.value;
-        this.setState({
-            title: inputValue
-        });
-    },
-
     onAmountChanged: function(e) {
-        var inputValue = e.target.value;
+        const inputValue = e.target.value;
+
         // var inputValue = currencyFormatter.format(e.target.value, {
         //     code: 'USD',
         //     symbol: '',
         //     decimalDigits: 1
         // });
+
         this.setState({
             amount: inputValue
         });
-
-        // ListActions.updateListItem({
-        //     id: this.props.listProps.id,
-        //     key: "amount",
-        //     value: inputValue
-        // });
-
-        this.props.onAmountChanged(inputValue);
     },
 
-    onAmountClicked: function(e) {
-        if (this.props.listProps.unitPricing.active) {
-            e.target.blur();
-            this.state.expanded = true;
-            this.setState(this.state);
-        }
+    onAmountSave: function(e) {
+        const inputValue = e.target.value;
+
+        ListActions.default.updateListItemAmount(
+            this.props.listProps.id,
+            this.state.amount
+        );
+    },
+
+    onCheckedChange: function(e) {
+        const inputValue = e.target.checked;
+
+        ListActions.default.updateListItemChecked(
+            this.props.listProps.id,
+            inputValue
+        );
+
+        this.setState({
+            checked: inputValue
+        });
     },
 
     onOptionsExpand: function() {
         this.state.expanded = !this.state.expanded;
         this.setState(this.state);
+    },
+
+    onTitleChange: function(e) {
+        const inputValue = e.target.value;
+
+        this.setState({
+            title: inputValue
+        });
+    },
+
+    onTitleSave: function(e) {
+        const inputValue = e.target.value;
+
+        ListActions.default.updateListItemTitle(
+            this.props.listProps.id,
+            this.state.title
+        );
+
+        this.setState({
+            title: inputValue
+        });
     },
 
     render: function() {
@@ -124,16 +115,22 @@ const ListItem = React.createClass({
                         id={uniqueId}
                         type="checkbox"
                         onChange={this.onCheckedChange}
-                        checked={this.props.listProps.checked}
+                        checked={this.state.checked}
                         value=""
                     />
-                    <label className="list-item-checkbox-label" htmlFor={uniqueId}><span className={checkboxClass}></span></label>
+                    <label
+                        className="list-item-checkbox-label"
+                        htmlFor={uniqueId}
+                    >
+                        <span className={checkboxClass}></span>
+                    </label>
 
                     <input
                         className="list-item-title"
                         type="text"
                         value={this.state.title}
                         onChange={this.onTitleChange}
+                        onBlur={this.onTitleSave}
                     />
 
                     {/* ------
@@ -146,7 +143,8 @@ const ListItem = React.createClass({
                         className="list-item-input-number list-item-amount"
                         type="text"
                         onChange={this.onAmountChanged}
-                        value={this.props.listProps.amount != 0 ? this.props.listProps.amount : ''}
+                        onBlur={this.onAmountSave}
+                        value={this.state.amount != 0 ? this.state.amount : ''}
                         disabled={this.props.listProps.unitPricing.active}
                     />
 
@@ -165,12 +163,6 @@ const ListItem = React.createClass({
                     <ListItemSettings
                         listProps={this.props.listProps}
                         listData={this.props.listData}
-                        onAmountChanged={this.props.onAmountChanged}
-                        onTaxChecked={this.props.onTaxChecked}
-                        onTaxChanged={this.props.onTaxChanged}
-                        onUnitPricingChecked={this.props.onUnitPricingChecked}
-                        onUnitPricingChanged={this.props.onUnitPricingChanged}
-                        onUnitQuantityChanged={this.props.onUnitQuantityChanged}
                     />
                 : null}
             </div>
