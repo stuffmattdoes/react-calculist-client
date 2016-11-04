@@ -17,7 +17,6 @@ var app = app || {};
 const ListApp = React.createClass({
 
     getInitialState: function() {
-        // this.getListItems = this.getListItems.bind(this);
 
         return {
             listsData: ListStore.getAll(),
@@ -26,14 +25,18 @@ const ListApp = React.createClass({
     },
 
     componentWillMount() {
-        ListStore.on('change', this.getAllLists);
+        ListStore.on("change", this.getAllLists);
+        console.log("Render");
     },
 
     componentDidUnmonut() {
         ListStore.removeListener("change", this.getAllLists);
+        console.log("Re-render");
     },
 
-    getAllLists: function() {;
+    getAllLists: function() {
+        // console.log("Change listener");
+        // console.log(this.state.listsData[0]["items"]);
         this.setState({
             listsData: ListStore.getAll()
         });

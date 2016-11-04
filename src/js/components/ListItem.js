@@ -17,6 +17,8 @@ const ListItem = React.createClass({
 
     getInitialState: function () {
 
+        console.log(this.props.listProps.amount);
+
         return {
             amount: this.props.listProps.amount,
             checked: this.props.listProps.checked,
@@ -28,11 +30,7 @@ const ListItem = React.createClass({
     onAmountChanged: function(e) {
         const inputValue = e.target.value;
 
-        // var inputValue = currencyFormatter.format(e.target.value, {
-        //     code: 'USD',
-        //     symbol: '',
-        //     decimalDigits: 1
-        // });
+        // Currency formatter here
 
         this.setState({
             amount: inputValue
@@ -77,10 +75,12 @@ const ListItem = React.createClass({
     onTitleSave: function(e) {
         const inputValue = e.target.value;
 
-        ListActions.default.updateListItemTitle(
-            this.props.listProps.id,
-            this.state.title
-        );
+        if (inputValue.trim() != "") {
+            ListActions.default.updateListItemTitle(
+                this.props.listProps.id,
+                this.state.title
+            );
+        }
 
         this.setState({
             title: inputValue

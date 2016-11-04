@@ -54,24 +54,25 @@ const ListItemSettings = React.createClass({
 
     onUnitPricingChanged: function(e) {
         const inputValue = e.target.value;
-        this.getUnitPricing();
+        // this.getUnitPricing();
         this.setState({
             unitPrice: inputValue
         });
     },
 
     onUnitPricingSaved: function() {
+
         ListActions.default.updateListItemUnitPrice(
             this.props.listProps.id,
-            this.state.unitPrice,
-            this.getUnitPricing()
+            this.state.unitPrice
         );
         this.setState(this.state);
+        this.getUnitPricing();
     },
 
     onUnitQuantityChanged: function(e) {
         const inputValue = e.target.value;
-        this.getUnitPricing();
+        // this.getUnitPricing();
         this.setState({
             unitQuantity: inputValue
         });
@@ -80,10 +81,10 @@ const ListItemSettings = React.createClass({
     onUnitQuantitySaved : function() {
         ListActions.default.updateListItemUnitQuantity(
             this.props.listProps.id,
-            this.state.unitQuantity,
-            this.getUnitPricing()
+            this.state.unitQuantity
         );
         this.setState(this.state);
+        this.getUnitPricing();
     },
 
     getTaxPricing: function() {
@@ -109,7 +110,15 @@ const ListItemSettings = React.createClass({
 
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
         // Curency formatter here
-        return calcUnitPrice;
+        // console.log(calcUnitPrice);
+
+        ListActions.default.updateListItemAmount(
+            this.props.listProps.id,
+            {
+                amount: calcUnitPrice
+            }
+        );
+        // return calcUnitPrice;
     },
 
     onListItemDelete: function() {

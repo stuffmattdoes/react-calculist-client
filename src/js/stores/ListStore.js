@@ -8,6 +8,7 @@ class ListStore extends EventEmitter {
         this.lists = [
             {
                 title: "Groceries",
+                id: 'iv3v3mtv',
                 items: [
                     {
                         title: "Milk",
@@ -148,11 +149,29 @@ class ListStore extends EventEmitter {
 
                 // Iterate through our updates and apply them
                 for (var update in updates) {
-                    if (updates.hasOwnProperty(update)) {
-                        value[update] = updates[update];
+                    // console.log(updates, update);
+
+                    // console.log(typeof updates[update]);
+
+                    // Is this property an object?
+                    if (typeof updates[update] != "object") {
+                        // If our store object has a similar property, update it
+                        if (value.hasOwnProperty(update)) {
+                            value[update] = updates[update];
+                        }
+                    } else {
+                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
+                        for (var childUpdate in updates[update]) {
+                            if (value[update].hasOwnProperty(childUpdate)) {
+                                if (value[update].hasOwnProperty(childUpdate)) {
+                                    value[update][childUpdate] = updates[update][childUpdate];
+                                }
+                            }
+                        }
                     }
+
                 };
-                console.log(value.amount);
+                // console.log(value);
             }
 
         }.bind(this));
@@ -168,26 +187,32 @@ class ListStore extends EventEmitter {
         // console.log("ListStore: received ", action);
         switch(action.type) {
             case "CREATE_ITEM" : {
+                // console.log("CREATE_ITEM");
                 this.createListItem(action.title);
                 break;
             }
             case "DELETE_ITEM" : {
+                // console.log("DELETE_ITEM");
                 this.deleteListItem(action.id);
                 break;
             }
             case "UPDATE_ITEM_AMOUNT" : {
+                console.log("UPDATE_ITEM_AMOUNT");
                 this.updateListItem(action.id, {amount: action.amount});
                 break;
             }
             case "UPDATE_ITEM_CHECKED" : {
+                // console.log("UPDATE_ITEM_CHECKED");
                 this.updateListItem(action.id, {checked: action.checked});
                 break;
             }
             case "UPDATE_ITEM_TITLE" : {
+                // console.log("UPDATE_ITEM_TITLE");
                 this.updateListItem(action.id, {title: action.title});
                 break;
             }
             case "UPDATE_ITEM_TAXED" : {
+                // console.log("UPDATE_ITEM_TAXED");
                 this.updateListItem(
                     action.id,
                     {
@@ -199,6 +224,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "UPDATE_ITEM_UNIT_PRICE_ACTIVE" : {
+                // console.log("UPDATE_ITEM_UNIT_PRICE_ACTIVE");
                 this.updateListItem(
                     action.id,
                     {
@@ -210,11 +236,10 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "UPDATE_ITEM_UNIT_PRICE" : {
-                console.log(action.totalPrice);
+                // console.log("UPDATE_ITEM_UNIT_PRICE");
                 this.updateListItem(
                     action.id,
                     {
-                        amount: action.totalPrice,
                         unitPricing: {
                             price: action.unitPrice
                         }
@@ -223,11 +248,10 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "UPDATE_ITEM_UNIT_QUANTITY" : {
-                console.log(action.totalPrice);
+                // console.log("UPDATE_ITEM_UNIT_QUANTITY");
                 this.updateListItem(
                     action.id,
                     {
-                        amount: action.totalPrice,
                         unitPricing: {
                             quantity: action.quantity
                         }

@@ -48,7 +48,7 @@ var ListActions = {
     },
 
     updateListItemUnitPriceActive: function(id, active) {
-        // console.log("updateListItemUnitPriceActive");
+        // console.log("updateListItemUnitPriceActive", id, active);
         dispatcher.dispatch({
             type: "UPDATE_ITEM_UNIT_PRICE_ACTIVE",
             id: id,
@@ -56,23 +56,21 @@ var ListActions = {
         });
     },
 
-    updateListItemUnitPrice: function(id, unitPrice, totalPrice) {
-        // console.log("updateListItemUnitPrice", totalPrice);
+    updateListItemUnitPrice: function(id, unitPrice) {
+        // console.log("updateListItemUnitPrice", unitPrice);
         dispatcher.dispatch({
             type: "UPDATE_ITEM_UNIT_PRICE",
             id: id,
-            unitPrice: unitPrice,
-            totalPrice: totalPrice
+            unitPrice: unitPrice
         });
     },
 
-    updateListItemUnitQuantity: function(id, quantity, totalPrice) {
-        // console.log("updateListItemUnitQuantity", totalPrice);
+    updateListItemUnitQuantity: function(id, quantity) {
+        // console.log("updateListItemUnitQuantity", quantity);
         dispatcher.dispatch({
             type: "UPDATE_ITEM_UNIT_QUANTITY",
             id: id,
-            quantity: quantity,
-            totalPrice: totalPrice
+            quantity: quantity
         });
     },
 
