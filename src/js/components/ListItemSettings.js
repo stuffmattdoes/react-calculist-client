@@ -39,9 +39,7 @@ const ListItemSettings = React.createClass({
     },
 
     onUnitPricingChecked: function(e) {
-        // console.log("onUnitPricingChecked");
         const inputValue = e.target.checked;
-        this.getUnitPricing();
         ListActions.default.updateListItemUnitPriceActive(
             this.props.listProps.id,
             inputValue
@@ -49,29 +47,27 @@ const ListItemSettings = React.createClass({
         this.setState({
             unitPriceActive: inputValue
         });
+        this.getUnitPricing();
     },
 
     onUnitPricingChanged: function(e) {
         const inputValue = e.target.value;
-        // this.getUnitPricing();
         this.setState({
             unitPrice: inputValue
         });
     },
 
     onUnitPricingSaved: function() {
-
         ListActions.default.updateListItemUnitPrice(
             this.props.listProps.id,
             this.state.unitPrice
         );
-        this.setState(this.state);
+        // this.setState(this.state);
         this.getUnitPricing();
     },
 
     onUnitQuantityChanged: function(e) {
         const inputValue = e.target.value;
-        // this.getUnitPricing();
         this.setState({
             unitQuantity: inputValue
         });
@@ -82,7 +78,7 @@ const ListItemSettings = React.createClass({
             this.props.listProps.id,
             this.state.unitQuantity
         );
-        this.setState(this.state);
+        // this.setState(this.state);
         this.getUnitPricing();
     },
 
@@ -90,7 +86,7 @@ const ListItemSettings = React.createClass({
         var taxRate = 6.5;
         var amountTaxed = this.props.listProps.amount;
 
-        if (this.state.taxed) {
+        if (this.props.listProps.tax.active) {
             taxRate = (taxRate / 100) + 1;
             amountTaxed *= taxRate;
             amountTaxed = (Math.round(amountTaxed * 100) / 100 ).toFixed(2);
@@ -100,21 +96,20 @@ const ListItemSettings = React.createClass({
     },
 
     getUnitPricing: function() {
-        var calcUnitPrice = this.state.unitPrice * this.state.unitQuantity;
+        var calcUnitPrice = this.props.listProps.unitPricing.price * this.props.listProps.unitPricing.quantity;
 
-        if (!this.state.unitPriceActive) {
+        if (!this.props.listProps.unitPricing.active) {
             return;
         }
 
+        // console.log(calcUnitPrice);
+
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
         // Curency formatter here
-        // console.log(calcUnitPrice);
-        // console.log("Unit price calc");
         ListActions.default.updateListItemAmount(
             this.props.listProps.id,
             calcUnitPrice
         );
-        // return calcUnitPrice;
     },
 
     onListItemDelete: function() {

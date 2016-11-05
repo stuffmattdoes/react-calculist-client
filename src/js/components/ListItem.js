@@ -2,6 +2,9 @@
 import React from 'react';
 // var currencyFormatter = require('currency-formatter');
 
+// Store
+// import ListStore from '../stores/ListStore';
+
 // Actions
 import * as ListActions from '../actions/ListActions';
 
@@ -17,14 +20,21 @@ const ListItem = React.createClass({
 
     getInitialState: function () {
 
-        // console.log(this.props.listProps);
-
         return {
             amount: this.props.listProps.amount,
             checked: this.props.listProps.checked,
             expanded: false,
             title: this.props.listProps.title
         };
+    },
+
+    // Called when a component receives properties
+    componentWillReceiveProps: function() {
+        if (this.props.listProps.amount != this.state.amount) {
+            this.setState({
+                amount: this.props.listProps.amount
+            });
+        }
     },
 
     onAmountChanged: function(e) {
@@ -43,6 +53,9 @@ const ListItem = React.createClass({
             this.props.listProps.id,
             this.state.amount
         );
+        this.setState({
+            amount: inputValue
+        });
     },
 
     onCheckedChange: function(e) {
@@ -52,7 +65,6 @@ const ListItem = React.createClass({
             this.props.listProps.id,
             inputValue
         );
-
         this.setState({
             checked: inputValue
         });
@@ -80,7 +92,6 @@ const ListItem = React.createClass({
                 this.state.title
             );
         }
-
         this.setState({
             title: inputValue
         });
@@ -146,7 +157,6 @@ const ListItem = React.createClass({
                         value={this.state.amount != 0 ? this.state.amount : ''}
                         disabled={this.props.listProps.unitPricing.active}
                     />
-
                     <div
                         className="list-item-options-button"
                         onClick={this.onOptionsExpand}

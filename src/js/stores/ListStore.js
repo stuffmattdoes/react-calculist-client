@@ -169,7 +169,7 @@ class ListStore extends EventEmitter {
                     }
 
                 }
-                console.log(value);
+                // console.log(value);
             }
 
         }.bind(this));
@@ -182,7 +182,6 @@ class ListStore extends EventEmitter {
     }
 
     handleActions(action) {
-        // console.log("ListStore: received ", action);
         switch(action.type) {
             case "CREATE_ITEM" : {
                 // console.log("CREATE_ITEM");
