@@ -40,13 +40,19 @@ const ListItemSettings = React.createClass({
 
     onUnitPricingChecked: function(e) {
         const inputValue = e.target.checked;
+        // console.log("0", this.state.unitPriceActive);
+        // console.log("0.5", this.props.listProps.unitPricing.active);
         ListActions.default.updateListItemUnitPriceActive(
             this.props.listProps.id,
             inputValue
         );
+        // console.log("1", this.state.unitPriceActive);
+        // console.log("1.5", this.props.listProps.unitPricing.active);
         this.setState({
             unitPriceActive: inputValue
         });
+        // console.log("2", this.state.unitPriceActive);
+        // console.log("2.5", this.props.listProps.unitPricing.active);
         this.getUnitPricing();
     },
 
@@ -96,9 +102,11 @@ const ListItemSettings = React.createClass({
     },
 
     getUnitPricing: function() {
-        var calcUnitPrice = this.props.listProps.unitPricing.price * this.props.listProps.unitPricing.quantity;
+        var calcUnitPrice = this.state.unitPrice * this.state.unitQuantity;
 
-        if (!this.props.listProps.unitPricing.active) {
+        if (!this.props.listProps.unitPricing.active
+            || this.state.unitPrice == 0
+            || this.state.unitQuantity == 0) {
             return;
         }
 
