@@ -57,19 +57,21 @@ const ListApp = React.createClass({
         return (
             <div className="app">
                 <Header items={this.state.listsData[0]["items"]} />
-                <ListFilter listFilter={this.state.filter} listData={this.state.listsData[0]} />
-                <div className="list">
-                    {shownTodos.map(function(listItem, index) {
-                        return (
-                            <ListItem
-                                listProps={listItem}
-                                listData={this.state.listsData[0]}
-                                key={listItem.id}
-                            />
-                        );
-                    }.bind(this))}
+                <div className="list-scroll">
+                    <ListFilter listFilter={this.state.filter} listData={this.state.listsData[0]} />
+                    <div className="list">
+                        {shownTodos.map(function(listItem, index) {
+                            return (
+                                <ListItem
+                                    listProps={listItem}
+                                    listData={this.state.listsData[0]}
+                                    key={listItem.id}
+                                />
+                            );
+                        }.bind(this))}
+                    </div>
+                    <AddListItem />
                 </div>
-                <AddListItem />
                 <Footer listData={this.state.listsData[0]} />
             </div>
         );

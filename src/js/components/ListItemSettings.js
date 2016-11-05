@@ -132,7 +132,7 @@ const ListItemSettings = React.createClass({
 
         return (
             <div className="list-item-options">
-                <div className="list-form">
+                <form className="list-form">
                     {/* -------------------
                         Unit pricing active
                         ------------------- */}
@@ -219,7 +219,7 @@ const ListItemSettings = React.createClass({
                             Delete
                         </span>
                     </div>
-                </div>
+                </form>
             </div>
         );
     }

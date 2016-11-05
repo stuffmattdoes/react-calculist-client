@@ -1,5 +1,11 @@
-.list {
-    // margin-top: 15px;
+.list-scroll {
+    overflow-y: scroll;
+    max-height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 49px;
+    top: 50px;
 }
 
 .list-form {
@@ -22,13 +28,12 @@
     }
 
     .input-group-sub {
-        // margin-left: 25px;
         text-align: right;
     }
 
     .list-item-checkbox-label {
         display: inline-block;
-        width: 35px;
+        width: 45px;
         padding: 10px;
     }
 
@@ -47,15 +52,6 @@
         width: 15px;
         height: 15px;
         border: 2px solid #999999;
-
-        // &.list-item-checkbox-checked {
-        //     width: 6px;
-        //     border-left: none;
-        //     border-top: none;
-        //     transform: rotate(45deg);
-        //     bottom: 2px;
-        //     left: 5px;
-        // }
     }
 
     input[type="checkbox"] {

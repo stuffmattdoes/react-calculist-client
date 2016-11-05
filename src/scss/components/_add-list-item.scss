@@ -1,6 +1,5 @@
 .list-item-add {
-    padding-bottom: 50px;
-    
+
     .list-item-add-form {
         display: flex;
     }
@@ -14,11 +13,11 @@
     .list-item-reset-button,
     .list-item-add-button {
         display: block;
-        padding: 10px 12px;
+        padding: 15px 12px;
 
         span {
             display: block;
-            background-color: #999;
+            background-color: #43BFA4;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -33,17 +32,17 @@
         span {
             padding: 0 5px;
             background: none;
-            border: 1px solid #999;
-            color: #999;
+            border: 1px solid #EB5365;
+            color: #EB5365;
             transform: rotate(45deg);
         }
     }
 
     input {
-        padding: 8px;
 
         &.list-item-title {
             width: auto;
+            padding: 12px 8px;
         }
     }
 

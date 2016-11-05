@@ -70,6 +70,12 @@ const ListItem = React.createClass({
         });
     },
 
+    onItemSubmit: function(e) {
+        e.preventDefault();
+        console.log("Submit");
+        // e.target.blur();
+    },
+
     onOptionsExpand: function() {
         this.state.expanded = !this.state.expanded;
         this.setState(this.state);
@@ -117,7 +123,7 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <div className="list-form" >
+                <form className="list-form" onSubmit={this.onItemSubmit}>
                     {/* -----
                         Title
                         ----- */}
@@ -167,7 +173,7 @@ const ListItem = React.createClass({
                         className="input-hidden"
                         type="submit"
                     />
-            </div>
+                </form>
                 {this.state.expanded ?
                     <ListItemSettings
                         listProps={this.props.listProps}
