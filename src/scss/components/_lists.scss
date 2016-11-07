@@ -76,10 +76,6 @@
         margin-left: 8px;
     }
 
-    // .list-item-amount {
-    //     text-align: right;
-    // }
-
     .list-item-options-button {
         width: 35px;
         height: 35px;
@@ -94,6 +90,10 @@
 .list-item {
     background-color: white;
     border-bottom: 1px solid #d7d7d7;
+
+    // form {
+    //     border-bottom: 2px solid transparent;
+    // }
 
     &:hover {
         .list-item-options-button {
@@ -113,6 +113,14 @@
 
         .list-item-input-number {
             background: #eaeaea;
+        }
+    }
+
+    &.list-item-editing {
+        border-bottom: none;
+
+        .list-form {
+            border-bottom: 2px solid #43BFA4;
         }
     }
 }

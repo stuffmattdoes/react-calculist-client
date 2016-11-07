@@ -24,6 +24,7 @@ const ListItem = React.createClass({
             amount: this.props.listProps.amount,
             checked: this.props.listProps.checked,
             expanded: false,
+            isEditing: false,
             title: this.props.listProps.title
         };
     },
@@ -54,7 +55,8 @@ const ListItem = React.createClass({
             this.state.amount
         );
         this.setState({
-            amount: inputValue
+            amount: inputValue,
+            isEditing: false
         });
     },
 
@@ -89,6 +91,14 @@ const ListItem = React.createClass({
         });
     },
 
+    onInputClick: function(e) {
+        console.log("Click!");
+
+        this.setState({
+            isEditing: true
+        });
+    },
+
     onTitleSave: function(e) {
         const inputValue = e.target.value;
 
@@ -99,7 +109,8 @@ const ListItem = React.createClass({
             );
         }
         this.setState({
-            title: inputValue
+            title: inputValue,
+            isEditing: false
         });
     },
 
@@ -119,6 +130,10 @@ const ListItem = React.createClass({
 
         if (this.state.expanded) {
             listItemClass += ' list-item-expanded';
+        }
+
+        if (this.state.isEditing) {
+            listItemClass += ' list-item-editing';
         }
 
         return (
@@ -146,6 +161,7 @@ const ListItem = React.createClass({
                         type="text"
                         value={this.state.title}
                         onChange={this.onTitleChange}
+                        onClick={this.onInputClick}
                         onBlur={this.onTitleSave}
                     />
 
@@ -159,6 +175,7 @@ const ListItem = React.createClass({
                         className="list-item-input-number list-item-amount"
                         type="text"
                         onChange={this.onAmountChanged}
+                        onClick={this.onInputClick}
                         onBlur={this.onAmountSave}
                         value={this.state.amount != 0 ? this.state.amount : ''}
                         disabled={this.props.listProps.unitPricing.active}

@@ -1,14 +1,21 @@
 import dispatcher from "../dispatcher/Dispatcher";
+import WebAPIUtils from "../utils/WebAPIUtils";
 
-var ListActions = {
+const ListActions = {
 
     createListItem: function(title) {
         // console.log("Action: Create list item (before)");
+        var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+
         dispatcher.dispatch({
             type: "CREATE_ITEM",
+            id: id,
             title: title
         });
-        // console.log("Action: Create list item (after)");
+
+        // API action call
+        // var newItem = ListUtils.
+        WebAPIUtils.createItem(id, title);
     },
 
     deleteListItem: function(id) {
@@ -17,6 +24,8 @@ var ListActions = {
             type: "DELETE_ITEM",
             id: id
         });
+
+        // API action call
     },
 
     updateListItemAmount: function(id, amount) {
@@ -26,6 +35,8 @@ var ListActions = {
             id: id,
             amount: amount
         });
+
+        // API action call
     },
 
     updateListItemChecked: function(id, checked) {
@@ -34,6 +45,8 @@ var ListActions = {
             id: id,
             checked: checked
         });
+
+        // API action call
     },
 
     updateListItemTitle: function(id, title) {
@@ -42,6 +55,8 @@ var ListActions = {
             id: id,
             title: title
         });
+
+        // API action call
     },
 
     updateListItemUnitPriceActive: function(id, active) {
@@ -51,6 +66,8 @@ var ListActions = {
             id: id,
             unitPriceActive: active
         });
+
+        // API action call
     },
 
     updateListItemUnitPrice: function(id, unitPrice) {
@@ -60,6 +77,8 @@ var ListActions = {
             id: id,
             unitPrice: unitPrice
         });
+
+        // API action call
     },
 
     updateListItemUnitQuantity: function(id, quantity) {
@@ -69,6 +88,8 @@ var ListActions = {
             id: id,
             quantity: quantity
         });
+
+        // API action call
     },
 
     updateListItemTaxed: function(id, taxed) {
@@ -78,6 +99,8 @@ var ListActions = {
             id: id,
             taxed: taxed
         });
+
+        // API action call
     }
 
 }

@@ -2,114 +2,18 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
+var _lists = {};
+
+function populateLists(rawLists) {
+    // console.log(rawLists);
+    _lists = rawLists;
+}
+
 class ListStore extends EventEmitter {
-    constructor() {
-        super();
-        this.lists = [
-            {
-                title: "Groceries",
-                id: 'iv3v3mtv',
-                items: [
-                    {
-                        title: "Milk",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2r6zml'
-                    },
-                    {
-                        title: "Eggs",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2rlmbl'
-                    },
-                    {
-                        title: "Cat food",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2rtpsl'
-                    },
-                    {
-                        title: "Vegetable oil",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2rkedc'
-                    },
-                    {
-                        title: "Butter",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2rxbgq'
-                    },
-                    {
-                        title: "More cat food",
-                        checked: false,
-                        amount: 0.00,
-                        tax: {
-                            active: false,
-                            singleTaxRate: 0.0
-                        },
-                        unitPricing: {
-                            active: false,
-                            price: 0.00,
-                            quantity: 0
-                        },
-                        id: 'iv2rsurb'
-                    },
-                ],
-                taxRate: 6.5
-            }
-        ];
-    }
 
-    createListItem(title) {
-        var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
+    createListItem(itemID, title) {
 
-        this.lists[0].items.push({
+        _lists[0].items.push({
             title: title,
             checked: false,
             amount: 0.00,
@@ -122,7 +26,7 @@ class ListStore extends EventEmitter {
                 price: 0.00,
                 quantity: 0
             },
-            id: id
+            id: itemID
         });
 
         // console.log("ListStore: List item created");
@@ -131,18 +35,23 @@ class ListStore extends EventEmitter {
 
     deleteListItem(id) {
         // console.log("Store: Delete list item");
-        this.lists[0].items.forEach(function(value, index) {
+        _lists[0].items.forEach(function(value, index) {
             // console.log(value, index);
             if (id == value.id) {
-                this.lists[0].items.splice(index, 1);
+                _lists[0].items.splice(index, 1);
             }
         }.bind(this));
 
         this.emit("change");
     }
 
+    getAll() {
+        // console.log(_lists);
+        return _lists;
+    }
+
     updateListItem(id, updates) {
-        this.lists[0].items.forEach(function(value, index) {
+        _lists[0].items.forEach(function(value, index) {
 
             // Match our item ID
             if (id == value.id) {
@@ -177,15 +86,11 @@ class ListStore extends EventEmitter {
         this.emit("change");
     }
 
-    getAll() {
-        return this.lists;
-    }
-
     handleActions(action) {
         switch(action.type) {
             case "CREATE_ITEM" : {
                 // console.log("CREATE_ITEM");
-                this.createListItem(action.title);
+                this.createListItem(action.id, action.title);
                 break;
             }
             case "DELETE_ITEM" : {
@@ -218,6 +123,12 @@ class ListStore extends EventEmitter {
                         }
                     }
                 );
+                break;
+            }
+            case "RECEIVE_RAW_LISTS" : {
+                populateLists(
+                    action.rawLists
+                )
                 break;
             }
             case "UPDATE_ITEM_UNIT_PRICE_ACTIVE" : {

@@ -7,11 +7,15 @@ import ListApp from './components/ListApp';
 // Data
 var ListDataExample = require('./ListDataExample');
 
+// API
+var WebAPIUtils = require('./utils/WebAPIUtils');
+
 // CSS
 require('../scss/main.scss');
 
-// Load example data
-ListDataExample.init();
+ListDataExample.init();     // Load data into local storage
+
+WebAPIUtils.default.getAllLists();
 
 ReactDOM.render(
     <ListApp />,

@@ -1,8 +1,10 @@
 module.exports = {
 
     init: function() {
+        console.log("Seed data init");
+
         localStorage.clear();
-        localStorage.setItem('messages', JSON.stringify([
+        localStorage.setItem('lists', JSON.stringify([
             {
                 title: "Groceries",
                 id: 'iv3v3mtv',
