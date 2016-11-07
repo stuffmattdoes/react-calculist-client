@@ -15,7 +15,7 @@ const ListActions = {
 
         // API action call
         // var newItem = ListUtils.
-        WebAPIUtils.createItem(id, title);
+        WebAPIUtils.itemCreate(id, title);
     },
 
     deleteListItem: function(id) {
@@ -26,6 +26,7 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemDelete(id);
     },
 
     updateListItemAmount: function(id, amount) {
@@ -37,6 +38,12 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate(
+            id,
+            {
+                amount: amount
+            }
+        );
     },
 
     updateListItemChecked: function(id, checked) {
@@ -47,6 +54,12 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate(
+            id,
+            {
+                checked: checked
+            }
+        );
     },
 
     updateListItemTitle: function(id, title) {
@@ -57,6 +70,12 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate(
+            id,
+            {
+                title: title
+            }
+        );
     },
 
     updateListItemUnitPriceActive: function(id, active) {
@@ -68,6 +87,7 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate();
     },
 
     updateListItemUnitPrice: function(id, unitPrice) {
@@ -79,6 +99,7 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate();
     },
 
     updateListItemUnitQuantity: function(id, quantity) {
@@ -90,6 +111,14 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate(
+            id,
+            {
+                unitPricing: {
+                    quantity: quantity
+                }
+            }
+        );
     },
 
     updateListItemTaxed: function(id, taxed) {
@@ -101,6 +130,7 @@ const ListActions = {
         });
 
         // API action call
+        WebAPIUtils.itemUpdate();
     }
 
 }

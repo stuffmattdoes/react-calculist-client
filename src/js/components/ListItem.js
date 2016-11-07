@@ -74,8 +74,7 @@ const ListItem = React.createClass({
 
     onItemSubmit: function(e) {
         e.preventDefault();
-        console.log("Submit");
-        // e.target.blur();
+        // console.log(e);
     },
 
     onOptionsExpand: function() {
@@ -92,8 +91,6 @@ const ListItem = React.createClass({
     },
 
     onInputClick: function(e) {
-        console.log("Click!");
-
         this.setState({
             isEditing: true
         });

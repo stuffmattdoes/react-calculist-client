@@ -40,7 +40,7 @@ class ListStore extends EventEmitter {
             if (id == value.id) {
                 _lists[0].items.splice(index, 1);
             }
-        }.bind(this));
+        });
 
         this.emit("change");
     }

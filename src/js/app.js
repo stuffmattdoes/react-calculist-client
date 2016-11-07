@@ -15,7 +15,7 @@ require('../scss/main.scss');
 
 ListDataExample.init();     // Load data into local storage
 
-WebAPIUtils.default.getAllLists();
+WebAPIUtils.default.listGetAll();
 
 ReactDOM.render(
     <ListApp />,

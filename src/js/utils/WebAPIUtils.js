@@ -9,27 +9,35 @@ var ServerActions = require("../actions/ServerActions");
 // communication and server-side processing.
 
 const WebAPIUtils = {
-    getAllLists: function() {
-        console.log("Web API Utils: Get all lists");
+
+    listCreate: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Create list");
+    },
+
+    listDelete: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Delete List");
+    },
+
+    listGetAll: function() {
 
         // Simulate receiving data from a database
         var rawLists = JSON.parse(localStorage.getItem('lists'));
 
         // Simulate success callback
+        console.log("Web API Utils: Get all lists");
         ServerActions.default.receiveAllLists(rawLists);
     },
 
-    createList: function() {
-        console.log("Web API Utils: Create list");
-        var rawLists = JSON.parse(localStorage.getItem('lists'));
-        // Create item
-
-        // Store item
-        localStorage.setItem('lists', JSON.stringify(rawLists));
+    listUpdate: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Update list");
     },
 
-    createItem: function(itemID, title) {
-        console.log("Create item", itemID, title);
+    itemCreate: function(itemID, title) {
+
+        // Server-side processing
         var rawLists = JSON.parse(localStorage.getItem('lists'));
         var newItem = {
             title: title,
@@ -46,17 +54,44 @@ const WebAPIUtils = {
             },
             id: itemID
         }
+
         // Get list ID. For now, just default to the first list index
         rawLists[0].items.push(newItem);
         localStorage.setItem('lists', JSON.stringify(rawLists));
 
-        // Simulate success callback below
+        // Success callback to client
         setTimeout(function() {
-            // ServerActions.receiveAllLists
-            console.log("Callback");
+            console.log("Web API Utils: Create item", itemID, title);
         }, 0);
+    },
 
-    }
+    itemDelete: function(id) {
+
+        // Server side processing
+        var rawLists = JSON.parse(localStorage.getItem('lists'));
+
+        rawLists[0].items.forEach(function(value, index) {
+            if (id == value.id) {
+                rawLists[0].items.splice(index, 1);
+                // return false;
+            }
+        });
+        localStorage.setItem('lists', JSON.stringify(rawLists));
+
+        // Success callback to client
+        setTimeout(function() {
+            console.log("Web API Utils: Item delete", id);
+        }, 0);
+    },
+
+    itemUpdate: function(itemID, updates) {
+        // Server-side processing
+
+        // Success callback to client
+        setTimeout(function() {
+            console.log("Web API Utils: Item update", itemID, updates);
+        }, 0);
+    },
 
 };
 
