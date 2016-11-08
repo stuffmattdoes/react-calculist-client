@@ -39,20 +39,28 @@ const ListView = React.createClass({
     render: function() {
         return (
             <div className="list-view">
-                <div className="list-scroll">
-                    {this.state.listsData.map(function(list, index) {
-                        return (
-                            <div
-                                className="list"
-                                key={list.ID}
-                                onClick={function() {this.onListClick(list.ID);}.bind(this)}
-                            >
-                                <p>{list.title}</p>
-                            </div>
-                        );
-                    }.bind(this))}
-                </div>
-            <ListAdd />
+                <div className="list-item-scroll">
+                    <div className="list-container">
+                        {this.state.listsData.map(function(list, index) {
+                            return (
+                                <div
+                                    className="list-item"
+                                    key={list.ID}
+                                    onClick={function() {this.onListClick(list.ID);}.bind(this)}
+                                >
+                                    <p>{list.title}</p>
+                                    <div
+                                        className="list-item-options-button"
+                                        onClick={this.onOptionsExpand}
+                                    >
+                                        <div className="icon-dots-vertical"></div>
+                                    </div>
+                                </div>
+                            );
+                        }.bind(this))}
+                    </div>
+                <ListAdd />
+            </div>
         </div>
         );
     }

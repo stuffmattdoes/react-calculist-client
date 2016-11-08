@@ -3,13 +3,13 @@ import React from 'react';
 const Footer = React.createClass({
 
     propTypes: {
-        listData: React.PropTypes.object.isRequired
+        items: React.PropTypes.array.isRequired
     },
 
     getTotalCost: function() {
-        var items = this.props.listData["items"];
-        var taxRate = this.props.listData.taxRate;
-        var totalCost = items.reduce(function(total, item) {
+        var items = this.props.item;
+        var taxRate = 6.5;
+        var totalCost = this.props.items.reduce(function(total, item) {
             var addAmount = 0;
 
             if (item.checked) {

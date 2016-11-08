@@ -2,11 +2,11 @@ import React from 'react';
 
 const ItemFilter = React.createClass({
 
-    // propTypes: {
-    //     listFilter: React.PropTypes.string.isRequired,
-    //     listData: React.PropTypes.object.isRequired,
+    propTypes: {
+        filter: React.PropTypes.string.isRequired,
+        items: React.PropTypes.array.isRequired,
     //     onFilterClick: React.PropTypes.func.isRequired
-    // },
+    },
 
     render: function() {
         var filterActiveClass = "active"
@@ -14,7 +14,7 @@ const ItemFilter = React.createClass({
         var itemsUnchecked = 0;
         var itemsChecked = 0;
 
-        this.props.listData["items"].forEach(function(value, index) {
+        this.props.items.forEach(function(value, index) {
             itemsAll ++;
 
             if (value.checked == false) {
@@ -25,7 +25,7 @@ const ItemFilter = React.createClass({
         });
 
         return (
-            <div className="item-filter">
+            <div className="list-item-filter">
                 <ul>
                     <li
                         onClick={function() {this.props.onFilterClick("all")}.bind(this)}

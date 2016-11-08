@@ -6,7 +6,7 @@ import ListStore from './ListStore';
 var _items = {};
 
 function populateItems(rawItems) {
-    // console.log(rawLists);
+    // console.log("Populate Items", rawItems);
     _items = rawItems;
 }
 

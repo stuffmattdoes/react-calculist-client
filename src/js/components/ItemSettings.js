@@ -120,11 +120,11 @@ const ItemSettings = React.createClass({
     render: function() {
         var uniqueId2 = "checkbox-" + this.props.itemProps.ID + "-2";
         var uniqueId3 = "checkbox-" + this.props.itemProps.ID + "-3";
-        var checkboxClass = 'item-checkbox';
+        var checkboxClass = 'list-item-checkbox';
 
         return (
-            <div className="item-options">
-                <form className="item-form">
+            <div className="list-item-options">
+                <form className="list-item-form">
                     {/* -------------------
                         Unit pricing active
                         ------------------- */}
@@ -136,7 +136,7 @@ const ItemSettings = React.createClass({
                             checked={this.state.unitPriceActive}
                             value=""
                         />
-                        <label className="item-checkbox-label" htmlFor={uniqueId3}><span className={checkboxClass}></span></label>
+                        <label className="list-item-checkbox-label" htmlFor={uniqueId3}><span className={checkboxClass}></span></label>
                         <p>Unit pricing</p>
                     </div>
 
@@ -147,7 +147,7 @@ const ItemSettings = React.createClass({
                         <div className="input-group-sub">
                             <p>Price per unit</p>
                             <input
-                                className="item-input-number"
+                                className="list-item-input-number"
                                 type="text"
                                 onChange={this.onUnitPricingChanged}
                                 onBlur={this.onUnitPricingSaved}
@@ -162,7 +162,7 @@ const ItemSettings = React.createClass({
                                 ------------- */}
                             <p>Quantity</p>
                             <input
-                                className="item-input-number"
+                                className="list-item-input-number"
                                 type="text"
                                 onChange={this.onUnitQuantityChanged}
                                 onBlur={this.onUnitQuantitySaved}
@@ -183,7 +183,7 @@ const ItemSettings = React.createClass({
                             checked={this.state.taxed}
                             value=""
                         />
-                        <label className="item-checkbox-label" htmlFor={uniqueId2}><span className={checkboxClass}></span></label>
+                        <label className="list-item-checkbox-label" htmlFor={uniqueId2}><span className={checkboxClass}></span></label>
                         <p>This item is taxed</p>
                     </div>
 
@@ -194,7 +194,7 @@ const ItemSettings = React.createClass({
                         <div className="input-group-sub">
                             <p>Price after tax:</p>
                             <input
-                                className="item-input-number"
+                                className="list-item-input-number"
                                 type="text"
                                 value={this.getTaxPricing() != 0 ? this.getTaxPricing() : ''}
                                 placeholder="0"
@@ -203,9 +203,9 @@ const ItemSettings = React.createClass({
                         </div>
                     : null}
 
-                    <div className="item-delete">
+                    <div className="list-item-delete">
                         <span
-                            className="item-delete-button"
+                            className="list-item-delete-button"
                             onClick={this.onListItemDelete}
                         >
                             Delete

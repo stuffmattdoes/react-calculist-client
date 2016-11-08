@@ -31,7 +31,7 @@ const WebAPIUtils = {
         }
 
         // Get list ID. For now, just default to the first list index
-        rawItems[0].items.push(newItem);
+        rawItems.push(newItem);
         localStorage.setItem('items', JSON.stringify(rawItems));
 
         // Success callback to client
@@ -45,9 +45,9 @@ const WebAPIUtils = {
         // Server side processing
         var rawItems = JSON.parse(localStorage.getItem('items'));
 
-        rawItems[0].items.forEach(function(value, index) {
+        rawItems.forEach(function(value, index) {
             if (id == value.id) {
-                rawItems[0].items.splice(index, 1);
+                rawItems.splice(index, 1);
                 // return false;
             }
         });
@@ -65,14 +65,14 @@ const WebAPIUtils = {
         var rawItems = JSON.parse(localStorage.getItem('items'));
 
         // Simulate success callback
-        // console.log("Web API Utils: Get all lists");
+        console.log("Web API Utils: Get all lists", rawItems);
         ServerActions.default.receiveAllItems(rawItems);
     },
 
     itemUpdate: function(itemID, updates) {
         // Server-side processing
         var rawItems = JSON.parse(localStorage.getItem('items'));
-        rawItems[0].items.forEach(function(value, index) {
+        rawItems.forEach(function(value, index) {
 
             // Match our item ID
             if (itemID == value.id) {

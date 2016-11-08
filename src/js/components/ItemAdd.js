@@ -44,27 +44,27 @@ const ItemAdd = React.createClass({
     },
 
     render: function() {
-        var formClass = "item-add-form";
+        var formClass = "list-item-add-form";
         if (this.state.focus) {
-            formClass += ' item-add-form-active';
+            formClass += ' list-item-add-form-active';
         }
 
         return (
-            <div className="item-add">
+            <div className="list-item-add">
                 <form className={formClass} onSubmit={this.onSubmit} >
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="item-reset-button"
+                            className="list-item-reset-button"
                         ><span>+</span></div>
                         <label
-                            className="item-add-button"
-                            htmlFor="item-add-input"
+                            className="list-item-add-button"
+                            htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
                     <input
-                        id="item-add-input"
-                        className="item-title"
+                        id="list-item-add-input"
+                        className="list-item-title"
                         type="text"
                         value={this.state.title}
                         placeholder="Add Item"

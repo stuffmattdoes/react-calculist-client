@@ -11,8 +11,7 @@ import ItemSettings from './ItemSettings';
 const ListItem = React.createClass({
 
     propTypes: {
-        itemProps: React.PropTypes.object.isRequired,
-        listData: React.PropTypes.object.isRequired
+        itemProps: React.PropTypes.object.isRequired
     },
 
     getInitialState: function () {
@@ -109,29 +108,29 @@ const ListItem = React.createClass({
 
     render: function() {
         var uniqueID = "checkbox-" + this.props.itemProps.ID;
-        var listItemClass = 'item-main';
-        var checkboxClass = 'item-checkbox';
+        var listItemClass = 'list-item';
+        var checkboxClass = 'list-item-checkbox';
         var itemPrice = 0;
 
         // List item state
         if (this.state.checked) {
-            listItemClass += ' item-checked';
-            checkboxClass += ' item-checkbox-checked';
+            listItemClass += ' list-item-checked';
+            checkboxClass += ' list-item-checkbox-checked';
         } else {
-            listItemClass += ' item-unchecked';
+            listItemClass += ' list-item-unchecked';
         }
 
         if (this.state.expanded) {
-            listItemClass += ' item-expanded';
+            listItemClass += ' list-item-expanded';
         }
 
         if (this.state.isEditing) {
-            listItemClass += ' item-editing';
+            listItemClass += ' list-item-editing';
         }
 
         return (
             <div className={listItemClass} >
-                <form className="item-form" onSubmit={this.onItemSubmit}>
+                <form className="list-item-form" onSubmit={this.onItemSubmit}>
                     {/* -----
                         Title
                         ----- */}
@@ -143,14 +142,14 @@ const ListItem = React.createClass({
                         value=""
                     />
                     <label
-                        className="item-checkbox-label"
+                        className="list-item-checkbox-label"
                         htmlFor={uniqueID}
                     >
                         <span className={checkboxClass}></span>
                     </label>
 
                     <input
-                        className="item-title"
+                        className="list-item-title"
                         type="text"
                         value={this.state.title}
                         onChange={this.onTitleChange}
@@ -165,7 +164,7 @@ const ListItem = React.createClass({
                         <span>*</span>
                     : null}
                     <input
-                        className="item-input-number item-amount"
+                        className="list-item-input-number list-item-amount"
                         type="text"
                         onChange={this.onAmountChanged}
                         onClick={this.onInputClick}
@@ -174,7 +173,7 @@ const ListItem = React.createClass({
                         disabled={this.props.itemProps.unitPricing.active}
                     />
                     <div
-                        className="item-options-button"
+                        className="list-item-options-button"
                         onClick={this.onOptionsExpand}
                     >
                         <div className="icon-dots-vertical"></div>

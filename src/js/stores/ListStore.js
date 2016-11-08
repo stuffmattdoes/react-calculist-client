@@ -6,7 +6,7 @@ var _lists = {};
 var _currentID = null;
 
 function populateLists(rawLists) {
-    console.log("Populate lists");
+    // console.log("Populate lists");
     _lists = rawLists;
 }
 
@@ -22,7 +22,7 @@ class ListStore extends EventEmitter {
     }
 
     listCreate(listID, title) {
-        console.log("Create list: ", action);
+        console.log("Create list");
         _lists.push({
             title: title,
             ID: listID
@@ -31,7 +31,7 @@ class ListStore extends EventEmitter {
     }
 
     listDelete(listID) {
-        console.log("Delete list: ", action);
+        console.log("Delete list");
         _lists.forEach(function(value, index) {
             if (listID == value.ID) {
                 _lists.splice(index, 1);
@@ -41,7 +41,7 @@ class ListStore extends EventEmitter {
     }
 
     listUpdate(action) {
-        console.log("Update list: ", action);
+        console.log("Update list: ");
         this.emit("LISTS_CHANGE");
     }
 

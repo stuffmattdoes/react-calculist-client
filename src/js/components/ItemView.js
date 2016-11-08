@@ -4,6 +4,7 @@ import React from 'react';
 // Components
 import Footer from './Footer';
 import Header from './Header';
+import Item from './Item';
 import ItemAdd from './ItemAdd';
 import ItemFilter from './ItemFilter';
 import ListView from './ListView';
@@ -15,9 +16,9 @@ import ListStore from '../stores/ListStore';
 const ItemView = React.createClass({
 
     getInitialState: function() {
-
+        // console.log("Initial state");
         return {
-            itemsData: ItemStore.getAll(),
+            items: ItemStore.getAll(),
             filter: "all"
         };
     },
@@ -32,7 +33,7 @@ const ItemView = React.createClass({
 
     getAllItems: function() {
         this.setState({
-            itemsData: ItemStore.getAll()
+            items: ItemStore.getAll()
         });
     },
 
@@ -40,16 +41,15 @@ const ItemView = React.createClass({
 
         return (
             <div className="item-view">
-                <Header items={this.state.itemsData} />
-                <div className="item-scroll">
-                    <ItemFilter filter={this.state.filter} listData={this.state.itemsData} />
-                    <div className="item-list">
-                        {this.state.itemsData.map(function(listItem, index) {
-
+                <Header items={this.state.items} />
+                <div className="list-item-scroll">
+                    <ItemFilter filter={this.state.filter} items={this.state.items} />
+                    <div className="list-container">
+                        {this.state.items.map(function(listItem, index) {
                             return (
                                 <Item
                                     itemProps={listItem}
-                                    listData={this.state.itemsData}
+                                    listData={this.state.items}
                                     key={listItem.ID}
                                 />
                             );
@@ -57,7 +57,7 @@ const ItemView = React.createClass({
                     </div>
                     <ItemAdd />
                 </div>
-                <Footer listData={this.state.itemsData} />
+                <Footer items={this.state.items} />
             </div>
         );
     }
