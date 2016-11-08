@@ -1,6 +1,9 @@
 // Libraries
 import React from 'react';
 
+// Components
+import ListAdd from './ListAdd';
+
 // Actions
 import * as ListActions from '../actions/ListActions';
 
@@ -36,18 +39,21 @@ const ListView = React.createClass({
     render: function() {
         return (
             <div className="list-view">
-                {this.state.listsData.map(function(list, index) {
-                    return (
-                        <div
-                            className="list"
-                            key={list.ID}
-                            onClick={function() {this.onListClick(list.ID);}.bind(this)}
-                        >
-                            <p>{list.title}</p>
-                        </div>
-                    );
-                }.bind(this))}
-            </div>
+                <div className="list-scroll">
+                    {this.state.listsData.map(function(list, index) {
+                        return (
+                            <div
+                                className="list"
+                                key={list.ID}
+                                onClick={function() {this.onListClick(list.ID);}.bind(this)}
+                            >
+                                <p>{list.title}</p>
+                            </div>
+                        );
+                    }.bind(this))}
+                </div>
+            <ListAdd />
+        </div>
         );
     }
 });

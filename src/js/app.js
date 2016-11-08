@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Components
-import ListApp from './components/ListApp';
+import AppContainer from './components/AppContainer';
 import ListView from './components/ListView';
 
 // Data
@@ -21,6 +21,6 @@ WebAPIUtils.default.itemsGetAll();
 WebAPIUtils.default.listsGetAll();
 
 ReactDOM.render(
-    <ListApp />,
+    <AppContainer />,
     document.getElementById('container')
 );

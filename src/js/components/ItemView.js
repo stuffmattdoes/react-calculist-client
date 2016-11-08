@@ -1,9 +1,21 @@
 // Libraries
 import React from 'react';
 
+// Components
+import Footer from './Footer';
+import Header from './Header';
+import ItemAdd from './ItemAdd';
+import ItemFilter from './ItemFilter';
+import ListView from './ListView';
+
+// Stores
+import ItemStore from '../stores/ItemStore';
+import ListStore from '../stores/ListStore';
+
 const ItemView = React.createClass({
 
     getInitialState: function() {
+
         return {
             itemsData: ItemStore.getAll(),
             filter: "all"
@@ -43,7 +55,7 @@ const ItemView = React.createClass({
                             );
                         }.bind(this))}
                     </div>
-                    <AddItem />
+                    <ItemAdd />
                 </div>
                 <Footer listData={this.state.itemsData} />
             </div>

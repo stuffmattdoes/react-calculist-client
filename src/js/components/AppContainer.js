@@ -2,11 +2,7 @@
 import React from 'react';
 
 // Components
-import AddItem from './AddItem';
-import Footer from './Footer';
-import Header from './Header';
 import ItemView from './ItemView';
-import ItemFilter from './ItemFilter';
 import ListView from './ListView';
 
 // Stores
@@ -16,7 +12,7 @@ import ListStore from '../stores/ListStore';
 var app = app || {};
 
 // Application class
-const ListApp = React.createClass({
+const AppContainer = React.createClass({
 
     getInitialState: function() {
 
@@ -44,10 +40,10 @@ const ListApp = React.createClass({
 
         return (
             <div className="app">
-                <ListView />
+                <ItemView />
             </div>
         );
     }
 });
 
-export default ListApp;
+export default AppContainer;

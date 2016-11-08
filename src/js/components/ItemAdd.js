@@ -3,7 +3,7 @@ import React from 'react';
 // Actions
 import * as ItemActions from '../actions/ItemActions';
 
-const AddItem = React.createClass({
+const ItemAdd = React.createClass({
 
     getInitialState: function() {
         return {
@@ -82,4 +82,4 @@ const AddItem = React.createClass({
     }
 });
 
-export default AddItem;
+export default ItemAdd;
