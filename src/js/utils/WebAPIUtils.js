@@ -10,35 +10,10 @@ var ServerActions = require("../actions/ServerActions");
 
 const WebAPIUtils = {
 
-    listCreate: function() {
-        // Simulate success callback
-        console.log("Web API Utils: Create list");
-    },
-
-    listDelete: function() {
-        // Simulate success callback
-        console.log("Web API Utils: Delete List");
-    },
-
-    listGetAll: function() {
-
-        // Simulate receiving data from a database
-        var rawLists = JSON.parse(localStorage.getItem('lists'));
-
-        // Simulate success callback
-        console.log("Web API Utils: Get all lists");
-        ServerActions.default.receiveAllLists(rawLists);
-    },
-
-    listUpdate: function() {
-        // Simulate success callback
-        console.log("Web API Utils: Update list");
-    },
-
     itemCreate: function(itemID, title) {
 
         // Server-side processing
-        var rawLists = JSON.parse(localStorage.getItem('lists'));
+        var rawItems = JSON.parse(localStorage.getItem('items'));
         var newItem = {
             title: title,
             checked: false,
@@ -56,41 +31,108 @@ const WebAPIUtils = {
         }
 
         // Get list ID. For now, just default to the first list index
-        rawLists[0].items.push(newItem);
-        localStorage.setItem('lists', JSON.stringify(rawLists));
+        rawItems[0].items.push(newItem);
+        localStorage.setItem('items', JSON.stringify(rawItems));
 
         // Success callback to client
         setTimeout(function() {
-            console.log("Web API Utils: Create item", itemID, title);
+            // console.log("Web API Utils: Create item", itemID, title);
         }, 0);
     },
 
     itemDelete: function(id) {
 
         // Server side processing
-        var rawLists = JSON.parse(localStorage.getItem('lists'));
+        var rawItems = JSON.parse(localStorage.getItem('items'));
 
-        rawLists[0].items.forEach(function(value, index) {
+        rawItems[0].items.forEach(function(value, index) {
             if (id == value.id) {
-                rawLists[0].items.splice(index, 1);
+                rawItems[0].items.splice(index, 1);
                 // return false;
             }
         });
-        localStorage.setItem('lists', JSON.stringify(rawLists));
+        localStorage.setItem('items', JSON.stringify(rawItems));
 
         // Success callback to client
         setTimeout(function() {
-            console.log("Web API Utils: Item delete", id);
+            // console.log("Web API Utils: Item delete", id);
         }, 0);
+    },
+
+    itemsGetAll: function() {
+
+        // Simulate receiving data from a database
+        var rawItems = JSON.parse(localStorage.getItem('items'));
+
+        // Simulate success callback
+        // console.log("Web API Utils: Get all lists");
+        ServerActions.default.receiveAllItems(rawItems);
     },
 
     itemUpdate: function(itemID, updates) {
         // Server-side processing
+        var rawItems = JSON.parse(localStorage.getItem('items'));
+        rawItems[0].items.forEach(function(value, index) {
+
+            // Match our item ID
+            if (itemID == value.id) {
+
+                // Iterate through our updates and apply them
+                for (var update in updates) {
+
+                    // Is this property an object?
+                    if (typeof updates[update] != "object") {
+
+                        // If our store object has a similar property, update it
+                        if (value.hasOwnProperty(update)) {
+                            value[update] = updates[update];
+                        }
+                    } else {
+                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
+                        for (var childUpdate in updates[update]) {
+                            if (value[update].hasOwnProperty(childUpdate)) {
+                                if (value[update].hasOwnProperty(childUpdate)) {
+                                    value[update][childUpdate] = updates[update][childUpdate];
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }.bind(this));
+        localStorage.setItem('items', JSON.stringify(rawItems));
 
         // Success callback to client
         setTimeout(function() {
-            console.log("Web API Utils: Item update", itemID, updates);
+            // console.log("Web API Utils: Item update", itemID, updates);
         }, 0);
+    },
+
+    listsCreate: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Create list");
+    },
+
+    listsDelete: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Delete List");
+    },
+
+    listsGetAll: function() {
+
+        // Simulate receiving data from a database
+        var rawLists = JSON.parse(localStorage.getItem('lists'));
+
+        // Simulate success callback
+        // console.log("Web API Utils: Get all lists", rawLists);
+        ServerActions.default.receiveAllLists(rawLists);
+    },
+
+    listsUpdate: function() {
+        // Simulate success callback
+        console.log("Web API Utils: Update list");
     },
 
 };

@@ -1,6 +1,6 @@
-.list-item-add {
+.item-add {
 
-    .list-item-add-form {
+    .item-add-form {
         display: flex;
     }
 
@@ -10,8 +10,8 @@
         height: 35px;
     }
 
-    .list-item-reset-button,
-    .list-item-add-button {
+    .item-reset-button,
+    .item-add-button {
         display: block;
         padding: 15px 12px;
 
@@ -26,7 +26,7 @@
         }
     }
 
-    .list-item-reset-button {
+    .item-reset-button {
         display: none;
 
         span {
@@ -40,25 +40,25 @@
 
     input {
 
-        &.list-item-title {
+        &.item-title {
             width: auto;
             padding: 12px 8px;
         }
     }
 
-    .list-item-add-form-active {
-        .list-item-add-button {
+    .item-add-form-active {
+        .item-add-button {
             display: none;
         }
 
-        .list-item-reset-button {
+        .item-reset-button {
             display: block;
         }
     }
 
 }
 
-.list-item-reset {
+.item-reset {
     display: inline-block;
     float: left;
     width: 10%;

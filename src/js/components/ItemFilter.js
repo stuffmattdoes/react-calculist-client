@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListFilter = React.createClass({
+const ItemFilter = React.createClass({
 
     // propTypes: {
     //     listFilter: React.PropTypes.string.isRequired,
@@ -25,7 +25,7 @@ const ListFilter = React.createClass({
         });
 
         return (
-            <div className="list-filter">
+            <div className="item-filter">
                 <ul>
                     <li
                         onClick={function() {this.props.onFilterClick("all")}.bind(this)}
@@ -42,4 +42,4 @@ const ListFilter = React.createClass({
     }
 })
 
-export default ListFilter;
+export default ItemFilter;

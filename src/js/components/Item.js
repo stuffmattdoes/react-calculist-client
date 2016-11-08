@@ -2,38 +2,34 @@
 import React from 'react';
 // var currencyFormatter = require('currency-formatter');
 
-// Store
-// import ListStore from '../stores/ListStore';
-
 // Actions
-import * as ListActions from '../actions/ListActions';
+import * as ItemActions from '../actions/ItemActions';
 
 // Components
-import ListItemSettings from './ListItemSettings';
+import ItemSettings from './ItemSettings';
 
 const ListItem = React.createClass({
 
     propTypes: {
-        listProps: React.PropTypes.object.isRequired,
+        itemProps: React.PropTypes.object.isRequired,
         listData: React.PropTypes.object.isRequired
     },
 
     getInitialState: function () {
-
         return {
-            amount: this.props.listProps.amount,
-            checked: this.props.listProps.checked,
+            amount: this.props.itemProps.amount,
+            checked: this.props.itemProps.checked,
             expanded: false,
             isEditing: false,
-            title: this.props.listProps.title
+            title: this.props.itemProps.title
         };
     },
 
     // Called when a component receives properties
     componentWillReceiveProps: function() {
-        if (this.props.listProps.amount != this.state.amount) {
+        if (this.props.itemProps.amount != this.state.amount) {
             this.setState({
-                amount: this.props.listProps.amount
+                amount: this.props.itemProps.amount
             });
         }
     },
@@ -50,8 +46,8 @@ const ListItem = React.createClass({
     onAmountSave: function(e) {
         const inputValue = e.target.value;
 
-        ListActions.default.updateListItemAmount(
-            this.props.listProps.id,
+        ItemActions.default.itemUpdateAmount(
+            this.props.itemProps.ID,
             this.state.amount
         );
         this.setState({
@@ -63,8 +59,8 @@ const ListItem = React.createClass({
     onCheckedChange: function(e) {
         const inputValue = e.target.checked;
 
-        ListActions.default.updateListItemChecked(
-            this.props.listProps.id,
+        ItemActions.default.itemUpdateChecked(
+            this.props.itemProps.ID,
             inputValue
         );
         this.setState({
@@ -100,8 +96,8 @@ const ListItem = React.createClass({
         const inputValue = e.target.value;
 
         if (inputValue.trim() != "") {
-            ListActions.default.updateListItemTitle(
-                this.props.listProps.id,
+            ItemActions.default.itemUpdateTitle(
+                this.props.itemProps.id,
                 this.state.title
             );
         }
@@ -112,49 +108,49 @@ const ListItem = React.createClass({
     },
 
     render: function() {
-        var uniqueId = "checkbox-" + this.props.listProps.id;
-        var listItemClass = 'list-item';
-        var checkboxClass = 'list-item-checkbox';
+        var uniqueID = "checkbox-" + this.props.itemProps.ID;
+        var listItemClass = 'item-main';
+        var checkboxClass = 'item-checkbox';
         var itemPrice = 0;
 
         // List item state
         if (this.state.checked) {
-            listItemClass += ' list-item-checked';
-            checkboxClass += ' list-item-checkbox-checked';
+            listItemClass += ' item-checked';
+            checkboxClass += ' item-checkbox-checked';
         } else {
-            listItemClass += ' list-item-unchecked';
+            listItemClass += ' item-unchecked';
         }
 
         if (this.state.expanded) {
-            listItemClass += ' list-item-expanded';
+            listItemClass += ' item-expanded';
         }
 
         if (this.state.isEditing) {
-            listItemClass += ' list-item-editing';
+            listItemClass += ' item-editing';
         }
 
         return (
             <div className={listItemClass} >
-                <form className="list-form" onSubmit={this.onItemSubmit}>
+                <form className="item-form" onSubmit={this.onItemSubmit}>
                     {/* -----
                         Title
                         ----- */}
                     <input
-                        id={uniqueId}
+                        id={uniqueID}
                         type="checkbox"
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
                     />
                     <label
-                        className="list-item-checkbox-label"
-                        htmlFor={uniqueId}
+                        className="item-checkbox-label"
+                        htmlFor={uniqueID}
                     >
                         <span className={checkboxClass}></span>
                     </label>
 
                     <input
-                        className="list-item-title"
+                        className="item-title"
                         type="text"
                         value={this.state.title}
                         onChange={this.onTitleChange}
@@ -165,20 +161,20 @@ const ListItem = React.createClass({
                     {/* ------
                         Amount
                         ------ */}
-                    {this.props.listProps.tax.active ?
+                    {this.props.itemProps.tax.active ?
                         <span>*</span>
                     : null}
                     <input
-                        className="list-item-input-number list-item-amount"
+                        className="item-input-number item-amount"
                         type="text"
                         onChange={this.onAmountChanged}
                         onClick={this.onInputClick}
                         onBlur={this.onAmountSave}
                         value={this.state.amount != 0 ? this.state.amount : ''}
-                        disabled={this.props.listProps.unitPricing.active}
+                        disabled={this.props.itemProps.unitPricing.active}
                     />
                     <div
-                        className="list-item-options-button"
+                        className="item-options-button"
                         onClick={this.onOptionsExpand}
                     >
                         <div className="icon-dots-vertical"></div>
@@ -189,8 +185,8 @@ const ListItem = React.createClass({
                     />
                 </form>
                 {this.state.expanded ?
-                    <ListItemSettings
-                        listProps={this.props.listProps}
+                    <ItemSettings
+                        itemProps={this.props.itemProps}
                     />
                 : null}
             </div>

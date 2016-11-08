@@ -1,4 +1,4 @@
-.list-scroll {
+.item-scroll {
     overflow-y: scroll;
     max-height: 100%;
     position: absolute;
@@ -8,13 +8,13 @@
     top: 50px;
 }
 
-.list-form {
+.item-form {
     display: flex;
     align-items: center;
 }
 
-.list-item,
-.list-item-add {
+.item-main,
+.item-add {
     font-size: 14px;
 
     input {
@@ -31,13 +31,13 @@
         text-align: right;
     }
 
-    .list-item-checkbox-label {
+    .item-checkbox-label {
         display: inline-block;
         width: 45px;
         padding: 10px;
     }
 
-    input[type="checkbox"]:checked + .list-item-checkbox-label span {
+    input[type="checkbox"]:checked + .item-checkbox-label span {
         width: 6px;
         border-left: none;
         border-top: none;
@@ -46,7 +46,7 @@
         left: 5px;
     }
 
-    .list-item-checkbox {
+    .item-checkbox {
         position: relative;
         display: block;
         width: 15px;
@@ -58,7 +58,7 @@
         display: none;
     }
 
-    .list-item-title {
+    .item-title {
         width: 100%;
     }
 
@@ -68,7 +68,7 @@
         margin-right: 4px;
     }
 
-    .list-item-input-number {
+    .item-input-number {
         text-align: right;
         width: 60px;
         background-color: #F5F5F5;
@@ -76,7 +76,7 @@
         margin-left: 8px;
     }
 
-    .list-item-options-button {
+    .item-options-button {
         width: 35px;
         height: 35px;
         text-align: center;
@@ -87,7 +87,7 @@
     }
 }
 
-.list-item {
+.item-main {
     background-color: white;
     border-bottom: 1px solid #d7d7d7;
 
@@ -96,30 +96,30 @@
     // }
 
     &:hover {
-        .list-item-options-button {
+        .item-options-button {
             opacity: 1;
             visibility: visible;
         }
     }
 
-    &.list-item-checked {
+    &.item-checked {
         background: none;
         color: #898989;
 
-        .list-item-title {
+        .item-title {
             font-style: italic;
             text-decoration: line-through;
         }
 
-        .list-item-input-number {
+        .item-input-number {
             background: #eaeaea;
         }
     }
 
-    &.list-item-editing {
+    &.item-editing {
         border-bottom: none;
 
-        .list-form {
+        .item-form {
             border-bottom: 2px solid #43BFA4;
         }
     }
