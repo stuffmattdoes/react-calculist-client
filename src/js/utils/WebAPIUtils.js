@@ -65,7 +65,7 @@ const WebAPIUtils = {
         var rawItems = JSON.parse(localStorage.getItem('items'));
 
         // Simulate success callback
-        console.log("Web API Utils: Get all lists", rawItems);
+        // console.log("Web API Utils: Get all lists", rawItems);
         ServerActions.default.receiveAllItems(rawItems);
     },
 

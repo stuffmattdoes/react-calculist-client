@@ -1,3 +1,37 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
+
+.button-main {
+    display: block;
+    padding: 15px 12px;
+    cursor: pointer;
+
+    span {
+        display: block;
+        background-color: #43BFA4;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        color: #F5F5F5;
+        padding: 1px 6px;
+    }
+}
+
+.button-outline {
+    display: block;
+    padding: 15px 12px;
+    cursor: pointer;
+
+    span {
+        display: block;
+        width: 20px;
+        height: 20px;
+        padding: 0 5px;
+        background: none;
+        border: 1px solid #EB5365;
+        border-radius: 50%;
+        color: #EB5365;
+        transform: rotate(45deg);
+    }
+}

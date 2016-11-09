@@ -8,7 +8,7 @@
     top: 50px;
 }
 
-.list-item-form {
+.list-item-container {
     display: flex;
     align-items: center;
 }
@@ -19,6 +19,7 @@
 
     input {
         display: inline-block;
+        font-size: 14px;
         padding: 5px;
         margin: 5px 0;
         width: 33%;
@@ -37,7 +38,7 @@
         padding: 10px;
     }
 
-    input[type="checkbox"]:checked + .item-checkbox-label span {
+    input[type="checkbox"]:checked + .list-item-checkbox-label span {
         width: 6px;
         border-left: none;
         border-top: none;
@@ -115,7 +116,7 @@
     &.list-item-editing {
         border-bottom: none;
 
-        .list-item-form {
+        .list-item-container {
             border-bottom: 2px solid #43BFA4;
         }
     }

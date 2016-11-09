@@ -55,10 +55,10 @@ const ItemAdd = React.createClass({
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="list-item-reset-button"
+                            className="button-main button-add"
                         ><span>+</span></div>
                         <label
-                            className="list-item-add-button"
+                            className="button-outline button-cancel"
                             htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
@@ -76,6 +76,9 @@ const ItemAdd = React.createClass({
                         className="input-hidden"
                         type="submit"
                     />
+                    <div className="button-main button-confirm">
+                        <span>&#10004;</span>
+                    </div>
                 </form>
             </div>
         );

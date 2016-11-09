@@ -10,48 +10,24 @@
         height: 35px;
     }
 
-    .list-item-reset-button,
-    .list-item-add-button {
-        display: block;
-        padding: 15px 12px;
-
-        span {
-            display: block;
-            background-color: #43BFA4;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            color: #F5F5F5;
-            padding: 1px 6px;
-        }
-    }
-
-    .list-item-reset-button {
+    .button-cancel {
         display: none;
-
-        span {
-            padding: 0 5px;
-            background: none;
-            border: 1px solid #EB5365;
-            color: #EB5365;
-            transform: rotate(45deg);
-        }
     }
 
     input {
 
         &.list-item-title {
-            width: auto;
+            width: 100%;
             padding: 12px 8px;
         }
     }
 
     .list-item-add-form-active {
-        .list-item-add-button {
+        .button-add {
             display: none;
         }
 
-        .list-item-reset-button {
+        .button-cancel {
             display: block;
         }
     }

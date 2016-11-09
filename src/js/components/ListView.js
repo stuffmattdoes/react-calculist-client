@@ -9,6 +9,7 @@ import * as ListActions from '../actions/ListActions';
 
 // Stores
 import ListStore from '../stores/ListStore';
+import ItemStore from '../stores/ItemStore';
 
 const ListView = React.createClass({
 
@@ -42,18 +43,20 @@ const ListView = React.createClass({
                 <div className="list-item-scroll">
                     <div className="list-container">
                         {this.state.listsData.map(function(list, index) {
+                            var itemCount = ItemStore.getListItemCount(list.ID);
+
                             return (
                                 <div
                                     className="list-item"
                                     key={list.ID}
                                     onClick={function() {this.onListClick(list.ID);}.bind(this)}
                                 >
-                                    <p>{list.title}</p>
-                                    <div
-                                        className="list-item-options-button"
-                                        onClick={this.onOptionsExpand}
-                                    >
-                                        <div className="icon-dots-vertical"></div>
+                                    <div className="list-item-container">
+                                        <p>{list.title}</p>
+                                        {itemCount > 0 ?
+                                        <div className="list-count">{itemCount}</div>
+                                        : <div className="checkmark">&#10004;</div>
+                                        }
                                     </div>
                                 </div>
                             );

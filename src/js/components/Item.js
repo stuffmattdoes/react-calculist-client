@@ -130,7 +130,7 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <form className="list-item-form" onSubmit={this.onItemSubmit}>
+                <form className="list-item-container" onSubmit={this.onItemSubmit}>
                     {/* -----
                         Title
                         ----- */}

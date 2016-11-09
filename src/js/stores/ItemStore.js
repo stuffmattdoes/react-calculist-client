@@ -12,6 +12,16 @@ function populateItems(rawItems) {
 
 class ItemStore extends EventEmitter {
 
+    getListItemCount(listID) {
+        var listItemCount = 0;
+        _items.forEach(function(value, index) {
+            if (listID == value.listID) {
+                listItemCount ++;
+            }
+        });
+        return listItemCount;
+    }
+
     itemCreate(listID, itemID, title) {
 
         _items.push({

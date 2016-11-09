@@ -8,7 +8,8 @@ const ListAdd = React.createClass({
     getInitialState: function() {
         return {
             title: "",
-            focus: false
+            focus: false,
+            isEditing: false
         }
     },
 
@@ -55,10 +56,10 @@ const ListAdd = React.createClass({
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="list-item-reset-button"
+                            className="button-outline button-cancel"
                         ><span>+</span></div>
                         <label
-                            className="list-item-add-button"
+                            className="button-main button-add"
                             htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
@@ -76,6 +77,9 @@ const ListAdd = React.createClass({
                         className="input-hidden"
                         type="submit"
                     />
+                    <div className="button-main button-confirm">
+                        <span>&#10004;</span>
+                    </div>
                 </form>
             </div>
         );
