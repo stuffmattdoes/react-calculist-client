@@ -23,6 +23,7 @@ const ItemAdd = React.createClass({
         this.setState({
             focus: !this.state.focus
         });
+        // console.log(this.state.focus);
     },
 
     onReset: function(e) {
@@ -34,6 +35,7 @@ const ItemAdd = React.createClass({
 
     onSubmit: function(e) {
         e.preventDefault();
+        // console.log(e.target);
 
         ItemActions.default.itemCreate(this.state.title);
 

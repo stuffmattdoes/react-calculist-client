@@ -40,7 +40,7 @@ const AppContainer = React.createClass({
 
         return (
             <div className="app">
-                <ListView />
+                <ItemView />
             </div>
         );
     }

@@ -38,6 +38,15 @@ const ItemView = React.createClass({
     },
 
     render: function() {
+        var listItems = this.state.items.map(function(listItem, index) {
+            return (
+                <Item
+                    itemProps={listItem}
+                    listData={this.state.items}
+                    key={listItem.ID}
+                />
+            );
+        }.bind(this))
 
         return (
             <div className="item-view">
@@ -45,15 +54,7 @@ const ItemView = React.createClass({
                 <div className="list-item-scroll">
                     <ItemFilter filter={this.state.filter} items={this.state.items} />
                     <div className="list-container">
-                        {this.state.items.map(function(listItem, index) {
-                            return (
-                                <Item
-                                    itemProps={listItem}
-                                    listData={this.state.items}
-                                    key={listItem.ID}
-                                />
-                            );
-                        }.bind(this))}
+                        {listItems}
                     </div>
                     <ItemAdd />
                 </div>

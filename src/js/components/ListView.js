@@ -38,29 +38,38 @@ const ListView = React.createClass({
     },
 
     render: function() {
+
+        var totalLists = this.state.listsData.map(function(list, index) {
+            var itemCount = ItemStore.getListItemCount(list.ID);
+            var listClasses = "list-item";
+
+            // if (itemCount <= 0) {
+            //     listClasses += " list-item-checked";
+            // }
+
+            return (
+                <div
+                    className={listClasses}
+                    key={list.ID}
+                    onClick={function() {this.onListClick(list.ID);}.bind(this)}
+                >
+                    <div className="list-item-container">
+                        <p className="list-item-title">{list.title}</p>
+                        {itemCount > 0 ?
+                            <div className="list-count">{itemCount}</div>
+                        :
+                            <div className="checkmark">&#10004;</div>
+                        }
+                    </div>
+                </div>
+            );
+        }.bind(this));
+
         return (
             <div className="list-view">
                 <div className="list-item-scroll">
                     <div className="list-container">
-                        {this.state.listsData.map(function(list, index) {
-                            var itemCount = ItemStore.getListItemCount(list.ID);
-
-                            return (
-                                <div
-                                    className="list-item"
-                                    key={list.ID}
-                                    onClick={function() {this.onListClick(list.ID);}.bind(this)}
-                                >
-                                    <div className="list-item-container">
-                                        <p>{list.title}</p>
-                                        {itemCount > 0 ?
-                                        <div className="list-count">{itemCount}</div>
-                                        : <div className="checkmark">&#10004;</div>
-                                        }
-                                    </div>
-                                </div>
-                            );
-                        }.bind(this))}
+                        {totalLists}
                     </div>
                 <ListAdd />
             </div>
