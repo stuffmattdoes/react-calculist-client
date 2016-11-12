@@ -4,7 +4,6 @@ import WebAPIUtils from "../utils/WebAPIUtils";
 const ListActions = {
 
     listClick: function(listID) {
-
         dispatcher.dispatch({
             type: "CLICK_LIST",
             listID: listID

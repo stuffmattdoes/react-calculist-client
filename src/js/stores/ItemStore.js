@@ -4,6 +4,7 @@ import dispatcher from '../dispatcher/Dispatcher';
 import ListStore from './ListStore';
 
 var _items = {};
+var CHANGE_EVENT = "CHANGE_ITEM";
 
 function populateItems(rawItems) {
     // console.log("Populate Items", rawItems);
@@ -38,11 +39,11 @@ class ItemStore extends EventEmitter {
                 quantity: 0
             },
             ID: itemID,
-            listID: listID
+            listID: ListStore.getCurrentList()
         });
 
-        // console.log("ItemStore: List item created");
-        this.emit("change");
+        console.log("ItemStore: List item created", _items[_items.length - 1]);
+        this.emit(CHANGE_EVENT);
     }
 
     itemDelete(itemID) {
@@ -53,20 +54,27 @@ class ItemStore extends EventEmitter {
             }
         });
 
-        this.emit("change");
+        this.emit(CHANGE_EVENT);
     }
 
     getAll() {
-        // console.log(_items);
         return _items;
     }
 
     getAllForList(listID) {
+        var listItems = [];
 
+        _items.forEach(function(value, index) {
+            if (listID == value.listID) {
+                listItems.push(_items[index]);
+            }
+        });
+        console.log(listID, listItems);
+        return listItems;
     }
 
     getAllForCurrentList() {
-        return this.getAllForList(ListStore.getCurrentID());
+        return this.getAllForList(ListStore.getCurrentList());
     }
 
     itemUpdate(itemID, updates) {
@@ -102,7 +110,7 @@ class ItemStore extends EventEmitter {
 
         }.bind(this));
 
-        this.emit("change");
+        this.emit(CHANGE_EVENT);
     }
 
     handleActions(action) {

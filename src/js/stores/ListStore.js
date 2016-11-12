@@ -4,6 +4,7 @@ import dispatcher from '../dispatcher/Dispatcher';
 
 var _lists = {};
 var _currentID = null;
+var CHANGE_EVENT = "CHANGE_LIST";
 
 function populateLists(rawLists) {
     // console.log("Populate lists");
@@ -17,8 +18,13 @@ class ListStore extends EventEmitter {
         return _lists;
     }
 
-    getCurrentID() {
+    getCurrentList() {
         return _currentID;
+    }
+
+    listClick(listID) {
+        _currentID = listID;
+        this.emit(CHANGE_EVENT);
     }
 
     listCreate(listID, title) {
@@ -27,7 +33,7 @@ class ListStore extends EventEmitter {
             title: title,
             ID: listID
         });
-        this.emit("LISTS_CHANGE");
+        this.emit(CHANGE_EVENT);
     }
 
     listDelete(listID) {
@@ -37,19 +43,18 @@ class ListStore extends EventEmitter {
                 _lists.splice(index, 1);
             }
         });
-        this.emit("LISTS_CHANGE");
+        this.emit(CHANGE_EVENT);
     }
 
     listUpdate(action) {
         // console.log("Update list: ");
-        this.emit("LISTS_CHANGE");
+        this.emit(CHANGE_EVENT);
     }
 
     handleActions(action) {
         switch(action.type) {
             case "CLICK_LIST" : {
-                _currentID = action.listID;
-                // console.log(_currentID);
+                this.listClick(action.listID);
                 break;
             }
             case "CREATE_LIST" : {

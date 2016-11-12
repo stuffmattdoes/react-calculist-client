@@ -100,6 +100,22 @@ module.exports = {
                 },
                 ID: 'iv2rsurb',
                 listID: 'iv3v3mtv'
+            },
+            {
+                title: "Just this one guy",
+                checked: false,
+                amount: 0.00,
+                tax: {
+                    active: false,
+                    singleTaxRate: 0.0
+                },
+                unitPricing: {
+                    active: false,
+                    price: 0.00,
+                    quantity: 0
+                },
+                ID: 'iv2rsu2b',
+                listID: 'iv3v3mt2'
             }
         ]));
     }

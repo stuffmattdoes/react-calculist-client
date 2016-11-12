@@ -16,24 +16,24 @@ import ListStore from '../stores/ListStore';
 const ItemView = React.createClass({
 
     getInitialState: function() {
-        // console.log("Initial state");
         return {
-            items: ItemStore.getAll(),
+            items: ItemStore.getAllForCurrentList(),
             filter: "all"
         };
     },
 
     componentWillMount: function() {
-        ItemStore.on("change", this.getAllItems);
+        ItemStore.on("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
     componentDidUnmonut: function() {
-        ItemStore.removeListener("change", this.getAllItems);
+        ItemStore.removeListener("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
-    getAllItems: function() {
+    getAllItemsFromList: function() {
+        // console.log("Get all items from list");
         this.setState({
-            items: ItemStore.getAll()
+            items: ItemStore.getAllForCurrentList()
         });
     },
 

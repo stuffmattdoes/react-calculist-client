@@ -4,7 +4,6 @@ import WebAPIUtils from "../utils/WebAPIUtils";
 const ItemActions = {
 
     itemCreate: function(title) {
-        // console.log("Action: Create list item (before)");
         var itemID = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
         dispatcher.dispatch({
             type: "CREATE_ITEM",

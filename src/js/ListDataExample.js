@@ -12,6 +12,10 @@ module.exports = {
             {
                 title: 'Home Depot',
                 ID: 'iv3v3mt2'
+            },
+            {
+                title: 'Empty list here!',
+                ID: 'iv3v3mr2'
             }
         ]));
     }

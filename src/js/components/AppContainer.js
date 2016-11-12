@@ -9,31 +9,36 @@ import ListView from './ListView';
 import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
-var app = app || {};
-
 // Application class
 const AppContainer = React.createClass({
 
     getInitialState: function() {
         return {
-            isListView: true
+            currentList: ListStore.getCurrentList()
         };
     },
 
-    componentWillMount: function() {
-        // console.log(ListStore._currentID);
-        // ItemStore.on("change", this.getAllItems);
+    getStateFromStores: function() {
+        this.setState({
+            currentList: ListStore.getCurrentList()
+        });
     },
-    //
-    // componentDidUnmonut: function() {
-    //     ItemStore.removeListener("change", this.getAllItems);
-    // },
+
+    componentWillMount: function() {
+        ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
+        ListStore.on("CHANGE_LIST", this.getStateFromStores);
+    },
+
+    componentDidUnmonut: function() {
+        ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
+        ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
+    },
 
     render: function() {
 
         return (
             <div className="app">
-                {this.state.isListView ?
+                {this.state.currentList == null ?
                     <ListView />
                 :
                     <ItemView />
