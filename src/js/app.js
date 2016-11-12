@@ -15,12 +15,11 @@ var WebAPIUtils = require('./utils/WebAPIUtils');
 // CSS
 require('../scss/main.scss');
 
+localStorage.clear();
 ItemDataExample.init();     // Load data into local storage
 WebAPIUtils.default.itemsGetAll();
-
-// ListDataExample.init();
-// WebAPIUtils.default.listsGetAll();
-
+ListDataExample.init();
+WebAPIUtils.default.listsGetAll();
 
 ReactDOM.render(
     <AppContainer />,

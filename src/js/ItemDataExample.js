@@ -3,7 +3,7 @@ module.exports = {
     init: function() {
         console.log("Items Data Example Initialize");
 
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem('items', JSON.stringify([
             {
                 title: "Milk",

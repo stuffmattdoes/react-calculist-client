@@ -23,7 +23,7 @@ const ItemAdd = React.createClass({
         this.setState({
             focus: !this.state.focus
         });
-        // console.log(this.state.focus);
+        console.log(this.state.focus);
     },
 
     onReset: function(e) {

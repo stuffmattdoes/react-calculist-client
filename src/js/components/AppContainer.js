@@ -15,32 +15,29 @@ var app = app || {};
 const AppContainer = React.createClass({
 
     getInitialState: function() {
-
         return {
-            itemsData: ItemStore.getAll(),
-            filter: "all"
+            isListView: true
         };
     },
 
     componentWillMount: function() {
-        ItemStore.on("change", this.getAllItems);
+        // console.log(ListStore._currentID);
+        // ItemStore.on("change", this.getAllItems);
     },
-
-    componentDidUnmonut: function() {
-        ItemStore.removeListener("change", this.getAllItems);
-    },
-
-    getAllItems: function() {
-        this.setState({
-            itemsData: ItemStore.getAll()
-        });
-    },
+    //
+    // componentDidUnmonut: function() {
+    //     ItemStore.removeListener("change", this.getAllItems);
+    // },
 
     render: function() {
 
         return (
             <div className="app">
-                <ItemView />
+                {this.state.isListView ?
+                    <ListView />
+                :
+                    <ItemView />
+                }
             </div>
         );
     }

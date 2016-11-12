@@ -43,10 +43,6 @@ const ListView = React.createClass({
             var itemCount = ItemStore.getListItemCount(list.ID);
             var listClasses = "list-item";
 
-            // if (itemCount <= 0) {
-            //     listClasses += " list-item-checked";
-            // }
-
             return (
                 <div
                     className={listClasses}
