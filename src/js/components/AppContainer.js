@@ -29,7 +29,7 @@ const AppContainer = React.createClass({
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
 
-    componentDidUnmonut: function() {
+    componentWillUnmount: function() {
         ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
         ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
     },

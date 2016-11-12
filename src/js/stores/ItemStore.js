@@ -42,7 +42,6 @@ class ItemStore extends EventEmitter {
             listID: ListStore.getCurrentList()
         });
 
-        console.log("ItemStore: List item created", _items[_items.length - 1]);
         this.emit(CHANGE_EVENT);
     }
 
@@ -69,7 +68,6 @@ class ItemStore extends EventEmitter {
                 listItems.push(_items[index]);
             }
         });
-        console.log(listID, listItems);
         return listItems;
     }
 

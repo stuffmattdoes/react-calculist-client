@@ -23,15 +23,16 @@ const ItemView = React.createClass({
     },
 
     componentWillMount: function() {
-        ItemStore.on("CHANGE_ITEM", this.getAllItemsFromList);
+        console.log("Item view mounted");
+        ItemStore.addListener("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
-    componentDidUnmonut: function() {
+    componentWillUnmount: function() {
+        console.log("Item view unmounted");
         ItemStore.removeListener("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
     getAllItemsFromList: function() {
-        // console.log("Get all items from list");
         this.setState({
             items: ItemStore.getAllForCurrentList()
         });

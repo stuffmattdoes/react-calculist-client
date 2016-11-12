@@ -23,6 +23,12 @@ const ListActions = {
         // var newItem = ListUtils.
         // WebAPIUtils.listCreate(itemID, title);
 
+    },
+
+    resetListView: function() {
+        dispatcher.dispatch({
+            type: "RESET_LIST_VIEW"
+        });
     }
 }
 

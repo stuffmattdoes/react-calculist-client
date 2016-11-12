@@ -20,10 +20,12 @@ const ListView = React.createClass({
     },
 
     componentWillMount: function() {
+        console.log("List view mounted");
         ListStore.on("LISTS_CHANGE", this.getAllLists);
     },
 
-    componentDidUnmonut: function() {
+    componentWillUnmount: function() {
+        console.log("List view unmounted");
         ListStore.removeListener("LISTS_CHANGE", this.getAllLists);
     },
 

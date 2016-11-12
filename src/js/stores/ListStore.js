@@ -51,6 +51,11 @@ class ListStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
+    resetListView() {
+        _currentID = null;
+        this.emit(CHANGE_EVENT);
+    }
+
     handleActions(action) {
         switch(action.type) {
             case "CLICK_LIST" : {
@@ -62,13 +67,17 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "DELETE_LIST" : {
-                this.listDelet(action);
+                this.listDelete(action);
                 break;
             }
             case "RECEIVE_RAW_LISTS" : {
                 populateLists(
                     action.rawLists
                 )
+                break;
+            }
+            case "RESET_LIST_VIEW" : {
+                this.resetListView();
                 break;
             }
             case "UPDATE_LIST" : {

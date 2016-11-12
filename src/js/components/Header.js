@@ -1,29 +1,28 @@
 import React from 'react';
 
+// Stores
+import ListStore from '../stores/ListStore';
+
 const Header = React.createClass({
 
     PropTypes: {
         items: React.PropTypes.array.isRequired
     },
 
-    // getTotalItems: function() {
-    //     var totalItems = 0;
-    //     this.props.items.forEach(function(value, index) {
-    //         if (value.checked == false) {
-    //             totalItems ++;
-    //         }
-    //     });
-    //     return totalItems;
-    // },
+    backNav: function() {
+        ListStore.resetListView();
+    },
 
     render: function() {
-        // var totalItems = this.getTotalItems();
-
         return (
             <div className="header">
-                <h1>Groceries
-                    <span className="items-count">5</span>
-                </h1>
+                <div
+                    className="header-back"
+                    onClick={this.backNav}
+                >
+                    Back
+                </div>
+                <h1>Groceries</h1>
                 <div className="header-options"><span className="icon-dots-vertical"></span></div>
             </div>
         );
