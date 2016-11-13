@@ -5,8 +5,8 @@ import React from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import Item from './Item';
-import ItemAdd from './ItemAdd';
 import ItemFilter from './ItemFilter';
+import ListItemAdd from './ListItemAdd';
 import ListView from './ListView';
 
 // Stores
@@ -57,7 +57,7 @@ const ItemView = React.createClass({
                     <div className="list-container">
                         {listItems}
                     </div>
-                    <ItemAdd />
+                    <ListItemAdd condActions={"ItemActions"}/>
                 </div>
                 <Footer items={this.state.items} />
             </div>

@@ -21,8 +21,17 @@ const ListActions = {
 
         // API action call
         // var newItem = ListUtils.
-        // WebAPIUtils.listCreate(itemID, title);
+        WebAPIUtils.listCreate(listID, title);
 
+    },
+
+    listDelete: function(listID) {
+        dispatcher.dispatch({
+            type: "DELETE_LIST",
+            itemID: listID
+        });
+
+        WebAPIUtils.listDelete(listID);
     },
 
     resetListView: function() {

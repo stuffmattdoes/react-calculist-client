@@ -59,7 +59,7 @@ const WebAPIUtils = {
         }, 0);
     },
 
-    itemsGetAll: function() {
+    itemGetAll: function() {
 
         // Simulate receiving data from a database
         var rawItems = JSON.parse(localStorage.getItem('items'));
@@ -110,17 +110,17 @@ const WebAPIUtils = {
         }, 0);
     },
 
-    listsCreate: function() {
+    listCreate: function(listID, title) {
         // Simulate success callback
-        console.log("Web API Utils: Create list");
+        // console.log("Web API Utils: Create list");
     },
 
-    listsDelete: function() {
+    listDelete: function(listID) {
         // Simulate success callback
-        console.log("Web API Utils: Delete List");
+        // console.log("Web API Utils: Delete List");
     },
 
-    listsGetAll: function() {
+    listGetAll: function() {
 
         // Simulate receiving data from a database
         var rawLists = JSON.parse(localStorage.getItem('lists'));
@@ -130,9 +130,9 @@ const WebAPIUtils = {
         ServerActions.default.receiveAllLists(rawLists);
     },
 
-    listsUpdate: function() {
+    listUpdate: function() {
         // Simulate success callback
-        console.log("Web API Utils: Update list");
+        // console.log("Web API Utils: Update list");
     },
 
 };

@@ -17,9 +17,9 @@ require('../scss/main.scss');
 
 localStorage.clear();
 ItemDataExample.init();     // Load data into local storage
-WebAPIUtils.default.itemsGetAll();
+WebAPIUtils.default.itemGetAll();
 ListDataExample.init();
-WebAPIUtils.default.listsGetAll();
+WebAPIUtils.default.listGetAll();
 
 ReactDOM.render(
     <AppContainer />,

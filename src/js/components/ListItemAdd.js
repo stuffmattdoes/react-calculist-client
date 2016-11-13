@@ -1,49 +1,67 @@
 import React from 'react';
 
 // Actions
+import * as ListActions from '../actions/ListActions';
 import * as ItemActions from '../actions/ItemActions';
 
-const ItemAdd = React.createClass({
+const ListAdd = React.createClass({
+
+    propTypes: {
+        condActions: React.PropTypes.string.isRequired
+    },
 
     getInitialState: function() {
         return {
             title: "",
-            focus: false
+            isEditing: false
         }
     },
 
     onInputChange: function(e) {
         const inputValue = e.target.value;
         this.setState({
-            title: inputValue
+            title: inputValue,
+            isEditing: true
         });
     },
 
     onInputFocus: function(value) {
         this.setState({
-            focus: !this.state.focus
+            isEditing: true
         });
-        // console.log(this.state.focus);
+    },
+
+    onInputBlur: function() {
+        if (this.state.title.trim() == "") {
+            this.onReset();
+        }
     },
 
     onReset: function(e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         this.setState({
-            title: ""
+            title: "",
+            isEditing: false
         });
     },
 
     onSubmit: function(e) {
         e.preventDefault();
-        ItemActions.default.itemCreate(this.state.title);
-        this.setState({
-            title: ""
-        });
+        if (this.state.title.trim() != "") {
+            if (this.props.condActions == "ListActions") {
+                ListActions.default.listCreate(this.state.title);
+            } else if (this.props.condActions == "ItemActions") {
+                ItemActions.default.itemCreate(this.state.title);
+            }
+        }
+        this.onReset(e);
     },
 
     render: function() {
         var formClass = "list-item-add-form";
-        if (this.state.focus) {
+        if (this.state.isEditing) {
             formClass += ' list-item-add-form-active';
         }
 
@@ -53,10 +71,10 @@ const ItemAdd = React.createClass({
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="button-main button-add"
+                            className="button-outline button-cancel"
                         ><span>+</span></div>
                         <label
-                            className="button-outline button-cancel"
+                            className="button-main button-add"
                             htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
@@ -68,19 +86,25 @@ const ItemAdd = React.createClass({
                         placeholder="Add Item"
                         onChange={this.onInputChange}
                         onFocus={this.onInputFocus}
-                        onBlur={this.onInputFocus}
+                        onBlur={this.onInputBlur}
                     />
                     <input
                         className="input-hidden"
                         type="submit"
                     />
-                    <div className="button-main button-confirm">
+                    {this.state.isEditing
+                    && this.state.title.trim() != "" ?
+                    <div
+                        className="button-main button-confirm"
+                        onClick={this.onSubmit}
+                    >
                         <span>&#10004;</span>
                     </div>
+                    : null}
                 </form>
             </div>
         );
     }
 });
 
-export default ItemAdd;
+export default ListAdd;
