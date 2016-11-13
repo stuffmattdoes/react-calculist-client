@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Components
+import Header from './Header';
 import ListAdd from './ListAdd';
 
 // Actions
@@ -20,12 +21,10 @@ const ListView = React.createClass({
     },
 
     componentWillMount: function() {
-        console.log("List view mounted");
         ListStore.on("LISTS_CHANGE", this.getAllLists);
     },
 
     componentWillUnmount: function() {
-        console.log("List view unmounted");
         ListStore.removeListener("LISTS_CHANGE", this.getAllLists);
     },
 
@@ -65,6 +64,7 @@ const ListView = React.createClass({
 
         return (
             <div className="list-view">
+                <Header navBack={false} title={"Calculist"} />
                 <div className="list-item-scroll">
                     <div className="list-container">
                         {totalLists}

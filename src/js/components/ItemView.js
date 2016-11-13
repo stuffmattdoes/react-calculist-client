@@ -17,24 +17,24 @@ const ItemView = React.createClass({
 
     getInitialState: function() {
         return {
+            filter: "all",
             items: ItemStore.getAllForCurrentList(),
-            filter: "all"
+            currentList: ListStore.getCurrentList()
         };
     },
 
     componentWillMount: function() {
-        console.log("Item view mounted");
         ItemStore.addListener("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
     componentWillUnmount: function() {
-        console.log("Item view unmounted");
         ItemStore.removeListener("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
     getAllItemsFromList: function() {
         this.setState({
-            items: ItemStore.getAllForCurrentList()
+            items: ItemStore.getAllForCurrentList(),
+            currentList: ListStore.getCurrentList()
         });
     },
 
@@ -51,7 +51,7 @@ const ItemView = React.createClass({
 
         return (
             <div className="item-view">
-                <Header items={this.state.items} />
+                <Header navBack={true} title={this.state.currentList.title} />
                 <div className="list-item-scroll">
                     <ItemFilter filter={this.state.filter} items={this.state.items} />
                     <div className="list-container">

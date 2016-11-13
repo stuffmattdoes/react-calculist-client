@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/js/app.js',                    // The main file for our app
 
     output: {
-        path: './',                             // The path to write our compiled app to
+        path: './src/js/',                             // The path to write our compiled app to
         filename: 'bundle.js'                   // The new name for our compiled app
     },
     devtool: 'source-map',                      //

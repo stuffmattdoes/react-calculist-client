@@ -1,7 +1,6 @@
 module.exports = {
 
     init: function() {
-        // console.log("Lists Data Example Initialize");
 
         // localStorage.clear();
         localStorage.setItem('lists', JSON.stringify([

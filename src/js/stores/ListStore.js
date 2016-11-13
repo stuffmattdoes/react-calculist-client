@@ -14,12 +14,22 @@ function populateLists(rawLists) {
 class ListStore extends EventEmitter {
 
     getAll() {
-        // console.log("Get all lists");
         return _lists;
     }
 
-    getCurrentList() {
+    getCurrentListID() {
         return _currentID;
+    }
+
+    getCurrentList() {
+        var currentList = {};
+
+        _lists.forEach(function(value, index) {
+            if (_currentID == value.ID) {
+                currentList = value;
+            }
+        });
+        return currentList;
     }
 
     listClick(listID) {

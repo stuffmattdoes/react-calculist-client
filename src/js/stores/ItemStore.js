@@ -7,7 +7,6 @@ var _items = {};
 var CHANGE_EVENT = "CHANGE_ITEM";
 
 function populateItems(rawItems) {
-    // console.log("Populate Items", rawItems);
     _items = rawItems;
 }
 
@@ -16,7 +15,8 @@ class ItemStore extends EventEmitter {
     getListItemCount(listID) {
         var listItemCount = 0;
         _items.forEach(function(value, index) {
-            if (listID == value.listID) {
+            if (listID == value.listID
+                && !value.checked) {
                 listItemCount ++;
             }
         });
@@ -39,7 +39,7 @@ class ItemStore extends EventEmitter {
                 quantity: 0
             },
             ID: itemID,
-            listID: ListStore.getCurrentList()
+            listID: ListStore.getCurrentListID()
         });
 
         this.emit(CHANGE_EVENT);
@@ -72,7 +72,7 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForCurrentList() {
-        return this.getAllForList(ListStore.getCurrentList());
+        return this.getAllForList(ListStore.getCurrentListID());
     }
 
     itemUpdate(itemID, updates) {
