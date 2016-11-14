@@ -103,7 +103,7 @@ const ListItem = React.createClass({
 
         if (inputValue.trim() != "") {
             ItemActions.default.itemUpdateTitle(
-                this.props.itemProps.id,
+                this.props.itemProps.ID,
                 this.state.title
             );
         }

@@ -56,8 +56,41 @@ class ListStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    listUpdate(action) {
-        // console.log("Update list: ");
+    listUpdate(listID, updates) {
+        console.log("Update list: ");
+
+        _lists.forEach(function(value, index) {
+
+            // Match our item ID
+            if (listID == value.ID) {
+
+                // Iterate through our updates and apply them
+                for (var update in updates) {
+
+                    // Is this property an object?
+                    if (typeof updates[update] != "object") {
+
+                        // If our store object has a similar property, update it
+                        if (value.hasOwnProperty(update)) {
+                            value[update] = updates[update];
+                        }
+                    } else {
+                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
+                        for (var childUpdate in updates[update]) {
+                            if (value[update].hasOwnProperty(childUpdate)) {
+                                if (value[update].hasOwnProperty(childUpdate)) {
+                                    value[update][childUpdate] = updates[update][childUpdate];
+                                }
+                            }
+                        }
+                    }
+
+                }
+                console.log(value);
+            }
+
+        }.bind(this));
+
         this.emit(CHANGE_EVENT);
     }
 
@@ -77,7 +110,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "DELETE_LIST" : {
-                this.listDelete(action);
+                this.listDelete(action.listID);
                 break;
             }
             case "RECEIVE_RAW_LISTS" : {
@@ -90,8 +123,8 @@ class ListStore extends EventEmitter {
                 this.resetListView();
                 break;
             }
-            case "UPDATE_LIST" : {
-                this.listUpdate(action);
+            case "UPDATE_LIST_TITLE" : {
+                this.listUpdate(action.listID, {title: action.title});
                 break;
             }
         }

@@ -1,17 +1,25 @@
 import React from 'react';
 
 // Stores
-import ListStore from '../stores/ListStore';
+import * as ListActions from '../actions/ListActions';
 
 const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
-        navBack: React.PropTypes.bool.isRequired
+        navBack: React.PropTypes.bool,
+        options: React.PropTypes.bool,
+
+        // Passing up
+        toggleSettings: React.PropTypes.func.isRequired
     },
 
     backNav: function() {
-        ListStore.resetListView();
+        ListActions.default.resetListView();
+    },
+
+    toggleSettings: function() {
+        this.props.toggleSettings();
     },
 
     render: function() {
@@ -25,8 +33,15 @@ const Header = React.createClass({
                         Back
                     </div>
                 : null}
-                <h1>{this.props.title}</h1>
-                <div className="header-options"><span className="icon-dots-vertical"></span></div>
+                <h1 className="header-title">{this.props.title}</h1>
+                {this.props.options ?
+                    <div
+                        className="header-options"
+                        onClick={this.toggleSettings}
+                    >
+                        <span className="icon-dots-vertical"></span>
+                    </div>
+                : null}
             </div>
         );
     }

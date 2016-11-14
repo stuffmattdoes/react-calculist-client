@@ -34,6 +34,22 @@ const ListActions = {
         WebAPIUtils.listDelete(listID);
     },
 
+    listUpdateTitle: function(listID, title) {
+        dispatcher.dispatch({
+            type: "UPDATE_LIST_TITLE",
+            listID: listID,
+            title: title
+        });
+
+        // API action call
+        WebAPIUtils.listUpdate(
+            listID,
+            {
+                title: title
+            }
+        );
+    },
+
     resetListView: function() {
         dispatcher.dispatch({
             type: "RESET_LIST_VIEW"

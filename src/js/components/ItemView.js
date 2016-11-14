@@ -7,6 +7,7 @@ import Header from './Header';
 import Item from './Item';
 import ItemFilter from './ItemFilter';
 import ListItemAdd from './ListItemAdd';
+import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Stores
@@ -19,7 +20,8 @@ const ItemView = React.createClass({
         return {
             items: ItemStore.getAllForCurrentList(true),
             currentFilter: ItemStore.getCurrentFilter(),
-            currentList: ListStore.getCurrentList()
+            currentList: ListStore.getCurrentList(),
+            listOptions: true
         };
     },
 
@@ -35,8 +37,16 @@ const ItemView = React.createClass({
         this.setState({
             items: ItemStore.getAllForCurrentList(true),
             currentFilter: ItemStore.getCurrentFilter(),
-            currentList: ListStore.getCurrentList()
+            currentList: ListStore.getCurrentList(),
+            listOptions: true
         });
+    },
+
+    toggleSettings: function() {
+
+        this.setState({
+            listOptions: !this.state.listOptions
+        })
     },
 
     render: function() {
@@ -51,17 +61,28 @@ const ItemView = React.createClass({
         }.bind(this))
 
         return (
-            <div className="item-view">
-                <Header navBack={true} title={this.state.currentList.title} />
-                <div className="list-item-scroll">
-                    <ItemFilter filter={this.state.currentFilter} items={this.state.items} />
-                    <div className="list-container">
-                        {listItems}
+            this.state.listOptions ?
+                <div className="item-view">
+                    <Header
+                        navBack={true}
+                        options={true}
+                        title={this.state.currentList.title}
+                        toggleSettings={this.toggleSettings}
+                    />
+                    <div className="list-item-scroll">
+                        <ItemFilter filter={this.state.currentFilter} items={this.state.items} />
+                        <div className="list-container">
+                            {listItems}
+                        </div>
+                        <ListItemAdd condActions={"ItemActions"}/>
                     </div>
-                    <ListItemAdd condActions={"ItemActions"}/>
+                    <Footer items={this.state.items} />
                 </div>
-                <Footer items={this.state.items} />
-            </div>
+            :
+                <ListSettings
+                    currentList={this.state.currentList}
+                    toggleSettings={this.toggleSettings}
+                />
         );
     }
 });

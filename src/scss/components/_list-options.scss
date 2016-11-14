@@ -1,0 +1,42 @@
+.list-options {
+
+    // Header
+    .list-options-header {
+        position: relative;
+        padding: 50px 50px 35px;
+        background-color: #A588BF;
+        color: white;
+    }
+
+    .header-back {
+        position: absolute;
+        left: 15px;
+        top: 18px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .list-title-form {
+        padding: 5px;
+    }
+
+    .list-title-label {
+        font-size: 12px;
+        opacity: 0.75;
+    }
+
+    .list-title-input {
+        font-size: 24px;
+        background: none;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid white;
+        padding: 5px 0;
+        margin: 0;
+    }
+
+    // Container
+    .list-options-container {
+        padding: 15px;
+    }
+}

@@ -64,7 +64,7 @@ const ListView = React.createClass({
 
         return (
             <div className="list-view">
-                <Header navBack={false} title={"Calculist"} />
+                <Header title={"Calculist"} />
                 <div className="list-item-scroll">
                     <div className="list-container">
                         {totalLists}

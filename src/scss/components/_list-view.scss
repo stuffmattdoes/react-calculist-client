@@ -17,8 +17,27 @@
         background: #A588BF;
         color: white;
         border-radius: 14px;
-        width: 26px;
+        min-width: 26px;
+        width: auto;
         height: 26px;
         padding: 5px 9px;
+    }
+
+    .list-item-container {
+        display: block;
+    }
+
+    .list-item-title,
+    .list-count {
+        display: inline-block;
+        width: auto;
+    }
+
+    .list-item-title {
+        margin: 5px 10px;
+    }
+    
+    .list-count {
+        float: right;
     }
 }
