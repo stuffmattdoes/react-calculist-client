@@ -20,7 +20,6 @@ const ListActions = {
         });
 
         // API action call
-        // var newItem = ListUtils.
         WebAPIUtils.listCreate(listID, title);
 
     },
@@ -28,7 +27,7 @@ const ListActions = {
     listDelete: function(listID) {
         dispatcher.dispatch({
             type: "DELETE_LIST",
-            itemID: listID
+            listID: listID
         });
 
         WebAPIUtils.listDelete(listID);

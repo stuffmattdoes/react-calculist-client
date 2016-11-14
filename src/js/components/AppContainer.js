@@ -19,6 +19,7 @@ const AppContainer = React.createClass({
     },
 
     getStateFromStores: function() {
+        // console.log("AppContainer: getStateFromStores");
         this.setState({
             currentList: ListStore.getCurrentListID()
         });

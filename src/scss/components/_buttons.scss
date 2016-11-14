@@ -3,6 +3,21 @@
 // -----------------------------------------------------------------------------
 
 .button-main {
+    display: inline-block;
+    width: auto;
+    padding: 5px 10px;
+
+    &.button-outline {
+        cursor: pointer;
+        background: none;
+        border: 1px solid #EB5365;
+        border-radius: 15px;
+        color: #EB5365;
+        font-size: 12px;
+    }
+}
+
+.button-circle {
     display: block;
     padding: 15px 12px;
     cursor: pointer;
@@ -30,22 +45,4 @@
         }
     }
 
-}
-
-.button-outline {
-    display: block;
-    padding: 15px 12px;
-    cursor: pointer;
-
-    span {
-        display: block;
-        width: 20px;
-        height: 20px;
-        padding: 0 5px;
-        background: none;
-        border: 1px solid #EB5365;
-        border-radius: 50%;
-        color: #EB5365;
-        transform: rotate(45deg);
-    }
 }

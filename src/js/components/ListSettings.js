@@ -19,8 +19,9 @@ const ListSettings = React.createClass({
         };
     },
 
-    toggleSettings: function() {
-        this.props.toggleSettings();
+    onListDelete: function() {
+        ListActions.default.listDelete(this.props.currentList.ID);
+        this.setState(this.state);
     },
 
     onSubmit: function(e) {
@@ -49,6 +50,10 @@ const ListSettings = React.createClass({
         this.setState({
             title: inputValue
         });
+    },
+
+    toggleSettings: function() {
+        this.props.toggleSettings();
     },
 
     render: function() {
@@ -86,6 +91,12 @@ const ListSettings = React.createClass({
                     className="list-options-container"
                 >
                     <p>Settings</p>
+                    <div
+                        className="button-main button-outline"
+                        onClick={this.onListDelete}
+                    >
+                        Delete List
+                    </div>
 
                 </div>
             </div>

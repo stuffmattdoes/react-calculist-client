@@ -112,12 +112,12 @@ const WebAPIUtils = {
 
     listCreate: function(listID, title) {
         // Simulate success callback
-        console.log("Web API Utils: Create list");
+        // console.log("Web API Utils: Create list");
     },
 
     listDelete: function(listID) {
         // Simulate success callback
-        console.log("Web API Utils: Delete List");
+        // console.log("Web API Utils: Delete List");
     },
 
     listGetAll: function() {
@@ -132,7 +132,7 @@ const WebAPIUtils = {
 
     listUpdate: function() {
         // Simulate success callback
-        console.log("Web API Utils: Update list");
+        // console.log("Web API Utils: Update list");
     },
 
 };

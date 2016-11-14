@@ -47,17 +47,18 @@ class ListStore extends EventEmitter {
     }
 
     listDelete(listID) {
-        // console.log("Delete list");
+        // console.log("Delete list", listID);
         _lists.forEach(function(value, index) {
             if (listID == value.ID) {
                 _lists.splice(index, 1);
             }
         });
+        this.resetListView();
         this.emit(CHANGE_EVENT);
     }
 
     listUpdate(listID, updates) {
-        console.log("Update list: ");
+        // console.log("Update list: ");
 
         _lists.forEach(function(value, index) {
 
@@ -86,7 +87,7 @@ class ListStore extends EventEmitter {
                     }
 
                 }
-                console.log(value);
+                // console.log(value);
             }
 
         }.bind(this));

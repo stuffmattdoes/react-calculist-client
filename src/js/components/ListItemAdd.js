@@ -79,10 +79,10 @@ const ListAdd = React.createClass({
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="button-main button-cancel"
+                            className="button-circle button-cancel"
                         ><span>+</span></div>
                         <label
-                            className="button-main button-add"
+                            className="button-circle button-add"
                             htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
@@ -100,7 +100,7 @@ const ListAdd = React.createClass({
                     {this.state.isEditing
                     && this.state.title.trim() != "" ?
                     <div
-                        className="button-main button-confirm"
+                        className="button-circle button-confirm"
                         onClick={this.onSubmit}
                     >
                         <span>&#10004;</span>
