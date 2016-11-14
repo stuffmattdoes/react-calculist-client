@@ -41,7 +41,7 @@ const ListView = React.createClass({
     render: function() {
 
         var totalLists = this.state.listsData.map(function(list, index) {
-            var itemCount = ItemStore.getListItemCount(list.ID);
+            var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
 
             return (
                 <div

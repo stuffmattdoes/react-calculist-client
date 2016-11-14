@@ -68,14 +68,26 @@ class ItemStore extends EventEmitter {
     }
 
     getListItemCount(listID) {
-        var listItemCount = 0;
+        var listItemChecked = 0,
+            listItemUnchecked = 0;
+
         _items.forEach(function(value, index) {
-            if (listID == value.listID
-                && !value.checked) {
-                listItemCount ++;
+            if (listID == value.listID) {
+                if (value.checked) {
+                    listItemChecked ++;
+                } else {
+                    listItemUnchecked ++;
+                }
             }
         });
-        return listItemCount;
+        return {
+            checked: listItemChecked,
+            unchecked: listItemUnchecked
+        };
+    }
+
+    getCurrentListItemCount() {
+        return this.getListItemCount(ListStore.getCurrentListID());
     }
 
     itemCreate(listID, itemID, title) {

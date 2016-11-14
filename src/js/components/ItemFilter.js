@@ -19,11 +19,10 @@ const ItemFilter = React.createClass({
     },
 
     render: function() {
-        var itemsAll = ItemStore.getListItemCount(),
-            itemsUnchecked = 0,
-            itemsChecked = 0;
+        var itemsCount = ItemStore.getCurrentListItemCount(),
+            itemsAll = itemsCount.unchecked + itemsCount.checked;
 
-        console.log(this.props.filter);
+            console.log(itemsCount);
 
         return (
             <div className="list-item-filter">
@@ -35,11 +34,11 @@ const ItemFilter = React.createClass({
                     <li
                         className={this.props.filter == "SHOW_UNCHECKED" ? "active" : null}
                         onClick={function() {this.onFilterClick("SHOW_UNCHECKED")}.bind(this)}
-                    >Unchecked ({itemsUnchecked})</li>
+                    >Unchecked ({itemsCount.unchecked})</li>
                     <li
                         className={this.props.filter == "SHOW_CHECKED" ? "active" : null}
                         onClick={function() {this.onFilterClick("SHOW_CHECKED")}.bind(this)}
-                    >Checked ({itemsChecked})</li>
+                    >Checked ({itemsCount.checked})</li>
                 </ul>
             </div>
         );
