@@ -27,12 +27,18 @@ const Header = React.createClass({
             <div className="header">
                 {this.props.navBack ?
                     <div
-                        className="header-back"
+                        className="header-left-button"
                         onClick={this.backNav}
                     >
                         Back
                     </div>
-                : null}
+                :
+                    <div
+                        className="header-left-button"
+                    >
+                        Menu
+                    </div>
+                }
                 <h1 className="header-title">{this.props.title}</h1>
                 {this.props.options ?
                     <div
