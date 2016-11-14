@@ -4,6 +4,8 @@ import React from 'react';
 import * as ListActions from '../actions/ListActions';
 import * as ItemActions from '../actions/ItemActions';
 
+var ENTER_KEY_CODE = 13;
+
 const ListAdd = React.createClass({
 
     propTypes: {
@@ -17,6 +19,12 @@ const ListAdd = React.createClass({
         }
     },
 
+    onInputBlur: function() {
+        if (this.state.title.trim() == "") {
+            this.onReset();
+        }
+    },
+
     onInputChange: function(e) {
         const inputValue = e.target.value;
         this.setState({
@@ -25,16 +33,16 @@ const ListAdd = React.createClass({
         });
     },
 
+    onInputKeyDown: function(e) {
+        if (e.keyCode === ENTER_KEY_CODE) {
+            this.onSubmit(e);
+        }
+    },
+
     onInputFocus: function(value) {
         this.setState({
             isEditing: true
         });
-    },
-
-    onInputBlur: function() {
-        if (this.state.title.trim() == "") {
-            this.onReset();
-        }
     },
 
     onReset: function(e) {
@@ -49,6 +57,7 @@ const ListAdd = React.createClass({
 
     onSubmit: function(e) {
         e.preventDefault();
+        e.target.blur();
         if (this.state.title.trim() != "") {
             if (this.props.condActions == "ListActions") {
                 ListActions.default.listCreate(this.state.title);
@@ -56,7 +65,7 @@ const ListAdd = React.createClass({
                 ItemActions.default.itemCreate(this.state.title);
             }
         }
-        this.onReset(e);
+        this.onReset();
     },
 
     render: function() {
@@ -86,11 +95,8 @@ const ListAdd = React.createClass({
                         placeholder="Add Item"
                         onChange={this.onInputChange}
                         onFocus={this.onInputFocus}
+                        onKeyDown={this.onInputKeyDown}
                         onBlur={this.onInputBlur}
-                    />
-                    <input
-                        className="input-hidden"
-                        type="submit"
                     />
                     {this.state.isEditing
                     && this.state.title.trim() != "" ?
@@ -101,6 +107,10 @@ const ListAdd = React.createClass({
                         <span>&#10004;</span>
                     </div>
                     : null}
+                    <input
+                        className="input-hidden"
+                        type="submit"
+                    />
                 </form>
             </div>
         );

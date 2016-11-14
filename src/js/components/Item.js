@@ -8,6 +8,8 @@ import * as ItemActions from '../actions/ItemActions';
 // Components
 import ItemSettings from './ItemSettings';
 
+var ENTER_KEY_CODE = 13;
+
 const ListItem = React.createClass({
 
     propTypes: {
@@ -67,9 +69,20 @@ const ListItem = React.createClass({
         });
     },
 
+    onInputClick: function(e) {
+        this.setState({
+            isEditing: true
+        });
+    },
+
+    onInputKeyDown: function(e) {
+        if (e.keyCode === ENTER_KEY_CODE) {
+            console.log("LOL");
+        }
+    },
+
     onItemSubmit: function(e) {
         e.preventDefault();
-        // console.log(e);
     },
 
     onOptionsExpand: function() {
@@ -82,12 +95,6 @@ const ListItem = React.createClass({
 
         this.setState({
             title: inputValue
-        });
-    },
-
-    onInputClick: function(e) {
-        this.setState({
-            isEditing: true
         });
     },
 
