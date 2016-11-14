@@ -22,8 +22,6 @@ const ItemFilter = React.createClass({
         var itemsCount = ItemStore.getCurrentListItemCount(),
             itemsAll = itemsCount.unchecked + itemsCount.checked;
 
-            console.log(itemsCount);
-
         return (
             <div className="list-item-filter">
                 <ul>

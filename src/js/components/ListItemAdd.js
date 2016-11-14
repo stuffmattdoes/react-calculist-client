@@ -57,7 +57,6 @@ const ListAdd = React.createClass({
 
     onSubmit: function(e) {
         e.preventDefault();
-        e.target.blur();
         if (this.state.title.trim() != "") {
             if (this.props.condActions == "ListActions") {
                 ListActions.default.listCreate(this.state.title);
