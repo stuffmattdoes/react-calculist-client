@@ -1,45 +1,49 @@
 import React from 'react';
 
+// actions
+import * as ItemActions from '../actions/ItemActions';
+
+// stores
+import ItemStore from '../stores/ItemStore';
+
 const ItemFilter = React.createClass({
 
     propTypes: {
         filter: React.PropTypes.string.isRequired,
-        items: React.PropTypes.array.isRequired,
-    //     onFilterClick: React.PropTypes.func.isRequired
+    },
+
+    onFilterClick: function(filter) {
+        ItemActions.default.itemSetVisibilityFilter(
+            filter
+        );
     },
 
     render: function() {
-        var filterActiveClass = "active"
-        var itemsAll = 0;
-        var itemsUnchecked = 0;
-        var itemsChecked = 0;
+        var itemsAll = ItemStore.getListItemCount(),
+            itemsUnchecked = 0,
+            itemsChecked = 0;
 
-        this.props.items.forEach(function(value, index) {
-            itemsAll ++;
-
-            if (value.checked == false) {
-                itemsUnchecked ++;
-            } else {
-                itemsChecked ++;
-            }
-        });
+        console.log(this.props.filter);
 
         return (
             <div className="list-item-filter">
                 <ul>
                     <li
-                        onClick={function() {this.props.onFilterClick("all")}.bind(this)}
+                        className={this.props.filter == "SHOW_ALL" ? "active" : null}
+                        onClick={function() {this.onFilterClick("SHOW_ALL")}.bind(this)}
                     >All ({itemsAll})</li>
                     <li
-                        onClick={function() {this.props.onFilterClick("unchecked")}.bind(this)}
+                        className={this.props.filter == "SHOW_UNCHECKED" ? "active" : null}
+                        onClick={function() {this.onFilterClick("SHOW_UNCHECKED")}.bind(this)}
                     >Unchecked ({itemsUnchecked})</li>
                     <li
-                        onClick={function() {this.props.onFilterClick("checked")}.bind(this)}
+                        className={this.props.filter == "SHOW_CHECKED" ? "active" : null}
+                        onClick={function() {this.onFilterClick("SHOW_CHECKED")}.bind(this)}
                     >Checked ({itemsChecked})</li>
                 </ul>
             </div>
         );
     }
-})
+});
 
 export default ItemFilter;

@@ -17,8 +17,8 @@ const ItemView = React.createClass({
 
     getInitialState: function() {
         return {
-            filter: "all",
-            items: ItemStore.getAllForCurrentList(),
+            items: ItemStore.getAllForCurrentList(true),
+            currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList()
         };
     },
@@ -33,7 +33,8 @@ const ItemView = React.createClass({
 
     getAllItemsFromList: function() {
         this.setState({
-            items: ItemStore.getAllForCurrentList(),
+            items: ItemStore.getAllForCurrentList(true),
+            currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList()
         });
     },
@@ -53,7 +54,7 @@ const ItemView = React.createClass({
             <div className="item-view">
                 <Header navBack={true} title={this.state.currentList.title} />
                 <div className="list-item-scroll">
-                    <ItemFilter filter={this.state.filter} items={this.state.items} />
+                    <ItemFilter filter={this.state.currentFilter} items={this.state.items} />
                     <div className="list-container">
                         {listItems}
                     </div>

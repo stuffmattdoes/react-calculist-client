@@ -80,7 +80,7 @@ const ListAdd = React.createClass({
                     <div className="input-group-buttons">
                         <div
                             onClick={this.onReset}
-                            className="button-outline button-cancel"
+                            className="button-main button-cancel"
                         ><span>+</span></div>
                         <label
                             className="button-main button-add"

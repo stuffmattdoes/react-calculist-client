@@ -42,11 +42,10 @@ const ListView = React.createClass({
 
         var totalLists = this.state.listsData.map(function(list, index) {
             var itemCount = ItemStore.getListItemCount(list.ID);
-            var listClasses = "list-item";
 
             return (
                 <div
-                    className={listClasses}
+                    className="list-item"
                     key={list.ID}
                     onClick={function() {this.onListClick(list.ID);}.bind(this)}
                 >
@@ -55,7 +54,8 @@ const ListView = React.createClass({
                         {itemCount > 0 ?
                             <div className="list-count">{itemCount}</div>
                         :
-                            <div className="checkmark">&#10004;</div>
+                            null
+                            // <div className="checkmark">&#10004;</div>
                         }
                     </div>
                 </div>

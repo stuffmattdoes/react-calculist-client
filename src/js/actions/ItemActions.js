@@ -12,7 +12,6 @@ const ItemActions = {
         });
 
         // API action call
-        // var newItem = ListUtils.
         WebAPIUtils.itemCreate(itemID, title);
     },
 
@@ -25,6 +24,13 @@ const ItemActions = {
 
         // API action call
         WebAPIUtils.itemDelete(itemID);
+    },
+
+    itemSetVisibilityFilter: function(filter) {
+        dispatcher.dispatch({
+            type: "SET_VISIBILITY_FILTER",
+            filter: filter
+        });
     },
 
     itemUpdateAmount: function(itemID, amount) {

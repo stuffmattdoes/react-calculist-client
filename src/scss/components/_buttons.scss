@@ -9,13 +9,27 @@
 
     span {
         display: block;
-        background-color: #43BFA4;
         width: 20px;
         height: 20px;
         border-radius: 50%;
         color: #F5F5F5;
         padding: 1px 6px;
     }
+
+    &.button-add,
+    &.button-confirm {
+        span {
+            background-color: #43BFA4;
+        }
+    }
+
+    &.button-cancel {
+        span {
+            background-color: #EB5365;
+            transform: rotate(45deg);
+        }
+    }
+
 }
 
 .button-outline {
