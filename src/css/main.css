@@ -738,12 +738,16 @@ input.input-hidden {
   cursor: pointer; }
   .button-main span {
     display: block;
-    background-color: #43BFA4;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     color: #F5F5F5;
     padding: 1px 6px; }
+  .button-main.button-add span, .button-main.button-confirm span {
+    background-color: #43BFA4; }
+  .button-main.button-cancel span {
+    background-color: #EB5365;
+    transform: rotate(45deg); }
 
 .button-outline {
   display: block;
@@ -876,6 +880,7 @@ input {
     text-align: center;
     border-bottom: 1px solid #d7d7d7; }
     .list-item-filter ul li {
+      color: #757575;
       padding: 14px 10px;
       list-style: none;
       display: inline-block;
@@ -883,7 +888,7 @@ input {
       font-size: 12px;
       border-radius: 2px; }
       .list-item-filter ul li.active {
-        font-weight: bold;
+        color: #353535;
         border-bottom: 2px solid #43BFA4; }
 
 .list-item-options {

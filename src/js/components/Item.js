@@ -20,7 +20,7 @@ const ListItem = React.createClass({
         return {
             amount: this.props.itemProps.amount,
             checked: this.props.itemProps.checked,
-            expanded: false,
+            settingsOpen: false,
             isEditing: false,
             title: this.props.itemProps.title
         };
@@ -86,7 +86,7 @@ const ListItem = React.createClass({
     },
 
     onOptionsExpand: function() {
-        this.state.expanded = !this.state.expanded;
+        this.state.settingsOpen = !this.state.settingsOpen;
         this.setState(this.state);
     },
 
@@ -127,7 +127,7 @@ const ListItem = React.createClass({
             listItemClass += ' list-item-unchecked';
         }
 
-        if (this.state.expanded) {
+        if (this.state.settingsOpen) {
             listItemClass += ' list-item-expanded';
         }
 
@@ -190,7 +190,7 @@ const ListItem = React.createClass({
                         type="submit"
                     />
                 </form>
-                {this.state.expanded ?
+                {this.state.settingsOpen ?
                     <ItemSettings
                         itemProps={this.props.itemProps}
                     />

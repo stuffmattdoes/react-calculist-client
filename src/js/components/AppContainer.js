@@ -35,7 +35,6 @@ const AppContainer = React.createClass({
     },
 
     render: function() {
-
         return (
             <div className="app">
                 {this.state.currentList == null ?
