@@ -2,12 +2,16 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './app.js',                    // The main file for our app
+    entry: './src/js/App.js',                   // The main file for our app
     output: {
-        path: './public/',                             // The path to write our compiled app to
-        filename: 'calculist.bundle.js'                   // The new name for our compiled app
+        path: './public/',                      // The path to write our compiled app to
+        filename: 'calculist.bundle.js'         // The new name for our compiled app
     },
-    devtool: 'source-map',                      //
+    devtool: 'source-map',
+    devServer: {                                // Need to redirect dev server to our index.html file
+        contentBase: "./public",
+        hot: true
+    },
     module: {                                   // Define which transformations to make on our code
         loaders: [                              // Instruct webpack to run source files through the specified loaders
             {
@@ -28,9 +32,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('main.css'),              // Extract i<style> tag in HTML and write to external CSS file
-        new webpack.optimize.UglifyJsPlugin({           // Minify javascript
-          compress: { warnings: false }
-        })
+        new ExtractTextPlugin('main.css')              // Extract i<style> tag in HTML and write to external CSS file
     ]
 };

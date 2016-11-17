@@ -2,16 +2,17 @@
   "name": "Calculist",
   "version": "1.0.0",
   "description": "",
-  "main": "./app.js",
+  "main": "./src/js/App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack-dev-server --port 8080 --progress --inline --hot"
+    "dev": "webpack-dev-server --port 8080 --progress --inline --hot",
+    "server": "node src/js/server/Server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Matthew Morrison",
   "license": "ISC",
   "dependencies": {
-    "classnames": "^2.2.5",
+    "express": "^4.14.0",
     "flux": "^3.1.0",
     "mongoose": "^4.6.8",
     "react": "^15.3.2",
@@ -22,6 +23,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "classnames": "^2.2.5",
     "css-loader": "^0.25.0",
     "currency-formatter": "^1.0.6",
     "extract-text-webpack-plugin": "^1.0.1",

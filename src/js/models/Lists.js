@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 // list.title
 // list.ID
 
-new listsSchema = new mongoose.Schema({
+listsSchema = new mongoose.Schema({
     name: String,
     ID: String
 });

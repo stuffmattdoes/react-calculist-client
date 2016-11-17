@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Components
-import AppContainer from './src/js/components/AppContainer';
-import ListView from './src/js/components/ListView';
+import AppContainer from './components/AppContainer';
+import ListView from './components/ListView';
 
 // Data
-var ItemDataExample = require('./src/js/ItemDataExample');
-var ListDataExample = require('./src/js/ListDataExample');
-// var server = require('./server');
+var ItemDataExample = require('./ItemDataExample');
+var ListDataExample = require('./ListDataExample');
+// var server = require('./Server');
 
 // API
-var WebAPIUtils = require('./src/js/utils/WebAPIUtils');
+var WebAPIUtils = require('./utils/WebAPIUtils');
 
 // CSS
-require('./src/scss/main.scss');
+require('../scss/main.scss');
 
 localStorage.clear();
 ItemDataExample.init();     // Load data into local storage
