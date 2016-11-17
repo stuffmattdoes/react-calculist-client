@@ -17,14 +17,21 @@ var lists = [
 ];
 
 lists.forEach(function(list, index) {
+
     List.find({'ID': list.ID}, function(error, lists) {
-        console.log(error, lists);
+
+        if (lists.length) {
+            // console.log(lists.length);
+            List.remove({}, function() {});
+        }
 
         if (!error && !lists.length) {
-            lists.create({
-                title: lists.title,
-                ID: lists.ID
+            // console.log(lists);
+            List.create({
+                title: list.title,
+                ID: list.ID
             });
         }
+
     });
 });
