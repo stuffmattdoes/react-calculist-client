@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var parser = require('body-parser');
 var app = express();
 var router = require('./api/Routes');
 
@@ -10,6 +11,7 @@ require('./Seed');
 
 // Serve static files like CSS, HTML & JS
 app.use('/', express.static('public'));
+app.use(parser.json());
 
 // Mount router to app
 // Prefix routes with API namespace

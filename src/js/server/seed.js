@@ -20,10 +20,9 @@ lists.forEach(function(list, index) {
 
     List.find({'ID': list.ID}, function(error, lists) {
 
-        if (lists.length) {
-            // console.log(lists.length);
-            List.remove({}, function() {});
-        }
+        // if (lists.length) {
+        //     List.remove({}, function() {});
+        // }
 
         if (!error && !lists.length) {
             // console.log(lists);
