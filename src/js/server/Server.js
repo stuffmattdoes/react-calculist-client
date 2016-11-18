@@ -18,6 +18,6 @@ app.use(parser.json());
 app.use('/api', router);
 
 // Run local server
-app.listen(8080, function() {
-    console.log("The server is running on port: 8080");
+app.listen(8081, function() {
+    console.log("The server is running on port: 8081");
 });

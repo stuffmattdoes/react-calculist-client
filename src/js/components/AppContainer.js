@@ -14,18 +14,21 @@ const AppContainer = React.createClass({
 
     getInitialState: function() {
         return {
-            currentList: ListStore.getCurrentListID()
+            null
         };
     },
 
     getStateFromStores: function() {
-        // console.log("AppContainer: getStateFromStores");
         this.setState({
-            currentList: ListStore.getCurrentListID()
+            currentList: ListStore.getCurrentListID(),
+            lists: ListStore.getAll(),
+            // items: 
         });
+        console.log("AppContainer: getStateFromStores", this.state);
     },
 
     componentWillMount: function() {
+        this.getStateFromStores();
         ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },

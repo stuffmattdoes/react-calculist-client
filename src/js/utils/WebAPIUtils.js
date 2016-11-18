@@ -1,5 +1,6 @@
 // Actions
 var ServerActions = require("../actions/ServerActions");
+var axios = require('axios');
 
 // !!! Please Note !!!
 // We are using localStorage as an example, but in a real-world scenario, this
@@ -123,11 +124,14 @@ const WebAPIUtils = {
     listGetAll: function() {
 
         // Simulate receiving data from a database
-        var rawLists = JSON.parse(localStorage.getItem('lists'));
-
-        // Simulate success callback
-        // console.log("Web API Utils: Get all lists", rawLists);
-        ServerActions.default.receiveAllLists(rawLists);
+        var rawLists = axios.get('/api/lists', {})
+            .then(function (response) {
+                // console.log(response.data);
+                ServerActions.default.receiveAllLists(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     },
 
     listUpdate: function() {

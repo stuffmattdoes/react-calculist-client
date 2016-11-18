@@ -6,11 +6,6 @@ var _lists = {};
 var _currentID = null;
 var CHANGE_EVENT = "CHANGE_LIST";
 
-function populateLists(rawLists) {
-    // console.log("Populate lists");
-    _lists = rawLists;
-}
-
 class ListStore extends EventEmitter {
 
     getAll() {
@@ -54,6 +49,12 @@ class ListStore extends EventEmitter {
             }
         });
         this.resetListView();
+        this.emit(CHANGE_EVENT);
+    }
+
+    listPopulate(rawLists) {
+        // console.log("Populate lists", rawLists);
+        _lists = rawLists;
         this.emit(CHANGE_EVENT);
     }
 
@@ -115,7 +116,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "RECEIVE_RAW_LISTS" : {
-                populateLists(
+                this.listPopulate(
                     action.rawLists
                 )
                 break;
