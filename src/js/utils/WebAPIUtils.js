@@ -1,6 +1,6 @@
 // Actions
 var ServerActions = require("../actions/ServerActions");
-var axios = require('axios');
+import $ from 'jquery';
 
 // !!! Please Note !!!
 // We are using localStorage as an example, but in a real-world scenario, this
@@ -8,6 +8,11 @@ var axios = require('axios');
 // The function signatures below might be similar to what you would build, but
 // the contents of the functions are just trying to simulate client-server
 // communication and server-side processing.
+
+const API_PREFIX = '/api';
+const API_URLS = {
+    lists: API_PREFIX + '/lists'
+}
 
 const WebAPIUtils = {
 
@@ -113,7 +118,7 @@ const WebAPIUtils = {
 
     listCreate: function(listID, title) {
         // Simulate success callback
-        // console.log("Web API Utils: Create list");
+        console.log("Web API Utils: Create list");
     },
 
     listDelete: function(listID) {
@@ -122,16 +127,24 @@ const WebAPIUtils = {
     },
 
     listGetAll: function() {
+        // console.log("WebAPIUtils: listGetAll");
 
-        // Simulate receiving data from a database
-        var rawLists = axios.get('/api/lists', {})
-            .then(function (response) {
-                // console.log(response.data);
-                ServerActions.default.receiveAllLists(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // JQuery AJAX
+        var deferred = $.Deferred();
+
+        var rawLists = $.ajax({
+            url: API_URLS.lists,
+            context: document.body
+        }).done(function(data, textStatus, jqXHR) {
+            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            ServerActions.default.receiveAllLists(data);
+            deferred.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR, textStatus, errorThrown);
+            deferred.reject();
+        });
+
+        return deferred;
     },
 
     listUpdate: function() {

@@ -8,7 +8,6 @@ import ListView from './components/ListView';
 // Data
 var ItemDataExample = require('./ItemDataExample');
 var ListDataExample = require('./ListDataExample');
-// var server = require('./Server');
 
 // API
 var WebAPIUtils = require('./utils/WebAPIUtils');
@@ -16,14 +15,22 @@ var WebAPIUtils = require('./utils/WebAPIUtils');
 // CSS
 require('../scss/main.scss');
 
-localStorage.clear();
-ItemDataExample.init();     // Load data into local storage
-WebAPIUtils.default.itemGetAll();
+var webListGetAll = WebAPIUtils.default.listGetAll();
+var webItemGetAll = WebAPIUtils.default.itemGetAll();
 
-// ListDataExample.init();
-WebAPIUtils.default.listGetAll();
+webListGetAll.done(function(data) {
+    // console.log("App: webListGetAll callback", data);
+    renderApp();
+});
 
-ReactDOM.render(
-    <AppContainer />,
-    document.getElementById('container')
-);
+// webItemGetAll.done(function(data) {
+    // console.log("App: webItemGetAll callback", data);
+    // renderApp();
+// });
+
+function renderApp() {
+    ReactDOM.render(
+        <AppContainer />,
+        document.getElementById('container')
+    );
+}

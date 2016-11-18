@@ -14,21 +14,21 @@ const AppContainer = React.createClass({
 
     getInitialState: function() {
         return {
-            null
+            currentListID: null
         };
     },
 
     getStateFromStores: function() {
+        // console.log("AppContainer: getStateFromStores", this.state);
         this.setState({
-            currentList: ListStore.getCurrentListID(),
-            lists: ListStore.getAll(),
-            // items: 
+            currentListID: ListStore.getCurrentListID()
+        }, function() {
+            // console.log("AppContainer: getStateFromStores callback");
         });
-        console.log("AppContainer: getStateFromStores", this.state);
     },
 
     componentWillMount: function() {
-        this.getStateFromStores();
+        // WebAPIUtils.default.listGetAll();
         ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
@@ -41,10 +41,10 @@ const AppContainer = React.createClass({
     render: function() {
         return (
             <div className="app">
-                {this.state.currentList == null ?
-                    <ListView />
+                {this.state.currentListID == null ?
+                    <ListView/>
                 :
-                    <ItemView />
+                    null
                 }
             </div>
         );

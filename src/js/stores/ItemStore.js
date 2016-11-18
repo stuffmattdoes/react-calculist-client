@@ -7,7 +7,7 @@ var _items = {};
 var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 
-function populateItems(rawItems) {
+function itemsPopulate(rawItems) {
     _items = rawItems;
 }
 
@@ -208,7 +208,7 @@ class ItemStore extends EventEmitter {
                 break;
             }
             case "RECEIVE_RAW_ITEMS" : {
-                populateItems(
+                itemsPopulate(
                     action.rawItems
                 )
                 break;

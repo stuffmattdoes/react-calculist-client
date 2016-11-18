@@ -16,11 +16,12 @@ const ListView = React.createClass({
 
     getInitialState: function() {
         return {
-            listsData: ListStore.getAll()
+            listsData: {}
         };
     },
 
-    componentDidMount: function() {
+    componentWillMount: function() {
+        this.getStateFromStores();
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
 
@@ -29,8 +30,11 @@ const ListView = React.createClass({
     },
 
     getStateFromStores: function() {
+        // console.log("ListView: getStateFromStores", this.state.listsData);
         this.setState({
             listsData: ListStore.getAll()
+        }, function() {
+            // console.log("ListView: getStateFromStores callback", this.state.listsData);
         });
     },
 
@@ -39,7 +43,7 @@ const ListView = React.createClass({
     },
 
     render: function() {
-        
+
         var totalLists = this.state.listsData.map(function(list, index) {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
 
