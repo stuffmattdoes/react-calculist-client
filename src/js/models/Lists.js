@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 // list.ID
 
 var listsSchema = new mongoose.Schema({
-    name: String,
+    title: String,
     ID: String
 });
 

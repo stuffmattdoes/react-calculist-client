@@ -33,7 +33,7 @@ const WebAPIUtils = {
                 price: 0.00,
                 quantity: 0
             },
-            id: itemID
+            ID: itemID
         }
 
         // Get list ID. For now, just default to the first list index
@@ -116,35 +116,57 @@ const WebAPIUtils = {
         }, 0);
     },
 
-    listCreate: function(listID, title) {
-        // Simulate success callback
-        console.log("Web API Utils: Create list");
+    listCreate: function(listID, listTitle) {
+        console.log("Web API Utils: Create list", listID, listTitle);
+        var d = $.Deferred();
+        var newList =  {
+            "title": listTitle,
+            "ID": listID
+        }
+
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            context: document.body,
+            data: JSON.stringify(newList),
+            method: "POST",
+            url: API_URLS.lists
+        }).done(function(data, textStatus, jqXHR) {
+            console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
+            d.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
+
+        return d;
     },
 
     listDelete: function(listID) {
+        console.log("Web API Utils: Delete list");
+        var d = $.Deferred();
         // Simulate success callback
         // console.log("Web API Utils: Delete List");
     },
 
     listGetAll: function() {
         // console.log("WebAPIUtils: listGetAll");
+        var d = $.Deferred();
 
-        // JQuery AJAX
-        var deferred = $.Deferred();
-
-        var rawLists = $.ajax({
-            url: API_URLS.lists,
-            context: document.body
+        $.ajax({
+            context: document.body,
+            dataType: "json",
+            method: "GET",
+            url: API_URLS.lists
         }).done(function(data, textStatus, jqXHR) {
-            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             ServerActions.default.receiveAllLists(data);
-            deferred.resolve();
+            d.resolve();
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // console.log(jqXHR, textStatus, errorThrown);
-            deferred.reject();
+            dp.reject();
         });
 
-        return deferred;
+        return d;
     },
 
     listUpdate: function() {

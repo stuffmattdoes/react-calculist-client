@@ -24,13 +24,14 @@ router.get('/lists', function(req, res) {
 // POST route - create items
 router.post('/lists', function(req, res) {
     var list = req.body;
+    console.log(list);
     List.create(list, function(err, list) {
         if (err) {
             return res.status(500).json({message: err.message});
         }
         res.json({
-            'list': list,
-            'message': "List created."
+            "list": list,
+            "message": "List created."
         });
     });
 });

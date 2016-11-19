@@ -19,7 +19,6 @@ var lists = [
 lists.forEach(function(list, index) {
 
     List.find({'ID': list.ID}, function(error, lists) {
-
         // if (lists.length) {
         //     List.remove({}, function() {});
         // }

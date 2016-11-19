@@ -21,7 +21,6 @@ const ListActions = {
 
         // API action call
         WebAPIUtils.listCreate(listID, title);
-
     },
 
     listDelete: function(listID) {
