@@ -22,6 +22,12 @@ router.get('/lists', function(req, res) {
 });
 
 // POST route - create items
+/*
+{
+    "New_Property": "New_Key"
+    "_id": "58309833a1f3175197e9d5be"
+}
+*/
 router.post('/lists', function(req, res) {
     var list = req.body;
     console.log(list);
@@ -37,6 +43,12 @@ router.post('/lists', function(req, res) {
 });
 
 // PUT route - update existing items
+/*
+{
+    "Existing_Property": "Updated_Key"
+    "_id": "58309833a1f3175197e9d5be"
+}
+*/
 router.put('/lists/:id', function(req, res) {
     var id = req.params.id;
     var list = req.body;
@@ -57,15 +69,21 @@ router.put('/lists/:id', function(req, res) {
 });
 
 // DELETE route - remote existing items
+/*
+{
+    "_id": "58309833a1f3175197e9d5be"
+}
+*/
 router.delete('/lists/:id', function(req, res) {
     var id = req.params.id;
     var list = req.body;
+    console.log(list, id, list._id);
 
     if (list && list._id !== id) {
         return res.status(500).json({err: "IDs do not match"});
     }
 
-    List.remove({}, function(err, list) {
+    List.findByIdAndRemove(id, function(err, list) {
         if (err) {
             return res.status(500).json({message: err.message});
         }
