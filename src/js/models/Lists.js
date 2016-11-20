@@ -2,8 +2,10 @@
 
 var mongoose = require('mongoose');
 
-// list.title
-// list.ID
+/*
+    list.title
+    list.ID
+*/
 
 var listsSchema = new mongoose.Schema({
     title: String,

@@ -42,7 +42,7 @@ const AppContainer = React.createClass({
                 {this.state.currentListID == null ?
                     <ListView/>
                 :
-                    null
+                    <ItemView/>
                 }
             </div>
         );

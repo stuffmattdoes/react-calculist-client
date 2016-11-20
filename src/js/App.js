@@ -19,14 +19,8 @@ var webListGetAll = WebAPIUtils.default.listGetAll();
 var webItemGetAll = WebAPIUtils.default.itemGetAll();
 
 webListGetAll.done(function(data) {
-    // console.log("App: webListGetAll callback", data);
     renderApp();
 });
-
-// webItemGetAll.done(function(data) {
-    // console.log("App: webItemGetAll callback", data);
-    // renderApp();
-// });
 
 function renderApp() {
     ReactDOM.render(

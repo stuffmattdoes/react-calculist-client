@@ -117,7 +117,7 @@ const WebAPIUtils = {
     },
 
     listCreate: function(listID, listTitle) {
-        console.log("Web API Utils: Create list", listID, listTitle);
+        // console.log("Web API Utils: Create list", listID, listTitle);
         var d = $.Deferred();
         var newList =  {
             "title": listTitle,
@@ -131,10 +131,10 @@ const WebAPIUtils = {
             method: "POST",
             url: API_URLS.lists
         }).done(function(data, textStatus, jqXHR) {
-            console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
+            // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
             d.resolve();
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
+            // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
 
@@ -142,7 +142,7 @@ const WebAPIUtils = {
     },
 
     listDelete: function(listID) {
-        console.log("Web API Utils: Delete list");
+        // console.log("Web API Utils: Delete list");
         var d = $.Deferred();
         // Simulate success callback
         // console.log("Web API Utils: Delete List");
@@ -158,12 +158,12 @@ const WebAPIUtils = {
             method: "GET",
             url: API_URLS.lists
         }).done(function(data, textStatus, jqXHR) {
-            console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             ServerActions.default.receiveAllLists(data);
             d.resolve();
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // console.log(jqXHR, textStatus, errorThrown);
-            dp.reject();
+            d.reject();
         });
 
         return d;
