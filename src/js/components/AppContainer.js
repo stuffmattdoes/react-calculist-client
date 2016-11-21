@@ -26,7 +26,6 @@ const AppContainer = React.createClass({
     },
 
     componentWillMount: function() {
-        // WebAPIUtils.default.listGetAll();
         ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },

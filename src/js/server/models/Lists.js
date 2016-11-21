@@ -2,14 +2,16 @@
 
 var mongoose = require('mongoose');
 
-// list.title
-// list.ID
+/*
+    title: "List Title",
+    ID: "iv3v3mtv"
+*/
 
-var listsSchema = new mongoose.Schema({
+var listSchema = new mongoose.Schema({
     title: String,
     ID: String
 });
 
-var listsModel = mongoose.model('Lists', listsSchema);
+var listModel = mongoose.model('List', listSchema);
 
-module.exports = listsModel;
+module.exports = listModel;

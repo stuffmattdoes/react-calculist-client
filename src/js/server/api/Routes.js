@@ -11,7 +11,7 @@ var Item = require('../models/Items');
 
 // Routes
 // GET route - receive existing items
-router.get('/lists', function(req, res) {
+router.get('/lists/', function(req, res) {
     List.find({}, function(err, lists) {
         if (err) {
             res.status(500).json({message: err.message});
@@ -30,7 +30,7 @@ router.get('/lists', function(req, res) {
     "_id": "58309833a1f3175197e9d5be"
 }
 */
-router.post('/lists', function(req, res) {
+router.post('/lists/', function(req, res) {
     var list = req.body;
     List.create(list, function(err, list) {
         if (err) {
@@ -99,23 +99,35 @@ router.delete('/lists/:id', function(req, res) {
 // ----------
 
 // Routes
-// GET route - receive existing items
-router.get('/lists/:id', function(req, res) {
-    var id = req.params.id;
-    var list = req.body;
-    // if (list && list._id !== id) {
-    //     return res.status(500).json({err: "ID was not found"});
-    // }
-
-    Item.find(id, function(err, list) {
+// GET route - receive all items
+router.get('/items/', function(req, res) {
+    Item.find({}, function(err, items) {
         if (err) {
             res.status(500).json({message: err.message});
             return;
         }
-        // console.log(list);
+        res.json({
+            items: items
+        });
+    });
+});
+
+// GET route - receive items for current list
+router.get('/lists/:id', function(req, res) {
+    var id = req.params.id;
+
+    // if (item && item.listID !== id) {
+    //     return res.status(500).json({err: "ID was not found"});
+    // }
+
+    Item.find({}, function(err, items) {
+        if (err) {
+            res.status(500).json({message: err.message});
+            return;
+        }
 
         res.json({
-            lists: list
+            items: items
         });
     });
 });

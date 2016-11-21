@@ -17,10 +17,28 @@ require('../scss/main.scss');
 
 var webListGetAll = WebAPIUtils.default.listGetAll();
 var webItemGetAll = WebAPIUtils.default.itemGetAll();
+var receivedLists = false;
+var receivedItems = false
+
+// localStorage.clear();
 
 webListGetAll.done(function(data) {
-    renderApp();
+    receivedLists = true;
+
+    if (receivedLists && receivedItems) {
+        renderApp();
+    }
+
 });
+
+webItemGetAll.done(function(data) {
+    receivedItems = true;
+
+    if (receivedLists && receivedItems) {
+        renderApp();
+    }
+});
+
 
 function renderApp() {
     ReactDOM.render(

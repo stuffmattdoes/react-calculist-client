@@ -8,7 +8,8 @@ var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 
 function itemsPopulate(rawItems) {
-    _items = rawItems;
+    _items = rawItems.items;
+    // console.log("Populate items:", _items);
 }
 
 class ItemStore extends EventEmitter {
@@ -68,6 +69,7 @@ class ItemStore extends EventEmitter {
     }
 
     getListItemCount(listID) {
+        // console.log("ItemStore: getListItemCount", listID, _items);
         var listItemChecked = 0,
             listItemUnchecked = 0;
 

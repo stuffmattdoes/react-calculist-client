@@ -46,6 +46,7 @@ const ListView = React.createClass({
 
         var totalLists = this.state.listsData.map(function(list, index) {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
+            // var itemCount = 0;
 
             return (
                 <div

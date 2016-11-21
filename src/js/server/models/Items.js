@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 /*
-    title: "Milk",
+    title: "Item Title",
     checked: false,
     amount: 0.00,
     tax: {
@@ -19,7 +19,7 @@ var mongoose = require('mongoose');
     listID: 'iv3v3mtv'
 */
 
-var itemsSchema = new mongoose.Schema({
+var itemSchema = new mongoose.Schema({
     title: String,
     checked: Boolean,
     amount: Number,
@@ -36,6 +36,6 @@ var itemsSchema = new mongoose.Schema({
     listID: String
 });
 
-var itemsModel = mongoose.model('Items', itemsSchema);
+var itemModel = mongoose.model('Item', itemSchema);
 
-module.exports = itemsModel;
+module.exports = itemModel;

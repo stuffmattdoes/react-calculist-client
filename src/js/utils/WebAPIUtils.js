@@ -11,6 +11,7 @@ import $ from 'jquery';
 
 const API_PREFIX = '/api';
 const API_URLS = {
+    items: API_PREFIX + '/items',
     lists: API_PREFIX + '/lists'
 }
 
@@ -67,12 +68,27 @@ const WebAPIUtils = {
 
     itemGetAll: function() {
 
-        // Simulate receiving data from a database
+        // Local Storage
         var rawItems = JSON.parse(localStorage.getItem('items'));
 
-        // Simulate success callback
-        // console.log("Web API Utils: Get all lists", rawItems);
-        ServerActions.default.receiveAllItems(rawItems);
+        // API
+        var d = $.Deferred();
+
+        $.ajax({
+            context: document.body,
+            dataType: "json",
+            method: "GET",
+            url: API_URLS.items
+        }).done(function(data, textStatus, jqXHR) {
+            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            ServerActions.default.receiveAllItems(data);
+            d.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
+
+        return d;
     },
 
     itemUpdate: function(itemID, updates) {
