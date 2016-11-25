@@ -9,8 +9,40 @@ import ListView from './ListView';
 import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
+// API
+import WebAPIUtils from '../utils/WebAPIUtils';
+
+// Data
+// var ItemDataExample = require('../ItemDataExample');
+// var ListDataExample = require('../ListDataExample');
+
+// Get Local storage first
+// localStorage.clear();
+// ListDataExample.init();
+// ItemDataExample.init();
+
+// Then get web storage
+var webListGetAll = WebAPIUtils.listGetAll();
+var webItemGetAll = WebAPIUtils.itemGetAll();
+var receivedLists = false;
+var receivedItems = false;
+/*
+webListGetAll.done(function(data) {
+    receivedLists = true;
+    if (receivedLists && receivedItems) {
+        renderApp();
+    }
+});
+
+webItemGetAll.done(function(data) {
+    receivedItems = true;
+    if (receivedLists && receivedItems) {
+        renderApp();
+    }
+});
+*/
 // Application class
-const AppContainer = React.createClass({
+const App = React.createClass({
 
     getInitialState: function() {
         return {
@@ -19,7 +51,7 @@ const AppContainer = React.createClass({
     },
 
     getStateFromStores: function() {
-        // console.log("AppContainer: getStateFromStores", this.state);
+        // console.log("Home: getStateFromStores", this.state);
         this.setState({
             currentListID: ListStore.getCurrentListID()
         });
@@ -48,4 +80,4 @@ const AppContainer = React.createClass({
     }
 });
 
-export default AppContainer;
+export default App;

@@ -2,9 +2,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/js/App.js',                   // The main file for our app
+    entry: './src/js/Index.js',                   // The main file for our app
     output: {
-        path: './public/',                      // The path to write our compiled app to
+        path: './public/js/',                      // The path to write our compiled app to
         filename: 'calculist.bundle.js'         // The new name for our compiled app
     },
     devtool: 'source-map',
@@ -32,6 +32,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('main.css')              // Extract i<style> tag in HTML and write to external CSS file
+        new ExtractTextPlugin('../css/main.css')              // Extract i<style> tag in HTML and write to external CSS file
     ]
 };

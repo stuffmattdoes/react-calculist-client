@@ -3,7 +3,7 @@
 var express = require('express');
 var parser = require('body-parser');
 var app = express();
-var router = require('./api/Routes');
+var router = require('./api/Router');
 
 // Database
 require('./Database');

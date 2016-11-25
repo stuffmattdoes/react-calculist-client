@@ -1,9 +1,16 @@
-'use strict';
-
 var express = require('express');
 var router = express.Router();
 var List = require('../models/Lists');
 var Item = require('../models/Items');
+
+
+// -----
+// Login
+// -----
+// router.get('/register', function(req, res, next) {
+//     return res.render('Register', {});
+// });
+
 
 // ----------
 // Lists view
@@ -11,7 +18,7 @@ var Item = require('../models/Items');
 
 // Routes
 // GET route - receive existing items
-router.get('/lists/', function(req, res) {
+router.get('/lists/', function(req, res, next) {
     List.find({}, function(err, lists) {
         if (err) {
             res.status(500).json({message: err.message});
@@ -30,7 +37,7 @@ router.get('/lists/', function(req, res) {
     "_id": "58309833a1f3175197e9d5be"
 }
 */
-router.post('/lists/', function(req, res) {
+router.post('/lists/', function(req, res, next) {
     var list = req.body;
     List.create(list, function(err, list) {
         if (err) {
@@ -50,7 +57,7 @@ router.post('/lists/', function(req, res) {
     "_id": "58309833a1f3175197e9d5be"
 }
 */
-router.put('/lists/:id', function(req, res) {
+router.put('/lists/:id', function(req, res, next) {
     var id = req.params.id;
     var list = req.body;
 
@@ -75,7 +82,7 @@ router.put('/lists/:id', function(req, res) {
     "_id": "58309833a1f3175197e9d5be"
 }
 */
-router.delete('/lists/:id', function(req, res) {
+router.delete('/lists/:id', function(req, res, next) {
     var id = req.params.id;
     var list = req.body;
 
@@ -100,7 +107,7 @@ router.delete('/lists/:id', function(req, res) {
 
 // Routes
 // GET route - receive all items
-router.get('/items/', function(req, res) {
+router.get('/items/', function(req, res, next) {
     Item.find({}, function(err, items) {
         if (err) {
             res.status(500).json({message: err.message});
@@ -113,7 +120,7 @@ router.get('/items/', function(req, res) {
 });
 
 // GET route - receive items for current list
-router.get('/lists/:id', function(req, res) {
+router.get('/lists/:id', function(req, res, next) {
     var id = req.params.id;
 
     // if (item && item.listID !== id) {
