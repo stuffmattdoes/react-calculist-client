@@ -69,7 +69,7 @@ const WebAPIUtils = {
     itemGetAll: function() {
 
         // Local Storage
-        var rawItems = JSON.parse(localStorage.getItem('items'));
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
 
         // API
         var d = $.Deferred();

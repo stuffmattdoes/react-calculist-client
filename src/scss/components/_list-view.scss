@@ -4,6 +4,10 @@
         padding: 12px 15px;
     }
 
+    .list-item-scroll {
+        bottom: 0;
+    }
+
     .list-item {
         cursor: pointer;
     }
@@ -36,7 +40,7 @@
     .list-item-title {
         margin: 5px 10px;
     }
-    
+
     .list-count {
         float: right;
     }

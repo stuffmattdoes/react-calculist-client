@@ -6,11 +6,6 @@ var _lists = {};
 var _currentID = null;
 var CHANGE_EVENT = "CHANGE_LIST";
 
-function listPopulate(rawLists) {
-    // console.log("Populate lists", rawLists.lists);
-    _lists = rawLists.lists;
-}
-
 class ListStore extends EventEmitter {
 
     getAll() {
@@ -57,6 +52,12 @@ class ListStore extends EventEmitter {
             }
         });
         this.resetListView();
+        this.emit(CHANGE_EVENT);
+    }
+
+    listsPopulate(rawLists) {
+        // console.log("Populate lists", rawLists.lists);
+        _lists = rawLists.lists;
         this.emit(CHANGE_EVENT);
     }
 
@@ -118,7 +119,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "RECEIVE_RAW_LISTS" : {
-                listPopulate(
+                this.listsPopulate(
                     action.rawLists
                 )
                 break;

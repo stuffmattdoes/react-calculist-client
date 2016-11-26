@@ -16,12 +16,11 @@ const ListView = React.createClass({
 
     getInitialState: function() {
         return {
-            listsData: {}
+            listsData: []
         };
     },
 
     componentWillMount: function() {
-        this.getStateFromStores();
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
 
@@ -30,11 +29,8 @@ const ListView = React.createClass({
     },
 
     getStateFromStores: function() {
-        // console.log("ListView: getStateFromStores", this.state.listsData);
         this.setState({
             listsData: ListStore.getAll()
-        }, function() {
-            // console.log("ListView: getStateFromStores callback", this.state.listsData);
         });
     },
 
@@ -44,7 +40,7 @@ const ListView = React.createClass({
 
     render: function() {
 
-        var totalLists = this.state.listsData.map(function(list, index) {
+        var totalLists = this.state.listsData.map((list, index) => {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
             // var itemCount = 0;
 
@@ -65,11 +61,10 @@ const ListView = React.createClass({
                     </div>
                 </div>
             );
-        }.bind(this));
+        });
 
         return (
             <div className="list-view">
-                <Header title={"Calculist"} />
                 <div className="list-item-scroll">
                     <div className="list-container">
                         {totalLists}

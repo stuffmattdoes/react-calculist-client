@@ -28,8 +28,8 @@ const Login = React.createClass({
                         type="password"
                     />
                 </form>
-                <p>Already have an account?</p>
-                <a href="#">Sign in</a>
+                <p>Don't have an account yet?</p>
+                <a href="#">Register now</a>
             </div>
         );
     }

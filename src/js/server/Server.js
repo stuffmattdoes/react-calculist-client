@@ -17,6 +17,11 @@ app.use(parser.json());
 // Prefix routes with API namespace
 app.use('/api', router);
 
+// app.get('*', function(req, res) {
+//     console.log(req);
+//     res.sendFile('../index.js');
+// });
+
 // Run local server
 app.listen(8081, function() {
     console.log("The server is running on port: 8081");

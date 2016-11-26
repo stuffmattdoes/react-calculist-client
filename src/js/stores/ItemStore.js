@@ -7,11 +7,6 @@ var _items = {};
 var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 
-function itemsPopulate(rawItems) {
-    _items = rawItems.items;
-    // console.log("Populate items:", _items);
-}
-
 class ItemStore extends EventEmitter {
 
     getAll() {
@@ -125,6 +120,11 @@ class ItemStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
+    itemPopulate(rawItems) {
+        _items = rawItems.items;
+        // console.log("Populate items:", _items);
+    }
+
     itemSetVisibilityFilter(filter) {
         _filter = filter;
         this.emit(CHANGE_EVENT);
@@ -210,7 +210,7 @@ class ItemStore extends EventEmitter {
                 break;
             }
             case "RECEIVE_RAW_ITEMS" : {
-                itemsPopulate(
+                this.itemPopulate(
                     action.rawItems
                 )
                 break;

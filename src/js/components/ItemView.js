@@ -63,12 +63,6 @@ const ItemView = React.createClass({
         return (
             this.state.listOptions ?
                 <div className="item-view">
-                    <Header
-                        navBack={true}
-                        options={true}
-                        title={this.state.currentList.title}
-                        toggleSettings={this.toggleSettings}
-                    />
                     <div className="list-item-scroll">
                         <ItemFilter filter={this.state.currentFilter} items={this.state.items} />
                         <div className="list-container">

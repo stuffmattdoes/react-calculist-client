@@ -960,6 +960,9 @@ input {
 .list-view .list-item-container {
   padding: 12px 15px; }
 
+.list-view .list-item-scroll {
+  bottom: 0; }
+
 .list-view .list-item {
   cursor: pointer; }
 

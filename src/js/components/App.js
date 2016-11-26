@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Components
+import Header from './Header';
 import ItemView from './ItemView';
 import ListView from './ListView';
 
@@ -10,6 +11,7 @@ import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
 // API
+// import LocalStorageUtils from '../utils/LocalStorageUtils';
 import WebAPIUtils from '../utils/WebAPIUtils';
 
 // Data
@@ -20,12 +22,13 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 // localStorage.clear();
 // ListDataExample.init();
 // ItemDataExample.init();
+// var localListGetAll = LocalStorageUtils.listGetAll();
+// var localItemGetAll = LocalStorageUtils.itemGetAll();
 
 // Then get web storage
-var webListGetAll = WebAPIUtils.listGetAll();
-var webItemGetAll = WebAPIUtils.itemGetAll();
-var receivedLists = false;
-var receivedItems = false;
+// var webListGetAll = WebAPIUtils.listGetAll();
+// var webItemGetAll = WebAPIUtils.itemGetAll();
+
 /*
 webListGetAll.done(function(data) {
     receivedLists = true;
@@ -41,12 +44,15 @@ webItemGetAll.done(function(data) {
     }
 });
 */
+
 // Application class
 const App = React.createClass({
 
     getInitialState: function() {
         return {
-            currentListID: null
+            currentListID: null,
+            receivedLists: false,
+            receivedItems: false
         };
     },
 
@@ -58,6 +64,18 @@ const App = React.createClass({
     },
 
     componentWillMount: function() {
+        WebAPIUtils.listGetAll().done( () => {
+            console.log("App: Item API call done");
+            this.setState({
+                receivedLists: true
+            });
+        });
+        WebAPIUtils.itemGetAll().done( () => {
+            console.log("App: List API call done");
+            this.setState({
+                receivedItems: true
+            });
+        });
         ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
@@ -68,8 +86,17 @@ const App = React.createClass({
     },
 
     render: function() {
+
+        // if (this.state.receivedLists
+        //     && this.state.receivedItems) {
+        //     return (
+        //         <div className="loader">Loading...</div>
+        //     );
+        // }
+
         return (
             <div className="app">
+                <Header title={"Calculist"} />
                 {this.state.currentListID == null ?
                     <ListView/>
                 :
