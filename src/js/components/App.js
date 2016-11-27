@@ -11,39 +11,17 @@ import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
 // API
-// import LocalStorageUtils from '../utils/LocalStorageUtils';
+import LocalStorageUtils from '../utils/LocalStorageUtils';
 import WebAPIUtils from '../utils/WebAPIUtils';
 
 // Data
-// var ItemDataExample = require('../ItemDataExample');
-// var ListDataExample = require('../ListDataExample');
+var ItemDataExample = require('../ItemDataExample');
+var ListDataExample = require('../ListDataExample');
 
 // Get Local storage first
-// localStorage.clear();
+localStorage.clear();
 // ListDataExample.init();
 // ItemDataExample.init();
-// var localListGetAll = LocalStorageUtils.listGetAll();
-// var localItemGetAll = LocalStorageUtils.itemGetAll();
-
-// Then get web storage
-// var webListGetAll = WebAPIUtils.listGetAll();
-// var webItemGetAll = WebAPIUtils.itemGetAll();
-
-/*
-webListGetAll.done(function(data) {
-    receivedLists = true;
-    if (receivedLists && receivedItems) {
-        renderApp();
-    }
-});
-
-webItemGetAll.done(function(data) {
-    receivedItems = true;
-    if (receivedLists && receivedItems) {
-        renderApp();
-    }
-});
-*/
 
 // Application class
 const App = React.createClass({
@@ -51,6 +29,8 @@ const App = React.createClass({
     getInitialState: function() {
         return {
             currentListID: null,
+            listsData: {},
+            itemsData: {},
             receivedLists: false,
             receivedItems: false
         };
@@ -64,18 +44,41 @@ const App = React.createClass({
     },
 
     componentWillMount: function() {
-        WebAPIUtils.listGetAll().done( () => {
-            console.log("App: Item API call done");
+        var hasLocalListStorage = LocalStorageUtils.listGetAll();
+        var hasLocalItemStorage = LocalStorageUtils.itemGetAll();
+
+        if (hasLocalListStorage) {
+            console.log("Has local storage:", ListStore.getAll());
             this.setState({
-                receivedLists: true
+                receivedLists: true,
+                listsData: ListStore.getAll()
             });
-        });
-        WebAPIUtils.itemGetAll().done( () => {
-            console.log("App: List API call done");
+        } else {
+            WebAPIUtils.listGetAll().done( () => {
+                console.log("App: List API call done");
+                this.setState({
+                    receivedLists: true,
+                    listsData: ListStore.getAll()
+                });
+            });
+        }
+
+        if (hasLocalItemStorage) {
+            // console.log("Has local storage: Items", ItemStore.getAll());
             this.setState({
-                receivedItems: true
+                receivedItems: true,
+                itemsData: ItemStore.getAll()
             });
-        });
+        } else {
+            WebAPIUtils.itemGetAll().done( () => {
+                console.log("App: Item API call done");
+                this.setState({
+                    receivedItems: true,
+                    itemsData: ItemStore.getAll()
+                });
+            });
+        }
+
         ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
@@ -86,21 +89,23 @@ const App = React.createClass({
     },
 
     render: function() {
+        // console.log("Render");
 
-        // if (this.state.receivedLists
-        //     && this.state.receivedItems) {
-        //     return (
-        //         <div className="loader">Loading...</div>
-        //     );
-        // }
+        if (!this.state.receivedLists
+            && !this.state.receivedItems) {
+            // console.log("Have not received either");
+            return (
+                <div className="loader">Loading...</div>
+            );
+        }
 
         return (
             <div className="app">
                 <Header title={"Calculist"} />
                 {this.state.currentListID == null ?
-                    <ListView/>
+                    <ListView listsData={this.state.listsData}/>
                 :
-                    <ItemView/>
+                    <ItemView />
                 }
             </div>
         );
