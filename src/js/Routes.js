@@ -17,7 +17,7 @@ const Routes = (
             <Route path="/lists/:id" component={ListView} >
                 <Route path="/lists/:id/options" component={ListView} />
             </Route>
-        </ Route>
+        </Route>
         <Route path="*" component={App} />
     </Router>
 );
