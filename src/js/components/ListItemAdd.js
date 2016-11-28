@@ -3,6 +3,7 @@ import React from 'react';
 // Actions
 import * as ListActions from '../actions/ListActions';
 import * as ItemActions from '../actions/ItemActions';
+import ListStore from '../stores/ListStore';
 
 var ENTER_KEY_CODE = 13;
 
@@ -58,11 +59,19 @@ const ListAdd = React.createClass({
     onSubmit: function(e) {
         e.preventDefault();
         if (this.state.title.trim() != "") {
+
+            // Create a new list
             if (this.props.condActions == "ListActions") {
                 ListActions.default.listCreate(this.state.title);
+
+            // Create a new item
             } else if (this.props.condActions == "ItemActions") {
-                ItemActions.default.itemCreate(this.state.title);
+                ItemActions.default.itemCreate(
+                    this.state.title,
+                    ListStore.getCurrentListID()
+                );
             }
+            
         }
         this.onReset();
     },

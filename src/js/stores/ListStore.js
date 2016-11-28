@@ -58,7 +58,7 @@ class ListStore extends EventEmitter {
     listsPopulate(rawLists) {
         // console.log("Populate lists", rawLists.lists);
         _lists = rawLists.lists;
-        this.emit(CHANGE_EVENT);
+        // this.emit(CHANGE_EVENT);
     }
 
     listUpdate(listID, updates) {

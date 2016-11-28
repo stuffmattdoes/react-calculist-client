@@ -3,16 +3,18 @@ import WebAPIUtils from "../utils/WebAPIUtils";
 
 const ItemActions = {
 
-    itemCreate: function(title) {
+    itemCreate: function(title, listID) {
+        // console.log("ItemActions: itemCreate", title, listID);
         var itemID = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
         dispatcher.dispatch({
             type: "CREATE_ITEM",
             itemID: itemID,
+            listID: listID,
             title: title
         });
 
         // API action call
-        WebAPIUtils.itemCreate(itemID, title);
+        WebAPIUtils.itemCreate(title, listID, itemID);
     },
 
     itemDelete: function(itemID) {

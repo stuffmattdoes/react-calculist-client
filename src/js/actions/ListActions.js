@@ -13,6 +13,7 @@ const ListActions = {
     listCreate: function(title) {
         var listID = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
+        // Add data to local store
         dispatcher.dispatch({
             type: "CREATE_LIST",
             title: title,

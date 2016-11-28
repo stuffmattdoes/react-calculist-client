@@ -12,12 +12,12 @@ var Item = require('../models/Items');
 // });
 
 
-// ----------
-// Lists view
-// ----------
+// -----
+// Lists
+// -----
 
 // Routes
-// GET route - receive existing items
+// GET route - receive all existing lists
 router.get('/lists/', function(req, res, next) {
     List.find({}, function(err, lists) {
         if (err) {
@@ -30,11 +30,11 @@ router.get('/lists/', function(req, res, next) {
     });
 });
 
-// POST route - create items
+// POST route - create lists
 /*
 {
-    "New_Property": "New_Key"
-    "_id": "58309833a1f3175197e9d5be"
+    "title": "List Title",
+    "ID": "iv3v3mtv"
 }
 */
 router.post('/lists/', function(req, res, next) {
@@ -50,11 +50,11 @@ router.post('/lists/', function(req, res, next) {
     });
 });
 
-// PUT route - update existing items
+// PUT route - update existing lists
 /*
 {
-    "Existing_Property": "Updated_Key"
-    "_id": "58309833a1f3175197e9d5be"
+    "title": "Updated List Title",
+    "ID": "iv3v3mtv"
 }
 */
 router.put('/lists/:id', function(req, res, next) {
@@ -76,10 +76,10 @@ router.put('/lists/:id', function(req, res, next) {
     });
 });
 
-// DELETE route - remote existing items
+// DELETE route - delete existing lists
 /*
 {
-    "_id": "58309833a1f3175197e9d5be"
+    "ID": "iv3v3mtv"
 }
 */
 router.delete('/lists/:id', function(req, res, next) {
@@ -101,9 +101,9 @@ router.delete('/lists/:id', function(req, res, next) {
 });
 
 
-// ----------
-// Items view
-// ----------
+// -----
+// Items
+// -----
 
 // Routes
 // GET route - receive all items
@@ -135,6 +135,54 @@ router.get('/lists/:id', function(req, res, next) {
 
         res.json({
             items: items
+        });
+    });
+});
+
+// POST route - create items
+/*
+{
+    "title": "Item Title",
+    "itemID": "iv2rsurb",       - the ID of this item
+    "listID": "iv3v3mtv"        - the ID of the list this item belongs to
+}
+*/
+router.post('/items/', function(req, res, next) {
+    var item = req.body;
+    Item.create(item, function(err, item) {
+        if (err) {
+            return res.status(500).json({message: err.message});
+        }
+        res.json({
+            "item": item,
+            "message": "Item created."
+        });
+    });
+});
+
+// UPDATE HERE
+
+// DELETE route - delete existing lists
+/*
+{
+    "_id": "583bc4ce1a7e726b2c915cd6"
+}
+*/
+router.delete('/items/:id', function(req, res, next) {
+    var id = req.params.id;
+    var item = req.body;
+
+    if (item && item._id !== id) {
+        console.log(item._id, id);
+        return res.status(500).json({err: "ID was not found"});
+    }
+
+    List.findByIdAndRemove(id, function(err, item) {
+        if (err) {
+            return res.status(500).json({message: err.message});
+        }
+        res.json({
+            message: "Item deleted"
         });
     });
 });

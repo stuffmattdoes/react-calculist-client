@@ -17,10 +17,11 @@ const API_URLS = {
 
 const WebAPIUtils = {
 
-    itemCreate: function(itemID, title) {
+    itemCreate: function(title, listID, itemID) {
+        // console.log("Create item:", title, listID, itemID);
 
-        // Server-side processing
-        var rawItems = JSON.parse(localStorage.getItem('items'));
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
+        var d = $.Deferred();
         var newItem = {
             title: title,
             checked: false,
@@ -34,36 +35,61 @@ const WebAPIUtils = {
                 price: 0.00,
                 quantity: 0
             },
-            ID: itemID
+            ID: itemID,
+            listID: listID
         }
 
-        // Get list ID. For now, just default to the first list index
-        rawItems.push(newItem);
-        localStorage.setItem('items', JSON.stringify(rawItems));
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            context: document.body,
+            data: JSON.stringify(newItem),
+            method: "POST",
+            url: API_URLS.items
+        }).done(function(data, textStatus, jqXHR) {
+            // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
 
-        // Success callback to client
-        setTimeout(function() {
-            // console.log("Web API Utils: Create item", itemID, title);
-        }, 0);
+            // Local storage push
+            // rawItems.push(newItem);
+            // localStorage.setItem('items', JSON.stringify(rawItems));
+            d.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
+
+        return d;
     },
 
     itemDelete: function(id) {
 
-        // Server side processing
-        var rawItems = JSON.parse(localStorage.getItem('items'));
+        // Local Storage
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
+        var d = $.Deferred();
+        var deleteItem = {
+            ID: itemID
+        }
 
-        rawItems.forEach(function(value, index) {
-            if (id == value.id) {
-                rawItems.splice(index, 1);
-                // return false;
-            }
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            context: document.body,
+            data: JSON.stringify(deleteItem),
+            method: "DELETE",
+            url: API_URLS.items
+        }).done(function(data, textStatus, jqXHR) {
+            // rawItems.forEach(function(value, index) {
+            //     if (id == value.id) {
+            //         rawItems.splice(index, 1);
+            //     }
+            // });
+            // localStorage.setItem('items', JSON.stringify(rawItems));
+            d.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            // console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
         });
-        localStorage.setItem('items', JSON.stringify(rawItems));
 
-        // Success callback to client
-        setTimeout(function() {
-            // console.log("Web API Utils: Item delete", id);
-        }, 0);
+        return d;
+
     },
 
     itemGetAll: function() {
@@ -159,7 +185,7 @@ const WebAPIUtils = {
 
     listDelete: function(listID) {
         // console.log("Web API Utils: Delete list");
-        var d = $.Deferred();
+        // var d = $.Deferred();
         // Simulate success callback
         // console.log("Web API Utils: Delete List");
     },

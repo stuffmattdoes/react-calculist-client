@@ -17,7 +17,7 @@ var listSeed = [
         ID: 'iv3v3mr2'
     }
 ];
-
+var resetAll = false;
 var itemSeed = [
     {
         title: "Milk",
@@ -138,9 +138,9 @@ listSeed.forEach(function(list, index) {
 
     List.find({'ID': list.ID}, function(error, lists) {
         // console.log(lists);
-        // if (listSeed.length) {
-            // List.remove({}, function() {});
-        // }
+        if (resetAll) {
+            List.remove({}, function() {});
+        }
 
         if (!error && !lists.length) {
             // console.log(listsSeed);
@@ -157,9 +157,9 @@ itemSeed.forEach(function(item, index) {
 
     Item.find({ID: item.ID}, function(error, items) {
         // console.log(items);
-        // if (itemSeed.length) {
-        //     Item.remove({}, function() {});
-        // }
+        if (resetAll) {
+            Item.remove({}, function() {});
+        }
 
         if (!error && !items.length) {
             // console.log("Go ahead");

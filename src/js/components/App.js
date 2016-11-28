@@ -19,7 +19,7 @@ var ItemDataExample = require('../ItemDataExample');
 var ListDataExample = require('../ListDataExample');
 
 // Get Local storage first
-localStorage.clear();
+// localStorage.clear();
 // ListDataExample.init();
 // ItemDataExample.init();
 
@@ -44,8 +44,12 @@ const App = React.createClass({
     },
 
     componentWillMount: function() {
-        var hasLocalListStorage = LocalStorageUtils.listGetAll();
-        var hasLocalItemStorage = LocalStorageUtils.itemGetAll();
+
+        // On app load, check for local storage
+        // var hasLocalListStorage = LocalStorageUtils.listGetAll();
+        // var hasLocalItemStorage = LocalStorageUtils.itemGetAll();
+        var hasLocalListStorage = null;
+        var hasLocalItemStorage = null;
 
         if (hasLocalListStorage) {
             console.log("Has local storage:", ListStore.getAll());
@@ -89,10 +93,10 @@ const App = React.createClass({
     },
 
     render: function() {
-        // console.log("Render");
+        console.log("Render");
 
         if (!this.state.receivedLists
-            && !this.state.receivedItems) {
+            || !this.state.receivedItems) {
             // console.log("Have not received either");
             return (
                 <div className="loader">Loading...</div>

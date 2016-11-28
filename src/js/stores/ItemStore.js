@@ -65,22 +65,21 @@ class ItemStore extends EventEmitter {
 
     getListItemCount(listID) {
         // console.log("ItemStore: getListItemCount", listID, _items);
-        var listItemChecked = 0,
-            listItemUnchecked = 0;
+        var itemCount = {
+            checked: 0,
+            unchecked: 0
+        }
 
-        _items.forEach(function(value, index) {
+        _items.forEach((value, index) => {
             if (listID == value.listID) {
                 if (value.checked) {
-                    listItemChecked ++;
+                    itemCount.checked ++;
                 } else {
-                    listItemUnchecked ++;
+                    itemCount.unchecked ++;
                 }
             }
         });
-        return {
-            checked: listItemChecked,
-            unchecked: listItemUnchecked
-        };
+        return itemCount;
     }
 
     getCurrentListItemCount() {
@@ -123,6 +122,7 @@ class ItemStore extends EventEmitter {
     itemPopulate(rawItems) {
         _items = rawItems.items;
         // console.log("Populate items:", _items);
+        // this.emit(CHANGE_EVENT);
     }
 
     itemSetVisibilityFilter(filter) {
