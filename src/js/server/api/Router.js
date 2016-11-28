@@ -84,12 +84,13 @@ router.put('/lists/:id', function(req, res, next) {
 */
 router.delete('/lists/:id', function(req, res, next) {
     var id = req.params.id;
-    var list = req.body;
+    // var list = req.body;
 
-    if (list && list._id !== id) {
-        return res.status(500).json({err: "ID was not found"});
-    }
+    // if (list && list._id !== id) {
+    //     return res.status(500).json({err: "ID was not found"});
+    // }
 
+    // Delete the list
     List.findByIdAndRemove(id, function(err, list) {
         if (err) {
             return res.status(500).json({message: err.message});
@@ -98,6 +99,11 @@ router.delete('/lists/:id', function(req, res, next) {
             message: "List deleted"
         });
     });
+
+    // ***************************************************************************
+    // Delete all items contained in the list
+    // ***************************************************************************
+
 });
 
 
@@ -170,12 +176,12 @@ router.post('/items/', function(req, res, next) {
 */
 router.delete('/items/:id', function(req, res, next) {
     var id = req.params.id;
-    var item = req.body;
+    // var item = req.body;
 
-    if (item && item._id !== id) {
-        console.log(item._id, id);
-        return res.status(500).json({err: "ID was not found"});
-    }
+    // if (item && item._id !== id) {
+        // console.log(item._id, id);
+        // return res.status(500).json({err: "ID was not found"});
+    // }
 
     List.findByIdAndRemove(id, function(err, item) {
         if (err) {

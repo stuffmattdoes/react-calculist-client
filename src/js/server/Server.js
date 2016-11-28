@@ -21,7 +21,7 @@ app.use('/api', router);
 // Route catch all
 // Allows static files to be served from URLs other than from '/'
 app.get('*', function(req, res) {
-    console.log(req);
+    // console.log(req);
     // res.sendFile('../../../public/index.html');
     res.sendFile(path.resolve(__dirname, '../../../public', 'index.html'))
 });

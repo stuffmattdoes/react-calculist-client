@@ -52,14 +52,14 @@ const App = React.createClass({
         var hasLocalItemStorage = null;
 
         if (hasLocalListStorage) {
-            console.log("Has local storage:", ListStore.getAll());
+            // console.log("Has local storage:", ListStore.getAll());
             this.setState({
                 receivedLists: true,
                 listsData: ListStore.getAll()
             });
         } else {
             WebAPIUtils.listGetAll().done( () => {
-                console.log("App: List API call done");
+                // console.log("App: List API call done");
                 this.setState({
                     receivedLists: true,
                     listsData: ListStore.getAll()
@@ -75,7 +75,7 @@ const App = React.createClass({
             });
         } else {
             WebAPIUtils.itemGetAll().done( () => {
-                console.log("App: Item API call done");
+                // console.log("App: Item API call done");
                 this.setState({
                     receivedItems: true,
                     itemsData: ItemStore.getAll()
@@ -93,7 +93,6 @@ const App = React.createClass({
     },
 
     render: function() {
-        console.log("Render");
 
         if (!this.state.receivedLists
             || !this.state.receivedItems) {
@@ -105,12 +104,8 @@ const App = React.createClass({
 
         return (
             <div className="app">
-                <Header title={"Calculist"} />
-                {this.state.currentListID == null ?
-                    <ListView listsData={this.state.listsData}/>
-                :
-                    <ItemView />
-                }
+                <Header title={"Calculist"} route={this.props.route} />
+                { this.props.children }
             </div>
         );
     }

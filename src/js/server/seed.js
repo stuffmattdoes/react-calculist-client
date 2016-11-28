@@ -1,8 +1,6 @@
-'use strict';
-
+var resetAll = false;
 var List = require('./models/Lists');
 var Item = require('./models/Items');
-
 var listSeed = [
     {
         title: 'Groceries',
@@ -17,7 +15,6 @@ var listSeed = [
         ID: 'iv3v3mr2'
     }
 ];
-var resetAll = false;
 var itemSeed = [
     {
         title: "Milk",

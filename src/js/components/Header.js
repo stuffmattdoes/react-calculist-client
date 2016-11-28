@@ -7,8 +7,7 @@ const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
-        navBack: React.PropTypes.bool,
-        options: React.PropTypes.bool,
+        route: React.PropTypes.object.isRequired,
 
         // Passing up
         toggleSettings: React.PropTypes.func.isRequired
@@ -25,7 +24,7 @@ const Header = React.createClass({
     render: function() {
         return (
             <div className="header">
-                {this.props.navBack ?
+                {this.props.route.path != '/' ?
                     <div
                         className="header-left-button"
                         onClick={this.backNav}
@@ -40,7 +39,7 @@ const Header = React.createClass({
                     </div>
                 }
                 <h1 className="header-title">{this.props.title}</h1>
-                {this.props.options ?
+                {this.props.route.path == 'lists' ?
                     <div
                         className="header-options"
                         onClick={this.toggleSettings}
