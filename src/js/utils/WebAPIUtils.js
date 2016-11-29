@@ -60,7 +60,7 @@ const WebAPIUtils = {
         return d;
     },
 
-    itemDelete: function(id) {
+    itemDelete: function(itemID) {
 
         // Local Storage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
@@ -69,13 +69,16 @@ const WebAPIUtils = {
             ID: itemID
         }
 
+        // console.log(API_URLS.items + '/' + itemID);
+
         $.ajax({
             contentType: 'application/json; charset=UTF-8', // This is the money shot
             context: document.body,
-            data: JSON.stringify(deleteItem),
+            // data: JSON.stringify(deleteItem),
             method: "DELETE",
-            url: API_URLS.items
+            url: API_URLS.items + '/' + itemID
         }).done(function(data, textStatus, jqXHR) {
+            console.log(data, textStatus, jqXHR);
             // rawItems.forEach(function(value, index) {
             //     if (id == value.id) {
             //         rawItems.splice(index, 1);
@@ -84,7 +87,7 @@ const WebAPIUtils = {
             // localStorage.setItem('items', JSON.stringify(rawItems));
             d.resolve();
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            // console.log(jqXHR, textStatus, errorThrown);
+            console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
 
@@ -184,10 +187,36 @@ const WebAPIUtils = {
     },
 
     listDelete: function(listID) {
-        // console.log("Web API Utils: Delete list");
-        // var d = $.Deferred();
-        // Simulate success callback
-        // console.log("Web API Utils: Delete List");
+        // Local Storage
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
+        var d = $.Deferred();
+        var deleteList = {
+            ID: listID
+        }
+
+        // console.log(API_URLS.items + '/' + itemID);
+
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            context: document.body,
+            // data: JSON.stringify(deleteItem),
+            method: "DELETE",
+            url: API_URLS.lists + '/' + listID
+        }).done(function(data, textStatus, jqXHR) {
+            console.log(data, textStatus, jqXHR);
+            // rawItems.forEach(function(value, index) {
+            //     if (id == value.id) {
+            //         rawItems.splice(index, 1);
+            //     }
+            // });
+            // localStorage.setItem('items', JSON.stringify(rawItems));
+            d.resolve();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
+
+        return d;
     },
 
     listGetAll: function() {

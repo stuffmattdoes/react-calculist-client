@@ -24,13 +24,15 @@ const ListActions = {
         WebAPIUtils.listCreate(listID, title);
     },
 
-    listDelete: function(listID) {
+    listDelete: function(listID, mongoID) {
         dispatcher.dispatch({
             type: "DELETE_LIST",
             listID: listID
         });
 
-        WebAPIUtils.listDelete(listID);
+        if (mongoID) {
+            WebAPIUtils.listDelete(mongoID);
+        }
     },
 
     listUpdateTitle: function(listID, title) {

@@ -183,12 +183,12 @@ router.delete('/items/:id', function(req, res, next) {
         // return res.status(500).json({err: "ID was not found"});
     // }
 
-    List.findByIdAndRemove(id, function(err, item) {
+    Item.findByIdAndRemove(id, function(err, list) {
         if (err) {
             return res.status(500).json({message: err.message});
         }
         res.json({
-            message: "Item deleted"
+            message: "List deleted"
         });
     });
 });
