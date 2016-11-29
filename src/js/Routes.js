@@ -13,10 +13,9 @@ import Register from './components/Register';
 const Routes = (
     <Router history={browserHistory} >
         <Route path="/" component={App} >
-            <IndexRedirect to="lists" />
-            <Route path="lists" component={ListView} >
-                <Route path=":id" component={ItemView} />
-            </Route>
+            <IndexRedirect to="/lists" />
+            <Route path="/lists" component={ListView} />
+            <Route path="/lists/:listID" component={ItemView} />
         </Route>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

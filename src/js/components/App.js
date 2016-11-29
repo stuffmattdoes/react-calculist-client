@@ -3,6 +3,7 @@ import React from 'react';
 
 // Components
 import Header from './Header';
+import ItemView from './ItemView';
 import ListView from './ListView';
 
 // Stores
@@ -17,10 +18,11 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 const App = React.createClass({
 
     getInitialState: function() {
+        // console.log("App: getInitialState");
         return {
             currentListID: null,
             listsData: {},
-            itemsData: {},
+            // itemsData: {},
             receivedLists: false,
             receivedItems: false
         };
@@ -34,6 +36,7 @@ const App = React.createClass({
     },
 
     componentWillMount: function() {
+        // console.log("App: componentWillMount");
         // On app load, check for local storage
         // var hasLocalListStorage = LocalStorageUtils.listGetAll();
         var hasLocalListStorage = null;
@@ -41,7 +44,7 @@ const App = React.createClass({
         var hasLocalItemStorage = null;
 
         if (hasLocalListStorage) {
-            console.log("App: Has local storage: Lists");
+            // console.log("App: Has local storage: Lists");
             this.setState({
                 receivedLists: true,
                 listsData: ListStore.getAll()
@@ -57,61 +60,74 @@ const App = React.createClass({
         }
 
         if (hasLocalItemStorage) {
-            console.log("Has local storage: Items");
+            // console.log("Has local storage: Items");
             this.setState({
                 receivedItems: true,
-                itemsData: ItemStore.getAll()
+                // itemsData: ItemStore.getAll()
             });
         } else {
             WebAPIUtils.itemGetAll().done(() => {
                 console.log("App: Item API call done");
                 this.setState({
                     receivedItems: true,
-                    itemsData: ItemStore.getAll()
+                    // itemsData: ItemStore.getAll()
                 });
             });
         }
 
-        ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
+        // ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
         ListStore.on("CHANGE_LIST", this.getStateFromStores);
     },
 
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.params.listID) {
+            this.getStateFromStores();
+            // console.log("App: componentWillReceiveProps", newProps.params.listID);
+        }
+    },
+
     componentWillUnmount: function() {
-        ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
+        // ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
         ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
     },
 
     render: function() {
 
+        // Don't wanna render no components if we ain't got all the lists and items
         if (!this.state.receivedLists
             || !this.state.receivedItems) {
-                // console.log("App: Have not received either");
-                return (
-                    <div className="loader">Loading...</div>
-                );
-            }
+            // console.log("App: Have not received either");
+            return (
+                <div className="loader">Loading...</div>
+            );
+        }
 
-            // Send properties to children
-            const childrenWithProps = React.Children.map(this.props.children, child => {
+        // Send properties to children
+        const childrenWithProps = React.Children.map(this.props.children, child => {
 
-                switch(child.type) {
-                    case ListView : {
-                        console.log("ListView");
-                        return React.cloneElement(child, {
-                            listsData: this.state.listsData
-                        });
-                        break;
-                    }
-                    case ItemView : {
-                        console.log("ItemView");
-                        break;
-                    }
-                    default : {
-                        console.log("Default");
-                        return child
-                    }
+            switch(child.type) {
+                case ListView : {
+                    console.log("ListView");
+                    return React.cloneElement(child, {
+                        listsData: this.state.listsData
+                    });
+                    break;
                 }
-            });
+                case ItemView : {
+                    console.log("ItemView");
+                    return React.cloneElement(child, {
+                        itemsData: ItemStore.getAllForCurrentList()
+                    });
+                    break;
+                }
+                default : {
+                    console.log("Default");
+                    return child
+                }
+            }
+        });
+
+        // console.log(this.props.params.listID);
 
         return (
             <div className="app">

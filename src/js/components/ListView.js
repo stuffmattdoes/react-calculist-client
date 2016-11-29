@@ -19,8 +19,6 @@ const ListView = React.createClass({
     },
 
     getInitialState: function() {
-        // console.log(this.props.listsData);
-
         return {
             currentListID: null,
         };
@@ -43,12 +41,12 @@ const ListView = React.createClass({
     },
 
     onListClick: function(listID) {
-        console.log("Click list");
         ListActions.default.listClick(listID);
         this.props.router.push('/lists/' + listID);
     },
 
     render: function() {
+        // console.log(this.props.params.listID);
 
         var totalLists = this.props.listsData.map((list, index) => {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
@@ -79,9 +77,9 @@ const ListView = React.createClass({
                     <div className="list-container">
                         {totalLists.length > 0 ? totalLists : null}
                     </div>
-                <ListItemAdd condActions={"ListActions"}/>
+                    <ListItemAdd condActions={"ListActions"}/>
+                </div>
             </div>
-        </div>
         );
     }
 });

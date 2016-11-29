@@ -14,6 +14,7 @@ const Header = React.createClass({
     },
 
     backNav: function() {
+        // this.props.router.push('/lists');
         ListActions.default.resetListView();
     },
 
@@ -22,6 +23,7 @@ const Header = React.createClass({
     },
 
     render: function() {
+        console.log(this.props.route)
         return (
             <div className="header">
                 {this.props.route.path != '/' ?

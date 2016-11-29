@@ -16,9 +16,14 @@ import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
 
+    propTypes: {
+        itemsData: React.PropTypes.array
+    },
+
     getInitialState: function() {
+        console.log(this.props.itemsData);
         return {
-            items: ItemStore.getAllForCurrentList(true),
+            // itemsData: ItemStore.getAllForCurrentList(true),
             currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList(),
             listOptions: true
@@ -26,16 +31,17 @@ const ItemView = React.createClass({
     },
 
     componentWillMount: function() {
-        ItemStore.on("CHANGE_ITEM", this.getAllItemsFromList);
+        ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
     },
 
     componentWillUnmount: function() {
-        ItemStore.removeListener("CHANGE_ITEM", this.getAllItemsFromList);
+        ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
     },
 
-    getAllItemsFromList: function() {
+    getStateFromStores: function() {
+        console.log("ItemView: getStateFromStores");
         this.setState({
-            items: ItemStore.getAllForCurrentList(true),
+            // items: ItemStore.getAllForCurrentList(true),
             currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList(),
             listOptions: true
@@ -50,11 +56,11 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        var listItems = this.state.items.map((listItem, index) => {
+        console.log("ItemView: render");
+        var listItems = this.props.itemsData.map((listItem, index) => {
             return (
                 <Item
                     itemProps={listItem}
-                    listData={this.state.items}
                     key={listItem.ID}
                 />
             );
@@ -64,13 +70,13 @@ const ItemView = React.createClass({
             this.state.listOptions ?
                 <div className="item-view">
                     <div className="list-item-scroll">
-                        <ItemFilter filter={this.state.currentFilter} items={this.state.items} />
+                        <ItemFilter filter={this.state.currentFilter} />
                         <div className="list-container">
-                            {listItems}
+                            {listItems.length > 0 ? listItems : null}
                         </div>
                         <ListItemAdd condActions={"ItemActions"}/>
                     </div>
-                    <Footer items={this.state.items} />
+                    <Footer items={this.props.itemsData} />
                 </div>
             :
                 <ListSettings
