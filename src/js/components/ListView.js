@@ -19,6 +19,8 @@ const ListView = React.createClass({
     },
 
     getInitialState: function() {
+        // console.log(this.props.listsData);
+
         return {
             currentListID: null,
         };
@@ -43,6 +45,7 @@ const ListView = React.createClass({
     onListClick: function(listID) {
         console.log("Click list");
         ListActions.default.listClick(listID);
+        this.props.router.push('/lists/' + listID);
     },
 
     render: function() {
@@ -74,7 +77,7 @@ const ListView = React.createClass({
             <div className="list-view">
                 <div className="list-item-scroll">
                     <div className="list-container">
-                        {totalLists}
+                        {totalLists.length > 0 ? totalLists : null}
                     </div>
                 <ListItemAdd condActions={"ListActions"}/>
             </div>

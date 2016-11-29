@@ -85,24 +85,38 @@ const App = React.createClass({
 
         if (!this.state.receivedLists
             || !this.state.receivedItems) {
-            // console.log("App: Have not received either");
-            return (
-                <div className="loader">Loading...</div>
-            );
-        }
+                // console.log("App: Have not received either");
+                return (
+                    <div className="loader">Loading...</div>
+                );
+            }
 
-        // console.log("App: render", this.props.route);
+            // Send properties to children
+            const childrenWithProps = React.Children.map(this.props.children, child => {
+
+                switch(child.type) {
+                    case ListView : {
+                        console.log("ListView");
+                        return React.cloneElement(child, {
+                            listsData: this.state.listsData
+                        });
+                        break;
+                    }
+                    case ItemView : {
+                        console.log("ItemView");
+                        break;
+                    }
+                    default : {
+                        console.log("Default");
+                        return child
+                    }
+                }
+            });
 
         return (
             <div className="app">
                 <Header title={"Calculist"} route={this.props.route} />
-
-                {this.props.route.path == "lists"
-                    || this.props.route.indexRoute.to == "lists" ?
-                    <ListView listsData={this.state.listsData} />
-                :
-                    <ItemView itemsData={this.state.itemsData} />
-                }
+                {childrenWithProps}
             </div>
         );
     }
