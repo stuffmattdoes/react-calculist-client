@@ -26,7 +26,7 @@ const ItemView = React.createClass({
     },
 
     componentWillMount: function() {
-        ItemStore.addListener("CHANGE_ITEM", this.getAllItemsFromList);
+        ItemStore.on("CHANGE_ITEM", this.getAllItemsFromList);
     },
 
     componentWillUnmount: function() {
@@ -50,7 +50,7 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        var listItems = this.state.items.map(function(listItem, index) {
+        var listItems = this.state.items.map((listItem, index) => {
             return (
                 <Item
                     itemProps={listItem}
@@ -58,7 +58,7 @@ const ItemView = React.createClass({
                     key={listItem.ID}
                 />
             );
-        }.bind(this))
+        });
 
         return (
             this.state.listOptions ?

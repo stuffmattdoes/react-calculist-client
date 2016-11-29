@@ -794,7 +794,8 @@ input {
 
 .list-item-container {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  overflow-x: scroll; }
 
 .list-item,
 .list-item-add {
