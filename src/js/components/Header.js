@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 // Stores
 import * as ListActions from '../actions/ListActions';
@@ -8,13 +9,15 @@ const Header = React.createClass({
     PropTypes: {
         title: React.PropTypes.string.isRequired,
         route: React.PropTypes.object.isRequired,
+        params: React.PropTypes.object,
+        location: React.PropTypes.object.isRequired,
 
         // Passing up
         toggleSettings: React.PropTypes.func.isRequired
     },
 
     backNav: function() {
-        // this.props.router.push('/lists');
+        browserHistory.push('/lists');
         ListActions.default.resetListView();
     },
 
@@ -23,10 +26,12 @@ const Header = React.createClass({
     },
 
     render: function() {
-        console.log(this.props.route)
+        var thisLocation = this.props.location.pathname;
+        // console.log(this.props.location, this.props.route, this.props.params);
+
         return (
             <div className="header">
-                {this.props.route.path != '/' ?
+                {this.props.params.listID ?
                     <div
                         className="header-left-button"
                         onClick={this.backNav}
@@ -41,7 +46,7 @@ const Header = React.createClass({
                     </div>
                 }
                 <h1 className="header-title">{this.props.title}</h1>
-                {this.props.route.path == 'lists' ?
+                {this.props.params.listID ?
                     <div
                         className="header-options"
                         onClick={this.toggleSettings}

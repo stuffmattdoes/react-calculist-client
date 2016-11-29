@@ -107,21 +107,21 @@ const App = React.createClass({
 
             switch(child.type) {
                 case ListView : {
-                    console.log("ListView");
+                    // console.log("ListView");
                     return React.cloneElement(child, {
                         listsData: this.state.listsData
                     });
                     break;
                 }
                 case ItemView : {
-                    console.log("ItemView");
+                    // console.log("ItemView");
                     return React.cloneElement(child, {
                         itemsData: ItemStore.getAllForCurrentList()
                     });
                     break;
                 }
                 default : {
-                    console.log("Default");
+                    // console.log("Default");
                     return child
                 }
             }
@@ -131,7 +131,7 @@ const App = React.createClass({
 
         return (
             <div className="app">
-                <Header title={"Calculist"} route={this.props.route} />
+                <Header title={"Calculist"} route={this.props.route} params={this.props.params} location={this.props.location} />
                 {childrenWithProps}
             </div>
         );

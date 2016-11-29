@@ -21,9 +21,9 @@ const ItemView = React.createClass({
     },
 
     getInitialState: function() {
-        console.log(this.props.itemsData);
+        // console.log("ItemView: getInitialState");
         return {
-            // itemsData: ItemStore.getAllForCurrentList(true),
+            itemsData: this.props.itemsData,
             currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList(),
             listOptions: true
@@ -39,9 +39,9 @@ const ItemView = React.createClass({
     },
 
     getStateFromStores: function() {
-        console.log("ItemView: getStateFromStores");
+        // console.log("ItemView: getStateFromStores");
         this.setState({
-            // items: ItemStore.getAllForCurrentList(true),
+            itemsData: ItemStore.getAllForCurrentList(true),
             currentFilter: ItemStore.getCurrentFilter(),
             currentList: ListStore.getCurrentList(),
             listOptions: true
@@ -56,8 +56,8 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        console.log("ItemView: render");
-        var listItems = this.props.itemsData.map((listItem, index) => {
+        // console.log("ItemView: render");
+        var listItems = this.state.itemsData.map((listItem, index) => {
             return (
                 <Item
                     itemProps={listItem}
@@ -76,7 +76,7 @@ const ItemView = React.createClass({
                         </div>
                         <ListItemAdd condActions={"ItemActions"}/>
                     </div>
-                    <Footer items={this.props.itemsData} />
+                    <Footer items={this.state.itemsData} />
                 </div>
             :
                 <ListSettings

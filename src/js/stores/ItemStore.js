@@ -15,6 +15,7 @@ class ItemStore extends EventEmitter {
 
     getAllForCurrentList(filterActive) {
         if (filterActive) {
+            // console.log("Filter active");
             return this.getAllForListFilter(ListStore.getCurrentListID());
         } else {
             return this.getAllForList(ListStore.getCurrentListID());
@@ -64,7 +65,6 @@ class ItemStore extends EventEmitter {
     }
 
     getListItemCount(listID) {
-        // console.log("ItemStore: getListItemCount", listID, _items);
         var itemCount = {
             checked: 0,
             unchecked: 0
