@@ -10,7 +10,8 @@ var ENTER_KEY_CODE = 13;
 const ListAdd = React.createClass({
 
     propTypes: {
-        condActions: React.PropTypes.string.isRequired
+        condActions: React.PropTypes.string.isRequired,
+        // currentListID: React.PropTypes.string.isRequired
     },
 
     getInitialState: function() {
@@ -69,9 +70,10 @@ const ListAdd = React.createClass({
                 ItemActions.default.itemCreate(
                     this.state.title,
                     ListStore.getCurrentListID()
+                    // this.props.currentListID
                 );
             }
-            
+
         }
         this.onReset();
     },

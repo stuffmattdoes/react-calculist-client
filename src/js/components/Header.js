@@ -11,9 +11,6 @@ const Header = React.createClass({
         route: React.PropTypes.object.isRequired,
         params: React.PropTypes.object,
         location: React.PropTypes.object.isRequired,
-
-        // Passing up
-        toggleSettings: React.PropTypes.func.isRequired
     },
 
     backNav: function() {
@@ -22,6 +19,7 @@ const Header = React.createClass({
     },
 
     toggleSettings: function() {
+        browserHistory.push(this.props.location.pathName + '/settings');
         this.props.toggleSettings();
     },
 

@@ -14,7 +14,7 @@ class ListStore extends EventEmitter {
     }
 
     getCurrentListID() {
-        // console.log("ListStore: getCurrentListID", _currentID);
+        console.log("ListStore: getCurrentListID", _currentID);
         return _currentID;
     }
 
@@ -30,7 +30,8 @@ class ListStore extends EventEmitter {
         return currentList;
     }
 
-    listClick(listID) {
+    SetCurrentList(listID) {
+        // console.log("ListStore: Set current list:", listID);
         _currentID = listID;
         this.emit(CHANGE_EVENT);
     }
@@ -106,8 +107,8 @@ class ListStore extends EventEmitter {
 
     handleActions(action) {
         switch(action.type) {
-            case "CLICK_LIST" : {
-                this.listClick(action.listID);
+            case "SET_CURRENT_LIST" : {
+                this.SetCurrentList(action.listID);
                 break;
             }
             case "CREATE_LIST" : {

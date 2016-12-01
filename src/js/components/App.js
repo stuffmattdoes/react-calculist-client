@@ -6,6 +6,9 @@ import Header from './Header';
 import ItemView from './ItemView';
 import ListView from './ListView';
 
+// Actions
+import * as ListActions from '../actions/ListActions';
+
 // Stores
 import ListStore from '../stores/ListStore';
 import ItemStore from '../stores/ItemStore';
@@ -20,19 +23,34 @@ const App = React.createClass({
     getInitialState: function() {
         // console.log("App: getInitialState");
         return {
-            currentListID: null,
-            listsData: {},
-            // itemsData: {},
+            currentListID: this.checkForCurrentList(),
+            listsData: [],
+            // itemsData: [],
             receivedLists: false,
             receivedItems: false
         };
     },
 
     getStateFromStores: function() {
-        // console.log("Home: getStateFromStores", this.state);
-        this.setState({
-            currentListID: ListStore.getCurrentListID()
-        });
+        // console.log("App: getStateFromStores, getCurrentListID");
+        return {
+            // currentListID: ListStore.getCurrentListID(),
+            listsData: ListStore.getAll()
+        };
+    },
+
+    onStoreChange: function() {
+        this.setState(this.getStateFromStores());
+    },
+
+    checkForCurrentList: function() {
+        // Check for current List ID
+        console.log("checkForCurrentList, getCurrentListID");
+        if (!ListStore.getCurrentListID()
+            && this.props.params.listID) {
+            // console.log("No list ID", this.props.params);
+            ListActions.default.setCurrentList(this.props.params.listID);
+        }
     },
 
     componentWillMount: function() {
@@ -51,7 +69,7 @@ const App = React.createClass({
             });
         } else {
             WebAPIUtils.listGetAll().done( () => {
-                console.log("App: List API call done");
+                // console.log("App: List API call done", ListStore.getAll());
                 this.setState({
                     receivedLists: true,
                     listsData: ListStore.getAll()
@@ -67,7 +85,7 @@ const App = React.createClass({
             });
         } else {
             WebAPIUtils.itemGetAll().done(() => {
-                console.log("App: Item API call done");
+                // console.log("App: Item API call done", ItemStore.getAll());
                 this.setState({
                     receivedItems: true,
                     // itemsData: ItemStore.getAll()
@@ -75,24 +93,23 @@ const App = React.createClass({
             });
         }
 
-        // ItemStore.on("CHANGE_ITEM", this.getStateFromStores);
-        ListStore.on("CHANGE_LIST", this.getStateFromStores);
+        // ItemStore.on("CHANGE_ITEM", this.onStoreChange);
+        ListStore.on("CHANGE_LIST", this.onStoreChange);
     },
 
-    componentWillReceiveProps: function(newProps) {
-        if (newProps.params.listID) {
-            this.getStateFromStores();
-            // console.log("App: componentWillReceiveProps", newProps.params.listID);
-        }
-    },
+    // componentWillReceiveProps: function(newProps) {
+    //     if (newProps.params.listID) {
+    //         this.getStateFromStores();
+    //         console.log("App: componentWillReceiveProps", newProps.params.listID);
+    //     }
+    // },
 
     componentWillUnmount: function() {
-        // ItemStore.removeListener("CHANGE_ITEM", this.getStateFromStores);
-        ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
+        // ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
+        ListStore.removeListener("CHANGE_LIST", this.onStoreChange);
     },
 
     render: function() {
-
         // Don't wanna render no components if we ain't got all the lists and items
         if (!this.state.receivedLists
             || !this.state.receivedItems) {
@@ -101,6 +118,8 @@ const App = React.createClass({
                 <div className="loader">Loading...</div>
             );
         }
+
+        // console.log("Render");
 
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {
@@ -114,9 +133,10 @@ const App = React.createClass({
                     break;
                 }
                 case ItemView : {
-                    // console.log("ItemView");
+                    // console.log("ItemView", ItemStore.getAllForCurrentList(true));
                     return React.cloneElement(child, {
-                        itemsData: ItemStore.getAllForCurrentList()
+                        itemsData: [],
+                        routeParams: this.props.params
                     });
                     break;
                 }
@@ -127,11 +147,14 @@ const App = React.createClass({
             }
         });
 
-        // console.log(this.props.params.listID);
-
         return (
             <div className="app">
-                <Header title={"Calculist"} route={this.props.route} params={this.props.params} location={this.props.location} />
+                <Header
+                    title={"Calculist"}
+                    route={this.props.route}
+                    params={this.props.params}
+                    location={this.props.location}
+                />
                 {childrenWithProps}
             </div>
         );

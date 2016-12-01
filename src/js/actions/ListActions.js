@@ -3,9 +3,9 @@ import WebAPIUtils from "../utils/WebAPIUtils";
 
 const ListActions = {
 
-    listClick: function(listID) {
+    setCurrentList: function(listID) {
         dispatcher.dispatch({
-            type: "CLICK_LIST",
+            type: "SET_CURRENT_LIST",
             listID: listID
         })
     },

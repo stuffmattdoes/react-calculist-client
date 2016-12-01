@@ -5,6 +5,7 @@ import { browserHistory, IndexRedirect, IndexRoute, Route, Router } from 'react-
 // Components
 import App from './components/App';
 import ItemView from './components/ItemView';
+import ListSettings from './components/ListSettings';
 import ListView from './components/ListView';
 import Login from './components/Login';
 import NotFound from './components/NotFound';
@@ -15,7 +16,8 @@ const Routes = (
         <Route path="/" component={App} >
             <IndexRedirect to="/lists" />
             <Route path="/lists" component={ListView} />
-            <Route path="/lists/:listID" component={ItemView} />
+            <Route path="/lists/:listID" component={ItemView} >
+            </Route>
         </Route>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

@@ -14,6 +14,7 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForCurrentList(filterActive) {
+        // console.log("getAllForCurrentList");
         if (filterActive) {
             // console.log("Filter active");
             return this.getAllForListFilter(ListStore.getCurrentListID());
@@ -83,6 +84,7 @@ class ItemStore extends EventEmitter {
     }
 
     getCurrentListItemCount() {
+        console.log("getCurrentListItemCount");
         return this.getListItemCount(ListStore.getCurrentListID());
     }
 
@@ -166,6 +168,10 @@ class ItemStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
+    resetItemFilter() {
+        _filter = "SHOW_ALL";
+    }
+
     handleActions(action) {
         switch(action.type) {
             case "CREATE_ITEM" : {
@@ -213,6 +219,10 @@ class ItemStore extends EventEmitter {
                 this.itemPopulate(
                     action.rawItems
                 )
+                break;
+            }
+            case "RESET_LIST_VIEW" : {
+                this.resetItemFilter();
                 break;
             }
             case "UPDATE_ITEM_UNIT_PRICE_ACTIVE" : {

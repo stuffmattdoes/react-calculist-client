@@ -18,36 +18,36 @@ const ListView = React.createClass({
         listsData: React.PropTypes.array
     },
 
-    getInitialState: function() {
-        return {
-            currentListID: null,
-        };
-    },
+    // getInitialState: function() {
+    //     return this.getStateFromStores();
+    // },
 
-    componentWilMount: function() {
-        // console.log(this.props.listsData);
-        ListStore.on("CHANGE_LIST", this.getStateFromStores);
-    },
+    // componentWillMount: function() {
+    //     // console.log(this.props.listsData);
+    //     ListStore.on("CHANGE_LIST", this.getStateFromStores);
+    // },
+    //
+    // componentWillUnmount: function() {
+    //     ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
+    // },
 
-    componentWillUnmount: function() {
-        ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
-    },
+    // getStateFromStores: function() {
+    //     console.log("getStateFromStores, getCurrentListID");
+    //     return {
+    //         currentListID: ListStore.getCurrentListID()
+    //     };
+    // },
 
-    getStateFromStores: function() {
-        // console.log("Home: getStateFromStores", this.state);
-        this.setState({
-            currentListID: ListStore.getCurrentListID()
-        });
-    },
+    // onStoreChange: function() {
+    //     this.setState(this.getStateFromStores());
+    // },
 
     onListClick: function(listID) {
-        ListActions.default.listClick(listID);
+        ListActions.default.setCurrentList(listID);
         this.props.router.push('/lists/' + listID);
     },
 
     render: function() {
-        // console.log(this.props.params.listID);
-
         var totalLists = this.props.listsData.map((list, index) => {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
             // var itemCount = 0;
@@ -77,7 +77,7 @@ const ListView = React.createClass({
                     <div className="list-container">
                         {totalLists.length > 0 ? totalLists : null}
                     </div>
-                    <ListItemAdd condActions={"ListActions"}/>
+                    <ListItemAdd condActions={"ListActions"} />
                 </div>
             </div>
         );
