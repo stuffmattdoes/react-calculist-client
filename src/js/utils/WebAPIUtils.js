@@ -78,7 +78,7 @@ const WebAPIUtils = {
             method: "DELETE",
             url: API_URLS.items + '/' + itemID
         }).done((data, textStatus, jqXHR) => {
-            console.log(data, textStatus, jqXHR);
+            // console.log(data, textStatus, jqXHR);
             // rawItems.forEach(function(value, index) {
             //     if (id == value.id) {
             //         rawItems.splice(index, 1);
@@ -87,7 +87,7 @@ const WebAPIUtils = {
             // localStorage.setItem('items', JSON.stringify(rawItems));
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log(jqXHR, textStatus, errorThrown);
+            // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
 
@@ -181,7 +181,7 @@ const WebAPIUtils = {
             method: "DELETE",
             url: API_URLS.lists + '/' + listID
         }).done((data, textStatus, jqXHR) => {
-            console.log(data, textStatus, jqXHR);
+            // console.log(data, textStatus, jqXHR);
             // rawItems.forEach(function(value, index) {
             //     if (id == value.id) {
             //         rawItems.splice(index, 1);
@@ -190,7 +190,7 @@ const WebAPIUtils = {
             // localStorage.setItem('items', JSON.stringify(rawItems));
             d.resolve();
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR, textStatus, errorThrown);
+            // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
 

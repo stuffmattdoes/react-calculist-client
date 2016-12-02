@@ -7,6 +7,8 @@ const ServerActions = {
             type: "RECEIVE_RAW_ITEMS",
             rawItems: rawItems
         });
+
+        // console.log(rawItems);
     },
 
     receiveAllLists: function(rawLists) {

@@ -89,7 +89,7 @@ class ItemStore extends EventEmitter {
     }
 
     itemCreate(listID, itemID, title) {
-
+        
         _items.push({
             title: title,
             checked: false,

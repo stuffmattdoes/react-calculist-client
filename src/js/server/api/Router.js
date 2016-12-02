@@ -155,6 +155,7 @@ router.get('/lists/:id', function(req, res, next) {
 */
 router.post('/items/', function(req, res, next) {
     var item = req.body;
+    console.log(item);
     Item.create(item, function(err, item) {
         if (err) {
             return res.status(500).json({message: err.message});

@@ -153,20 +153,20 @@ listSeed.forEach(function(list, index) {
 itemSeed.forEach(function(item, index) {
 
     Item.find({ID: item.ID}, function(error, items) {
-        // console.log(items);
+        // console.log(item);
         if (resetAll) {
             Item.remove({}, function() {});
         }
 
         if (!error && !items.length) {
             // console.log("Go ahead");
-            // console.log(item.listID);
+            // console.log(item);
             Item.create({
                 title: item.title,
                 checked: item.checked,
                 amount: item.amount,
                 tax: {
-                    active: item.tax.actice,
+                    active: item.tax.active,
                     singleTaxRate: item.tax.singleTaxRate
                 },
                 unitPricing: {

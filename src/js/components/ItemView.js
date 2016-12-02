@@ -25,7 +25,7 @@ const ItemView = React.createClass({
     },
 
     getInitialState: function() {
-        // console.log("ItemView: getInitialState", this.props.itemsData);
+        // console.log("ItemView: getInitialState");
         return this.getStateFromStores();
     },
 
@@ -62,7 +62,6 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        // console.log("Render");
         var listItems = this.state.itemsData.map((listItem, index) => {
             return (
                 <Item
