@@ -26,7 +26,7 @@ class ItemStore extends EventEmitter {
 
     getAllForList(listID) {
         var listItems = [];
-        _items.forEach(function(value, index) {
+        _items.forEach((value, index) => {
             if (listID == value.listID) {
                 listItems.push(value);
             }
@@ -36,7 +36,7 @@ class ItemStore extends EventEmitter {
 
     getAllForListFilter(listID) {
         var listItems = [];
-        _items.forEach(function(value, index) {
+        _items.forEach((value, index) => {
             if (listID == value.listID) {
                 switch (_filter) {
                     case "SHOW_ALL" : {
@@ -84,7 +84,7 @@ class ItemStore extends EventEmitter {
     }
 
     getCurrentListItemCount() {
-        console.log("getCurrentListItemCount");
+        // console.log("getCurrentListItemCount");
         return this.getListItemCount(ListStore.getCurrentListID());
     }
 
@@ -112,7 +112,7 @@ class ItemStore extends EventEmitter {
 
     itemDelete(itemID) {
         // console.log("Store: Delete list item");
-        _items.forEach(function(value, index) {
+        _items.forEach((value, index) => {
             if (itemID == value.ID) {
                 _items.splice(index, 1);
             }
@@ -133,39 +133,37 @@ class ItemStore extends EventEmitter {
     }
 
     itemUpdate(itemID, updates) {
-        _items.forEach(function(value, index) {
+        _items.forEach((item, index) => {
 
-            // Match our item ID
-            if (itemID == value.ID) {
-
-                // Iterate through our updates and apply them
-                for (var update in updates) {
-
-                    // Is this property an object?
-                    if (typeof updates[update] != "object") {
-
-                        // If our store object has a similar property, update it
-                        if (value.hasOwnProperty(update)) {
-                            value[update] = updates[update];
-                        }
-                    } else {
-                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
-                        for (var childUpdate in updates[update]) {
-                            if (value[update].hasOwnProperty(childUpdate)) {
-                                if (value[update].hasOwnProperty(childUpdate)) {
-                                    value[update][childUpdate] = updates[update][childUpdate];
-                                }
-                            }
-                        }
-                    }
-
-                }
-                // console.log(value);
+            // // Match our item ID
+            if (itemID == item.ID) {
+                this.UpdateProperties(item, updates);
             }
 
-        }.bind(this));
+        });;
 
         this.emit(CHANGE_EVENT);
+    }
+
+    UpdateProperties(item, updates) {
+
+        // Iterate through our updates
+        for (var key in updates) {
+            // 'updates' gets the entire object
+            // 'key' gets the property
+            // 'updates[key]' gets the value
+
+            // Is this property an object? And does our item have the same object property?
+            if (typeof updates[key] === 'object'
+                && item.hasOwnProperty(key)) {
+                this.UpdateProperties(item[key], updates[key]);
+            } else {
+                if (key in item) {
+                    item[key] = updates[key];
+                }
+            }
+        }
+
     }
 
     resetItemFilter() {
@@ -175,44 +173,15 @@ class ItemStore extends EventEmitter {
     handleActions(action) {
         switch(action.type) {
             case "CREATE_ITEM" : {
-                // console.log("CREATE_ITEM");
                 this.itemCreate(action.listID, action.itemID, action.title);
                 break;
             }
             case "DELETE_ITEM" : {
-                // console.log("DELETE_ITEM");
                 this.itemDelete(action.itemID);
                 break;
             }
             case "SET_VISIBILITY_FILTER" : {
                 this.itemSetVisibilityFilter(action.filter);
-                break;
-            }
-            case "UPDATE_ITEM_AMOUNT" : {
-                // console.log("UPDATE_ITEM_AMOUNT", action.amount);
-                this.itemUpdate(action.itemID, {amount: action.amount});
-                break;
-            }
-            case "UPDATE_ITEM_CHECKED" : {
-                // console.log("UPDATE_ITEM_CHECKED");
-                this.itemUpdate(action.itemID, {checked: action.checked});
-                break;
-            }
-            case "UPDATE_ITEM_TITLE" : {
-                // console.log("UPDATE_ITEM_TITLE");
-                this.itemUpdate(action.itemID, {title: action.title});
-                break;
-            }
-            case "UPDATE_ITEM_TAXED" : {
-                // console.log("UPDATE_ITEM_TAXED");
-                this.itemUpdate(
-                    action.itemID,
-                    {
-                        tax: {
-                            active: action.taxed
-                        }
-                    }
-                );
                 break;
             }
             case "RECEIVE_RAW_ITEMS" : {
@@ -225,43 +194,13 @@ class ItemStore extends EventEmitter {
                 this.resetItemFilter();
                 break;
             }
-            case "UPDATE_ITEM_UNIT_PRICE_ACTIVE" : {
-                // console.log("UPDATE_ITEM_UNIT_PRICE_ACTIVE");
+            case "UPDATE_ITEM" : {
                 this.itemUpdate(
                     action.itemID,
-                    {
-                        unitPricing: {
-                            active: action.unitPriceActive
-                        }
-                    }
-                );
+                    action.updates
+                )
                 break;
             }
-            case "UPDATE_ITEM_UNIT_PRICE" : {
-                // console.log("UPDATE_ITEM_UNIT_PRICE");
-                this.itemUpdate(
-                    action.itemID,
-                    {
-                        unitPricing: {
-                            price: action.unitPrice
-                        }
-                    }
-                );
-                break;
-            }
-            case "UPDATE_ITEM_UNIT_QUANTITY" : {
-                // console.log("UPDATE_ITEM_UNIT_QUANTITY");
-                this.itemUpdate(
-                    action.itemID,
-                    {
-                        unitPricing: {
-                            quantity: action.quantity
-                        }
-                    }
-                );
-                break;
-            }
-
             default : {
                 return null;
             }

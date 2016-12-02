@@ -22,27 +22,28 @@ const ItemSettings = React.createClass({
 
     onTaxChecked: function(e) {
         const inputValue = e.target.checked;
-        ItemActions.default.itemUpdateTaxed (
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            inputValue
+            {
+                tax: {
+                    active: inputValue
+                }
+            }
         );
         this.setState({
             taxed: inputValue
         });
     },
 
-    onTaxChanged: function(e) {
-        const inputValue = e.target.value;
-        this.setState({
-            taxRate: inputValue
-        });
-    },
-
     onUnitPricingChecked: function(e) {
         const inputValue = e.target.checked;
-        ItemActions.default.itemUpdateUnitPriceActive(
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            inputValue
+            {
+                unitPricing: {
+                    active: inputValue
+                }
+            }
         );
         this.setState({
             unitPriceActive: inputValue
@@ -58,11 +59,15 @@ const ItemSettings = React.createClass({
     },
 
     onUnitPricingSaved: function() {
-        ItemActions.default.itemUpdateUnitPrice(
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            this.state.unitPrice
+            {
+                unitPricing: {
+                    price: this.state.unitPrice
+                }
+            }
         );
-        // this.setState(this.state);
+        this.setState(this.state);
         this.getUnitPricing();
     },
 
@@ -74,11 +79,15 @@ const ItemSettings = React.createClass({
     },
 
     onUnitQuantitySaved : function() {
-        ItemActions.default.itemUpdateUnitQuantity(
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            this.state.unitQuantity
+            {
+                unitPricing: {
+                    quantity: this.state.unitQuantity
+                }
+            }
         );
-        // this.setState(this.state);
+        this.setState(this.state);
         this.getUnitPricing();
     },
 
@@ -105,10 +114,12 @@ const ItemSettings = React.createClass({
         }
 
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
-        // Curency formatter here
-        ItemActions.default.itemUpdateAmount(
+
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            calcUnitPrice
+            {
+                amount: calcUnitPrice
+            }
         );
     },
 

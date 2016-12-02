@@ -45,14 +45,14 @@ const WebAPIUtils = {
             data: JSON.stringify(newItem),
             method: "POST",
             url: API_URLS.items
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
 
             // Local storage push
             // rawItems.push(newItem);
             // localStorage.setItem('items', JSON.stringify(rawItems));
             d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
@@ -77,7 +77,7 @@ const WebAPIUtils = {
             // data: JSON.stringify(deleteItem),
             method: "DELETE",
             url: API_URLS.items + '/' + itemID
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             console.log(data, textStatus, jqXHR);
             // rawItems.forEach(function(value, index) {
             //     if (id == value.id) {
@@ -86,7 +86,7 @@ const WebAPIUtils = {
             // });
             // localStorage.setItem('items', JSON.stringify(rawItems));
             d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail((jqXHR, textStatus, errorThrown) => {
             console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
@@ -108,11 +108,11 @@ const WebAPIUtils = {
             dataType: "json",
             method: "GET",
             url: API_URLS.items
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             ServerActions.default.receiveAllItems(data);
             d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
@@ -121,44 +121,22 @@ const WebAPIUtils = {
     },
 
     itemUpdate: function(itemID, updates) {
-        // Server-side processing
-        var rawItems = JSON.parse(localStorage.getItem('items'));
-        rawItems.forEach(function(value, index) {
+        // Localstorage
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
 
-            // Match our item ID
-            if (itemID == value.id) {
+        // Update item here
 
-                // Iterate through our updates and apply them
-                for (var update in updates) {
+        // localStorage.setItem('items', JSON.stringify(rawItems));
 
-                    // Is this property an object?
-                    if (typeof updates[update] != "object") {
+        var d = $.Deferred();
 
-                        // If our store object has a similar property, update it
-                        if (value.hasOwnProperty(update)) {
-                            value[update] = updates[update];
-                        }
-                    } else {
-                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
-                        for (var childUpdate in updates[update]) {
-                            if (value[update].hasOwnProperty(childUpdate)) {
-                                if (value[update].hasOwnProperty(childUpdate)) {
-                                    value[update][childUpdate] = updates[update][childUpdate];
-                                }
-                            }
-                        }
-                    }
+        $.ajax({
+            context: document.body,
+            dataType: "json",
+            method: "PUT",
+            url: API_URLS.items
+        });
 
-                }
-            }
-
-        }.bind(this));
-        localStorage.setItem('items', JSON.stringify(rawItems));
-
-        // Success callback to client
-        setTimeout(function() {
-            // console.log("Web API Utils: Item update", itemID, updates);
-        }, 0);
     },
 
     listCreate: function(listID, listTitle) {
@@ -175,10 +153,10 @@ const WebAPIUtils = {
             data: JSON.stringify(newList),
             method: "POST",
             url: API_URLS.lists
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
             d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
@@ -202,7 +180,7 @@ const WebAPIUtils = {
             // data: JSON.stringify(deleteItem),
             method: "DELETE",
             url: API_URLS.lists + '/' + listID
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             console.log(data, textStatus, jqXHR);
             // rawItems.forEach(function(value, index) {
             //     if (id == value.id) {
@@ -228,11 +206,11 @@ const WebAPIUtils = {
             dataType: "json",
             method: "GET",
             url: API_URLS.lists
-        }).done(function(data, textStatus, jqXHR) {
+        }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             ServerActions.default.receiveAllLists(data);
             d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });

@@ -45,7 +45,7 @@ const App = React.createClass({
 
     checkForCurrentList: function() {
         // Check for current List ID
-        console.log("checkForCurrentList, getCurrentListID");
+        // console.log("checkForCurrentList, getCurrentListID");
         if (!ListStore.getCurrentListID()
             && this.props.params.listID) {
             // console.log("No list ID", this.props.params);
@@ -117,7 +117,7 @@ const App = React.createClass({
             return (
                 <div className="loader">Loading...</div>
             );
-        }
+        };
 
         // console.log("Render");
 

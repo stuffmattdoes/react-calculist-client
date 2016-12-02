@@ -47,10 +47,13 @@ const ListItem = React.createClass({
     onAmountSave: function(e) {
         const inputValue = e.target.value;
 
-        ItemActions.default.itemUpdateAmount(
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            this.state.amount
+            {
+                amount: this.state.amount
+            }
         );
+
         this.setState({
             amount: inputValue,
             isEditing: false
@@ -60,10 +63,13 @@ const ListItem = React.createClass({
     onCheckedChange: function(e) {
         const inputValue = e.target.checked;
 
-        ItemActions.default.itemUpdateChecked(
+        ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            inputValue
+            {
+                checked: inputValue
+            }
         );
+
         this.setState({
             checked: inputValue
         });
@@ -92,21 +98,24 @@ const ListItem = React.createClass({
 
     onTitleChange: function(e) {
         const inputValue = e.target.value;
-
         this.setState({
             title: inputValue
         });
     },
 
     onTitleSave: function(e) {
+        // console.log("onTitleSave");
         const inputValue = e.target.value;
 
         if (inputValue.trim() != "") {
-            ItemActions.default.itemUpdateTitle(
+            ItemActions.default.itemUpdate(
                 this.props.itemProps.ID,
-                this.state.title
+                {
+                    title: this.state.title
+                }
             );
         }
+
         this.setState({
             title: inputValue,
             isEditing: false

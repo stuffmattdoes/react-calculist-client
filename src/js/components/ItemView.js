@@ -40,7 +40,7 @@ const ItemView = React.createClass({
     },
 
     getStateFromStores: function() {
-        console.log("ItemView: getStateFromStores");
+        // console.log("ItemView: getStateFromStores");
         return {
             itemsData: ItemStore.getAllForCurrentList(true),
             itemsCount: ItemStore.getCurrentListItemCount(),
@@ -62,7 +62,7 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        console.log("Render");
+        // console.log("Render");
         var listItems = this.state.itemsData.map((listItem, index) => {
             return (
                 <Item

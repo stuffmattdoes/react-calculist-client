@@ -14,7 +14,7 @@ class ListStore extends EventEmitter {
     }
 
     getCurrentListID() {
-        console.log("ListStore: getCurrentListID", _currentID);
+        // console.log("ListStore: getCurrentListID", _currentID);
         return _currentID;
     }
 
@@ -22,7 +22,7 @@ class ListStore extends EventEmitter {
         // console.log("ListStore: getCurrentList");
         var currentList = {};
 
-        _lists.forEach(function(value, index) {
+        _lists.forEach((value, index) => {
             if (_currentID == value.ID) {
                 currentList = value;
             }
@@ -47,7 +47,7 @@ class ListStore extends EventEmitter {
 
     listDelete(listID) {
         // console.log("Delete list", listID);
-        _lists.forEach(function(value, index) {
+        _lists.forEach((value, index) => {
             if (listID == value.ID) {
                 _lists.splice(index, 1);
             }
@@ -65,39 +65,34 @@ class ListStore extends EventEmitter {
     listUpdate(listID, updates) {
         // console.log("Update list: ");
 
-        _lists.forEach(function(value, index) {
+        _lists.forEach((list, index) => {
 
-            // Match our item ID
+            // Match our list ID
             if (listID == value.ID) {
-
-                // Iterate through our updates and apply them
-                for (var update in updates) {
-
-                    // Is this property an object?
-                    if (typeof updates[update] != "object") {
-
-                        // If our store object has a similar property, update it
-                        if (value.hasOwnProperty(update)) {
-                            value[update] = updates[update];
-                        }
-                    } else {
-                        // Iterate through children object - TEMPORARY FIX. should probs make data object flat instead
-                        for (var childUpdate in updates[update]) {
-                            if (value[update].hasOwnProperty(childUpdate)) {
-                                if (value[update].hasOwnProperty(childUpdate)) {
-                                    value[update][childUpdate] = updates[update][childUpdate];
-                                }
-                            }
-                        }
-                    }
-
-                }
-                // console.log(value);
+                this.UpdateProperties(list, updates);
             }
-
-        }.bind(this));
-
+        });
         this.emit(CHANGE_EVENT);
+    }
+
+    UpdateProperties(list, updates) {
+
+        // Iterate through our updates
+        for (var key in updates) {
+            // 'updates' gets the entire object
+            // 'key' gets the property
+            // 'updates[key]' gets the value
+
+            // Is this property an object? And does our list have the same object property?
+            if (typeof updates[key] === 'object'
+                && list.hasOwnProperty(key)) {
+                this.UpdateProperties(list[key], updates[key]);
+            } else {
+                if (key in list) {
+                    list[key] = updates[key];
+                }
+            }
+        }
     }
 
     resetListView() {
@@ -127,6 +122,13 @@ class ListStore extends EventEmitter {
             }
             case "RESET_LIST_VIEW" : {
                 this.resetListView();
+                break;
+            }
+            case "UPDATE_LIST" : {
+                this.listUpdate(
+                    action.listID,
+                    action.updates
+                );
                 break;
             }
             case "UPDATE_LIST_TITLE" : {

@@ -35,6 +35,21 @@ const ListActions = {
         }
     },
 
+    listUpdate: function(listID, updates) {
+        // console.log("listUpdate");
+        dispatcher.dispatch({
+            type: "UPDATE_ITEM",
+            itemID: itemID,
+            updates: updates
+        });
+
+        // API action call
+        // WebAPIUtils.itemUpdate(
+        //     itemID,
+        //     updates
+        // );
+    },
+
     listUpdateTitle: function(listID, title) {
         dispatcher.dispatch({
             type: "UPDATE_LIST_TITLE",
