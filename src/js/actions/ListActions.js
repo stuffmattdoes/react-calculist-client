@@ -35,7 +35,7 @@ const ListActions = {
         }
     },
 
-    listUpdate: function(listID, updates) {
+    listUpdate: function(listID, mongoID, updates) {
         // console.log("listUpdate");
         dispatcher.dispatch({
             type: "UPDATE_ITEM",
@@ -58,12 +58,12 @@ const ListActions = {
         });
 
         // API action call
-        WebAPIUtils.listUpdate(
-            listID,
-            {
-                title: title
-            }
-        );
+        // WebAPIUtils.listUpdate(
+        //     listID,
+        //     {
+        //         title: title
+        //     }
+        // );
     },
 
     resetListView: function() {

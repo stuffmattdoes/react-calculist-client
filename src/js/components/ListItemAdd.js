@@ -70,7 +70,6 @@ const ListAdd = React.createClass({
                 ItemActions.default.itemCreate(
                     this.state.title,
                     ListStore.getCurrentListID()
-                    // this.props.currentListID
                 );
             }
 

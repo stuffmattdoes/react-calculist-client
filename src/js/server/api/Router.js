@@ -18,8 +18,8 @@ var Item = require('../models/Items');
 
 // Routes
 // GET route - receive all existing lists
-router.get('/lists/', function(req, res, next) {
-    List.find({}, function(err, lists) {
+router.get('/lists/', (req, res, next) => {
+    List.find({}, (err, lists) => {
         if (err) {
             res.status(500).json({message: err.message});
             return;
@@ -37,9 +37,9 @@ router.get('/lists/', function(req, res, next) {
     "ID": "iv3v3mtv"
 }
 */
-router.post('/lists/', function(req, res, next) {
+router.post('/lists/', (req, res, next) => {
     var list = req.body;
-    List.create(list, function(err, list) {
+    List.create(list, (err, list) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
@@ -57,7 +57,7 @@ router.post('/lists/', function(req, res, next) {
     "ID": "iv3v3mtv"
 }
 */
-router.put('/lists/:id', function(req, res, next) {
+router.put('/lists/:id', (req, res, next) => {
     var id = req.params.id;
     var list = req.body;
 
@@ -65,7 +65,7 @@ router.put('/lists/:id', function(req, res, next) {
         return res.status(500).json({err: "ID was not found"});
     }
 
-    List.findByIdAndUpdate(id, list, {new: true}, function(err, list) {
+    List.findByIdAndUpdate(id, list, {new: true}, (err, list) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
@@ -82,7 +82,7 @@ router.put('/lists/:id', function(req, res, next) {
     "ID": "iv3v3mtv"
 }
 */
-router.delete('/lists/:id', function(req, res, next) {
+router.delete('/lists/:id', (req, res, next) => {
     var id = req.params.id;
     // var list = req.body;
 
@@ -91,7 +91,7 @@ router.delete('/lists/:id', function(req, res, next) {
     // }
 
     // Delete the list
-    List.findByIdAndRemove(id, function(err, list) {
+    List.findByIdAndRemove(id, (err, list) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
@@ -113,8 +113,8 @@ router.delete('/lists/:id', function(req, res, next) {
 
 // Routes
 // GET route - receive all items
-router.get('/items/', function(req, res, next) {
-    Item.find({}, function(err, items) {
+router.get('/items/', (req, res, next) => {
+    Item.find({}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
             return;
@@ -126,14 +126,14 @@ router.get('/items/', function(req, res, next) {
 });
 
 // GET route - receive items for current list
-router.get('/lists/:id', function(req, res, next) {
+router.get('/lists/:id', (req, res, next) => {
     var id = req.params.id;
 
     // if (item && item.listID !== id) {
     //     return res.status(500).json({err: "ID was not found"});
     // }
 
-    Item.find({}, function(err, items) {
+    Item.find({}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
             return;
@@ -153,10 +153,9 @@ router.get('/lists/:id', function(req, res, next) {
     "listID": "iv3v3mtv"        - the ID of the list this item belongs to
 }
 */
-router.post('/items/', function(req, res, next) {
+router.post('/items/', (req, res, next) => {
     var item = req.body;
-    console.log(item);
-    Item.create(item, function(err, item) {
+    Item.create(item, (err, item) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
@@ -167,29 +166,61 @@ router.post('/items/', function(req, res, next) {
     });
 });
 
-// UPDATE HERE
-
-// DELETE route - delete existing lists
+// PUT route - update existing items
 /*
 {
     "_id": "583bc4ce1a7e726b2c915cd6"
 }
 */
-router.delete('/items/:id', function(req, res, next) {
+router.put('/items/:id', (req, res, next) => {
     var id = req.params.id;
-    // var item = req.body;
+    var item = req.body;
 
-    // if (item && item._id !== id) {
-        // console.log(item._id, id);
-        // return res.status(500).json({err: "ID was not found"});
-    // }
+    console.log(id, item._id, item);
+    
+    if (item && item._id !== id) {
+        return res.status(500).json({err: "ID was not found"});
+    }
 
-    Item.findByIdAndRemove(id, function(err, list) {
+    // Item.findByIdAndUpdate(id, item, {new: true}, (err, item) => {
+    //     if (err) {
+    //         return res.status(500).json({message: err.message});
+    //     }
+    //     res.json({
+    //         'item': item,
+    //         message: "Item updated"
+    //     });
+    // });
+});
+
+// DELETE route - delete existing items
+/*
+{
+    "_id": "583bc4ce1a7e726b2c915cd6"
+}
+*/
+router.delete('/items/:id', (req, res, next) => {
+    var id = req.params.id;
+    var mongoID;
+
+    // We need to query our DB with our ID and return Mongo's _id
+    Item.find({ID : id}, (err, item) => {
         if (err) {
+            console.log("Error");
             return res.status(500).json({message: err.message});
         }
+        mongoID = item[0]._id;
+        console.log("Item found", mongoID);
+    });
+
+    Item.findByIdAndRemove(mongoID, (err, item) => {
+        if (err) {
+            console.log("item findByIdAndRemove error")
+            return res.status(500).json({message: err.message});
+        }
+        console.log("Item deleted!");
         res.json({
-            message: "List deleted"
+            message: "Item deleted " + mongoID
         });
     });
 });

@@ -126,9 +126,8 @@ const ItemSettings = React.createClass({
 
     onListItemDelete: function() {
         var itemID = this.props.itemProps.ID;
-        var mongoID = this.props.itemProps._id;
 
-        ItemActions.default.itemDelete(itemID, mongoID);
+        ItemActions.default.itemDelete(itemID);
         this.setState(this.state);
     },
 

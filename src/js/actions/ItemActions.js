@@ -17,7 +17,7 @@ const ItemActions = {
         WebAPIUtils.itemCreate(title, listID, itemID);
     },
 
-    itemDelete: function(itemID, mongoID) {
+    itemDelete: function(itemID) {
         // console.log("Action: delete list item");
         dispatcher.dispatch({
             type: "DELETE_ITEM",
@@ -25,9 +25,7 @@ const ItemActions = {
         });
 
         // API action call
-        if (mongoID) {
-            WebAPIUtils.itemDelete(mongoID);
-        }
+        WebAPIUtils.itemDelete(itemID);
     },
 
     itemSetVisibilityFilter: function(filter) {
@@ -46,10 +44,10 @@ const ItemActions = {
         });
 
         // API action call
-        // WebAPIUtils.itemUpdate(
-        //     itemID,
-        //     updates
-        // );
+        WebAPIUtils.itemUpdate(
+            itemID,
+            updates
+        );
     },
 
 }
