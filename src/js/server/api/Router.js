@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var List = require('../models/Lists');
 var Item = require('../models/Items');
-
+var List = require('../models/Lists');
 
 // -----
 // Login
@@ -206,23 +205,23 @@ router.delete('/items/:id', (req, res, next) => {
     // We need to query our DB with our ID and return Mongo's _id
     Item.find({ID : id}, (err, item) => {
         if (err) {
-            console.log("Error");
             return res.status(500).json({message: err.message});
         }
         mongoID = item[0]._id;
-        console.log("Item found", mongoID);
-    });
 
-    Item.findByIdAndRemove(mongoID, (err, item) => {
-        if (err) {
-            console.log("item findByIdAndRemove error")
-            return res.status(500).json({message: err.message});
-        }
-        console.log("Item deleted!");
-        res.json({
-            message: "Item deleted " + mongoID
+
+        Item.findByIdAndRemove(mongoID, (err, item) => {
+            if (err) {
+                return res.status(500).json({errorMessage: err.message});
+            }
+            res.json({
+                successMessage: "Item deleted"
+            });
         });
-    });
+
+
+    })
+
 });
 
 module.exports = router;
