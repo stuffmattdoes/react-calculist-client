@@ -49,7 +49,6 @@ const ListItem = React.createClass({
 
         ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            this.props.itemProps._id,
             {
                 amount: this.state.amount
             }
@@ -66,7 +65,6 @@ const ListItem = React.createClass({
 
         ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
-            this.props.itemProps._id,
             {
                 checked: inputValue
             }
@@ -112,7 +110,6 @@ const ListItem = React.createClass({
         if (inputValue.trim() != "") {
             ItemActions.default.itemUpdate(
                 this.props.itemProps.ID,
-                this.props.itemProps._id,
                 {
                     title: this.state.title
                 }

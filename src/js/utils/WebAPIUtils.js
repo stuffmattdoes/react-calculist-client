@@ -120,17 +120,15 @@ const WebAPIUtils = {
         return d;
     },
 
-    itemUpdate: function(itemMongoID, updates) {
+    itemUpdate: function(itemID, updates) {
         
-        console.log(itemMongoID, updates);
-
         // Localstorage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         // localStorage.setItem('items', JSON.stringify(rawItems));
 
         var d = $.Deferred();
         var updateItem =  {
-            "_id": itemMongoID,
+            "ID": itemID,
             "updates": updates
         }
 
@@ -140,10 +138,9 @@ const WebAPIUtils = {
             data: JSON.stringify(updateItem),
             dataType: "json",
             method: "PUT",
-            url: API_URLS.items + '/' + itemMongoID
+            url: API_URLS.items + '/' + itemID
         }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
-            // ServerActions.default.receiveAllItems(data);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log(jqXHR, textStatus, errorThrown);
@@ -203,7 +200,7 @@ const WebAPIUtils = {
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         var d = $.Deferred();
         var deleteList = {
-            ID: listID
+            "ID": listID
         }
 
         // console.log(API_URLS.items + '/' + itemID);

@@ -10,6 +10,7 @@ var CHANGE_EVENT = "CHANGE_ITEM";
 class ItemStore extends EventEmitter {
 
     getAll() {
+        // console.log("getAll");
         return _items;
     }
 
@@ -25,6 +26,7 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForList(listID) {
+        // console.log("getAllForList", _items);
         var listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
@@ -35,6 +37,7 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForListFilter(listID) {
+        // console.log("getAllForListFilter");
         var listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
@@ -62,10 +65,12 @@ class ItemStore extends EventEmitter {
     }
 
     getCurrentFilter() {
+        // console.log("getCurrentFilter");
         return _filter;
     }
 
     getListItemCount(listID) {
+        // console.log("getListItemCount");
         var itemCount = {
             checked: 0,
             unchecked: 0
@@ -122,33 +127,41 @@ class ItemStore extends EventEmitter {
     }
 
     itemPopulate(rawItems) {
+        // console.log("itemPopulate", rawItems);
         _items = rawItems.items;
         // console.log("Populate items:", _items);
         // this.emit(CHANGE_EVENT);
     }
 
     itemSetVisibilityFilter(filter) {
+        // console.log("itemSetVisibilityFilter");
         _filter = filter;
         this.emit(CHANGE_EVENT);
     }
 
     itemUpdate(itemID, updates) {
+        // console.log("itemUpdate");
         _items.forEach((item, index) => {
 
             // // Match our item ID
             if (itemID == item.ID) {
-                this.UpdateProperties(item, updates);
+                this.updateProperties(item, updates);
             }
 
-        });;
+        });
+
+        // console.log("Done!");
 
         this.emit(CHANGE_EVENT);
     }
 
-    UpdateProperties(item, updates) {
+    updateProperties(item, updates) {
+
+        // console.log("updateProperties");
 
         // Iterate through our updates
         for (var key in updates) {
+            // console.log(_items);
             // 'updates' gets the entire object
             // 'key' gets the property
             // 'updates[key]' gets the value
@@ -156,8 +169,10 @@ class ItemStore extends EventEmitter {
             // Is this property an object? And does our item have the same object property?
             if (typeof updates[key] === 'object'
                 && item.hasOwnProperty(key)) {
-                this.UpdateProperties(item[key], updates[key]);
+                // console.log(_items);
+                this.updateProperties(item[key], updates[key]);
             } else {
+                // console.log(_items);
                 if (key in item) {
                     item[key] = updates[key];
                 }

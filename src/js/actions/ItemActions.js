@@ -36,7 +36,7 @@ const ItemActions = {
     },
 
     itemUpdate: function(itemID, updates) {
-        // console.log("itemUpdate");
+        // console.log("itemUpdate", itemID, updates);
         dispatcher.dispatch({
             type: "UPDATE_ITEM",
             itemID: itemID,
