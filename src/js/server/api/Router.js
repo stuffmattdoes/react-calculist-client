@@ -2,14 +2,62 @@ var express = require('express');
 var router = express.Router();
 var Item = require('../models/Items');
 var List = require('../models/Lists');
+var User = require('../models/Users');
 
-// -----
-// Login
-// -----
-// router.get('/register', function(req, res, next) {
-//     return res.render('Register', {});
-// });
+// --------------------
+// Login & Registration
+// --------------------
 
+// POST route - user registration
+router.post('/register', (req, res, next) => {
+
+    if (req.body.email
+        && req.body.password
+        && req.body.confirmPassword) {
+
+        // Confirm the passwords match
+        if (req.body.password !== req.body.confirmPassword) {
+            var err = new Error('Passwords do not match.');
+            err.status = 400;
+            return next(err);
+        }
+
+        // Create object with form input
+        var userData = {
+            email: req.body.email,
+            password: req.body.password
+        };
+
+        // Insert user document into mongo
+        User.create(userData, (err, user) => {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect('/lists');
+            }
+        });
+
+    } else {
+        var err = new Error('All fields required.');
+        err.status = 400;
+        return next(err);
+    }
+
+});
+
+// POST route - user login
+router.post('/login', (req, res, next) => {
+    if (req.body.email
+        && req.body.password) {
+        console.log("Login success!");
+    } else {
+        console.log("Login error");
+        var err = new Error('Email and password are required.');
+        err.status = 401;
+        return next(err);
+    }
+    
+});
 
 // -----
 // Lists
@@ -21,7 +69,7 @@ router.get('/lists/', (req, res, next) => {
     List.find({}, (err, lists) => {
         if (err) {
             res.status(500).json({message: err.message});
-            return;
+            return next();
         }
         res.json({
             lists: lists
