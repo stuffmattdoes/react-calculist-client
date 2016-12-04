@@ -31,27 +31,28 @@ const Header = React.createClass({
         return (
             <div className="header">
                 {this.props.params.listID ?
-                    <div
+                    <a
+                        href="/settings"
                         className="header-left-button"
                         onClick={this.backNav}
                     >
                         Back
-                    </div>
+                    </a>
                 :
-                    <div
+                    <a
                         className="header-left-button"
                     >
                         Menu
-                    </div>
+                    </a>
                 }
                 <h1 className="header-title">{this.props.title}</h1>
                 {this.props.params.listID ?
-                    <div
+                    <a
                         className="header-options"
                         onClick={this.toggleSettings}
                     >
                         <span className="icon-dots-vertical"></span>
-                    </div>
+                    </a>
                 : null}
             </div>
         );

@@ -6,7 +6,7 @@ const Register = React.createClass({
         return (
             <div className="app">
                 <div className="login-view">
-                    <h1>Login</h1>
+                    <h1>Register</h1>
                     <form method="POST" action="/api/register" className="form-standard">
                         <label
                             className="label-standard"
@@ -45,7 +45,7 @@ const Register = React.createClass({
                     </form>
                     <div className="login-alt">
                         <p>Already have an account?</p>
-                        <a href="#">Sign in</a>
+                        <a href="/login">Sign in</a>
                     </div>
                 </div>
             </div>

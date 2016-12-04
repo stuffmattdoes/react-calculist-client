@@ -673,6 +673,9 @@ a {
   background-color: #A588BF;
   color: white;
   text-align: center; }
+  .header a {
+    color: white;
+    text-decoration: none; }
   .header .header-left-button {
     position: absolute;
     left: 15px;

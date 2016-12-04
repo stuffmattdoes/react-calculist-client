@@ -77,6 +77,20 @@ router.post('/login', (req, res, next) => {
 
 });
 
+// GET route - user log out
+router.get('/logout', (req, res, next) => {
+    if (req.session) {
+        // Delete session object
+        req.session.destroy(err => {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect('/login');
+            }
+        });
+    }
+});
+
 // -----
 // Lists
 // -----
@@ -84,13 +98,6 @@ router.post('/login', (req, res, next) => {
 // Routes
 // GET route - receive all existing lists
 router.get('/lists/', (req, res, next) => {
-
-    // First check if we're logged in
-    if (!req.session.userId) {
-        var err = new Error("You are not logged in.");
-        err.status = 403;
-        return next(err);
-    }
 
     List.find({}, (err, lists) => {
         if (err) {

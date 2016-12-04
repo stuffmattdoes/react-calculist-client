@@ -18,15 +18,21 @@ mongoose.connect('mongodb://localhost/calculist', (res) => {
 
 var db = mongoose.connection;
 
-// User sessions for tracking user logins
+// User sessions for tracking user authorization
 app.use(session({
-	resave: true,				// Forces session to be saved in session store whether anything changed during request or not
-	saveUninitialized: true, 	// Forces uninitialized session (new, not yet modified session) to be saved in session store
-	secret: 'noodles',			// Required. Signs session ID cookie, adds another level of security
-	store: new MongoStore({		// Stores session IDs in a database instead of the server. Frees up server memory for many concurrent users
+	resave: true,			           	  // Forces session to be saved in session store whether anything changed during request or not
+	saveUninitialized: true,              // Forces uninitialized session (new, not yet modified session) to be saved in session store
+	secret: 'noodles the cat',			  // Required. Signs session ID cookie, adds another level of security
+	store: new MongoStore({		          // Stores session IDs in a database instead of the server. Frees up server memory for many concurrent users
 		mongooseConnection: db
 	})
 }));
+
+// Make user ID available to routes
+app.use((req, res, next) => {
+    res.locals.currentUser = req.session.userId;
+    next();
+});
 
 // Seed data
 // require('./Seed');
@@ -44,13 +50,13 @@ app.use('/api', router);
 
 // error handler
 // define as the last app.use callback
-// app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//         message: err.message,
-//         error: {}
-//     });
-// });
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'
