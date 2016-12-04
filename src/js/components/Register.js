@@ -39,7 +39,7 @@ const Register = React.createClass({
                             type="password"
                         />
                         <input
-                            className="submit-standard button-main"
+                            className="button-full button-main"
                             type="submit"
                         />
                     </form>

@@ -29,14 +29,14 @@ app.use(session({
 }));
 
 // Seed data
-require('./Seed');
-
-// Serve static files like CSS, HTML & JS
-app.use('/', express.static('public'));
+// require('./Seed');
 
 // Parse incoming requests
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
+
+// Serve static files like CSS, HTML & JS
+app.use('/', express.static('public'));
 
 // Mount router to app
 // Prefix routes with API namespace
@@ -44,13 +44,13 @@ app.use('/api', router);
 
 // error handler
 // define as the last app.use callback
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
+// app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: {}
+//     });
+// });
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'

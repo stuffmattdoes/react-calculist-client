@@ -13,7 +13,7 @@ input {
 
     .label-standard {
         font-size: 12px;
-        opacity: 0.75;
+        opacity: 0.6;
     }
 
     .input-standard {
@@ -23,7 +23,7 @@ input {
         outline: none;
         border-bottom: 1px solid rgba(black, 0.6);
         padding: 5px 0;
-        margin: 0;
+        margin: 0 0 15px 0;
 
         &-light {
         	border-bottom: 1px solid rgba(white, 0.75);

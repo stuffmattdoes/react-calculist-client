@@ -409,6 +409,9 @@ h1 {
   margin: 0;
   text-align: center; }
 
+a {
+  color: #A588BF; }
+
 /**
  * Clear inner floats
  */
@@ -742,17 +745,31 @@ h1 {
 input.input-hidden {
   display: none !important; }
 
-.button-main {
+.button {
   display: inline-block;
   width: auto;
   padding: 5px 10px; }
-  .button-main.button-outline {
-    cursor: pointer;
-    background: none;
-    border: 1px solid #EB5365;
-    border-radius: 15px;
-    color: #EB5365;
-    font-size: 12px; }
+
+.button-full {
+  display: block;
+  padding: 10px;
+  text-align: center; }
+
+.button-main {
+  background-color: #A588BF;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  outline: none; }
+
+.button-outline {
+  cursor: pointer;
+  background: none;
+  border: 1px solid #EB5365;
+  border-radius: 15px;
+  color: #EB5365;
+  font-size: 12px; }
 
 .button-circle {
   display: block;
@@ -783,7 +800,7 @@ input {
   display: block; }
   .form-standard .label-standard {
     font-size: 12px;
-    opacity: 0.75; }
+    opacity: 0.6; }
   .form-standard .input-standard {
     font-size: 16px;
     background: none;
@@ -791,7 +808,7 @@ input {
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.6);
     padding: 5px 0;
-    margin: 0; }
+    margin: 0 0 15px 0; }
     .form-standard .input-standard-light {
       border-bottom: 1px solid rgba(255, 255, 255, 0.75); }
     .form-standard .input-standard-large {

@@ -46,12 +46,21 @@ router.post('/register', (req, res, next) => {
 
 });
 
+router.get('/login', (req, res, next) => {
+    // If we're already logged in, redirect us to the app
+    if (req.session.userId) {
+        console.log("You're already logged in.");
+        return res.redirect('/lists');
+    }
+
+});
+
 // POST route - user login
 router.post('/login', (req, res, next) => {
     if (req.body.email
         && req.body.password) {
         User.authenticate(req.body.email, req.body.password, (error, user) => {
-            if (err || !user) {
+            if (error || !user) {
                 var err = new Error('Wrong email or password');
                 err.status = 401;
                 return next(err);
@@ -61,14 +70,11 @@ router.post('/login', (req, res, next) => {
             }
         });
     } else {
-        // console.log("Login error");
         var err = new Error('Email and password are required.');
         err.status = 401;
         return next(err);
     }
 
-    return next();
-    
 });
 
 // -----
@@ -78,6 +84,14 @@ router.post('/login', (req, res, next) => {
 // Routes
 // GET route - receive all existing lists
 router.get('/lists/', (req, res, next) => {
+
+    // First check if we're logged in
+    if (!req.session.userId) {
+        var err = new Error("You are not logged in.");
+        err.status = 403;
+        return next(err);
+    }
+
     List.find({}, (err, lists) => {
         if (err) {
             res.status(500).json({message: err.message});

@@ -98,7 +98,7 @@ const ListSettings = React.createClass({
                 >
                     <p>Settings</p>
                     <div
-                        className="button-main button-outline"
+                        className="button button-outline"
                         onClick={this.onListDelete}
                     >
                         Delete List
