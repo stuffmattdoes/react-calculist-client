@@ -72,16 +72,16 @@ const ListSettings = React.createClass({
                     >
                         Back
                     </div>
-                    <form onSubmit={this.onSubmit} >
+                    <form onSubmit={this.onSubmit} className="form-standard">
                         <label
                             htmlFor="list-title"
-                            className="list-title-label"
+                            className="label-standard label-standard-light"
                         >
                             List Title
                         </label>
                         <input
                             id="list-title"
-                            className="list-title-input"
+                            className="input-standard input-standard-large input-standard-light"
                             type="text"
                             value={this.state.title}
                             onChange={this.onTitleChange}

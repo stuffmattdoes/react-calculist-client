@@ -778,10 +778,27 @@ input {
   display: block;
   width: 100%;
   margin: 15px 0; }
-  input[type="submit"] {
-    display: inline-block;
-    width: auto;
-    float: right; }
+
+.form-standard {
+  display: block; }
+  .form-standard .label-standard {
+    font-size: 12px;
+    opacity: 0.75; }
+  .form-standard .input-standard {
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+    padding: 5px 0;
+    margin: 0; }
+    .form-standard .input-standard-light {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.75); }
+    .form-standard .input-standard-large {
+      font-size: 24px; }
+  .form-standard .submit-standard {
+    display: block;
+    width: 100%; }
 
 .list-item-scroll {
   overflow-y: scroll;
@@ -810,6 +827,11 @@ input {
     outline: none;
     border: none;
     background: none; }
+  .list-item .input-group,
+  .list-item-add .input-group {
+    position: relative;
+    display: flex;
+    align-items: center; }
   .list-item .input-group-sub,
   .list-item-add .input-group-sub {
     text-align: right; }
@@ -841,16 +863,18 @@ input {
     width: 100%; }
   .list-item .currency-prefix,
   .list-item-add .currency-prefix {
-    display: none;
-    color: #999;
-    margin-right: 4px; }
+    color: #bbb;
+    position: absolute;
+    left: 10px;
+    z-index: 100; }
   .list-item .list-item-input-number,
   .list-item-add .list-item-input-number {
     text-align: right;
-    width: 60px;
+    width: 75px;
     background-color: #F5F5F5;
     border-radius: 2px;
-    margin-left: 8px; }
+    margin-left: 4px;
+    padding-left: 25px; }
   .list-item .list-item-options-button,
   .list-item-add .list-item-options-button {
     width: 35px;
@@ -939,22 +963,6 @@ input {
   cursor: pointer;
   font-size: 12px; }
 
-.list-options .list-title-form {
-  padding: 5px; }
-
-.list-options .list-title-label {
-  font-size: 12px;
-  opacity: 0.75; }
-
-.list-options .list-title-input {
-  font-size: 24px;
-  background: none;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid white;
-  padding: 5px 0;
-  margin: 0; }
-
 .list-options .list-options-container {
   padding: 15px; }
 
@@ -997,5 +1005,11 @@ input {
 .modal {
   position: absolute;
   width: 90vw; }
+
+.login-view {
+  padding: 40px; }
+  .login-view .login-alt {
+    font-size: 12px;
+    text-align: center; }
 
 /*# sourceMappingURL=main.css.map*/

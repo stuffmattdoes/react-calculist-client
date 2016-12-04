@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-// var currencyFormatter = require('currency-formatter');
+var numeral = require('numeral');
 
 // Actions
 import * as ItemActions from '../actions/ItemActions';
@@ -36,28 +36,34 @@ const ListItem = React.createClass({
     },
 
     onAmountChanged: function(e) {
-        const inputValue = e.target.value;
-
+        var inputValue = e.target.value;
+        
         // Currency formatter here
         this.setState({
             amount: inputValue
         });
     },
 
-    onAmountSave: function(e) {
-        const inputValue = e.target.value;
-
+    onAmountSave: function() {
+        var amount = this.amountFormat(this.state.amount);
         ItemActions.default.itemUpdate(
             this.props.itemProps.ID,
             {
-                amount: this.state.amount
+                amount: amount
             }
         );
 
         this.setState({
-            amount: inputValue,
             isEditing: false
         });
+    },
+
+    amountFormat: function(num) {
+        if (num === '') {
+            return 0;
+        }
+        return num;
+        // return numeral(num).format('0,0.00');
     },
 
     onCheckedChange: function(e) {
@@ -176,28 +182,31 @@ const ListItem = React.createClass({
                     {/* ------
                         Amount
                         ------ */}
-                    {this.props.itemProps.tax.active ?
-                        <span>*</span>
-                    : null}
-                    <input
-                        className="list-item-input-number list-item-amount"
-                        type="text"
-                        onChange={this.onAmountChanged}
-                        onClick={this.onInputClick}
-                        onBlur={this.onAmountSave}
-                        value={this.state.amount != 0 ? this.state.amount : ''}
-                        disabled={this.props.itemProps.unitPricing.active}
-                    />
-                    <div
-                        className="list-item-options-button"
-                        onClick={this.onOptionsExpand}
-                    >
-                        <div className="icon-dots-vertical"></div>
+                    <div className="input-group">
+                        {this.props.itemProps.tax.active ?
+                            <span>*</span>
+                        : null}
+                        <label className="currency-prefix">$</label>
+                        <input
+                            className="list-item-input-number list-item-amount"
+                            type="tel"
+                            onChange={this.onAmountChanged}
+                            onClick={this.onInputClick}
+                            onBlur={this.onAmountSave}
+                            value={this.state.amount != 0 ? this.state.amount : ''}
+                            disabled={this.props.itemProps.unitPricing.active}
+                        />
+                        <div
+                            className="list-item-options-button"
+                            onClick={this.onOptionsExpand}
+                        >
+                            <div className="icon-dots-vertical"></div>
+                        </div>
+                        <input
+                            className="input-hidden"
+                            type="submit"
+                        />
                     </div>
-                    <input
-                        className="input-hidden"
-                        type="submit"
-                    />
                 </form>
                 {this.state.settingsOpen ?
                     <ItemSettings
