@@ -58,20 +58,31 @@ router.post('/lists/', (req, res, next) => {
 */
 router.put('/lists/:id', (req, res, next) => {
     var id = req.params.id;
-    var list = req.body;
+    var listUpdates = req.body.updates;
+    var mongoID;
 
-    if (list && list._id !== id) {
-        return res.status(500).json({err: "ID was not found"});
-    }
-
-    List.findByIdAndUpdate(id, list, {new: true}, (err, list) => {
+    console.log(listUpdates);
+    // We need to query our DB with our ID and return Mongo's _id
+    List.find({ID : id}, (err, list) => {
         if (err) {
+            console.log("List update error");
             return res.status(500).json({message: err.message});
         }
-        res.json({
-            'list': list,
-            message: "List updated"
+        console.log("Found list");
+        mongoID = list[0]._id;
+
+        List.findByIdAndUpdate(mongoID, listUpdates, {new: true}, (err, list) => {
+            if (err) {
+                console.log("List udate error");
+                return res.status(500).json({errorMessage: err.message});
+            }
+            console.log("List updated");
+            res.json({
+                "list": list,
+                successMessage: "List updated"
+            });
         });
+
     });
 });
 
@@ -83,20 +94,24 @@ router.put('/lists/:id', (req, res, next) => {
 */
 router.delete('/lists/:id', (req, res, next) => {
     var id = req.params.id;
-    // var list = req.body;
+    var mongoID;
 
-    // if (list && list._id !== id) {
-    //     return res.status(500).json({err: "ID was not found"});
-    // }
-
-    // Delete the list
-    List.findByIdAndRemove(id, (err, list) => {
+    // We need to query our DB with our ID and return Mongo's _id
+    List.find({ID : id}, (err, list) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
-        res.json({
-            message: "List deleted"
+        mongoID = list[0]._id;
+
+        List.findByIdAndRemove(mongoID, (err, list) => {
+            if (err) {
+                return res.status(500).json({errorMessage: err.message});
+            }
+            res.json({
+                successMessage: "List deleted"
+            });
         });
+
     });
 
     // ***************************************************************************
@@ -200,15 +215,6 @@ router.put('/items/:id', (req, res, next) => {
 
     });
 
-    // Item.findByIdAndUpdate(id, item, {new: true}, (err, item) => {
-    //     if (err) {
-    //         return res.status(500).json({message: err.message});
-    //     }
-    //     res.json({
-    //         'item': item,
-    //         message: "Item updated"
-    //     });
-    // });
 });
 
 // DELETE route - delete existing items

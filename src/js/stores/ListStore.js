@@ -2,7 +2,7 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _lists = {};
+var _lists;
 var _currentID = null;
 var CHANGE_EVENT = "CHANGE_LIST";
 
@@ -19,18 +19,22 @@ class ListStore extends EventEmitter {
     }
 
     getCurrentList() {
-        // console.log("ListStore: getCurrentList");
-        var currentList = {};
+        // console.log("getCurrentList");
 
-        _lists.forEach((value, index) => {
-            if (_currentID == value.ID) {
-                currentList = value;
+        if (!_lists
+            || !_currentID) {
+            return null;
+        }
+
+        for (var index in _lists) {
+            if (_currentID == _lists[index].ID) {
+                return _lists[index];
             }
-        });
-        return currentList;
+        }
+
     }
 
-    SetCurrentList(listID) {
+    setCurrentList(listID) {
         // console.log("ListStore: Set current list:", listID);
         _currentID = listID;
         this.emit(CHANGE_EVENT);
@@ -63,19 +67,19 @@ class ListStore extends EventEmitter {
     }
 
     listUpdate(listID, updates) {
-        // console.log("Update list: ");
+        console.log("listUpdate");
 
         _lists.forEach((list, index) => {
 
             // Match our list ID
-            if (listID == value.ID) {
-                this.UpdateProperties(list, updates);
+            if (listID == list.ID) {
+                this.updateProperties(list, updates);
             }
         });
         this.emit(CHANGE_EVENT);
     }
 
-    UpdateProperties(list, updates) {
+    updateProperties(list, updates) {
 
         // Iterate through our updates
         for (var key in updates) {
@@ -86,7 +90,7 @@ class ListStore extends EventEmitter {
             // Is this property an object? And does our list have the same object property?
             if (typeof updates[key] === 'object'
                 && list.hasOwnProperty(key)) {
-                this.UpdateProperties(list[key], updates[key]);
+                this.updateProperties(list[key], updates[key]);
             } else {
                 if (key in list) {
                     list[key] = updates[key];
@@ -103,7 +107,7 @@ class ListStore extends EventEmitter {
     handleActions(action) {
         switch(action.type) {
             case "SET_CURRENT_LIST" : {
-                this.SetCurrentList(action.listID);
+                this.setCurrentList(action.listID);
                 break;
             }
             case "CREATE_LIST" : {

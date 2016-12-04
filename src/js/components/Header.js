@@ -8,9 +8,11 @@ const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
-        route: React.PropTypes.object.isRequired,
         params: React.PropTypes.object,
         location: React.PropTypes.object.isRequired,
+
+        // Passing up
+        toggleSettings: React.PropTypes.func.isRequired
     },
 
     backNav: function() {
@@ -19,13 +21,12 @@ const Header = React.createClass({
     },
 
     toggleSettings: function() {
-        browserHistory.push(this.props.location.pathName + '/settings');
+        browserHistory.push(this.props.location.pathname + '/settings');
         this.props.toggleSettings();
     },
 
     render: function() {
         var thisLocation = this.props.location.pathname;
-        // console.log(this.props.location, this.props.route, this.props.params);
 
         return (
             <div className="header">

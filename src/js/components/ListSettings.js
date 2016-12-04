@@ -1,27 +1,32 @@
 // Libraries
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 // Actions
 import * as ListActions from '../actions/ListActions';
 
+// Stores
+import ListStore from '../stores/ListStore';
+
 const ListSettings = React.createClass({
 
     propTypes: {
-        currentList: React.PropTypes.object.isRequired,
-
         // Passing up
         toggleSettings: React.PropTypes.func.isRequired
     },
 
     getInitialState: function() {
         return {
+            currentList: ListStore.getCurrentList(),
             title: this.props.currentList.title
         };
     },
 
     onListDelete: function() {
+        browserHistory.push('/lists/');
+        ListActions.default.resetListView();
         ListActions.default.listDelete(this.props.currentList.ID);
-        this.setState(this.state);
+        this.props.toggleSettings();
     },
 
     onSubmit: function(e) {
@@ -30,9 +35,6 @@ const ListSettings = React.createClass({
 
     onTitleChange: function(e) {
         const inputValue = e.target.value;
-
-        console.log(this.props.currentList.ID);
-
         this.setState({
             title: inputValue
         });
@@ -42,9 +44,11 @@ const ListSettings = React.createClass({
         const inputValue = e.target.value;
 
         if (inputValue.trim() != "") {
-            ListActions.default.listUpdateTitle(
+            ListActions.default.listUpdate(
                 this.props.currentList.ID,
-                this.state.title
+                {
+                    title: this.state.title
+                }
             );
         }
         this.setState({
@@ -53,10 +57,12 @@ const ListSettings = React.createClass({
     },
 
     toggleSettings: function() {
+        browserHistory.push('/lists/' + this.props.params.listID);
         this.props.toggleSettings();
     },
 
     render: function() {
+
         return (
             <div className="list-options">
                 <div className="list-options-header">

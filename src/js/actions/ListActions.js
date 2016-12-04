@@ -24,46 +24,28 @@ const ListActions = {
         WebAPIUtils.listCreate(listID, title);
     },
 
-    listDelete: function(listID, mongoID) {
+    listDelete: function(listID) {
         dispatcher.dispatch({
             type: "DELETE_LIST",
             listID: listID
         });
 
-        if (mongoID) {
-            WebAPIUtils.listDelete(mongoID);
-        }
+        WebAPIUtils.listDelete(listID);
     },
 
-    listUpdate: function(listID, mongoID, updates) {
-        // console.log("listUpdate");
+    listUpdate: function(listID, updates) {
+        console.log("listUpdate");
         dispatcher.dispatch({
-            type: "UPDATE_ITEM",
-            itemID: itemID,
+            type: "UPDATE_LIST",
+            listID: listID,
             updates: updates
         });
 
         // API action call
-        // WebAPIUtils.itemUpdate(
-        //     itemID,
-        //     updates
-        // );
-    },
-
-    listUpdateTitle: function(listID, title) {
-        dispatcher.dispatch({
-            type: "UPDATE_LIST_TITLE",
-            listID: listID,
-            title: title
-        });
-
-        // API action call
-        // WebAPIUtils.listUpdate(
-        //     listID,
-        //     {
-        //         title: title
-        //     }
-        // );
+        WebAPIUtils.listUpdate(
+            listID,
+            updates
+        );
     },
 
     resetListView: function() {

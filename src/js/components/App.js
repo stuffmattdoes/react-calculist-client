@@ -4,6 +4,7 @@ import React from 'react';
 // Components
 import Header from './Header';
 import ItemView from './ItemView';
+import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Actions
@@ -21,21 +22,23 @@ import WebAPIUtils from '../utils/WebAPIUtils';
 const App = React.createClass({
 
     getInitialState: function() {
-        // console.log("App: getInitialState");
         return {
-            currentListID: this.checkForCurrentList(),
+            // currentListID: this.checkForCurrentList(),
+            currentListID: null,
             listsData: [],
-            // itemsData: [],
+            // currentList: ListStore.getCurrentList(),
+            currentList: null,
             receivedLists: false,
-            receivedItems: false
+            receivedItems: false,
+            ListSettingsActive: false
         };
     },
 
     getStateFromStores: function() {
-        // console.log("App: getStateFromStores, getCurrentListID");
         return {
-            // currentListID: ListStore.getCurrentListID(),
-            listsData: ListStore.getAll()
+            currentListID: ListStore.getCurrentListID(),
+            listsData: ListStore.getAll(),
+            currentList: ListStore.getCurrentList()
         };
     },
 
@@ -45,11 +48,10 @@ const App = React.createClass({
 
     checkForCurrentList: function() {
         // Check for current List ID
-        // console.log("checkForCurrentList, getCurrentListID");
         if (!ListStore.getCurrentListID()
             && this.props.params.listID) {
-            // console.log("No list ID", this.props.params);
             ListActions.default.setCurrentList(this.props.params.listID);
+            return ListStore.getCurrentListID();
         }
     },
 
@@ -62,14 +64,12 @@ const App = React.createClass({
         var hasLocalItemStorage = null;
 
         if (hasLocalListStorage) {
-            // console.log("App: Has local storage: Lists");
             this.setState({
                 receivedLists: true,
                 listsData: ListStore.getAll()
             });
         } else {
             WebAPIUtils.listGetAll().done( () => {
-                // console.log("App: List API call done", ListStore.getAll());
                 this.setState({
                     receivedLists: true,
                     listsData: ListStore.getAll()
@@ -78,14 +78,12 @@ const App = React.createClass({
         }
 
         if (hasLocalItemStorage) {
-            // console.log("Has local storage: Items");
             this.setState({
                 receivedItems: true,
                 // itemsData: ItemStore.getAll()
             });
         } else {
             WebAPIUtils.itemGetAll().done(() => {
-                // console.log("App: Item API call done", ItemStore.getAll());
                 this.setState({
                     receivedItems: true,
                     // itemsData: ItemStore.getAll()
@@ -93,55 +91,58 @@ const App = React.createClass({
             });
         }
 
-        // ItemStore.on("CHANGE_ITEM", this.onStoreChange);
         ListStore.on("CHANGE_LIST", this.onStoreChange);
     },
 
-    // componentWillReceiveProps: function(newProps) {
-    //     if (newProps.params.listID) {
-    //         this.getStateFromStores();
-    //         console.log("App: componentWillReceiveProps", newProps.params.listID);
-    //     }
-    // },
-
     componentWillUnmount: function() {
-        // ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
         ListStore.removeListener("CHANGE_LIST", this.onStoreChange);
+    },
+
+    toggleSettings: function() {
+        // console.log("Toggle list settings");
+        this.setState({
+            ListSettingsActive: !this.state.ListSettingsActive
+        })
     },
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
         if (!this.state.receivedLists
             || !this.state.receivedItems) {
-            // console.log("App: Have not received either");
             return (
                 <div className="loader">Loading...</div>
             );
         };
 
-        // console.log("Render");
+        // console.log(this.state);
 
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {
 
             switch(child.type) {
                 case ListView : {
-                    // console.log("ListView");
+                    console.log("ListView");
                     return React.cloneElement(child, {
                         listsData: this.state.listsData
                     });
                     break;
                 }
                 case ItemView : {
-                    // console.log("ItemView", ItemStore.getAllForCurrentList(true));
+                    console.log("ItemView");
                     return React.cloneElement(child, {
                         itemsData: [],
                         routeParams: this.props.params
                     });
                     break;
                 }
+                case ListSettings : {
+                    console.log("ListSettings");
+                    return React.cloneElement(child, {
+                        currentList: this.state.currentList,
+                        toggleSettings: this.toggleSettings
+                    });
+                }
                 default : {
-                    // console.log("Default");
                     return child
                 }
             }
@@ -149,12 +150,15 @@ const App = React.createClass({
 
         return (
             <div className="app">
-                <Header
-                    title={"Calculist"}
-                    route={this.props.route}
-                    params={this.props.params}
-                    location={this.props.location}
-                />
+                {!this.state.ListSettingsActive ?
+                    <Header
+                        title={"Calculist"}
+                        route={this.props.route}
+                        params={this.props.params}
+                        location={this.props.location}
+                        toggleSettings={this.toggleSettings}
+                    />
+                : null}
                 {childrenWithProps}
             </div>
         );

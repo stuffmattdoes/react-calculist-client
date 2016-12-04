@@ -3,7 +3,7 @@ import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 import ListStore from './ListStore';
 
-var _items = {};
+var _items;
 var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 

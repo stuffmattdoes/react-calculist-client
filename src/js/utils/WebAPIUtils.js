@@ -149,27 +149,6 @@ const WebAPIUtils = {
 
     },
 
-    UpdateProperties: function(item, updates) {
-
-        // Iterate through our updates
-        for (var key in updates) {
-            // 'updates' gets the entire object
-            // 'key' gets the property
-            // 'updates[key]' gets the value
-
-            // Is this property an object? And does our item have the same object property?
-            if (typeof updates[key] === 'object'
-                && item.hasOwnProperty(key)) {
-                this.UpdateProperties(item[key], updates[key]);
-            } else {
-                if (key in item) {
-                    item[key] = updates[key];
-                }
-            }
-        }
-
-    },
-
     listCreate: function(listID, listTitle) {
         // console.log("Web API Utils: Create list", listID, listTitle);
         var d = $.Deferred();
@@ -249,10 +228,53 @@ const WebAPIUtils = {
         return d;
     },
 
-    listUpdate: function() {
-        // Simulate success callback
-        // console.log("Web API Utils: Update list");
+    listUpdate: function(listID, updates) {
+                // Localstorage
+        // var rawItems = JSON.parse(localStorage.getItem('items'));
+        // localStorage.setItem('items', JSON.stringify(rawItems));
+
+        var d = $.Deferred();
+        var updateList =  {
+            "ID": listID,
+            "updates": updates
+        }
+
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
+            context: document.body,
+            data: JSON.stringify(updateList),
+            dataType: "json",
+            method: "PUT",
+            url: API_URLS.lists + '/' + listID
+        }).done((data, textStatus, jqXHR) => {
+            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            d.resolve();
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            // console.log(jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
     },
+
+        UpdateProperties: function(obj, updates) {
+
+        // Iterate through our updates
+        for (var key in updates) {
+            // 'updates' gets the entire object
+            // 'key' gets the property
+            // 'updates[key]' gets the value
+
+            // Is this property an object? And does our object have the same object property?
+            if (typeof updates[key] === 'object'
+                && obj.hasOwnProperty(key)) {
+                this.UpdateProperties(obj[key], updates[key]);
+            } else {
+                if (key in obj) {
+                    obj[key] = updates[key];
+                }
+            }
+        }
+
+    }
 
 };
 

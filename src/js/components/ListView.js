@@ -2,7 +2,6 @@
 import React from 'react';
 
 // Components
-import Header from './Header';
 import ListItemAdd from './ListItemAdd';
 
 // Actions
@@ -18,30 +17,6 @@ const ListView = React.createClass({
         listsData: React.PropTypes.array
     },
 
-    // getInitialState: function() {
-    //     return this.getStateFromStores();
-    // },
-
-    // componentWillMount: function() {
-    //     // console.log(this.props.listsData);
-    //     ListStore.on("CHANGE_LIST", this.getStateFromStores);
-    // },
-    //
-    // componentWillUnmount: function() {
-    //     ListStore.removeListener("CHANGE_LIST", this.getStateFromStores);
-    // },
-
-    // getStateFromStores: function() {
-    //     console.log("getStateFromStores, getCurrentListID");
-    //     return {
-    //         currentListID: ListStore.getCurrentListID()
-    //     };
-    // },
-
-    // onStoreChange: function() {
-    //     this.setState(this.getStateFromStores());
-    // },
-
     onListClick: function(listID) {
         ListActions.default.setCurrentList(listID);
         this.props.router.push('/lists/' + listID);
@@ -50,7 +25,6 @@ const ListView = React.createClass({
     render: function() {
         var totalLists = this.props.listsData.map((list, index) => {
             var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
-            // var itemCount = 0;
 
             return (
                 <div
