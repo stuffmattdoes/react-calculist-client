@@ -59,31 +59,18 @@ router.post('/lists/', (req, res, next) => {
 router.put('/lists/:id', (req, res, next) => {
     var id = req.params.id;
     var listUpdates = req.body.updates;
-    var mongoID;
 
-    console.log(listUpdates);
-    // We need to query our DB with our ID and return Mongo's _id
-    List.find({ID : id}, (err, list) => {
+    // Query our list for our ID, then update it
+    List.update({ID: id}, listUpdates, {new: true}, (err, list) => {
         if (err) {
-            console.log("List update error");
-            return res.status(500).json({message: err.message});
+            return res.status(500).json({errorMessage: err.message});
         }
-        console.log("Found list");
-        mongoID = list[0]._id;
-
-        List.findByIdAndUpdate(mongoID, listUpdates, {new: true}, (err, list) => {
-            if (err) {
-                console.log("List udate error");
-                return res.status(500).json({errorMessage: err.message});
-            }
-            console.log("List updated");
-            res.json({
-                "list": list,
-                successMessage: "List updated"
-            });
+        res.json({
+            "list": list,
+            successMessage: "List updated"
         });
-
     });
+
 });
 
 // DELETE route - delete existing lists
@@ -94,25 +81,23 @@ router.put('/lists/:id', (req, res, next) => {
 */
 router.delete('/lists/:id', (req, res, next) => {
     var id = req.params.id;
-    var mongoID;
 
-    // We need to query our DB with our ID and return Mongo's _id
-    List.find({ID : id}, (err, list) => {
+    // Delete the list
+    List.remove({"ID": id}, (err, list) => {
+        if (err) {
+            return res.status(500).json({errorMessage: err.message});
+        }
+        res.json({
+            successMessage: "List deleted"
+        });
+    });
+
+    // Delete the list's items
+    Item.remove({"listID": id}, (err, item) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
-        mongoID = list[0]._id;
-
-        List.findByIdAndRemove(mongoID, (err, list) => {
-            if (err) {
-                return res.status(500).json({errorMessage: err.message});
-            }
-            res.json({
-                successMessage: "List deleted"
-            });
-        });
-
-    });
+    });      
 
     // ***************************************************************************
     // Delete all items contained in the list
@@ -142,10 +127,6 @@ router.get('/items/', (req, res, next) => {
 // GET route - receive items for current list
 router.get('/lists/:id', (req, res, next) => {
     var id = req.params.id;
-
-    // if (item && item.listID !== id) {
-    //     return res.status(500).json({err: "ID was not found"});
-    // }
 
     Item.find({}, (err, items) => {
         if (err) {
@@ -189,30 +170,15 @@ router.post('/items/', (req, res, next) => {
 router.put('/items/:id', (req, res, next) => {
     var id = req.params.id;
     var itemUpdates = req.body.updates;
-    var mongoID;
 
-    console.log(itemUpdates);
-    // We need to query our DB with our ID and return Mongo's _id
-    Item.find({ID : id}, (err, item) => {
+    Item.update({ID: id}, itemUpdates, {new: true}, (err, item) => {
         if (err) {
-            console.log("Item update error");
-            return res.status(500).json({message: err.message});
+            return res.status(500).json({errorMessage: err.message});
         }
-        console.log("Found item");
-        mongoID = item[0]._id;
-
-        Item.findByIdAndUpdate(mongoID, itemUpdates, {new: true}, (err, item) => {
-            if (err) {
-                console.log("Item udate error");
-                return res.status(500).json({errorMessage: err.message});
-            }
-            console.log("Item updated");
-            res.json({
-                "item": item,
-                successMessage: "Item updated"
-            });
+        res.json({
+            "item": item,
+            successMessage: "Item updated"
         });
-
     });
 
 });
@@ -225,24 +191,14 @@ router.put('/items/:id', (req, res, next) => {
 */
 router.delete('/items/:id', (req, res, next) => {
     var id = req.params.id;
-    var mongoID;
 
-    // We need to query our DB with our ID and return Mongo's _id
-    Item.find({ID : id}, (err, item) => {
+    Item.remove({ID: id}, (err, item) => {
         if (err) {
-            return res.status(500).json({message: err.message});
+            return res.status(500).json({errorMessage: err.message});
         }
-        mongoID = item[0]._id;
-
-        Item.findByIdAndRemove(mongoID, (err, item) => {
-            if (err) {
-                return res.status(500).json({errorMessage: err.message});
-            }
-            res.json({
-                successMessage: "Item deleted"
-            });
+        res.json({
+            successMessage: "Item deleted"
         });
-
     });
 
 });

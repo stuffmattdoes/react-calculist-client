@@ -34,7 +34,6 @@ const ListActions = {
     },
 
     listUpdate: function(listID, updates) {
-        console.log("listUpdate");
         dispatcher.dispatch({
             type: "UPDATE_LIST",
             listID: listID,

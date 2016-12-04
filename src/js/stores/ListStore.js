@@ -67,7 +67,6 @@ class ListStore extends EventEmitter {
     }
 
     listUpdate(listID, updates) {
-        console.log("listUpdate");
 
         _lists.forEach((list, index) => {
 

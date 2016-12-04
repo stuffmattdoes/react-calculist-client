@@ -1,4 +1,5 @@
 var resetAll = false;
+var repopulateAll = false;
 var List = require('./models/Lists');
 var Item = require('./models/Items');
 var listSeed = [
@@ -139,6 +140,10 @@ listSeed.forEach(function(list, index) {
             List.remove({}, function() {});
         }
 
+        if (!repopulateAll) {
+            return
+        }
+
         if (!error && !lists.length) {
             // console.log(listsSeed);
             List.create({
@@ -156,6 +161,10 @@ itemSeed.forEach(function(item, index) {
         // console.log(item);
         if (resetAll) {
             Item.remove({}, function() {});
+        }
+
+        if (!repopulateAll) {
+            return
         }
 
         if (!error && !items.length) {

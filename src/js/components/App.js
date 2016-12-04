@@ -114,21 +114,19 @@ const App = React.createClass({
             );
         };
 
-        // console.log(this.state);
-
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {
 
             switch(child.type) {
                 case ListView : {
-                    console.log("ListView");
+                    // console.log("ListView");
                     return React.cloneElement(child, {
                         listsData: this.state.listsData
                     });
                     break;
                 }
                 case ItemView : {
-                    console.log("ItemView");
+                    // console.log("ItemView");
                     return React.cloneElement(child, {
                         itemsData: [],
                         routeParams: this.props.params
@@ -136,7 +134,7 @@ const App = React.createClass({
                     break;
                 }
                 case ListSettings : {
-                    console.log("ListSettings");
+                    // console.log("ListSettings");
                     return React.cloneElement(child, {
                         currentList: this.state.currentList,
                         toggleSettings: this.toggleSettings
