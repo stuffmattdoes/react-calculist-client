@@ -7,7 +7,7 @@ const Login = React.createClass({
             <div className="app">
                 <div className="login-view">
                     <h1>Login</h1>
-                    <form method="POST" action="/api/login" className="form-standard">
+                    <form method="POST" action="/api/v1/login" className="form-standard">
                         <div className="input-group">
                             <label
                                 className="label-standard"

@@ -46,7 +46,7 @@ app.use('/', express.static('public'));
 
 // Mount router to app
 // Prefix routes with API namespace
-app.use('/api', router);
+app.use('/api/v1', router);
 
 // error handler
 // define as the last app.use callback

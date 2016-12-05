@@ -10,9 +10,10 @@ import $ from 'jquery';
 // communication and server-side processing.
 
 const API_PREFIX = '/api';
+const API_VERSION = '/v1';
 const API_URLS = {
-    items: API_PREFIX + '/items',
-    lists: API_PREFIX + '/lists'
+    items: API_PREFIX + API_VERSION + '/items',
+    lists: API_PREFIX + API_VERSION + '/lists'
 }
 
 const WebAPIUtils = {
@@ -121,7 +122,7 @@ const WebAPIUtils = {
     },
 
     itemUpdate: function(itemID, updates) {
-        
+
         // Localstorage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         // localStorage.setItem('items', JSON.stringify(rawItems));

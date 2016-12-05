@@ -33,6 +33,7 @@ router.post('/register', (req, res, next) => {
             if (err) {
                 return next(err);
             } else {
+                // User token here
                 req.session.userId = user._id;
                 return res.redirect('/lists');
             }
@@ -46,14 +47,13 @@ router.post('/register', (req, res, next) => {
 
 });
 
-router.get('/login', (req, res, next) => {
-    // If we're already logged in, redirect us to the app
-    if (req.session.userId) {
-        console.log("You're already logged in.");
-        return res.redirect('/lists');
-    }
-
-});
+// router.get('/login', (req, res, next) => {
+//     // If we're already logged in, redirect us to the app
+//     if (req.session.userId) {
+//         console.log("You're already logged in.");
+//         return res.redirect('/lists');
+//     }
+// });
 
 // POST route - user login
 router.post('/login', (req, res, next) => {
@@ -65,6 +65,7 @@ router.post('/login', (req, res, next) => {
                 err.status = 401;
                 return next(err);
             } else {
+                // Authorization token here
                 req.session.userId = user._id;
                 return res.redirect('/lists');
             }
@@ -80,6 +81,7 @@ router.post('/login', (req, res, next) => {
 // GET route - user log out
 router.get('/logout', (req, res, next) => {
     if (req.session) {
+
         // Delete session object
         req.session.destroy(err => {
             if (err) {
@@ -88,6 +90,7 @@ router.get('/logout', (req, res, next) => {
                 return res.redirect('/login');
             }
         });
+
     }
 });
 
@@ -178,7 +181,7 @@ router.delete('/lists/:id', (req, res, next) => {
         if (err) {
             return res.status(500).json({message: err.message});
         }
-    });      
+    });
 
     // ***************************************************************************
     // Delete all items contained in the list

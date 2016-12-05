@@ -7,7 +7,7 @@ const Register = React.createClass({
             <div className="app">
                 <div className="login-view">
                     <h1>Register</h1>
-                    <form method="POST" action="/api/register" className="form-standard">
+                    <form method="POST" action="/api/v1/register" className="form-standard">
                         <label
                             className="label-standard"
                             htmlFor="email"
