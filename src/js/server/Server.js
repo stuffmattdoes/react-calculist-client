@@ -5,7 +5,8 @@ var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);     // Passing session as a parameter here allows mongo connect store access to it
 var path = require('path');
 var app = express();
-var router = require('./api/Router');
+var api = require('./routes/Api');
+var auth = require('./routes/Auth');
 
 // Establish database connection
 mongoose.connect('mongodb://localhost/calculist', (res) => {
@@ -45,8 +46,9 @@ app.use(parser.urlencoded({ extended: false }));
 app.use('/', express.static('public'));
 
 // Mount router to app
-// Prefix routes with API namespace
-app.use('/api/v1', router);
+// Prefix routes with namespace
+app.use('/api/v1', api);
+app.use('/auth', auth);
 
 // error handler
 // define as the last app.use callback

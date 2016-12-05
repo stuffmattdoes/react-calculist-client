@@ -37,7 +37,7 @@ const ListItem = React.createClass({
 
     onAmountChanged: function(e) {
         var inputValue = e.target.value;
-        
+
         // Currency formatter here
         this.setState({
             amount: inputValue

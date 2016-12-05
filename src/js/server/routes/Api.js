@@ -1,106 +1,15 @@
 var express = require('express');
-var router = express.Router();
+var api = express.Router();
 var Item = require('../models/Items');
 var List = require('../models/Lists');
 var User = require('../models/Users');
-
-// --------------------
-// Login & Registration
-// --------------------
-
-// POST route - user registration
-router.post('/register', (req, res, next) => {
-
-    if (req.body.email
-        && req.body.password
-        && req.body.confirmPassword) {
-
-        // Confirm the passwords match
-        if (req.body.password !== req.body.confirmPassword) {
-            var err = new Error('Passwords do not match.');
-            err.status = 400;
-            return next(err);
-        }
-
-        // Create object with form input
-        var userData = {
-            email: req.body.email,
-            password: req.body.password
-        };
-
-        // Insert user document into mongo
-        User.create(userData, (err, user) => {
-            if (err) {
-                return next(err);
-            } else {
-                // User token here
-                req.session.userId = user._id;
-                return res.redirect('/lists');
-            }
-        });
-
-    } else {
-        var err = new Error('All fields required.');
-        err.status = 400;
-        return next(err);
-    }
-
-});
-
-// router.get('/login', (req, res, next) => {
-//     // If we're already logged in, redirect us to the app
-//     if (req.session.userId) {
-//         console.log("You're already logged in.");
-//         return res.redirect('/lists');
-//     }
-// });
-
-// POST route - user login
-router.post('/login', (req, res, next) => {
-    if (req.body.email
-        && req.body.password) {
-        User.authenticate(req.body.email, req.body.password, (error, user) => {
-            if (error || !user) {
-                var err = new Error('Wrong email or password');
-                err.status = 401;
-                return next(err);
-            } else {
-                // Authorization token here
-                req.session.userId = user._id;
-                return res.redirect('/lists');
-            }
-        });
-    } else {
-        var err = new Error('Email and password are required.');
-        err.status = 401;
-        return next(err);
-    }
-
-});
-
-// GET route - user log out
-router.get('/logout', (req, res, next) => {
-    if (req.session) {
-
-        // Delete session object
-        req.session.destroy(err => {
-            if (err) {
-                return next(err);
-            } else {
-                return res.redirect('/login');
-            }
-        });
-
-    }
-});
 
 // -----
 // Lists
 // -----
 
-// Routes
 // GET route - receive all existing lists
-router.get('/lists/', (req, res, next) => {
+api.get('/lists/', (req, res, next) => {
 
     List.find({}, (err, lists) => {
         if (err) {
@@ -120,7 +29,7 @@ router.get('/lists/', (req, res, next) => {
     "ID": "iv3v3mtv"
 }
 */
-router.post('/lists/', (req, res, next) => {
+api.post('/lists/', (req, res, next) => {
     var list = req.body;
     List.create(list, (err, list) => {
         if (err) {
@@ -140,7 +49,7 @@ router.post('/lists/', (req, res, next) => {
     "ID": "iv3v3mtv"
 }
 */
-router.put('/lists/:id', (req, res, next) => {
+api.put('/lists/:id', (req, res, next) => {
     var id = req.params.id;
     var listUpdates = req.body.updates;
 
@@ -163,7 +72,7 @@ router.put('/lists/:id', (req, res, next) => {
     "ID": "iv3v3mtv"
 }
 */
-router.delete('/lists/:id', (req, res, next) => {
+api.delete('/lists/:id', (req, res, next) => {
     var id = req.params.id;
 
     // Delete the list
@@ -194,9 +103,8 @@ router.delete('/lists/:id', (req, res, next) => {
 // Items
 // -----
 
-// Routes
 // GET route - receive all items
-router.get('/items/', (req, res, next) => {
+api.get('/items/', (req, res, next) => {
     Item.find({}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
@@ -209,7 +117,7 @@ router.get('/items/', (req, res, next) => {
 });
 
 // GET route - receive items for current list
-router.get('/lists/:id', (req, res, next) => {
+api.get('/lists/:id', (req, res, next) => {
     var id = req.params.id;
 
     Item.find({}, (err, items) => {
@@ -232,7 +140,7 @@ router.get('/lists/:id', (req, res, next) => {
     "listID": "iv3v3mtv"        - the ID of the list this item belongs to
 }
 */
-router.post('/items/', (req, res, next) => {
+api.post('/items/', (req, res, next) => {
     var item = req.body;
     Item.create(item, (err, item) => {
         if (err) {
@@ -251,7 +159,7 @@ router.post('/items/', (req, res, next) => {
     "_id": "583bc4ce1a7e726b2c915cd6"
 }
 */
-router.put('/items/:id', (req, res, next) => {
+api.put('/items/:id', (req, res, next) => {
     var id = req.params.id;
     var itemUpdates = req.body.updates;
 
@@ -273,7 +181,7 @@ router.put('/items/:id', (req, res, next) => {
     "_id": "583bc4ce1a7e726b2c915cd6"
 }
 */
-router.delete('/items/:id', (req, res, next) => {
+api.delete('/items/:id', (req, res, next) => {
     var id = req.params.id;
 
     Item.remove({ID: id}, (err, item) => {
@@ -287,4 +195,4 @@ router.delete('/items/:id', (req, res, next) => {
 
 });
 
-module.exports = router;
+module.exports = api;

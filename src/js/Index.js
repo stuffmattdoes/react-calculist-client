@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Router
-import Routes from './Routes';
+import Routes from './routes/Index';
 
 // CSS
 require('../scss/main.scss');

@@ -3,7 +3,7 @@ const Auth = {
 
     loggedIn: function(nextState, replace, callback) {
         // Check for Login
-        var isLoggedIn = true;
+        var isLoggedIn = false;
 
         // console.log(nextState, replace, callback);
 

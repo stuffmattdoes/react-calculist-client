@@ -1,0 +1,4 @@
+{
+  "db": "mongodb://localhost/calculist",
+  "jwtSecret": "noodels is the best cat X(*I$0isdj0fif9op2FHKL&*IslWP}"
+}
