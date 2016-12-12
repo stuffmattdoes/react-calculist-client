@@ -3,7 +3,7 @@ const Auth = {
 
     loggedIn: function(nextState, replace, callback) {
         // Check for Login
-        var isLoggedIn = false;
+        var isLoggedIn = true;
 
         // console.log(nextState, replace, callback);
 
@@ -20,6 +20,14 @@ const Auth = {
             }
         });
         return callback();
+    },
+
+    userAuthorize: function() {
+        console.log("User authorization");
+    },
+
+    userLogout: function() {
+        console.log("User log out");
     }
 }
 

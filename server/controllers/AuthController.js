@@ -1,13 +1,34 @@
 var express = require('express');
 var auth = express.Router();
-var User = require('../models/Users');
+var User = require('../models/User');
 
-// --------------------
-// Login & Registration
-// --------------------
+
+// Generate JSON web token (JWT) from user object we pass in
+function generateToken(user) {
+    return jwt.sign(user, config.secret, {
+        expiresIn: 10080 // in seconds
+    });
+}
+
+// We don't want to use the entire user object to sign into our JWTs for 2 reasons:
+// 1. That's a lot of info to eventually store in a cookie
+function setUserInfo(request) {
+    return {
+        _id: request._id,
+        firstName: request.profile.firstName,
+        lastName: request.profile.lastName,
+        email: request.email,
+        role: request.role,
+    };
+}
+
+
+// ==================================================
+// Registration Route
+// ==================================================
 
 // POST route - user registration
-auth.post('/register', (req, res, next) => {
+exports.register = (req, res, next) => {
 
     if (req.body.email
         && req.body.password
@@ -43,18 +64,14 @@ auth.post('/register', (req, res, next) => {
         return next(err);
     }
 
-});
+}
 
-// router.get('/login', (req, res, next) => {
-//     // If we're already logged in, redirect us to the app
-//     if (req.session.userId) {
-//         console.log("You're already logged in.");
-//         return res.redirect('/lists');
-//     }
-// });
+// ==================================================
+// Login Route
+// ==================================================
 
 // POST route - user login
-auth.post('/login', (req, res, next) => {
+exports.login = (req, res, next) => {
     if (req.body.email
         && req.body.password) {
         User.authenticate(req.body.email, req.body.password, (error, user) => {
@@ -73,11 +90,10 @@ auth.post('/login', (req, res, next) => {
         err.status = 401;
         return next(err);
     }
-
-});
+}
 
 // GET route - user log out
-auth.get('/logout', (req, res, next) => {
+exports.logout = (req, res, next) => {
     if (req.session) {
 
         // Delete session object
@@ -88,8 +104,37 @@ auth.get('/logout', (req, res, next) => {
                 return res.redirect('/login');
             }
         });
-
     }
-});
+}
 
-module.exports = auth
+
+// ==================================================
+// Authorization Middleware
+// ==================================================
+
+// Role authorization check
+exports.roleAuthorization = role => {
+    return (req, res, next) => {
+        const user = req.user;
+
+        User.findById(user._id, (err, foundUser) => {
+            if (err) {
+                res.status(422).json({
+                    error: 'No user was found.'
+                });
+                return next(err);
+            }
+
+            if (foundUser.role == role) {
+                return next();
+            }
+
+            res.status(401).json({
+                error: 'You are not authorized to view this content.'
+            });
+
+            return next('Unauthorized');
+        });
+    }
+}
+

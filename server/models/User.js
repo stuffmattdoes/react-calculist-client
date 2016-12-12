@@ -46,7 +46,7 @@ UserSchema.statics.authenticate = (email, password, callback) => {
 
 // Pre-save hook: runs just before saving record to mongo (hence 'save' keyword)
 // Hash password before saving to database
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', next => {
     var user = this;
 
     // (password to hash, # of times to apply encryption algorithm, callback)

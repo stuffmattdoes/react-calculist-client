@@ -1,13 +1,26 @@
 // Libraries
 import React from 'react';
+import AuthActions from '../actions/AuthActions';
 
 const Login = React.createClass({
+
+    onSubmit: function(e) {
+        e.preventDefault();
+        console.log("Login submitted");
+        AuthActions.userLogin(e);
+        // send to url /auth/login
+    },
+
     render: function() {
         return (
             <div className="app">
                 <div className="login-view">
                     <h1>Login</h1>
-                    <form method="POST" action="/auth/login" className="form-standard">
+                    <form
+                        method="POST"
+                        onSubmit={this.onSubmit}
+                        className="form-standard"
+                    >
                         <div className="input-group">
                             <label
                                 className="label-standard"

@@ -2,7 +2,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './src/js/Index.js',                   // The main file for our app
+    entry: './client/js/Index.js',                   // The main file for our app
     output: {
         path: './public/js/',                      // The path to write our compiled app to
         filename: 'calculist.bundle.js'         // The new name for our compiled app
