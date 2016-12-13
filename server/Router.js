@@ -13,10 +13,10 @@ const requireLogin = passport.authenticate('local', {
 	session: false
 });
 
-const 	REQUIRE_ADMIN = 'Admin',
-		REQUIRE_OWNER = 'Owner',
-		REQUIRE_CLIENT = 'Client',
-		REQUIRE_MEMBER = 'Member';
+// const 	REQUIRE_ADMIN = 'Admin',
+// 		REQUIRE_OWNER = 'Owner',
+// 		REQUIRE_CLIENT = 'Client',
+// 		REQUIRE_MEMBER = 'Member';
 
 const Router = app => {
 	const 	apiRoutes = express.Router(),
@@ -26,7 +26,8 @@ const Router = app => {
 			itemRoutes = express.Router();
 
 	// Set URL for API group routes
-	app.use('/api/' + API_VERSION, apiRoutes);
+	// domain.com/api/ 
+	app.use('/api/', apiRoutes);
 
 
 	// ==================================================
@@ -50,16 +51,16 @@ const Router = app => {
 	apiRoutes.use('/lists', listRoutes);
 		
 	// Get all lists
-	listRoutes.get('/lists', ListController.getLists);
+	listRoutes.get('/lists', requireAuth, ListController.getLists);
 
 	// Create a new list
-	listRoutes.post('/lists', ListController.createList);
+	listRoutes.post('/lists', requireAuth, ListController.createList);
 
 	// Update existing list
-	listRoutes.put('/lists/:id', ListController.updateList);
+	listRoutes.put('/lists/:id', requireAuth, ListController.updateList);
 
 	// Remove existing list
-	listRoutes.delete('/lists/:id', ListController.deleteList);
+	listRoutes.delete('/lists/:id', requireAuth, ListController.deleteList);
 
 
 	// ==================================================
@@ -69,16 +70,16 @@ const Router = app => {
 	itemRoutes.use('/lists/:id', itemRoutes);
 
 	// Get all items for this list
-	itemRoutes.get('/lists/:id', ItemController.getItems);
+	itemRoutes.get('/lists/:id', requireAuth, ItemController.getItems);
 
 	// Create a new item
-	itemRoutes.post('/items/', ItemController.createItem);
+	itemRoutes.post('/items/', requireAuth, ItemController.createItem);
 
 	// Update an existing item
-	itemRoutes.put('/items/:id', ItemController.updateItem);
+	itemRoutes.put('/items/:id', requireAuth, ItemController.updateItem);
 
 	// Delete an existing item
-	itemRoutes.delete('/items/:id', ItemController.deleteItem);
+	itemRoutes.delete('/items/:id', requireAuth, ItemController.deleteItem);
 
 }
 

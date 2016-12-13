@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import Routes from './routes/Index';
 
 // CSS
-require('../scss/main.scss');
+// require('../scss/main.scss');
 
 ReactDOM.render(
     Routes,
