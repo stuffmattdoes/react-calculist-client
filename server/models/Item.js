@@ -34,6 +34,9 @@ var itemSchema = new mongoose.Schema({
     },
     ID: String,
     listID: String
+},
+{
+    timestamps: true
 });
 
 var itemModel = mongoose.model('Item', itemSchema);

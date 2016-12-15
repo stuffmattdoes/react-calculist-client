@@ -1,15 +1,15 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './client/js/Index.js',                   // The main file for our app
+    entry: __dirname + '/client/js/Index.js',                   // The main file for our app
     output: {
-        path: './public/js/',                      // The path to write our compiled app to
+        path: __dirname + '/public/js',                      // The path to write our compiled app to
         filename: 'calculist.bundle.js'         // The new name for our compiled app
     },
     devtool: 'source-map',
     devServer: {                                // Need to redirect dev server to our index.html file
-        contentBase: "./public",
+        contentBase: __dirname + "/public",
         hot: true
     },
     module: {                                   // Define which transformations to make on our code
@@ -32,6 +32,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('../css/main.css')              // Extract i<style> tag in HTML and write to external CSS file
+        new ExtractTextPlugin('../css/main.css')              // Extract <style> tag in HTML and write to external CSS file
     ]
 };

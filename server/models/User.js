@@ -12,11 +12,32 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	name : {
-		type: String,
-		required: false,
-		trim: true
-	}
+    profile: {
+        firstName : {
+            type: String,
+            required: false,
+            trim: true
+        },
+        lastName : {
+            type: String,
+            required: false,
+            trim: true
+        },
+        role: {
+            type: String,
+            enum: ['Member', 'Client', 'Owner', 'Admin'],
+            default: 'Member'
+        }
+    },
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
+    }
+},
+{
+    timestamps: true
 });
 
 // Authenticate login input vs. database document
@@ -46,7 +67,7 @@ UserSchema.statics.authenticate = (email, password, callback) => {
 
 // Pre-save hook: runs just before saving record to mongo (hence 'save' keyword)
 // Hash password before saving to database
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function(next) {
     var user = this;
 
     // (password to hash, # of times to apply encryption algorithm, callback)

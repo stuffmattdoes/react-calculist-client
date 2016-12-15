@@ -9,7 +9,11 @@ var mongoose = require('mongoose');
 
 var listSchema = new mongoose.Schema({
     title: String,
-    ID: String
+    ID: String,
+    owner: String,
+},
+{
+	timestamps: true
 });
 
 var listModel = mongoose.model('List', listSchema);
