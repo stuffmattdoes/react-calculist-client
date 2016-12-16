@@ -10,10 +10,10 @@ import $ from 'jquery';
 // communication and server-side processing.
 
 const API_PREFIX = '/api';
-const API_VERSION = '/v1';
+const API_VERSION = '/v1.0';
 const API_URLS = {
-    items: API_PREFIX + API_VERSION + '/items',
-    lists: API_PREFIX + API_VERSION + '/lists'
+    items: API_PREFIX + '/items',
+    lists: API_PREFIX + '/lists'
 }
 
 const WebAPIUtils = {
@@ -155,7 +155,8 @@ const WebAPIUtils = {
         var d = $.Deferred();
         var newList =  {
             "title": listTitle,
-            "ID": listID
+            "ID": listID,
+            "owner": null
         }
 
         $.ajax({
@@ -209,7 +210,7 @@ const WebAPIUtils = {
     },
 
     listGetAll: function() {
-        // console.log("WebAPIUtils: listGetAll");
+        // console.log("listGetAll");
         var d = $.Deferred();
 
         $.ajax({

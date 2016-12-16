@@ -1,6 +1,5 @@
 // Libraries
 import React from 'react';
-var numeral = require('numeral');
 
 // Actions
 import * as ItemActions from '../actions/ItemActions';
@@ -63,7 +62,6 @@ const ListItem = React.createClass({
             return 0;
         }
         return num;
-        // return numeral(num).format('0,0.00');
     },
 
     onCheckedChange: function(e) {

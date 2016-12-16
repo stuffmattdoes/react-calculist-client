@@ -13,14 +13,10 @@ const requireLogin = passport.authenticate('local', {
 	session: false
 });
 
-// const 	REQUIRE_ADMIN = 'Admin',
-// 		REQUIRE_OWNER = 'Owner',
-// 		REQUIRE_CLIENT = 'Client',
-// 		REQUIRE_MEMBER = 'Member';
-
-const Router = app => {
+const Routes = app => {
+	console.log("Routes are working");
 	const 	apiRoutes = express.Router(),
-			API_VERSION = 1.0,
+			API_VERSION = 'v1.0',
 			authRoutes = express.Router(),
 			listRoutes = express.Router(),
 			itemRoutes = express.Router();
@@ -28,7 +24,6 @@ const Router = app => {
 	// Set URL for API group routes
 	// domain.com/api/ 
 	app.use('/api/', apiRoutes);
-
 
 	// ==================================================
 	// Auth Route
@@ -51,36 +46,37 @@ const Router = app => {
 	apiRoutes.use('/lists', listRoutes);
 		
 	// Get all lists
-	listRoutes.get('/lists', requireAuth, ListController.getLists);
+	listRoutes.get('/', ListController.getLists);
 
 	// Create a new list
-	listRoutes.post('/lists', requireAuth, ListController.createList);
+	// listRoutes.post('/lists', requireAuth, ListController.createList);
+	listRoutes.post('/lists', ListController.createList);
 
 	// Update existing list
-	listRoutes.put('/lists/:id', requireAuth, ListController.updateList);
+	listRoutes.put('/lists/:id', ListController.updateList);
 
 	// Remove existing list
-	listRoutes.delete('/lists/:id', requireAuth, ListController.deleteList);
+	listRoutes.delete('/lists/:id', ListController.deleteList);
 
 
 	// ==================================================
 	// Items Route
 	// ==================================================
 
-	itemRoutes.use('/lists/:id', itemRoutes);
+	apiRoutes.use('/lists', itemRoutes);
 
 	// Get all items for this list
-	itemRoutes.get('/lists/:id', requireAuth, ItemController.getItems);
+	itemRoutes.get('/:id', ItemController.getItemsForList);
 
 	// Create a new item
-	itemRoutes.post('/items/', requireAuth, ItemController.createItem);
+	itemRoutes.post('/:id', ItemController.createItem);
 
 	// Update an existing item
-	itemRoutes.put('/items/:id', requireAuth, ItemController.updateItem);
+	itemRoutes.put('/:id', ItemController.updateItem);
 
 	// Delete an existing item
-	itemRoutes.delete('/items/:id', requireAuth, ItemController.deleteItem);
+	itemRoutes.delete('/:id', ItemController.deleteItem);
 
 }
 
-module.exports = Router;
+module.exports = Routes;

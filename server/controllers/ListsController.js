@@ -1,5 +1,4 @@
-const   express = require('express'),
-        Item = require('../models/Item'),
+const   Item = require('../models/Item'),
         List = require('../models/List');
 
 
@@ -9,7 +8,6 @@ const   express = require('express'),
 
 // GET route - receive all existing lists
 exports.getLists = (req, res, next) => {
-
     List.find({}, (err, lists) => {
         if (err) {
             res.status(500).json({message: err.message});

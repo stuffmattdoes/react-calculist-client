@@ -69,7 +69,9 @@ const App = React.createClass({
                 listsData: ListStore.getAll()
             });
         } else {
+            // console.log("listGetAll pre");
             WebAPIUtils.listGetAll().done( () => {
+                // console.log("listGetAll done");
                 this.setState({
                     receivedLists: true,
                     listsData: ListStore.getAll()

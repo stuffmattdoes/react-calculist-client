@@ -3,9 +3,8 @@ const   config = require('./Config'),
         mongoose = require('mongoose'),
         parser = require('body-parser'),
         path = require('path'),
-        router = require('./Router'),
+        routes = require('./Routes'),
         app = express();
-        // MongoStore = require('connect-mongo')(session);     // Passing session as a parameter here allows mongo connect store access to it
 
 // Establish database connection
 mongoose.connect(config.database, res => {
@@ -22,13 +21,13 @@ app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
 // Serve static files like CSS, HTML & JS
-app.use('/', express.static('public'));
+// app.use('/', express.static('public'));
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public', 'index.html'))
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../public', 'index.html'))
+// });
 
 // serve static files from /public
 app.use(express.static(__dirname + './public'));
@@ -47,6 +46,5 @@ app.use((req, res, next) => {
     next();
 });
 
-
 // Give our App access to our routes
-router(app);
+routes(app);

@@ -11,6 +11,22 @@ input {
 .form-standard {
 	display: block;
 
+    .input-group { 
+        margin: 0 0 18px 0;
+    }
+
+    .input-error {
+        input {
+            border-color: #EB5365;
+        }
+    }
+
+    .label-error {
+        font-size: 11px;;
+        font-weight: bold;
+        color: #EB5365;
+    }
+
     .label-standard {
         font-size: 12px;
         opacity: 0.6;
@@ -23,7 +39,7 @@ input {
         outline: none;
         border-bottom: 1px solid rgba(black, 0.6);
         padding: 5px 0;
-        margin: 0 0 15px 0;
+        margin: 0;
 
         &-light {
         	border-bottom: 1px solid rgba(white, 0.75);

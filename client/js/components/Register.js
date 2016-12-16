@@ -1,86 +1,97 @@
 // Libraries
 import React from 'react';
 
+const inputs = [
+    {
+        label: 'Email',
+        name: 'email',
+        type: 'text',
+        required: true,
+    },
+    {
+        label: 'Password',
+        name: 'password',
+        type: 'password',
+        required: true
+    },
+    {
+        label: 'Confirm Password',
+        name: 'confirmPassword',
+        type: 'password',
+        required: true
+    }
+];
+
 const Register = React.createClass({
     
-    formValidate: function(formProps) {
-        const errors = {};
-
-        if (!formProps.email) {
-            errors.email = 'Please enter an email.';
+    getInitialState: function() {
+        return {
+            validationErrors: {}
         }
-        if (!formProps.password) {
-            errors.password = 'Please enter a password.';
-        }
-        if (!formProps.confirmPassword) {
-            errors.confirmPassword = 'Please confirm your password.';
-        }
-
-        // method="POST" action="/api/auth/register"
-        
-        return errors;
     },
+/*
+    formValidate: function(e) {
+        e.preventDefault();
+        var email = document.getElementById('email').value,
+            password = document.getElementById('password').value,
+            confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessages = {};
 
+        console.log(email, password, confirmPassword);
+        
+        // Email validation
+
+        errorMessages.email = 'Please enter an email.';
+        errorMessages.password = 'Please enter a password.';
+        errorMessages.confirmPassword = 'Please confirm your password.';
+
+        this.setState({
+            validationErrors: errorMessages
+        });
+
+        // If no errors, send off to the register
+
+    },
+*/
     render: function() {
+
         return (
             <div className="app">
                 <div className="login-view">
                     <h1>Register</h1>
-                    <form className="form-standard" onSubmit={this.formValidate}>
-                        <div className="input-group input-error">
-                            <label
-                                className="label-standard"
-                                htmlFor="email"
-                            >Email</label>
-                            <input
-                                id="email"
-                                name="email"
-                                className="input-standard"
-                                type="text"
-                            />
-                            <label 
-                                className="label-error"
-                                htmlFor="email"
-                                >
-                                Enter a valid email
-                            </label>
-                        </div>
-                        <div className="input-group">
-                            <label
-                                className="label-standard"
-                                htmlFor="password"
-                            >Password</label>
-                            <input
-                                id="password"
-                                name="password"
-                                className="input-standard"
-                                type="password"
-                            />
-                            <label 
-                                className="label-error"
-                                htmlFor="password"
-                                >
-                                Enter a password
-                            </label>
-                        </div>
-                        <div className="input-group">
-                            <label
-                                className="label-standard"
-                                htmlFor="confirmPassword"
-                            >Confirm Password</label>
-                            <input
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                className="input-standard"
-                                type="password"
-                            />
-                            <label 
-                                className="label-error"
-                                htmlFor="confirmPassword"
-                                >
-                                Passwords do not match
-                            </label>
-                        </div>
+                    <form className="form-standard" method="POST" action="/api/auth/register" >
+                        {inputs.map((inputField, index) => {
+                            var error = this.state.validationErrors[inputField.name];
+                            var inputGroupClass = "input-group";
+                            
+                            if(error) {
+                                inputGroupClass += ' input-error';
+                            }
+
+                            return(
+                                <div className={inputGroupClass} key={inputField.name} >
+                                    <label
+                                        className="label-standard"
+                                        htmlFor={inputField.name}
+                                    >{inputField.label}</label>
+                                    <input
+                                        id={inputField.name}
+                                        className="input-standard"
+                                        {...inputField}
+                                    />
+                                    {error ?
+                                    <label 
+                                        className="label-error"
+                                        htmlFor={inputField.name}
+                                        >
+                                        {error}
+                                    </label>
+                                    : null}
+                                </div>
+                            );
+
+                        })}
+
                         <input
                             className="button-full button-main"
                             type="submit"

@@ -6,6 +6,10 @@ const AuthActions = {
         console.log("userLogin");
     },
 
+    userRegister: function(creds) {
+    	console.log("userRegister");
+    },
+
     validateLogin: function(creds) {
         console.log("validateLogin", creds);
     }

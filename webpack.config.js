@@ -1,37 +1,42 @@
-var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: __dirname + '/client/js/Index.js',                   // The main file for our app
+    context: __dirname + '/client/js',          // The directory of our main app file
+    entry: './Index.js',                        // The main file for our app
     output: {
-        path: __dirname + '/public/js',                      // The path to write our compiled app to
-        filename: 'calculist.bundle.js'         // The new name for our compiled app
+        path: __dirname + '/public/js',         // What directory should our compiled asset go?
+        filename: 'bundle.js'                   // What should our compiled asset be named?
     },
-    devtool: 'source-map',
+    devtool: 'source-map',                      // Includes a source map with our initial Javascript compilation
     devServer: {                                // Need to redirect dev server to our index.html file
-        contentBase: __dirname + "/public",
+        contentBase: __dirname + '/public',
+        historyApiFallback: true,
         hot: true
     },
-    module: {                                   // Define which transformations to make on our code
-        loaders: [                              // Instruct webpack to run source files through the specified loaders
+    module: {
+        loaders: [
+
+            // Scripts
             {
-                test: /\.js$/,                  // Define which files match the criteria for being run through loader
-                exclude: /node_modules/,        // Define which files to exclude from being run through loader
-                loaders: [                      // Which loader is going to be used?
-                    'babel-loader'              // 'babel-loader' instructs Webpack to use .babelrc file to define loaders here
-                ]
+                test: /\.js$/,                      // Define which files match the criteria for being run through loader
+                exclude: /node_modules/,            // Define which files to exclude from being run through loader
+                loader: 'babel-loader',             // 'babel-loader' instructs Webpack to use .babelrc file to define loaders here
+                query: {                            // Arguments for the loader
+                    presets: ['react', 'es2015'],
+                    plugins: ['react-hot-loader/babel']
+                }
             },
+
+            // Styles
             {
                 test: /\.scss$/,
-                // loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap' ]
-                loader: ExtractTextPlugin.extract(
-                    'style', // The backup style loader
-                    'css?sourceMap!sass?sourceMap'
-                )
+                loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin('../css/main.css')              // Extract <style> tag in HTML and write to external CSS file
+        new ExtractTextPlugin('../css/main.css', {      // Write an actual .CSS file
+            allChunks: true
+        })
     ]
 };

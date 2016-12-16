@@ -24,7 +24,7 @@ exports.getItems = (req, res, next) => {
 exports.getItemsForList = (req, res, next) => {
     var id = req.params.id;
 
-    Item.find({}, (err, items) => {
+    Item.find({ listID: id}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
             return;

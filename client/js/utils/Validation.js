@@ -1,5 +1,0 @@
-// Form Validation
-
-const Validation = {
-
-}
