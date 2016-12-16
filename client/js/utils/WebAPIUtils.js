@@ -36,7 +36,7 @@ const WebAPIUtils = {
                 price: 0.00,
                 quantity: 0
             },
-            ID: itemID,
+            itemID: itemID,
             listID: listID
         }
 
@@ -93,7 +93,6 @@ const WebAPIUtils = {
         });
 
         return d;
-
     },
 
     itemGetAll: function() {
@@ -147,16 +146,15 @@ const WebAPIUtils = {
             // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
-
     },
 
-    listCreate: function(listID, listTitle) {
+    listCreate: function(listID, listTitle, listOwner) {
         // console.log("Web API Utils: Create list", listID, listTitle);
         var d = $.Deferred();
         var newList =  {
-            "title": listTitle,
-            "ID": listID,
-            "owner": null
+            listID: listID,
+            owner: listOwner,
+            title: listTitle
         }
 
         $.ajax({
@@ -164,7 +162,7 @@ const WebAPIUtils = {
             context: document.body,
             data: JSON.stringify(newList),
             method: "POST",
-            url: API_URLS.lists
+            url: API_URLS.lists + '/' + listID
         }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
             d.resolve();
@@ -180,11 +178,6 @@ const WebAPIUtils = {
         // Local Storage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         var d = $.Deferred();
-        var deleteList = {
-            "ID": listID
-        }
-
-        // console.log(API_URLS.items + '/' + itemID);
 
         $.ajax({
             contentType: 'application/json; charset=UTF-8', // This is the money shot
@@ -231,14 +224,13 @@ const WebAPIUtils = {
     },
 
     listUpdate: function(listID, updates) {
-                // Localstorage
+        // Localstorage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         // localStorage.setItem('items', JSON.stringify(rawItems));
 
         var d = $.Deferred();
         var updateList =  {
-            "ID": listID,
-            "updates": updates
+            updates: updates
         }
 
         $.ajax({
@@ -257,7 +249,7 @@ const WebAPIUtils = {
         });
     },
 
-        UpdateProperties: function(obj, updates) {
+    UpdateProperties: function(obj, updates) {
 
         // Iterate through our updates
         for (var key in updates) {

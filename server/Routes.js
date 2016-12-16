@@ -50,32 +50,32 @@ const Routes = app => {
 
 	// Create a new list
 	// listRoutes.post('/lists', requireAuth, ListController.createList);
-	listRoutes.post('/lists', ListController.createList);
+	listRoutes.post('/:listID', ListController.createList);
 
 	// Update existing list
-	listRoutes.put('/lists/:id', ListController.updateList);
+	listRoutes.put('/:listID', ListController.updateList);
 
 	// Remove existing list
-	listRoutes.delete('/lists/:id', ListController.deleteList);
+	listRoutes.delete('/:listID', ListController.deleteList);
 
 
 	// ==================================================
 	// Items Route
 	// ==================================================
 
-	apiRoutes.use('/lists', itemRoutes);
+	// apiRoutes.use('/lists', itemRoutes);
 
 	// Get all items for this list
-	itemRoutes.get('/:id', ItemController.getItemsForList);
+	// itemRoutes.get('/:listID', ItemController.getItemsForList);
 
 	// Create a new item
-	itemRoutes.post('/:id', ItemController.createItem);
+	// itemRoutes.post('/:listID', ItemController.createItem);
 
 	// Update an existing item
-	itemRoutes.put('/:id', ItemController.updateItem);
+	// itemRoutes.put('/:itemID', ItemController.updateItem);
 
 	// Delete an existing item
-	itemRoutes.delete('/:id', ItemController.deleteItem);
+	// itemRoutes.delete('/:itemID', ItemController.deleteItem);
 
 }
 

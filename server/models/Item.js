@@ -15,7 +15,7 @@ var mongoose = require('mongoose');
         price: 0.00,
         quantity: 0
     },
-    ID: 'iv2r6zml',
+    itemID: 'iv2r6zml',
     listID: 'iv3v3mtv'
 */
 
@@ -32,7 +32,7 @@ var itemSchema = new mongoose.Schema({
         price: Number,
         quantity: Number
     },
-    ID: String,
+    itemID: String,
     listID: String
 },
 {

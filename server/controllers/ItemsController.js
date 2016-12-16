@@ -22,7 +22,8 @@ exports.getItems = (req, res, next) => {
 
 // GET route - receive items for current list
 exports.getItemsForList = (req, res, next) => {
-    var id = req.params.id;
+    var id = req.params.listID;
+    console.log(req.params);
 
     Item.find({ listID: id}, (err, items) => {
         if (err) {

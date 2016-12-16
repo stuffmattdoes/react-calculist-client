@@ -801,6 +801,14 @@ input {
 
 .form-standard {
   display: block; }
+  .form-standard .input-group {
+    margin: 0 0 18px 0; }
+  .form-standard .input-error input {
+    border-color: #EB5365; }
+  .form-standard .label-error {
+    font-size: 11px;
+    font-weight: bold;
+    color: #EB5365; }
   .form-standard .label-standard {
     font-size: 12px;
     opacity: 0.6; }
@@ -811,7 +819,7 @@ input {
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.6);
     padding: 5px 0;
-    margin: 0 0 15px 0; }
+    margin: 0; }
     .form-standard .input-standard-light {
       border-bottom: 1px solid rgba(255, 255, 255, 0.75); }
     .form-standard .input-standard-large {

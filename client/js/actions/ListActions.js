@@ -10,18 +10,19 @@ const ListActions = {
         })
     },
 
-    listCreate: function(title) {
+    listCreate: function(title, owner) {
         var listID = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
 
         // Add data to local store
         dispatcher.dispatch({
             type: "CREATE_LIST",
             title: title,
-            listID: listID
+            listID: listID,
+            owner: 'm.james.morrison00@gmail.com'
         });
 
         // API action call
-        WebAPIUtils.listCreate(listID, title);
+        WebAPIUtils.listCreate(listID, title, owner);
     },
 
     listDelete: function(listID) {

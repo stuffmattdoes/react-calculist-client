@@ -20,15 +20,6 @@ mongoose.connect(config.database, res => {
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
 
-// Serve static files like CSS, HTML & JS
-// app.use('/', express.static('public'));
-
-// Route catch all
-// Allows static files to be served from URLs other than from '/'
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../public', 'index.html'))
-// });
-
 // serve static files from /public
 app.use(express.static(__dirname + './public'));
 
@@ -48,3 +39,12 @@ app.use((req, res, next) => {
 
 // Give our App access to our routes
 routes(app);
+
+// Serve static files like CSS, HTML & JS
+app.use('/', express.static('public'));
+
+// Route catch all
+// Allows static files to be served from URLs other than from '/'
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
+// });

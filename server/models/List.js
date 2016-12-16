@@ -4,12 +4,13 @@ var mongoose = require('mongoose');
 
 /*
     title: "List Title",
-    ID: "iv3v3mtv"
+    listID: "iv3v3mtv"
+    owner: "m.james.morrison00@gmail.com"
 */
 
 var listSchema = new mongoose.Schema({
     title: String,
-    ID: String,
+    listID: String,
     owner: String,
 },
 {
