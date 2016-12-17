@@ -24,13 +24,13 @@ const ListView = React.createClass({
 
     render: function() {
         var totalLists = this.props.listsData.map((list, index) => {
-            var itemCount = ItemStore.getListItemCount(list.ID).unchecked;
+            var itemCount = ItemStore.getListItemCount(list.listID).unchecked;
 
             return (
                 <div
                     className="list-item"
-                    key={list.ID}
-                    onClick={() => {this.onListClick(list.ID);}}
+                    key={list.listID}
+                    onClick={() => {this.onListClick(list.listID);}}
                 >
                     <div className="list-item-container">
                         <p className="list-item-title">{list.title}</p>

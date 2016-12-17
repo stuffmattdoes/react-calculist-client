@@ -46,16 +46,20 @@ const Routes = app => {
 	apiRoutes.use('/lists', listRoutes);
 		
 	// Get all lists
+	// /lists
 	listRoutes.get('/', ListController.getLists);
 
 	// Create a new list
+	// /lists/asdvm3t
 	// listRoutes.post('/lists', requireAuth, ListController.createList);
 	listRoutes.post('/:listID', ListController.createList);
 
 	// Update existing list
+	// /lists/asdvm3t
 	listRoutes.put('/:listID', ListController.updateList);
 
 	// Remove existing list
+	// /lists/asdvm3t
 	listRoutes.delete('/:listID', ListController.deleteList);
 
 
@@ -63,13 +67,16 @@ const Routes = app => {
 	// Items Route
 	// ==================================================
 
-	// apiRoutes.use('/lists', itemRoutes);
+	apiRoutes.use('/lists', itemRoutes);
+
+	// Get all items
+	apiRoutes.get('/items', ItemController.getItems);
 
 	// Get all items for this list
-	// itemRoutes.get('/:listID', ItemController.getItemsForList);
+	itemRoutes.get('/:listID', ItemController.getItemsForList);
 
 	// Create a new item
-	// itemRoutes.post('/:listID', ItemController.createItem);
+	itemRoutes.post('/:listID/:itemID', ItemController.createItem);
 
 	// Update an existing item
 	// itemRoutes.put('/:itemID', ItemController.updateItem);

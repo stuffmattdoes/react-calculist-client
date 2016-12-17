@@ -71,7 +71,7 @@ const App = React.createClass({
         } else {
             // console.log("listGetAll pre");
             WebAPIUtils.listGetAll().done( () => {
-                // console.log("listGetAll done");
+                // console.log("listGetAll", ListStore.getAll());
                 this.setState({
                     receivedLists: true,
                     listsData: ListStore.getAll()
@@ -86,9 +86,10 @@ const App = React.createClass({
             });
         } else {
             WebAPIUtils.itemGetAll().done(() => {
+                // console.log("itemGetAll", ItemStore.getAll());
                 this.setState({
                     receivedItems: true,
-                    // itemsData: ItemStore.getAll()
+                    itemsData: ItemStore.getAll()
                 });
             });
         }
@@ -116,6 +117,8 @@ const App = React.createClass({
             );
         };
 
+        console.log(this.state.listsData);
+        
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {
 

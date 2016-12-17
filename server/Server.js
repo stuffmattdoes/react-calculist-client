@@ -29,13 +29,13 @@ var server = app.listen(config.port, () => {
 });
 
 // Enable CORS from client-side
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Controll-Allow-Credentials');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Controll-Allow-Credentials');
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     next();
+// });
 
 // Give our App access to our routes
 routes(app);
@@ -45,6 +45,6 @@ app.use('/', express.static('public'));
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
+});

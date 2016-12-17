@@ -23,8 +23,8 @@ exports.getLists = (req, res, next) => {
 // POST route - create lists
 /*
 {
-    "title": "List Title",
-    "ID": "iv3v3mtv"
+    "listID": "iv3v3mtv",
+    "title": "List Title"
 }
 */
 exports.createList = (req, res, next) => {
@@ -44,14 +44,16 @@ exports.createList = (req, res, next) => {
 // PUT route - update existing lists
 /*
 {
-    "title": "Updated List Title",
-    "ID": "iv3v3mtv"
+    "listID": "iv3v3mtv",
+    "updates": {
+        "title": "Updated List Title",
+    }
 }
 */
 exports.updateList = (req, res, next) => {
     var id = req.params.listID;
     var listUpdates = req.body.updates;
-    console.log(listUpdates);
+    
     // Query our list for our ID, then update it
     List.update({listID: id}, listUpdates, {new: true}, (err, list) => {
         if (err) {
@@ -67,11 +69,6 @@ exports.updateList = (req, res, next) => {
 };
 
 // DELETE route - delete existing lists
-/*
-{
-    "ID": "iv3v3mtv"
-}
-*/
 exports.deleteList = (req, res, next) => {
     var id = req.params.listID;
 

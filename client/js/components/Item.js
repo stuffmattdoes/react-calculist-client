@@ -46,7 +46,7 @@ const ListItem = React.createClass({
     onAmountSave: function() {
         var amount = this.amountFormat(this.state.amount);
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 amount: amount
             }
@@ -68,7 +68,7 @@ const ListItem = React.createClass({
         const inputValue = e.target.checked;
 
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 checked: inputValue
             }
@@ -113,7 +113,7 @@ const ListItem = React.createClass({
 
         if (inputValue.trim() != "") {
             ItemActions.default.itemUpdate(
-                this.props.itemProps.ID,
+                this.props.itemProps.itemID,
                 {
                     title: this.state.title
                 }
@@ -127,7 +127,7 @@ const ListItem = React.createClass({
     },
 
     render: function() {
-        var uniqueID = "checkbox-" + this.props.itemProps.ID;
+        var uniqueID = "checkbox-" + this.props.itemProps.itemID;
         var listItemClass = 'list-item';
         var checkboxClass = 'list-item-checkbox';
         var itemPrice = 0;

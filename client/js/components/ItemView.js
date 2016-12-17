@@ -49,7 +49,7 @@ const ItemView = React.createClass({
             return (
                 <Item
                     itemProps={listItem}
-                    key={listItem.ID}
+                    key={listItem.itemID}
                 />
             );
         });

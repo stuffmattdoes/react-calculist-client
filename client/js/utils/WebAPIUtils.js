@@ -45,7 +45,7 @@ const WebAPIUtils = {
             context: document.body,
             data: JSON.stringify(newItem),
             method: "POST",
-            url: API_URLS.items
+            url: API_URLS.lists + '/'+ itemID
         }).done((data, textStatus, jqXHR) => {
             // console.log("WebAPIUtils: POST success!", data, textStatus, jqXHR);
 
