@@ -37,11 +37,11 @@ var server = app.listen(config.port, () => {
 //     next();
 // });
 
-// Give our App access to our routes
-routes(app);
-
 // Serve static files like CSS, HTML & JS
 app.use('/', express.static('public'));
+
+// Give our App access to our routes
+routes(app);
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'

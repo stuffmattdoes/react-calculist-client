@@ -108,7 +108,7 @@ class ItemStore extends EventEmitter {
                 price: 0.00,
                 quantity: 0
             },
-            ID: itemID,
+            itemID: itemID,
             listID: ListStore.getCurrentListID()
         });
 
@@ -118,7 +118,7 @@ class ItemStore extends EventEmitter {
     itemDelete(itemID) {
         // console.log("Store: Delete list item");
         _items.forEach((value, index) => {
-            if (itemID == value.ID) {
+            if (itemID == value.itemID) {
                 _items.splice(index, 1);
             }
         });
@@ -144,7 +144,7 @@ class ItemStore extends EventEmitter {
         _items.forEach((item, index) => {
 
             // // Match our item ID
-            if (itemID == item.ID) {
+            if (itemID == item.itemID) {
                 this.updateProperties(item, updates);
             }
 

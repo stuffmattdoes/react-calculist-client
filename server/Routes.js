@@ -67,16 +67,19 @@ const Routes = app => {
 	// Items Route
 	// ==================================================
 
-	apiRoutes.use('/lists', itemRoutes);
+	// apiRoutes.use('/lists', itemRoutes);
+	apiRoutes.use('/items', itemRoutes);
 
 	// Get all items
-	apiRoutes.get('/items', ItemController.getItems);
+	// apiRoutes.get('/items', ItemController.getItems);
+	itemRoutes.get('/', ItemController.getItems);
 
 	// Get all items for this list
-	itemRoutes.get('/:listID', ItemController.getItemsForList);
+	// itemRoutes.get('/:listID', ItemController.getItemsForList);
 
 	// Create a new item
-	itemRoutes.post('/:listID/:itemID', ItemController.createItem);
+	// itemRoutes.post('/:listID/:itemID', ItemController.createItem);
+	itemRoutes.post('/:itemID', ItemController.createItem);
 
 	// Update an existing item
 	// itemRoutes.put('/:itemID', ItemController.updateItem);

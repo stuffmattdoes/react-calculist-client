@@ -40,11 +40,12 @@ class ListStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    listCreate(listID, title) {
+    listCreate(listID, title, owner) {
         // console.log("Create list");
         _lists.push({
+            listID: listID,
+            owner: owner,
             title: title,
-            ID: listID
         });
         this.emit(CHANGE_EVENT);
     }
@@ -110,7 +111,7 @@ class ListStore extends EventEmitter {
                 break;
             }
             case "CREATE_LIST" : {
-                this.listCreate(action.listID, action.title);
+                this.listCreate(action.listID, action.title, action.owner);
                 break;
             }
             case "DELETE_LIST" : {

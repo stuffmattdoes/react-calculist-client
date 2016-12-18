@@ -21,18 +21,22 @@ const ItemView = React.createClass({
     },
 
     getInitialState: function() {
+        // console.log('getInitialState');
         return this.getStateFromStores();
     },
 
     componentWillMount: function() {
+        // console.log('componentWillMount');
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
     },
 
     componentWillUnmount: function() {
+        // console.log('componentWillUnmount');
         ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
     },
 
     getStateFromStores: function() {
+        // console.log('getStateFromStores');
         return {
             itemsData: ItemStore.getAllForCurrentList(true),
             itemsCount: ItemStore.getCurrentListItemCount(),
@@ -41,11 +45,13 @@ const ItemView = React.createClass({
     },
 
     onStoreChange: function() {
+        // console.log('onStoreChange');
         this.setState(this.getStateFromStores());
     },
 
     render: function() {
         var listItems = this.state.itemsData.map((listItem, index) => {
+            // console.log(listItem);
             return (
                 <Item
                     itemProps={listItem}
@@ -53,6 +59,8 @@ const ItemView = React.createClass({
                 />
             );
         });
+
+        // console.log('render', this.state.itemsData, listItems);
 
         return (
             <div className="item-view">

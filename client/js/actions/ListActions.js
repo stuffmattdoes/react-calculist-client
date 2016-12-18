@@ -18,7 +18,7 @@ const ListActions = {
             type: "CREATE_LIST",
             title: title,
             listID: listID,
-            owner: 'm.james.morrison00@gmail.com'
+            owner: owner
         });
 
         // API action call

@@ -105,7 +105,7 @@ const App = React.createClass({
         // console.log("Toggle list settings");
         this.setState({
             ListSettingsActive: !this.state.ListSettingsActive
-        })
+        });
     },
 
     render: function() {
@@ -116,8 +116,6 @@ const App = React.createClass({
                 <div className="loader">Loading...</div>
             );
         };
-
-        console.log(this.state.listsData);
         
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {

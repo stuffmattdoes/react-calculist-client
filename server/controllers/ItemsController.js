@@ -8,6 +8,7 @@ const   express = require('express'),
 
 // GET route - receive all items
 exports.getItems = (req, res, next) => {
+    // console.log('getItems');
     Item.find({}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
@@ -23,7 +24,7 @@ exports.getItems = (req, res, next) => {
 // GET route - receive items for current list
 exports.getItemsForList = (req, res, next) => {
     var id = req.params.listID;
-    console.log(id);
+    // console.log(id);
 
     Item.find({ listID: id}, (err, items) => {
         if (err) {
@@ -48,6 +49,7 @@ exports.getItemsForList = (req, res, next) => {
 
 */
 exports.createItem = (req, res, next) => {
+    // console.log(req.body, req.params.listID, req.params.itemID);
     var item = req.body;
     Item.create(item, (err, item) => {
         if (err) {

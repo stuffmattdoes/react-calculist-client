@@ -15,6 +15,7 @@ const ListAdd = React.createClass({
     },
 
     getInitialState: function() {
+        console.log(this.props.condActions);
         return {
             title: "",
             isEditing: false
@@ -63,10 +64,15 @@ const ListAdd = React.createClass({
 
             // Create a new list
             if (this.props.condActions == "ListActions") {
-                ListActions.default.listCreate(this.state.title);
+                console.log("ListActions");
+                ListActions.default.listCreate(
+                    this.state.title,
+                    ""
+                );
 
             // Create a new item
             } else if (this.props.condActions == "ItemActions") {
+                console.log("ItemActions");
                 ItemActions.default.itemCreate(
                     this.state.title,
                     ListStore.getCurrentListID()
