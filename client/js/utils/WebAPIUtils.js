@@ -67,7 +67,7 @@ const WebAPIUtils = {
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         var d = $.Deferred();
         var deleteItem = {
-            "_id": itemID
+            _id: itemID
         }
 
         // console.log(API_URLS.items + '/' + itemID);
@@ -128,8 +128,8 @@ const WebAPIUtils = {
 
         var d = $.Deferred();
         var updateItem =  {
-            "ID": itemID,
-            "updates": updates
+            itemID: itemID,
+            updates: updates
         }
 
         $.ajax({

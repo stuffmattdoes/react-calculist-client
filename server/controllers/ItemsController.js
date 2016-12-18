@@ -70,10 +70,10 @@ exports.createItem = (req, res, next) => {
 }
 */
 exports.updateItem = (req, res, next) => {
-    var id = req.params.id;
+    var id = req.params.itemID;
     var itemUpdates = req.body.updates;
 
-    Item.update({ID: id}, itemUpdates, {new: true}, (err, item) => {
+    Item.update({ itemID: id }, itemUpdates, {new: true}, (err, item) => {
         if (err) {
             return res.status(500).json({errorMessage: err.message});
         }
@@ -92,9 +92,9 @@ exports.updateItem = (req, res, next) => {
 }
 */
 exports.deleteItem = (req, res, next) => {
-    var id = req.params.id;
+    var id = req.params.itemID;
 
-    Item.remove({ID: id}, (err, item) => {
+    Item.remove({ itemID: id }, (err, item) => {
         if (err) {
             return res.status(500).json({errorMessage: err.message});
         }

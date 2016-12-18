@@ -24,7 +24,7 @@ const ItemSettings = React.createClass({
         const inputValue = e.target.checked;
         // console.log("Taxed", inputValue);
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 tax: {
                     active: inputValue
@@ -39,7 +39,7 @@ const ItemSettings = React.createClass({
     onUnitPricingChecked: function(e) {
         const inputValue = e.target.checked;
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 unitPricing: {
                     active: inputValue
@@ -61,7 +61,7 @@ const ItemSettings = React.createClass({
 
     onUnitPricingSaved: function() {
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 unitPricing: {
                     price: this.state.unitPrice
@@ -81,7 +81,7 @@ const ItemSettings = React.createClass({
 
     onUnitQuantitySaved : function() {
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 unitPricing: {
                     quantity: this.state.unitQuantity
@@ -117,7 +117,7 @@ const ItemSettings = React.createClass({
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
 
         ItemActions.default.itemUpdate(
-            this.props.itemProps.ID,
+            this.props.itemProps.itemID,
             {
                 amount: calcUnitPrice
             }
@@ -125,15 +125,15 @@ const ItemSettings = React.createClass({
     },
 
     onListItemDelete: function() {
-        var itemID = this.props.itemProps.ID;
+        var itemID = this.props.itemProps.itemID;
 
         ItemActions.default.itemDelete(itemID);
         this.setState(this.state);
     },
 
     render: function() {
-        var uniqueId2 = "checkbox-" + this.props.itemProps.ID + "-2";
-        var uniqueId3 = "checkbox-" + this.props.itemProps.ID + "-3";
+        var uniqueId2 = "checkbox-" + this.props.itemProps.itemID + "-2";
+        var uniqueId3 = "checkbox-" + this.props.itemProps.itemID + "-3";
         var checkboxClass = 'list-item-checkbox';
 
         return (

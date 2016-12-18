@@ -82,10 +82,10 @@ const Routes = app => {
 	itemRoutes.post('/:itemID', ItemController.createItem);
 
 	// Update an existing item
-	// itemRoutes.put('/:itemID', ItemController.updateItem);
+	itemRoutes.put('/:itemID', ItemController.updateItem);
 
 	// Delete an existing item
-	// itemRoutes.delete('/:itemID', ItemController.deleteItem);
+	itemRoutes.delete('/:itemID', ItemController.deleteItem);
 
 }
 
