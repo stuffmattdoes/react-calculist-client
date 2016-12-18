@@ -38,7 +38,9 @@ const WebAPIUtils = {
             },
             itemID: itemID,
             listID: listID
-        }
+        };
+
+        // console.log(newItem);
 
         $.ajax({
             contentType: 'application/json; charset=UTF-8', // This is the money shot
@@ -66,9 +68,9 @@ const WebAPIUtils = {
         // Local Storage
         // var rawItems = JSON.parse(localStorage.getItem('items'));
         var d = $.Deferred();
-        var deleteItem = {
-            _id: itemID
-        }
+        // var deleteItem = {
+        //     itemID: itemID
+        // }
 
         // console.log(API_URLS.items + '/' + itemID);
 

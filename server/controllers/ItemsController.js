@@ -49,7 +49,7 @@ exports.getItemsForList = (req, res, next) => {
 
 */
 exports.createItem = (req, res, next) => {
-    // console.log(req.body, req.params.listID, req.params.itemID);
+    // console.log(req.body);
     var item = req.body;
     Item.create(item, (err, item) => {
         if (err) {
@@ -72,6 +72,7 @@ exports.createItem = (req, res, next) => {
 exports.updateItem = (req, res, next) => {
     var id = req.params.itemID;
     var itemUpdates = req.body.updates;
+    console.log(itemUpdates);
 
     Item.update({ itemID: id }, itemUpdates, {new: true}, (err, item) => {
         if (err) {

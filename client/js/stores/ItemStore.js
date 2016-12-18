@@ -94,8 +94,7 @@ class ItemStore extends EventEmitter {
     }
 
     itemCreate(listID, itemID, title) {
-
-        _items.push({
+        var newItem = {
             title: title,
             checked: false,
             amount: 0.00,
@@ -110,7 +109,11 @@ class ItemStore extends EventEmitter {
             },
             itemID: itemID,
             listID: ListStore.getCurrentListID()
-        });
+        }
+
+        // console.log(newItem);
+        
+        _items.push(newItem);
 
         this.emit(CHANGE_EVENT);
     }
