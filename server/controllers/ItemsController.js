@@ -49,7 +49,6 @@ exports.getItemsForList = (req, res, next) => {
 
 */
 exports.createItem = (req, res, next) => {
-    // console.log(req.body);
     var item = req.body;
     Item.create(item, (err, item) => {
         if (err) {
@@ -69,19 +68,20 @@ exports.createItem = (req, res, next) => {
     "_id": "583bc4ce1a7e726b2c915cd6"
 }
 */
+
+var newKeyName;
+
 exports.updateItem = (req, res, next) => {
     var id = req.params.itemID;
     var itemUpdates = req.body.updates;
-    /*
-        Iterate through keys in itemUpdates
-            if value === object
-                compose a new string of this key + all parent keys & continue iterating
+    newKeyName = '';
 
-            return composed key name + final value to be passed below
-    */
-
-    var updateObject = getKeyValuePair('', itemUpdates);
-    console.log(updateObject);
+    // If our update object is nested, reduce it to dot notation
+    for (var key in itemUpdates) {
+        if (typeof itemUpdates[key] === 'object') {
+            itemUpdates = getKeyValuePair(itemUpdates);
+        }
+    }
 
     Item.update({ itemID: id }, itemUpdates, {new: true}, (err, item) => {
         if (err) {
@@ -96,26 +96,25 @@ exports.updateItem = (req, res, next) => {
     });
 };
 
-function getKeyValuePair(keyName, itemUpdates) {
-    var newKeyName = '' + keyName;
+function getKeyValuePair(updates) {
+    var newKeyValuePair = updates;
+    var newKeyPair = {};
 
-    for (var key in itemUpdates) {
+    for (var key in updates) {
         if (newKeyName !== '') {
             newKeyName += '.' + key;
         } else {
             newKeyName += key;
         }
-        
-        if (typeof itemUpdates[key] === 'object') {
-            var newKeyName = getKeyValuePair(newKeyName, itemUpdates[key]);
-            return {
-                [newKeyName]: itemUpdates[key]
-            }
-        } else {
-            return newKeyName;
-        }
-    }
 
+        if (typeof updates[key] === 'object') {
+            newKeyPair = getKeyValuePair(updates[key]);
+        } else {
+            newKeyPair[newKeyName] = updates[key];
+        }
+
+        return newKeyPair;
+    }
 }
 
 // DELETE route - delete existing items
