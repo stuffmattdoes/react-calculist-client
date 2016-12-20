@@ -11,21 +11,23 @@ import ListStore from '../stores/ListStore';
 const ListSettings = React.createClass({
 
     propTypes: {
+        currentList: React.PropTypes.object,
+
         // Passing up
-        toggleSettings: React.PropTypes.func.isRequired
+        toggleSettings: React.PropTypes.func
     },
 
     getInitialState: function() {
         return {
             currentList: ListStore.getCurrentList(),
-            title: this.props.currentList.title
+            title: ListStore.getCurrentList().title
         };
     },
 
     onListDelete: function() {
         browserHistory.push('/lists/');
         ListActions.default.resetListView();
-        ListActions.default.listDelete(this.props.currentList.ID);
+        ListActions.default.listDelete(this.props.currentList.listID);
         this.props.toggleSettings();
     },
 
@@ -45,7 +47,7 @@ const ListSettings = React.createClass({
 
         if (inputValue.trim() != "") {
             ListActions.default.listUpdate(
-                this.props.currentList.ID,
+                this.props.currentList.listID,
                 {
                     title: this.state.title
                 }

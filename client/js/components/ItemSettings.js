@@ -22,7 +22,6 @@ const ItemSettings = React.createClass({
 
     onTaxChecked: function(e) {
         const inputValue = e.target.checked;
-        // console.log("Taxed", inputValue);
         ItemActions.default.itemUpdate(
             this.props.itemProps.itemID,
             {

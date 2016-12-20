@@ -143,9 +143,6 @@ const App = React.createClass({
                         toggleSettings: this.toggleSettings
                     });
                 }
-                default : {
-                    return child
-                }
             }
         });
 
@@ -153,7 +150,7 @@ const App = React.createClass({
             <div className="app">
                 {!this.state.ListSettingsActive ?
                     <Header
-                        title={"Calculist"}
+                        title={this.state.currentList ? this.state.currentList.title : 'Calculist'}
                         route={this.props.route}
                         params={this.props.params}
                         location={this.props.location}

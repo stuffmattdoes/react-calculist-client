@@ -27,7 +27,7 @@ class ListStore extends EventEmitter {
         }
 
         for (var index in _lists) {
-            if (_currentID == _lists[index].ID) {
+            if (_currentID == _lists[index].listID) {
                 return _lists[index];
             }
         }
@@ -53,7 +53,7 @@ class ListStore extends EventEmitter {
     listDelete(listID) {
         // console.log("Delete list", listID);
         _lists.forEach((value, index) => {
-            if (listID == value.ID) {
+            if (listID == value.listID) {
                 _lists.splice(index, 1);
             }
         });
@@ -72,7 +72,7 @@ class ListStore extends EventEmitter {
         _lists.forEach((list, index) => {
 
             // Match our list ID
-            if (listID == list.ID) {
+            if (listID == list.listID) {
                 this.updateProperties(list, updates);
             }
         });
