@@ -72,12 +72,22 @@ exports.createItem = (req, res, next) => {
 exports.updateItem = (req, res, next) => {
     var id = req.params.itemID;
     var itemUpdates = req.body.updates;
-    console.log(itemUpdates);
+    /*
+        Iterate through keys in itemUpdates
+            if value === object
+                compose a new string of this key + all parent keys & continue iterating
+
+            return composed key name + final value to be passed below
+    */
+
+    var updateObject = getKeyValuePair('', itemUpdates);
+    console.log(updateObject);
 
     Item.update({ itemID: id }, itemUpdates, {new: true}, (err, item) => {
         if (err) {
             return res.status(500).json({errorMessage: err.message});
         }
+        // console.log('Item upated', itemUpdates);
         res.status(200).json({
             "item": item,
             successMessage: "Item updated"
@@ -85,6 +95,28 @@ exports.updateItem = (req, res, next) => {
         return next();
     });
 };
+
+function getKeyValuePair(keyName, itemUpdates) {
+    var newKeyName = '' + keyName;
+
+    for (var key in itemUpdates) {
+        if (newKeyName !== '') {
+            newKeyName += '.' + key;
+        } else {
+            newKeyName += key;
+        }
+        
+        if (typeof itemUpdates[key] === 'object') {
+            var newKeyName = getKeyValuePair(newKeyName, itemUpdates[key]);
+            return {
+                [newKeyName]: itemUpdates[key]
+            }
+        } else {
+            return newKeyName;
+        }
+    }
+
+}
 
 // DELETE route - delete existing items
 /*
