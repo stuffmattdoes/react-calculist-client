@@ -14,7 +14,7 @@ const requireLogin = passport.authenticate('local', {
 });
 
 const Routes = app => {
-	console.log("Routes are working");
+
 	const 	apiRoutes = express.Router(),
 			API_VERSION = 'v1.0',
 			authRoutes = express.Router(),
@@ -23,7 +23,8 @@ const Routes = app => {
 
 	// Set URL for API group routes
 	// domain.com/api/ 
-	app.use('/api/', apiRoutes);
+	app.use('/api', apiRoutes);
+
 
 	// ==================================================
 	// Auth Route

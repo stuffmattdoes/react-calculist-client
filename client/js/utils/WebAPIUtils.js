@@ -13,10 +13,15 @@ const API_PREFIX = '/api';
 const API_VERSION = '/v1.0';
 const API_URLS = {
     items: API_PREFIX + '/items',
-    lists: API_PREFIX + '/lists'
+    lists: API_PREFIX + '/lists',
+    auth: API_PREFIX + '/auth'
 }
 
 const WebAPIUtils = {
+
+    // ==================================================
+    // Items API
+    // ==================================================
 
     itemCreate: function(title, listID, itemID) {
         // console.log("Create item:", title, listID, itemID);
@@ -150,6 +155,11 @@ const WebAPIUtils = {
         });
     },
 
+
+    // ==================================================
+    // List API
+    // ==================================================
+
     listCreate: function(listID, listTitle, listOwner) {
         // console.log("Web API Utils: Create list", listID, listTitle);
         var d = $.Deferred();
@@ -243,15 +253,15 @@ const WebAPIUtils = {
             method: "PUT",
             url: API_URLS.lists + '/' + listID
         }).done((data, textStatus, jqXHR) => {
-            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            // console.log(jqXHR, textStatus, errorThrown);
+            console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
     },
-
-    UpdateProperties: function(obj, updates) {
+/*
+    updateProperties: function(obj, updates) {
 
         // Iterate through our updates
         for (var key in updates) {
@@ -262,7 +272,7 @@ const WebAPIUtils = {
             // Is this property an object? And does our object have the same object property?
             if (typeof updates[key] === 'object'
                 && obj.hasOwnProperty(key)) {
-                this.UpdateProperties(obj[key], updates[key]);
+                this.updateProperties(obj[key], updates[key]);
             } else {
                 if (key in obj) {
                     obj[key] = updates[key];
@@ -270,6 +280,31 @@ const WebAPIUtils = {
             }
         }
 
+    },
+*/
+
+    // ==================================================
+    // Auth API
+    // ==================================================
+
+    userRegister: function(creds) {
+
+        var d = $.Deferred();
+
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8',
+            context: document.body,
+            data: JSON.stringify(creds),
+            dataType: 'json',
+            method: 'POST',
+            url: API_URLS.auth + '/register'
+        }).done((data, textStatus, jqXHR) => {
+            console.log('User registration success!', data, textStatus, jqXHR);
+            d.resolve();
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            console.log('User registration failed :/', jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
     }
 
 };

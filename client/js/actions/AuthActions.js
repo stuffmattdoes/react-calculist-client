@@ -7,7 +7,16 @@ const AuthActions = {
     },
 
     userRegister: function(creds) {
-    	console.log("userRegister");
+    	// console.log("userRegister", creds);
+
+        // dispatcher.dispatch({
+        //     type: "REGISTER_USER",
+        //     credentials: creds
+        // });
+
+        // API action call
+        WebAPIUtils.userRegister(creds);
+
     },
 
     validateLogin: function(creds) {

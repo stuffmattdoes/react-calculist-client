@@ -9,51 +9,53 @@ const   EMAIL_EMPTY = 'Enter an email address.',
 const FormValidationUtils = {
 	 emailValidate: function(email) {
         if (!email) {
-            return EMAIL_EMPTY;
             // return false;
+            return EMAIL_EMPTY;
         }
 
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(email)) {
-            return true;
+        if (!re.test(email)) {
+            // return false;
+            return EMAIL_INVALID;
         }
         
-        return EMAIL_INVALID;
-        // return false;
+        // Return true
+        return '';
     },
 
     passwordValidate: function(password, minLength, upperChar, specialChar) {
         if (!password) {
-            return PASSWORD_EMPTY[0] + minLength + PASSWORD_EMPTY[1];
             // return false;
+            return PASSWORD_EMPTY[0] + minLength + PASSWORD_EMPTY[1];
         }
 
         if (minLength && password.length < minLength) {
-            return PASSWORD_INVALID[0] + minLength + PASSWORD_INVALID[1];
-            // console.log('Nope.');
             // return false;
+            return PASSWORD_INVALID[0] + minLength + PASSWORD_INVALID[1];
         }
 
         // Upper character detection here
 
         // Special character detection here
 
-        return true;
+        // Return true
+        return '';
         
     },
 
     passwordsMatch: function(password1, password2) {
     	if (!password2) {
-            return PASSWORD_CONFIRM_EMPTY;
             // return false;
+            return PASSWORD_CONFIRM_EMPTY;
         }
 
         if (password1 !== password2) {
-            return PASSWORD_MISMATCH;
             // return false;
+            return PASSWORD_MISMATCH;
         }
 
-        return true;
+        // Return true
+        return '';
     }
 }
 

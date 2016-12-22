@@ -8,11 +8,11 @@ const   config = require('./Config'),
 
 // Establish database connection
 mongoose.connect(config.database, res => {
-    if (res) {
-        console.log("Failure to run Mongoose.", res);
-    } else {
-        console.log("Mongoose is running!");
-    }
+    // if (res) {
+    //     console.log("Failure to run Mongoose.", res);
+    // } else {
+    //     console.log("Mongoose is running!");
+    // }
 });
 
 // Parse url encoded responses into useable formats

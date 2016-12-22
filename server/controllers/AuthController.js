@@ -2,6 +2,7 @@ var express = require('express');
 var auth = express.Router();
 var User = require('../models/User');
 
+var FormValidationUtils = require('../utils/FormValidationUtils');
 
 // Generate JSON web token (JWT) from user object we pass in
 function generateToken(user) {
@@ -22,6 +23,38 @@ function setUserInfo(request) {
     };
 }
 
+function validateForms(creds) {
+
+    // console.log(FormValidationUtils);
+
+    var email = creds.email,
+        password = creds.password,
+        confirmPassword = creds.confirmPassword;
+    const errorMessages = {};
+    
+    // Email validation
+    var emailErrors = FormValidationUtils.emailValidate(email);
+
+    if (emailErrors !== '') {
+        errorMessages.email = emailErrors
+    }
+
+    // Password validation
+    var passwordErrors = FormValidationUtils.passwordValidate(password, 7, false, false);
+
+    if (passwordErrors !== '') {
+        errorMessages.password = passwordErrors;
+    }
+
+    // Password match
+    var confirmPasswordErrors = FormValidationUtils.passwordsMatch(password, confirmPassword);
+
+    if (confirmPasswordErrors !== '') {
+        errorMessages.confirmPassword = confirmPasswordErrors;
+    }
+
+    return errorMessages;
+}
 
 // ==================================================
 // Registration Route
@@ -29,40 +62,57 @@ function setUserInfo(request) {
 
 // POST route - user registration
 exports.register = (req, res, next) => {
+    const errorMessages = validateForms({
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword
+    });
 
-    if (req.body.email
-        && req.body.password
-        && req.body.confirmPassword) {
-
-        // Confirm the passwords match
-        if (req.body.password !== req.body.confirmPassword) {
-            var err = new Error('Passwords do not match.');
-            err.status = 400;
-            return next(err);
-        }
-
-        // Create object with form input
-        var userData = {
-            email: req.body.email,
-            password: req.body.password
-        };
-
-        // Insert user document into mongo
-        User.create(userData, (err, user) => {
-            if (err) {
-                return next(err);
-            } else {
-                // User token here
-                // req.session.userId = user._id;
-                return res.redirect('/lists');
-            }
-        });
-
-    } else {
-        var err = new Error('All fields required.');
-        err.status = 400;
-        return next(err);
+    // If no errors, return true
+    if (Object.keys(errorMessages).length === 0
+        && errorMessages.constructor === Object) {
+        console.log("Registration credentials valid!");
     }
+
+    return next();
+
+
+
+
+
+    // if (req.body.email
+    //     && req.body.password
+    //     && req.body.confirmPassword) {
+
+    //     // Confirm the passwords match
+    //     if (req.body.password !== req.body.confirmPassword) {
+    //         var err = new Error('Passwords do not match.');
+    //         err.status = 400;
+    //         return next(err);
+    //     }
+
+    //     // Create object with form input
+    //     var userData = {
+    //         email: req.body.email,
+    //         password: req.body.password
+    //     };
+
+    //     // Insert user document into mongo
+    //     User.create(userData, (err, user) => {
+    //         if (err) {
+    //             return next(err);
+    //         } else {
+    //             // User token here
+    //             // req.session.userId = user._id;
+    //             return res.redirect('/lists');
+    //         }
+    //     });
+
+    // } else {
+    //     var err = new Error('All fields required.');
+    //     err.status = 400;
+    //     return next(err);
+    // }
 }
 
 // ==================================================

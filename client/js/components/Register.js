@@ -2,6 +2,9 @@
 import React from 'react';
 import FormValidationUtils from '../utils/FormValidationUtils';
 
+// Actions
+import * as AuthActions from '../actions/AuthActions';
+
 const inputs = [
     {
         label: 'Email',
@@ -24,7 +27,8 @@ const Register = React.createClass({
     
     getInitialState: function() {
         return {
-            validationErrors: {}
+            validationErrors: {},
+            formSubmitted: false
         }
     },
 
@@ -36,18 +40,43 @@ const Register = React.createClass({
         const errorMessages = {};
         
         // Email validation
-        errorMessages.email = FormValidationUtils.emailValidate(email);
+        var emailErrors = FormValidationUtils.emailValidate(email);
+
+        if (emailErrors !== '') {
+            errorMessages.email = emailErrors
+        }
 
         // Password validation
-        errorMessages.password = FormValidationUtils.passwordValidate(password, 7, false, false);
+        var passwordErrors = FormValidationUtils.passwordValidate(password, 7, false, false);
+
+        if (passwordErrors !== '') {
+            errorMessages.password = passwordErrors;
+        }
 
         // Password match
-        errorMessages.confirmPassword = FormValidationUtils.passwordsMatch(password, confirmPassword);
+        var confirmPasswordErrors = FormValidationUtils.passwordsMatch(password, confirmPassword);
 
-        console.log(errorMessages);
+        if (confirmPasswordErrors !== '') {
+            errorMessages.confirmPassword = confirmPasswordErrors;
+        }
 
         // If no errors, send off to the register
         // method="POST" action="/api/auth/register"
+        if (Object.keys(errorMessages).length === 0
+            && errorMessages.constructor === Object) {
+
+            AuthActions.default.userRegister({
+                email: email,
+                password: password
+            }).done((response) => {
+                console.log('Response: ', response);
+            });
+
+            this.setState({
+                formSubmitted: true
+            });
+
+        }
 
         this.setState({
             validationErrors: errorMessages
