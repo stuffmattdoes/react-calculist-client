@@ -38,6 +38,7 @@ const Register = React.createClass({
             password = document.getElementById('password').value,
             confirmPassword = document.getElementById('confirmPassword').value;
         const errorMessages = {};
+        var formSubmitted = false;
         
         // Email validation
         var emailErrors = FormValidationUtils.emailValidate(email);
@@ -68,17 +69,14 @@ const Register = React.createClass({
             AuthActions.default.userRegister({
                 email: email,
                 password: password
-            }).done((response) => {
-                console.log('Response: ', response);
             });
 
-            this.setState({
-                formSubmitted: true
-            });
+            formSubmitted = true;
 
         }
 
         this.setState({
+            formSubmitted: formSubmitted,
             validationErrors: errorMessages
         });
 

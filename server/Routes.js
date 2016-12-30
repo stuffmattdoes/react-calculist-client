@@ -1,29 +1,19 @@
-const 	AuthenticationController = require('./controllers/AuthController'),
-		express = require('express'),
-		ItemController = require('./controllers/ItemsController'),
-		ListController = require('./controllers/ListsController'),
-		passPortService = require('./Passport'),
-		passport = require('passport');
+// Modules and stuff
+const AuthenticationController = require('./controllers/AuthController');
+const express = require('express');
+const ItemController = require('./controllers/ItemsController');
+const ListController = require('./controllers/ListsController');
+const passPortService = require('./Passport');
+const passport = require('passport');
 
-const requireAuth = passport.authenticate('jwt', {
-	session: false
-});
 
-const requireLogin = passport.authenticate('local', {
-	session: false
-});
-
-const Routes = app => {
+const Routes = () => {
 
 	const 	apiRoutes = express.Router(),
 			API_VERSION = 'v1.0',
 			authRoutes = express.Router(),
 			listRoutes = express.Router(),
 			itemRoutes = express.Router();
-
-	// Set URL for API group routes
-	// domain.com/api/ 
-	app.use('/api', apiRoutes);
 
 
 	// ==================================================
@@ -37,7 +27,7 @@ const Routes = app => {
 	authRoutes.post('/register', AuthenticationController.register);
 
 	// Login route
-	authRoutes.post('/login', requireLogin, AuthenticationController.login);
+	authRoutes.post('/login', AuthenticationController.login);
 	
 
 	// ==================================================
