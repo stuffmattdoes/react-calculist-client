@@ -1,13 +1,21 @@
 // Libraries
 import React from 'react';
-import AuthActions from '../actions/AuthActions';
+import * as AuthActions from '../actions/AuthActions';
 
 const Login = React.createClass({
 
     onSubmit: function(e) {
         e.preventDefault();
-        console.log("Login submitted");
-        AuthActions.userLogin(e);
+
+        var formData = {
+            email: document.getElementById('email').value,
+            password:  document.getElementById('password').value,
+        }
+
+        AuthActions.default.userLogin({
+            email: formData.email,
+            password: formData.password
+        });
         // send to url /auth/login
     },
 

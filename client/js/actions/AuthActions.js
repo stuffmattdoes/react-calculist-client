@@ -3,7 +3,8 @@ import WebAPIUtils from "../utils/WebAPIUtils";
 
 const AuthActions = {
     userLogin: function(creds) {
-        console.log("userLogin");
+        console.log("userLogin", creds);
+        WebAPIUtils.userLogin(creds);
     },
 
     userRegister: function(creds) {
@@ -15,8 +16,8 @@ const AuthActions = {
         // });
 
         // API action call
+        console.log("Registration API call dispatch");
         WebAPIUtils.userRegister(creds);
-
     },
 
     validateLogin: function(creds) {

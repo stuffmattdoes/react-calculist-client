@@ -5,7 +5,7 @@ import FormValidationUtils from '../utils/FormValidationUtils';
 // Actions
 import * as AuthActions from '../actions/AuthActions';
 
-const inputs = [
+const inputFields = [
     {
         label: 'Email',
         name: 'email',
@@ -34,28 +34,31 @@ const Register = React.createClass({
 
     formValidate: function(e) {
         e.preventDefault();
-        var email = document.getElementById('email').value,
-            password = document.getElementById('password').value,
-            confirmPassword = document.getElementById('confirmPassword').value;
+        var formData = {
+            email: document.getElementById('email').value,
+            password:  document.getElementById('password').value,
+            confirmPassword: document.getElementById('confirmPassword').value
+        }
+
         const errorMessages = {};
         var formSubmitted = false;
         
         // Email validation
-        var emailErrors = FormValidationUtils.emailValidate(email);
+        var emailErrors = FormValidationUtils.emailValidate(formData.email);
 
         if (emailErrors !== '') {
             errorMessages.email = emailErrors
         }
 
         // Password validation
-        var passwordErrors = FormValidationUtils.passwordValidate(password, 7, false, false);
+        var passwordErrors = FormValidationUtils.passwordValidate(formData.password, 7, false, false);
 
         if (passwordErrors !== '') {
             errorMessages.password = passwordErrors;
         }
 
         // Password match
-        var confirmPasswordErrors = FormValidationUtils.passwordsMatch(password, confirmPassword);
+        var confirmPasswordErrors = FormValidationUtils.passwordsMatch(formData.password, formData.confirmPassword);
 
         if (confirmPasswordErrors !== '') {
             errorMessages.confirmPassword = confirmPasswordErrors;
@@ -65,12 +68,8 @@ const Register = React.createClass({
         // method="POST" action="/api/auth/register"
         if (Object.keys(errorMessages).length === 0
             && errorMessages.constructor === Object) {
-
-            AuthActions.default.userRegister({
-                email: email,
-                password: password
-            });
-
+            console.log("Client registration validated");
+            this.formSubmit(formData);
             formSubmitted = true;
 
         }
@@ -82,6 +81,13 @@ const Register = React.createClass({
 
     },
 
+    formSubmit: function(formData) {
+        AuthActions.default.userRegister({
+            email: formData.email,
+            password: formData.password
+        });
+    },
+
     render: function() {
 
         return (
@@ -89,7 +95,7 @@ const Register = React.createClass({
                 <div className="login-view">
                     <h1>Register</h1>
                     <form className="form-standard"  onSubmit={this.formValidate} >
-                        {inputs.map((inputField, index) => {
+                        {inputFields.map((inputField, index) => {
                             var error = this.state.validationErrors[inputField.name];
                             var inputGroupClass = "input-group";
                             
@@ -124,6 +130,12 @@ const Register = React.createClass({
                         <input
                             className="button-full button-main"
                             type="submit"
+                            value={this.state.formSubmitted ?
+                                "Loading...": "Submit"
+                            }
+                            disabled={this.state.formSubmitted ?
+                                "disabled": ""
+                            }
                         />
                     </form>
                     <div className="login-alt">

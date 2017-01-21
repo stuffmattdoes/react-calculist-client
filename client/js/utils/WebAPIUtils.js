@@ -288,6 +288,7 @@ const WebAPIUtils = {
     // ==================================================
 
     userRegister: function(creds) {
+        console.log("Registration API call", creds);
 
         var d = $.Deferred();
 
@@ -303,6 +304,27 @@ const WebAPIUtils = {
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
             console.log('User registration failed :/', jqXHR, textStatus, errorThrown);
+            d.reject();
+        });
+    },
+
+    userLogin: function(creds) {
+        console.log("Login API call", creds);
+        
+        var d = $.Deferred();
+
+        $.ajax({
+            contentType: 'application/json; charset=UTF-8',
+            context: document.body,
+            data: JSON.stringify(creds),
+            dataType: 'json',
+            method: 'POST',
+            url: API_URLS.auth + '/login'
+        }).done((data, textStatus, jqXHR) => {
+            console.log('User login success!', data, textStatus, jqXHR);
+            d.resolve();
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            console.log('User login failed :/', jqXHR, textStatus, errorThrown);
             d.reject();
         });
     }

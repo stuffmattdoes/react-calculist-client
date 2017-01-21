@@ -1,11 +1,12 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+const config = {
     context: __dirname + '/client/js',          // The directory of our main app file
     entry: './Index.js',                        // The main file for our app
     output: {
         path: __dirname + '/public/js',         // What directory should our compiled asset go?
-        filename: 'bundle.js'                   // What should our compiled asset be named?
+        filename: './bundle.js'                   // What should our compiled asset be named?
     },
     devtool: 'source-map',                      // Includes a source map with our initial Javascript compilation
     devServer: {                                // Need to redirect dev server to our index.html file
@@ -18,9 +19,9 @@ module.exports = {
 
             // Scripts
             {
-                test: /\.js$/,                      // Define which files match the criteria for being run through loader
+                test: /\.(js|jsx)$/,                // Define which files match the criteria for being run through loader
                 exclude: /node_modules/,            // Define which files to exclude from being run through loader
-                loader: 'babel-loader',             // 'babel-loader' instructs Webpack to use .babelrc file to define loaders here
+                loader: 'babel',                    // 'babel-loader' instructs Webpack to use .babelrc file to define loaders here
                 query: {                            // Arguments for the loader
                     presets: ['react', 'es2015'],
                     plugins: ['react-hot-loader/babel']
@@ -40,3 +41,5 @@ module.exports = {
         })
     ]
 };
+
+module.exports = config;

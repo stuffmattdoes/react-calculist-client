@@ -3,14 +3,13 @@ const AuthenticationController = require('./controllers/AuthController');
 const express = require('express');
 const ItemController = require('./controllers/ItemsController');
 const ListController = require('./controllers/ListsController');
-const passPortService = require('./Passport');
 const passport = require('passport');
 
 
 const Routes = () => {
 
 	const 	apiRoutes = express.Router(),
-			API_VERSION = 'v1.0',
+			apiVersion = 'v1.0',
 			authRoutes = express.Router(),
 			listRoutes = express.Router(),
 			itemRoutes = express.Router();

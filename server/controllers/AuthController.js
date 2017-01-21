@@ -1,5 +1,4 @@
 var express = require('express');
-var auth = express.Router();
 var User = require('../models/User');
 
 var FormValidationUtils = require('../utils/FormValidationUtils');
@@ -11,8 +10,6 @@ function generateToken(user) {
     });
 }
 
-// We don't want to use the entire user object to sign into our JWTs for 2 reasons:
-// 1. That's a lot of info to eventually store in a cookie
 function setUserInfo(request) {
     return {
         _id: request._id,
@@ -23,31 +20,28 @@ function setUserInfo(request) {
     };
 }
 
-function validateForms(creds) {
+function validateCreds(creds) {
 
-    // console.log(FormValidationUtils);
+    console.log('Server validate credentials');
 
-    var email = creds.email,
-        password = creds.password,
-        confirmPassword = creds.confirmPassword;
-    const errorMessages = {};
+    var errorMessages = {};
     
     // Email validation
-    var emailErrors = FormValidationUtils.emailValidate(email);
+    var emailErrors = FormValidationUtils.emailValidate(creds.email);
 
     if (emailErrors !== '') {
         errorMessages.email = emailErrors
     }
 
     // Password validation
-    var passwordErrors = FormValidationUtils.passwordValidate(password, 7, false, false);
+    var passwordErrors = FormValidationUtils.passwordValidate(creds.password, 7, false, false);
 
     if (passwordErrors !== '') {
         errorMessages.password = passwordErrors;
     }
 
     // Password match
-    var confirmPasswordErrors = FormValidationUtils.passwordsMatch(password, confirmPassword);
+    var confirmPasswordErrors = FormValidationUtils.passwordsMatch(creds.password, creds.confirmPassword);
 
     if (confirmPasswordErrors !== '') {
         errorMessages.confirmPassword = confirmPasswordErrors;
@@ -62,7 +56,10 @@ function validateForms(creds) {
 
 // POST route - user registration
 exports.register = (req, res, next) => {
-    const errorMessages = validateForms({
+
+    console.log(req);
+
+    var errorMessages = validateCreds({
         email: req.body.email,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword
@@ -72,13 +69,18 @@ exports.register = (req, res, next) => {
     if (Object.keys(errorMessages).length === 0
         && errorMessages.constructor === Object) {
         console.log("Registration credentials valid!");
+        return res.status(201).json({
+            user: 'valid'
+        });
+
+    } else {
+        console.log("Registration credentials invalid.");
+        return res.status(422).send({
+            errors: errorMessages
+        });
     }
 
     return next();
-
-
-
-
 
     // if (req.body.email
     //     && req.body.password
@@ -121,6 +123,8 @@ exports.register = (req, res, next) => {
 
 // POST route - user login
 exports.login = (req, res, next) => {
+    console.log('login');
+
     if (req.body.email
         && req.body.password) {
         User.authenticate(req.body.email, req.body.password, (error, user) => {
@@ -164,7 +168,7 @@ exports.logout = (req, res, next) => {
 // Role authorization check
 exports.roleAuthorization = role => {
     return (req, res, next) => {
-        const user = req.user;
+        var user = req.user;
 
         User.findById(user._id, (err, foundUser) => {
             if (err) {
