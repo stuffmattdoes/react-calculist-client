@@ -57,7 +57,7 @@ function validateCreds(creds) {
 // POST route - user registration
 exports.register = (req, res, next) => {
 
-    console.log(req);
+    console.log('Server register user.');
 
     var errorMessages = validateCreds({
         email: req.body.email,
@@ -80,7 +80,7 @@ exports.register = (req, res, next) => {
         });
     }
 
-    return next();
+    // return next();
 
     // if (req.body.email
     //     && req.body.password

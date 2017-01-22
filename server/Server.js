@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 // Routes
-const apiRoutes = require('./Routes');
+const apiRoutes = require('./routes/Index');
 
 // Variables
 const ROOT_DIR = process.env.ROOT_DIR = __dirname;
@@ -59,6 +59,6 @@ app.all( '*' , ( req , res , next ) => {
 });
 
 // Start the server
-var server = app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
     console.log("The server is running on port: " + config.port);
 });
