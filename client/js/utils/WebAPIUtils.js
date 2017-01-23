@@ -253,10 +253,10 @@ const WebAPIUtils = {
             method: "PUT",
             url: API_URLS.lists + '/' + listID
         }).done((data, textStatus, jqXHR) => {
-            console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
+            // console.log("WebAPIUtils: Success!", data, textStatus, jqXHR);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log(jqXHR, textStatus, errorThrown);
+            // console.log(jqXHR, textStatus, errorThrown);
             d.reject();
         });
     },
@@ -303,7 +303,8 @@ const WebAPIUtils = {
             console.log('User registration success!', data, textStatus, jqXHR);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log('User registration failed :/', jqXHR, textStatus, errorThrown);
+            console.log('User registration failed.', jqXHR, textStatus, errorThrown);
+            // ServerActions.default.receiveAllItems(data);
             d.reject();
         });
     },

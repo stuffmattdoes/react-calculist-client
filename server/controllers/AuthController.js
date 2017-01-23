@@ -22,7 +22,7 @@ function setUserInfo(request) {
 
 function validateCreds(creds) {
 
-    console.log('Server validate credentials');
+    console.log('Server validate credentials', creds);
 
     var errorMessages = {};
     
@@ -57,7 +57,7 @@ function validateCreds(creds) {
 // POST route - user registration
 exports.register = (req, res, next) => {
 
-    console.log('Server register user.');
+    // console.log('Server register user.');
 
     var errorMessages = validateCreds({
         email: req.body.email,
@@ -123,7 +123,7 @@ exports.register = (req, res, next) => {
 
 // POST route - user login
 exports.login = (req, res, next) => {
-    console.log('login');
+    console.log('Server login');
 
     if (req.body.email
         && req.body.password) {

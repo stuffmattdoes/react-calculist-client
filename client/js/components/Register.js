@@ -5,6 +5,9 @@ import FormValidationUtils from '../utils/FormValidationUtils';
 // Actions
 import * as AuthActions from '../actions/AuthActions';
 
+// Stores
+import AuthStore from '../stores/AuthStore';
+
 const inputFields = [
     {
         label: 'Email',
@@ -30,6 +33,18 @@ const Register = React.createClass({
             validationErrors: {},
             formSubmitted: false
         }
+    },
+
+    onStoreChange: function() {
+        console.log('On store change');
+    },
+
+    componentWillMount: function() {
+        AuthStore.on('USER_REGISTER', this.onStoreChange);
+    },
+
+    componentWillUnmount: function() {
+        AuthStore.removeListener('USER_REGISTER', this.onStoreChange);
     },
 
     formValidate: function(e) {
@@ -69,22 +84,24 @@ const Register = React.createClass({
         if (Object.keys(errorMessages).length === 0
             && errorMessages.constructor === Object) {
             console.log("Client registration validated");
-            this.formSubmit(formData);
+            // this.formSubmit(formData);
             formSubmitted = true;
-
         }
 
-        this.setState({
-            formSubmitted: formSubmitted,
-            validationErrors: errorMessages
-        });
+        this.formSubmit(formData);
+
+        // this.setState({
+        //     formSubmitted: formSubmitted,
+        //     validationErrors: errorMessages
+        // });
 
     },
 
     formSubmit: function(formData) {
         AuthActions.default.userRegister({
             email: formData.email,
-            password: formData.password
+            password: formData.password,
+            confirmPassword: formData.confirmPassword
         });
     },
 

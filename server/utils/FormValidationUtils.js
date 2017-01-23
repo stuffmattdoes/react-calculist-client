@@ -1,4 +1,3 @@
-
 const   EMAIL_EMPTY = 'Enter an email address.',
         EMAIL_INVALID = 'Invalid email.',
         PASSWORD_CONFIRM_EMPTY = 'Confirm your password.',
