@@ -16,7 +16,7 @@ const AuthActions = {
         // });
 
         // API action call
-        console.log("Registration API call dispatch");
+        // console.log("Registration API call dispatch");
         WebAPIUtils.userRegister(creds);
     },
 

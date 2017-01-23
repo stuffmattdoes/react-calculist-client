@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import FormValidationUtils from '../utils/FormValidationUtils';
+import { browserHistory } from 'react-router';
 
 // Actions
 import * as AuthActions from '../actions/AuthActions';
@@ -36,7 +37,21 @@ const Register = React.createClass({
     },
 
     onStoreChange: function() {
-        console.log('On store change');
+        // console.log('On store change');
+        var validationErrors = AuthStore.getUserRegisterErrors();
+        console.log(validationErrors);
+
+        if (validationErrors) {
+            this.setState({
+                validationErrors: validationErrors
+            });
+        } else {
+            this.onUserRegisterSuccess();
+        }
+    },
+
+    onUserRegisterSuccess: function() {
+        browserHistory.push('/lists/');
     },
 
     componentWillMount: function() {
@@ -83,17 +98,17 @@ const Register = React.createClass({
         // method="POST" action="/api/auth/register"
         if (Object.keys(errorMessages).length === 0
             && errorMessages.constructor === Object) {
-            console.log("Client registration validated");
-            // this.formSubmit(formData);
+            // console.log("Client registration validated");
+            this.formSubmit(formData);
             formSubmitted = true;
         }
 
-        this.formSubmit(formData);
+        // this.formSubmit(formData);
 
-        // this.setState({
-        //     formSubmitted: formSubmitted,
-        //     validationErrors: errorMessages
-        // });
+        this.setState({
+            formSubmitted: formSubmitted,
+            validationErrors: errorMessages
+        });
 
     },
 

@@ -288,7 +288,7 @@ const WebAPIUtils = {
     // ==================================================
 
     userRegister: function(creds) {
-        console.log("Registration API call", creds);
+        // console.log("Registration API call", creds);
 
         var d = $.Deferred();
 
@@ -300,11 +300,12 @@ const WebAPIUtils = {
             method: 'POST',
             url: API_URLS.auth + '/register'
         }).done((data, textStatus, jqXHR) => {
-            console.log('User registration success!', data, textStatus, jqXHR);
+            // console.log('User registration success!', data, textStatus, jqXHR);
+            ServerActions.default.receiveUserRegisterSuccess(data);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log('User registration failed.', jqXHR, textStatus, errorThrown);
-            // ServerActions.default.receiveAllItems(data);
+            // console.log('User registration failed.', jqXHR, textStatus, errorThrown);
+            ServerActions.default.receiveUserRegisterError(jqXHR);
             d.reject();
         });
     },

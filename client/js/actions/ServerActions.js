@@ -19,13 +19,21 @@ const ServerActions = {
         });
     },
 
-    receiveUserRegister: function(userRegister) {
+    receiveUserRegisterSuccess: function(success) {
         // console.log("Receive user register", userRegister);
         Dispatcher.dispatch({
-            type: 'RECEIVE_USER_REGISTER',
-            userRegister: userRegister
+            type: 'RECEIVE_USER_REGISTER_SUCCESS',
+            response: success
         });
-    }
+    },
+
+    receiveUserRegisterError: function(errors) {
+        // console.log("Receive user register", userRegister);
+        Dispatcher.dispatch({
+            type: 'RECEIVE_USER_REGISTER_ERROR',
+            response: errors
+        });
+    },
 
 }
 
