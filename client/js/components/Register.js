@@ -31,34 +31,34 @@ const Register = React.createClass({
     
     getInitialState: function() {
         return {
-            validationErrors: {},
+            authErrors: {},
             formSubmitted: false
         }
     },
 
     onStoreChange: function() {
-        var validationErrors = AuthStore.getUserRegisterErrors();
+        var authErrors = AuthStore.getUserAuthErrors();
 
-        if (this.checkForObjectProps(validationErrors)) {
+        if (this.checkForObjectProps(authErrors)) {
             this.setState({
-                validationErrors: validationErrors
+                authErrors: authErrors
             });
         } else {
-            this.onUserRegisterSuccess();
+            this.onUserAuthSuccess();
         }
 
     },
 
-    onUserRegisterSuccess: function() {
+    onUserAuthSuccess: function() {
         browserHistory.push('/lists/');
     },
 
     componentWillMount: function() {
-        AuthStore.on('USER_REGISTER', this.onStoreChange);
+        AuthStore.on('USER_AUTH', this.onStoreChange);
     },
 
     componentWillUnmount: function() {
-        AuthStore.removeListener('USER_REGISTER', this.onStoreChange);
+        AuthStore.removeListener('USER_AUTH', this.onStoreChange);
     },
 
     checkForObjectProps(objectToCheck) {
@@ -71,13 +71,12 @@ const Register = React.createClass({
 
     formValidate: function(e) {
         e.preventDefault();
+        const errorMessages = {};
         var formData = {
             email: document.getElementById('email').value,
             password:  document.getElementById('password').value,
             confirmPassword: document.getElementById('confirmPassword').value
         }
-
-        const errorMessages = {};
         var formSubmitted = false;
         
         // Email validation
@@ -110,7 +109,7 @@ const Register = React.createClass({
 
         this.setState({
             formSubmitted: formSubmitted,
-            validationErrors: errorMessages
+            authErrors: errorMessages
         });
 
     },
@@ -130,8 +129,8 @@ const Register = React.createClass({
                 <div className="login-view">
                     <h1>Register</h1>
                     <form className="form-standard"  onSubmit={this.formValidate} >
-                        {inputFields.map((inputField, index) => {
-                            var error = this.state.validationErrors[inputField.name];
+                        {inputFields.map((inputField) => {
+                            var error = this.state.authErrors[inputField.name];
                             var inputGroupClass = "input-group";
                             
                             if(error) {
@@ -150,7 +149,7 @@ const Register = React.createClass({
                                         {...inputField}
                                     />
                                     {error ?
-                                    <label 
+                                    <label
                                         className="label-error"
                                         htmlFor={inputField.name}
                                         >

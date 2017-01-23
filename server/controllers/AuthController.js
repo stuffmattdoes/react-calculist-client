@@ -22,6 +22,14 @@ function setUserInfo(request) {
     };
 }
 
+function checkForObjectProps(objectToCheck) {
+    if (Object.keys(objectToCheck).length === 0
+        && objectToCheck.constructor === Object) {
+        return false;
+    }
+    return true;
+}
+
 function validateCreds(creds) {
     var errorMessages = {};
     
@@ -61,13 +69,7 @@ exports.register = (req, res, next) => {
         confirmPassword: req.body.confirmPassword
     });
 
-    // If no errors, return true
-    if (Object.keys(errorMessages).length === 0
-        && errorMessages.constructor === Object) {
-        // return res.status(201).json({
-        //     user: 'valid'
-        // });
-    } else {
+    if (checkForObjectProps(errorMessages)) {
         return res.status(422).send({
             errors: errorMessages
         });
@@ -122,25 +124,32 @@ exports.register = (req, res, next) => {
 
 // POST route - user login
 exports.login = (req, res, next) => {
-    console.log('Server login');
 
     if (req.body.email
         && req.body.password) {
         User.authenticate(req.body.email, req.body.password, (error, user) => {
             if (error || !user) {
-                var err = new Error('Wrong email or password');
-                err.status = 401;
-                return next(err);
+                return res.status(401).send({
+                    errors: {
+                        'invalid': 'Wrong email or password.'
+                    }
+                });
             } else {
                 // Authorization token here
-                // req.session.userId = user._id;
-                return res.redirect('/lists');
+                // Respond with JWT if user was created
+                let userInfo = setUserInfo(user);
+                res.status(200).json({
+                    token: 'JWT ' + generateToken(userInfo),
+                    user: userInfo
+                });
             }
         });
     } else {
-        var err = new Error('Email and password are required.');
-        err.status = 401;
-        return next(err);
+        return res.status(401).send({
+            errors: {
+                'invalid': 'Wrong email or password.'
+            }
+        });
     }
 }
 

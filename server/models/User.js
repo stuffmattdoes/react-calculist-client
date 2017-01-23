@@ -43,14 +43,14 @@ var UserSchema = new mongoose.Schema({
 // Authenticate login input vs. database document
 // 'Statics' lets you add methods directly to the model
 UserSchema.statics.authenticate = (email, password, callback) => {
-    console.log(UserModel);
+
     UserModel.findOne({ email: email })
         .exec((err, user) => {
             if (err) {
                 return callback(err);
             } else if (!user){
                 var err = new Error('User not found.');
-                err.status - 401;
+                err.status = 401;
                 return callback(err);
             }
 

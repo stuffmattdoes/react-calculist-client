@@ -2,35 +2,43 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _registerErrors = {};
-const CHANGE_EVENT = 'USER_REGISTER';
+var _authErrors  = {};
+const CHANGE_EVENT = 'USER_AUTH';
 
 class AuthStore extends EventEmitter {
 
-    userRegisterSuccess(data) {
-        _registerErrors = {};
-        console.log(data);
+    userAuthSuccess(data) {
+        console.log('User auth success!', data);
+        _authErrors  = {};
         this.emit(CHANGE_EVENT);
     }
 
-    userRegisterError(data) {
-        _registerErrors = data.responseJSON.errors;
-        console.log(_registerErrors);
+    userAuthError(data) {
+        console.log('User auth error.', data);
+        _authErrors = data.responseJSON.errors;
         this.emit(CHANGE_EVENT);
     }
 
-    getUserRegisterErrors() {
-        return _registerErrors;
+    getUserAuthErrors() {
+        return _authErrors;
     }
 
     handleActions(action) {
         switch(action.type) {
             case 'RECEIVE_USER_REGISTER_SUCCESS' : {
-                this.userRegisterSuccess(action.response);
+                this.userAuthSuccess(action.response);
                 break;
             }
             case 'RECEIVE_USER_REGISTER_ERROR' : {
-                this.userRegisterError(action.response);
+                this.userAuthError(action.response);
+                break;
+            }
+            case 'RECEIVE_USER_LOGIN_SUCCESS' : {
+                this.userAuthSuccess(action.response);
+                break;
+            }
+            case 'RECEIVE_USER_LOGIN_ERROR' : {
+                this.userAuthError(action.response);
                 break;
             }
         }

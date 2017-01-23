@@ -311,7 +311,7 @@ const WebAPIUtils = {
     },
 
     userLogin: function(creds) {
-        console.log("Login API call", creds);
+        // console.log("Login API call", creds);
         
         var d = $.Deferred();
 
@@ -323,10 +323,12 @@ const WebAPIUtils = {
             method: 'POST',
             url: API_URLS.auth + '/login'
         }).done((data, textStatus, jqXHR) => {
-            console.log('User login success!', data, textStatus, jqXHR);
+            // console.log('User login success!', data, textStatus, jqXHR);
+            ServerActions.default.receiveUserLoginSuccess(data);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log('User login failed :/', jqXHR, textStatus, errorThrown);
+            // console.log('User login failed :/', jqXHR, textStatus, errorThrown);
+            ServerActions.default.receiveUserLoginError(jqXHR);
             d.reject();
         });
     }
