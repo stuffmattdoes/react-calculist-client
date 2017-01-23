@@ -1,5 +1,6 @@
 const   EMAIL_EMPTY = 'Enter an email address.',
         EMAIL_INVALID = 'Invalid email.',
+        // EMAIL_TAKEN = 'That email is already in use.',
         PASSWORD_CONFIRM_EMPTY = 'Confirm your password.',
         PASSWORD_EMPTY = ['Enter a password (minimum of ', ' characters).'],
         PASSWORD_INVALID = ['Invalid password (minimum of ', ' characters).'],

@@ -1,6 +1,10 @@
-var express = require('express');
-var User = require('../models/User');
+// Libraries
+var config = require('../Config'),
+    express = require('express'),
+    jwt = require('jsonwebtoken'),
+    User = require('../models/User');
 
+// Utilities
 var FormValidationUtils = require('../utils/FormValidationUtils');
 
 // Generate JSON web token (JWT) from user object we pass in
@@ -13,17 +17,12 @@ function generateToken(user) {
 function setUserInfo(request) {
     return {
         _id: request._id,
-        firstName: request.profile.firstName,
-        lastName: request.profile.lastName,
         email: request.email,
         role: request.role,
     };
 }
 
 function validateCreds(creds) {
-
-    console.log('Server validate credentials', creds);
-
     var errorMessages = {};
     
     // Email validation
@@ -56,9 +55,6 @@ function validateCreds(creds) {
 
 // POST route - user registration
 exports.register = (req, res, next) => {
-
-    // console.log('Server register user.');
-
     var errorMessages = validateCreds({
         email: req.body.email,
         password: req.body.password,
@@ -68,53 +64,56 @@ exports.register = (req, res, next) => {
     // If no errors, return true
     if (Object.keys(errorMessages).length === 0
         && errorMessages.constructor === Object) {
-        console.log("Registration credentials valid!");
-        return res.status(201).json({
-            user: 'valid'
-        });
-
+        // return res.status(201).json({
+        //     user: 'valid'
+        // });
     } else {
-        console.log("Registration credentials invalid.");
         return res.status(422).send({
             errors: errorMessages
         });
     }
 
-    // return next();
+    // Now add our user
+    User.findOne({ email: req.body.email }, (err, existingUser) => {
+        if (err) {
+            return next(err);
+        }
 
-    // if (req.body.email
-    //     && req.body.password
-    //     && req.body.confirmPassword) {
+        // Check for existing email
+        if (existingUser) {
+            return res.status(422).send({
+                errors: {
+                    'email': 'That email address is already in use.'
+                }
+            });
+        }
 
-    //     // Confirm the passwords match
-    //     if (req.body.password !== req.body.confirmPassword) {
-    //         var err = new Error('Passwords do not match.');
-    //         err.status = 400;
-    //         return next(err);
-    //     }
+        // If creds are looking good, create the account!
+        let user = new User({
+            email: req.body.email,
+            password: req.body.password
+        });
 
-    //     // Create object with form input
-    //     var userData = {
-    //         email: req.body.email,
-    //         password: req.body.password
-    //     };
+        // Create our user
+        user.save((err, user) => {
+            if (err) {
+                return next(err);
+            }
 
-    //     // Insert user document into mongo
-    //     User.create(userData, (err, user) => {
-    //         if (err) {
-    //             return next(err);
-    //         } else {
-    //             // User token here
-    //             // req.session.userId = user._id;
-    //             return res.redirect('/lists');
-    //         }
-    //     });
+            // Subscribe member to Mailchimp list
+            // mailchimp.subscribeToNewsletter(user.email);
 
-    // } else {
-    //     var err = new Error('All fields required.');
-    //     err.status = 400;
-    //     return next(err);
-    // }
+            // Respond with JWT if user was created
+            let userInfo = setUserInfo(user);
+
+            res.status(201).json({
+                token: 'JWT ' + generateToken(userInfo),
+                user: userInfo
+            });
+        });
+
+    });
+
 }
 
 // ==================================================

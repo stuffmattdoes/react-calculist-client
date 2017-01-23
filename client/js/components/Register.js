@@ -37,17 +37,16 @@ const Register = React.createClass({
     },
 
     onStoreChange: function() {
-        // console.log('On store change');
         var validationErrors = AuthStore.getUserRegisterErrors();
-        console.log(validationErrors);
 
-        if (validationErrors) {
+        if (this.checkForObjectProps(validationErrors)) {
             this.setState({
                 validationErrors: validationErrors
             });
         } else {
             this.onUserRegisterSuccess();
         }
+
     },
 
     onUserRegisterSuccess: function() {
@@ -60,6 +59,14 @@ const Register = React.createClass({
 
     componentWillUnmount: function() {
         AuthStore.removeListener('USER_REGISTER', this.onStoreChange);
+    },
+
+    checkForObjectProps(objectToCheck) {
+        if (Object.keys(objectToCheck).length === 0
+            && objectToCheck.constructor === Object) {
+            return false;
+        }
+        return true;
     },
 
     formValidate: function(e) {
@@ -96,14 +103,10 @@ const Register = React.createClass({
 
         // If no errors, send off to the register
         // method="POST" action="/api/auth/register"
-        if (Object.keys(errorMessages).length === 0
-            && errorMessages.constructor === Object) {
-            // console.log("Client registration validated");
+        if(!this.checkForObjectProps(errorMessages)) {
             this.formSubmit(formData);
             formSubmitted = true;
         }
-
-        // this.formSubmit(formData);
 
         this.setState({
             formSubmitted: formSubmitted,
