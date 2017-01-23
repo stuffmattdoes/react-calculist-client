@@ -4,7 +4,32 @@ import * as AuthActions from '../actions/AuthActions';
 
 const Login = React.createClass({
 
-    onSubmit: function(e) {
+    getInitialState: function() {
+        return {
+            loginError: '',
+            formSubmitted: false
+        }
+    },
+
+    formValidate: function(e) {
+        e.preventDefault();
+        var formData = {
+            email: document.getElementById('email').value,
+            password:  document.getElementById('password').value,
+        }
+
+        if (email.trim() === '') {
+            console.log('No email.');
+        }
+
+        if (password.trim() === '') {
+            console.log('No password.');
+        }
+
+        // this.formSubmit(formData);
+    },
+
+    formSubmit: function(e) {
         e.preventDefault();
 
         var formData = {
@@ -16,19 +41,26 @@ const Login = React.createClass({
             email: formData.email,
             password: formData.password
         });
-        // send to url /auth/login
     },
 
     render: function() {
+
         return (
             <div className="app">
                 <div className="login-view">
                     <h1>Login</h1>
                     <form
                         method="POST"
-                        onSubmit={this.onSubmit}
+                        onSubmit={this.formValidate}
                         className="form-standard"
                     >
+                        {this.state.loginError ?
+                        <p
+                            className="label-error"
+                        >
+                            Invalid credentials.
+                        </p>
+                        : null}
                         <div className="input-group">
                             <label
                                 className="label-standard"
