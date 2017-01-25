@@ -9,21 +9,24 @@ import * as AuthActions from '../actions/AuthActions';
 // Stores
 import AuthStore from '../stores/AuthStore';
 
-const inputFields = [
+const inputFieldGroups = [
     {
         label: 'Email',
         name: 'email',
-        type: 'text'
+        type: 'text',
+        required: true,
     },
     {
         label: 'Password',
         name: 'password',
-        type: 'password'
+        type: 'password',
+        required: true,
     },
     {
         label: 'Confirm Password',
         name: 'confirmPassword',
-        type: 'password'
+        type: 'password',
+        required: true,
     }
 ];
 
@@ -31,20 +34,21 @@ const Register = React.createClass({
     
     getInitialState: function() {
         return {
-            authErrors: {},
+            validation: {},
             formSubmitted: false
         }
     },
 
     onStoreChange: function() {
-        var authErrors = AuthStore.getUserAuthErrors();
+        let _authErrors = AuthStore.getUserAuthErrors();
 
-        if (this.checkForObjectProps(authErrors)) {
-            this.setState({
-                authErrors: authErrors
-            });
-        } else {
+        if (this.confirmValidation(_authErrors)) {
             this.onUserAuthSuccess();
+        } else {
+            this.setState({
+                validation: _authErrors,
+                formSubmitted: false
+            });
         }
 
     },
@@ -61,65 +65,62 @@ const Register = React.createClass({
         AuthStore.removeListener('USER_AUTH', this.onStoreChange);
     },
 
-    checkForObjectProps(objectToCheck) {
-        if (Object.keys(objectToCheck).length === 0
-            && objectToCheck.constructor === Object) {
-            return false;
-        }
-        return true;
-    },
-
     formValidate: function(e) {
         e.preventDefault();
-        const errorMessages = {};
-        var formData = {
-            email: document.getElementById('email').value,
-            password:  document.getElementById('password').value,
-            confirmPassword: document.getElementById('confirmPassword').value
-        }
-        var formSubmitted = false;
-        
-        // Email validation
-        var emailErrors = FormValidationUtils.emailValidate(formData.email);
+        let formSubmitted = false;
 
-        if (emailErrors !== '') {
-            errorMessages.email = emailErrors
-        }
+        let formData = {
+            'email': {
+                validationType: 'email',
+                value: document.getElementById('email').value,
+                required: true
+            },
+            'password': {
+                validationType: 'password',
+                value: document.getElementById('password').value,
+                required: true,
+                params: {
+                    minimumLength: 7,
+                    upperCharacter: false,
+                    specialCharacter: false
+                }
+            },
+            'confirmPassword': {
+                validationType: 'match',
+                value: document.getElementById('confirmPassword').value,
+                required: true
+            }
+        };
 
-        // Password validation
-        var passwordErrors = FormValidationUtils.passwordValidate(formData.password, 7, false, false);
+        // Test
+        // AuthActions.default.userRegister(formData);
+        // return;
+        // /Test
 
-        if (passwordErrors !== '') {
-            errorMessages.password = passwordErrors;
-        }
-
-        // Password match
-        var confirmPasswordErrors = FormValidationUtils.passwordsMatch(formData.password, formData.confirmPassword);
-
-        if (confirmPasswordErrors !== '') {
-            errorMessages.confirmPassword = confirmPasswordErrors;
-        }
+        let formValidationResults = FormValidationUtils.formValidate(formData);
 
         // If no errors, send off to the register
         // method="POST" action="/api/auth/register"
-        if(!this.checkForObjectProps(errorMessages)) {
-            this.formSubmit(formData);
-            formSubmitted = true;
+        // let validSubmit = true;
+        if (this.confirmValidation(formValidationResults)) {
+            AuthActions.default.userRegister(formData);
         }
 
         this.setState({
             formSubmitted: formSubmitted,
-            authErrors: errorMessages
+            validation: formValidationResults
         });
 
     },
 
-    formSubmit: function(formData) {
-        AuthActions.default.userRegister({
-            email: formData.email,
-            password: formData.password,
-            confirmPassword: formData.confirmPassword
-        });
+    confirmValidation: function(data) {
+        for (var val in data) {
+            if (typeof data[val] === 'string') {
+                return false;
+            }
+        }
+
+        return true;
     },
 
     render: function() {
@@ -129,11 +130,11 @@ const Register = React.createClass({
                 <div className="login-view">
                     <h1>Register</h1>
                     <form className="form-standard"  onSubmit={this.formValidate} >
-                        {inputFields.map((inputField) => {
-                            var error = this.state.authErrors[inputField.name];
-                            var inputGroupClass = "input-group";
+                        {inputFieldGroups.map((inputField) => {
+                            let fieldValid = this.state.validation[inputField.name];
+                            let inputGroupClass = 'input-group';
                             
-                            if(error) {
+                            if (typeof fieldValid === 'string') {
                                 inputGroupClass += ' input-error';
                             }
 
@@ -142,25 +143,29 @@ const Register = React.createClass({
                                     <label
                                         className="label-standard"
                                         htmlFor={inputField.name}
-                                    >{inputField.label}</label>
+                                    >
+                                        {inputField.label}
+                                        {inputField.required ? ' *' : ''}
+                                    </label>
                                     <input
                                         id={inputField.name}
                                         className="input-standard"
-                                        {...inputField}
+                                        name={inputField.name}
+                                        type={inputField.type}
                                     />
-                                    {error ?
+                                    {fieldValid ?
                                     <label
                                         className="label-error"
                                         htmlFor={inputField.name}
                                         >
-                                        {error}
+                                        {fieldValid}
                                     </label>
                                     : null}
                                 </div>
                             );
 
                         })}
-
+                        <p className="label-small">* required fields</p>
                         <input
                             className="button-full button-main"
                             type="submit"

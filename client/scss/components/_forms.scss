@@ -10,6 +10,7 @@ input {
 
 .form-standard {
 	display: block;
+    margin: 40px 0;
 
     .input-group { 
         margin: 0 0 18px 0;
@@ -29,6 +30,11 @@ input {
 
     .label-standard {
         font-size: 12px;
+        opacity: 0.6;
+    }
+
+    .label-small{
+        font-size: 9px;
         opacity: 0.6;
     }
 

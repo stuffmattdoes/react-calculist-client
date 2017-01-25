@@ -2,7 +2,7 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _authErrors  = {};
+var _authErrors = {};
 const CHANGE_EVENT = 'USER_AUTH';
 
 class AuthStore extends EventEmitter {

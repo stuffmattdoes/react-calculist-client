@@ -800,7 +800,8 @@ input {
   margin: 15px 0; }
 
 .form-standard {
-  display: block; }
+  display: block;
+  margin: 40px 0; }
   .form-standard .input-group {
     margin: 0 0 18px 0; }
   .form-standard .input-error input {
@@ -811,6 +812,9 @@ input {
     color: #EB5365; }
   .form-standard .label-standard {
     font-size: 12px;
+    opacity: 0.6; }
+  .form-standard .label-small {
+    font-size: 9px;
     opacity: 0.6; }
   .form-standard .input-standard {
     font-size: 16px;

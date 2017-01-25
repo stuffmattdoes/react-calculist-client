@@ -22,40 +22,14 @@ function setUserInfo(request) {
     };
 }
 
-function checkForObjectProps(objectToCheck) {
-    if (Object.keys(objectToCheck).length === 0
-        && objectToCheck.constructor === Object) {
-        return false;
-    }
-    return true;
-}
+// function checkForObjectProps(objectToCheck) {
+//     if (Object.keys(objectToCheck).length === 0
+//         && objectToCheck.constructor === Object) {
+//         return false;
+//     }
+//     return true;
+// }
 
-function validateCreds(creds) {
-    var errorMessages = {};
-    
-    // Email validation
-    var emailErrors = FormValidationUtils.emailValidate(creds.email);
-
-    if (emailErrors !== '') {
-        errorMessages.email = emailErrors
-    }
-
-    // Password validation
-    var passwordErrors = FormValidationUtils.passwordValidate(creds.password, 7, false, false);
-
-    if (passwordErrors !== '') {
-        errorMessages.password = passwordErrors;
-    }
-
-    // Password match
-    var confirmPasswordErrors = FormValidationUtils.passwordsMatch(creds.password, creds.confirmPassword);
-
-    if (confirmPasswordErrors !== '') {
-        errorMessages.confirmPassword = confirmPasswordErrors;
-    }
-
-    return errorMessages;
-}
 
 // ==================================================
 // Registration Route
@@ -63,20 +37,25 @@ function validateCreds(creds) {
 
 // POST route - user registration
 exports.register = (req, res, next) => {
-    var errorMessages = validateCreds({
-        email: req.body.email,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword
-    });
+    let formValidationResults = FormValidationUtils.formValidate(req.body);
+    let validCreds = true;
 
-    if (checkForObjectProps(errorMessages)) {
+    console.log('Authcontroller: ', req.body.email.value, formValidationResults);
+
+    for (let val in formValidationResults) {
+        if (typeof formValidationResults[val] === 'string') {
+            validCreds = false;
+        }
+    }
+
+    if (!validCreds) {
         return res.status(422).send({
-            errors: errorMessages
+            errors: formValidationResults
         });
     }
 
     // Now add our user
-    User.findOne({ email: req.body.email }, (err, existingUser) => {
+    User.findOne({ email: req.body.email.value }, (err, existingUser) => {
         if (err) {
             return next(err);
         }
@@ -90,10 +69,10 @@ exports.register = (req, res, next) => {
             });
         }
 
-        // If creds are looking good, create the account!
+        // If credentials are looking good, create the account!
         let user = new User({
-            email: req.body.email,
-            password: req.body.password
+            email: req.body.email.value,
+            password: req.body.password.value
         });
 
         // Create our user
@@ -125,9 +104,9 @@ exports.register = (req, res, next) => {
 // POST route - user login
 exports.login = (req, res, next) => {
 
-    if (req.body.email
-        && req.body.password) {
-        User.authenticate(req.body.email, req.body.password, (error, user) => {
+    if (req.body.email.value
+        && req.body.password.value) {
+        User.authenticate(req.body.email.value, req.body.password.value, (error, user) => {
             if (error || !user) {
                 return res.status(401).send({
                     errors: {
