@@ -31,17 +31,16 @@ const Login = React.createClass({
     },
 
     onStoreChange: function() {
-        var authErrors = AuthStore.getUserAuthErrors();
+        let _authErrors = AuthStore.getUserAuthErrors();
 
-        if (this.checkForObjectProps(authErrors)) {
+        if (this.checkValidation(_authErrors)) {
+            this.onUserAuthSuccess();
+        } else {
             this.setState({
-                authErrors: authErrors,
+                validation: _authErrors,
                 formSubmitted: false
             });
-        } else {
-            this.onUserAuthSuccess();
         }
-
     },
 
     onUserAuthSuccess: function() {
@@ -56,36 +55,33 @@ const Login = React.createClass({
         AuthStore.removeListener('USER_AUTH', this.onStoreChange);
     },
 
-    checkForObjectProps(objectToCheck) {
-        if (Object.keys(objectToCheck).length === 0
-            && objectToCheck.constructor === Object) {
-            return false;
-        }
-        return true;
-    },
-
     formValidate: function(e) {
         e.preventDefault();
-        const errorMessages = {};
-        var formData = {
-            email: document.getElementById('email').value,
-            password:  document.getElementById('password').value,
-        }
-        var formSubmitted = false;
+        let errorMessages = {};
+        let formSubmitted = false;
 
-        if (formData.email.trim() === '') {
+        let formData = {
+            email: {
+                value: document.getElementById('email').value
+            },
+            password: {
+                value: document.getElementById('password').value
+            }
+        }
+
+        if (formData.email.value.trim() === '') {
             errorMessages.email = 'Enter your email.';
         }
 
-        if (formData.password.trim() === '') {
+        if (formData.password.value.trim() === '') {
             errorMessages.password = 'Enter your password.';
         }
 
         // If no errors, send off to the login
         // method="POST" action="/api/auth/login"
-        if(!this.checkForObjectProps(errorMessages)) {
-            this.formSubmit(formData);
+        if (this.checkValidation(errorMessages)) {
             formSubmitted = true;
+            AuthActions.default.userLogin(formData);
         }
 
         this.setState({
@@ -95,11 +91,13 @@ const Login = React.createClass({
 
     },
 
-    formSubmit: function(formData) {
-        AuthActions.default.userLogin({
-            email: formData.email,
-            password: formData.password
-        });
+    checkValidation: function(data) {
+        for (var val in data) {
+            if (typeof data[val] === 'string') {
+                return false;
+            }
+        }
+        return true;
     },
 
     render: function() {

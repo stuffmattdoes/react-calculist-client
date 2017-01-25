@@ -42,7 +42,7 @@ const Register = React.createClass({
     onStoreChange: function() {
         let _authErrors = AuthStore.getUserAuthErrors();
 
-        if (this.confirmValidation(_authErrors)) {
+        if (this.checkValidation(_authErrors)) {
             this.onUserAuthSuccess();
         } else {
             this.setState({
@@ -50,7 +50,6 @@ const Register = React.createClass({
                 formSubmitted: false
             });
         }
-
     },
 
     onUserAuthSuccess: function() {
@@ -70,12 +69,12 @@ const Register = React.createClass({
         let formSubmitted = false;
 
         let formData = {
-            'email': {
+            email: {
                 validationType: 'email',
                 value: document.getElementById('email').value,
                 required: true
             },
-            'password': {
+            password: {
                 validationType: 'password',
                 value: document.getElementById('password').value,
                 required: true,
@@ -85,24 +84,20 @@ const Register = React.createClass({
                     specialCharacter: false
                 }
             },
-            'confirmPassword': {
+            confirmPassword: {
                 validationType: 'match',
                 value: document.getElementById('confirmPassword').value,
                 required: true
             }
         };
 
-        // Test
-        // AuthActions.default.userRegister(formData);
-        // return;
-        // /Test
-
         let formValidationResults = FormValidationUtils.formValidate(formData);
 
         // If no errors, send off to the register
         // method="POST" action="/api/auth/register"
         // let validSubmit = true;
-        if (this.confirmValidation(formValidationResults)) {
+        if (this.checkValidation(formValidationResults)) {
+            formSubmitted = true;
             AuthActions.default.userRegister(formData);
         }
 
@@ -113,13 +108,12 @@ const Register = React.createClass({
 
     },
 
-    confirmValidation: function(data) {
+    checkValidation: function(data) {
         for (var val in data) {
             if (typeof data[val] === 'string') {
                 return false;
             }
         }
-
         return true;
     },
 
