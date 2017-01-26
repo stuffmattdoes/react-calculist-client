@@ -1,6 +1,10 @@
+# Dev
 node_modules
 public/css
 public/js
 
-# PHPStorm
+# PHPStorm specific
 .idea
+
+# Credentials
+_Config.js

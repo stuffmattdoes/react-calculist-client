@@ -1,7 +1,7 @@
 'use strict';
 
 // Modules
-const config = require('./Config');
+const config = require('./_Config');
 const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
