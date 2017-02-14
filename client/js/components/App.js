@@ -14,8 +14,8 @@ import * as ListActions from '../actions/ListActions';
 import ListStore from '../stores/ListStore';
 import ItemStore from '../stores/ItemStore';
 
-// API
-// import LocalStorageUtils from '../utils/LocalStorageUtils';
+// Utils
+import AuthUtils from '../utils/AuthUtils';
 import WebAPIUtils from '../utils/WebAPIUtils';
 
 // Application class
@@ -56,43 +56,25 @@ const App = React.createClass({
     },
 
     componentWillMount: function() {
-        // console.log("App: componentWillMount");
-        // On app load, check for local storage
-        // var hasLocalListStorage = LocalStorageUtils.listGetAll();
-        var hasLocalListStorage = null;
-        // var hasLocalItemStorage = LocalStorageUtils.itemGetAll();
-        var hasLocalItemStorage = null;
 
-        if (hasLocalListStorage) {
+        // localStorage.clear();
+        // Check browser localStorage for token
+        // AuthUtils.checkForToken();
+
+        // Get list & item data
+         WebAPIUtils.listGetAll().done( () => {
             this.setState({
                 receivedLists: true,
                 listsData: ListStore.getAll()
             });
-        } else {
-            // console.log("listGetAll pre");
-            WebAPIUtils.listGetAll().done( () => {
-                // console.log("listGetAll", ListStore.getAll());
-                this.setState({
-                    receivedLists: true,
-                    listsData: ListStore.getAll()
-                });
-            });
-        }
+        });
 
-        if (hasLocalItemStorage) {
+        WebAPIUtils.itemGetAll().done(() => {
             this.setState({
                 receivedItems: true,
-                // itemsData: ItemStore.getAll()
+                itemsData: ItemStore.getAll()
             });
-        } else {
-            WebAPIUtils.itemGetAll().done(() => {
-                // console.log("itemGetAll", ItemStore.getAll());
-                this.setState({
-                    receivedItems: true,
-                    itemsData: ItemStore.getAll()
-                });
-            });
-        }
+        });
 
         ListStore.on("CHANGE_LIST", this.onStoreChange);
     },
@@ -102,7 +84,6 @@ const App = React.createClass({
     },
 
     toggleSettings: function() {
-        // console.log("Toggle list settings");
         this.setState({
             ListSettingsActive: !this.state.ListSettingsActive
         });
@@ -122,14 +103,12 @@ const App = React.createClass({
 
             switch(child.type) {
                 case ListView : {
-                    // console.log("ListView");
                     return React.cloneElement(child, {
                         listsData: this.state.listsData
                     });
                     break;
                 }
                 case ItemView : {
-                    // console.log("ItemView");
                     return React.cloneElement(child, {
                         itemsData: [],
                         routeParams: this.props.params
@@ -137,7 +116,6 @@ const App = React.createClass({
                     break;
                 }
                 case ListSettings : {
-                    // console.log("ListSettings");
                     return React.cloneElement(child, {
                         currentList: this.state.currentList,
                         toggleSettings: this.toggleSettings

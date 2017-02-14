@@ -1,7 +1,7 @@
 'use strict';
 
 // Modules
-const config = require('./_Config');
+const config = require('./Config');
 const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 // Routes
-const apiRoutes = require('./routes/Index');
+const APIRoutes = require('./routes/Index');
 
 // Variables
 const ROOT_DIR = process.env.ROOT_DIR = __dirname;
@@ -39,7 +39,7 @@ app.use('/', express.static('public'));
 // Give our App access to our routes
 // Set URL for API group routes
 // domain.com/api/ 
-app.use('/api', apiRoutes);
+app.use('/api', APIRoutes);
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'

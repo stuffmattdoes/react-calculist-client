@@ -2,7 +2,7 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _lists;
+var _lists = null;
 var _currentID = null;
 var CHANGE_EVENT = "CHANGE_LIST";
 
@@ -143,7 +143,7 @@ class ListStore extends EventEmitter {
     }
 }
 
-const listStore = new ListStore;
+const listStore = new ListStore();
 
 dispatcher.register(listStore.handleActions.bind(listStore));
 

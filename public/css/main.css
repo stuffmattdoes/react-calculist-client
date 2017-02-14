@@ -897,7 +897,7 @@ input {
   .list-item-add .currency-prefix {
     color: #bbb;
     position: absolute;
-    left: 10px;
+    right: 95px;
     z-index: 100; }
   .list-item .list-item-input-number,
   .list-item-add .list-item-input-number {

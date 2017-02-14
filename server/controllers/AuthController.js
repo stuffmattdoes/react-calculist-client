@@ -1,7 +1,7 @@
 // Libraries
 var config = require('../Config'),
     express = require('express'),
-    jwt = require('jsonwebtoken'),
+    jsonwebtoken = require('jsonwebtoken');
     User = require('../models/User');
 
 // Utilities
@@ -9,8 +9,8 @@ var FormValidationUtils = require('../utils/FormValidationUtils');
 
 // Generate JSON web token (JWT) from user object we pass in
 function generateToken(user) {
-    return jwt.sign(user, config.secret, {
-        expiresIn: 10080 // in seconds
+    return jsonwebtoken.sign(user, config.secret, {
+        expiresIn: 60 * 60 * 24 // 24 hours in seconds
     });
 }
 
@@ -21,15 +21,6 @@ function setUserInfo(request) {
         role: request.role,
     };
 }
-
-// function checkForObjectProps(objectToCheck) {
-//     if (Object.keys(objectToCheck).length === 0
-//         && objectToCheck.constructor === Object) {
-//         return false;
-//     }
-//     return true;
-// }
-
 
 // ==================================================
 // Registration Route
@@ -88,7 +79,7 @@ exports.register = (req, res, next) => {
             let userInfo = setUserInfo(user);
 
             res.status(201).json({
-                token: 'JWT ' + generateToken(userInfo),
+                jwt: generateToken(userInfo),
                 user: userInfo
             });
         });
@@ -118,7 +109,7 @@ exports.login = (req, res, next) => {
                 // Respond with JWT if user was created
                 let userInfo = setUserInfo(user);
                 res.status(200).json({
-                    token: 'JWT ' + generateToken(userInfo),
+                    jwt: generateToken(userInfo),
                     user: userInfo
                 });
             }

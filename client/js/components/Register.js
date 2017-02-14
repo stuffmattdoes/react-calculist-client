@@ -109,7 +109,7 @@ const Register = React.createClass({
     },
 
     checkValidation: function(data) {
-        for (var val in data) {
+        for (let val in data) {
             if (typeof data[val] === 'string') {
                 return false;
             }
@@ -125,10 +125,10 @@ const Register = React.createClass({
                     <h1>Register</h1>
                     <form className="form-standard"  onSubmit={this.formValidate} >
                         {inputFieldGroups.map((inputField) => {
-                            let fieldValid = this.state.validation[inputField.name];
+                            let fieldError = this.state.validation[inputField.name];
                             let inputGroupClass = 'input-group';
                             
-                            if (typeof fieldValid === 'string') {
+                            if (typeof fieldError === 'string') {
                                 inputGroupClass += ' input-error';
                             }
 
@@ -147,12 +147,12 @@ const Register = React.createClass({
                                         name={inputField.name}
                                         type={inputField.type}
                                     />
-                                    {fieldValid ?
+                                    {fieldError ?
                                     <label
                                         className="label-error"
                                         htmlFor={inputField.name}
                                         >
-                                        {fieldValid}
+                                        {fieldError}
                                     </label>
                                     : null}
                                 </div>

@@ -15,31 +15,31 @@ const ServerActions = {
         });
     },
 
-    receiveUserLoginSuccess: function(success) {
+    receiveUserLoginSuccess: function(data) {
         Dispatcher.dispatch({
            type: 'RECEIVE_USER_LOGIN_SUCCESS',
-            response: success
+            response: data
         });
     },
 
-    receiveUserLoginError: function(errors) {
+    receiveUserLoginError: function(data) {
         Dispatcher.dispatch({
             type: 'RECEIVE_USER_LOGIN_ERROR',
-            response: errors
+            response: data
         });
     },
 
-    receiveUserRegisterSuccess: function(success) {
+    receiveUserRegisterSuccess: function(data) {
         Dispatcher.dispatch({
             type: 'RECEIVE_USER_REGISTER_SUCCESS',
-            response: success
+            response: data
         });
     },
 
-    receiveUserRegisterError: function(errors) {
+    receiveUserRegisterError: function(data) {
         Dispatcher.dispatch({
             type: 'RECEIVE_USER_REGISTER_ERROR',
-            response: errors
+            response: data
         });
     },
 

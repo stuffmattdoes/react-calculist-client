@@ -3,7 +3,7 @@ import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 import ListStore from './ListStore';
 
-var _items;
+var _items = null;
 var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 
@@ -227,7 +227,7 @@ class ItemStore extends EventEmitter {
     }
 }
 
-const itemStore = new ItemStore;
+const itemStore = new ItemStore();
 
 /*
     Registers our store with our dispatcher to provide it with callback functions

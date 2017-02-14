@@ -8,16 +8,18 @@ import * as AuthActions from '../actions/AuthActions';
 // Stores
 import AuthStore from '../stores/AuthStore';
 
-const inputFields = [
+const inputFieldGroups = [
     {
         label: 'Email',
         name: 'email',
-        type: 'text'
+        type: 'text',
+        required: true
     },
     {
         label: 'Password',
         name: 'password',
-        type: 'password'
+        type: 'password',
+        required: true
     }
 ];
 
@@ -25,7 +27,7 @@ const Login = React.createClass({
 
     getInitialState: function() {
         return {
-            authErrors: '',
+            validation: '',
             formSubmitted: false
         }
     },
@@ -86,13 +88,13 @@ const Login = React.createClass({
 
         this.setState({
             formSubmitted: formSubmitted,
-            authErrors: errorMessages
+            validation: errorMessages
         });
 
     },
 
     checkValidation: function(data) {
-        for (var val in data) {
+        for (let val in data) {
             if (typeof data[val] === 'string') {
                 return false;
             }
@@ -110,13 +112,13 @@ const Login = React.createClass({
                         <label
                             className="label-error"
                         >
-                            {this.state.authErrors.invalid}
+                            {this.state.validation.invalid}
                         </label>
-                        {inputFields.map((inputField) => {
-                            var error = this.state.authErrors[inputField.name];
-                            var inputGroupClass = "input-group";
+                        {inputFieldGroups.map((inputField) => {
+                            let fieldError = this.state.validation[inputField.name];
+                            let inputGroupClass = "input-group";
 
-                            if(error) {
+                            if(fieldError) {
                                 inputGroupClass += ' input-error';
                             }
 
@@ -131,12 +133,12 @@ const Login = React.createClass({
                                         className="input-standard"
                                         {...inputField}
                                     />
-                                    {error ?
+                                    {fieldError ?
                                         <label
                                             className="label-error"
                                             htmlFor={inputField.name}
                                         >
-                                            {error}
+                                            {fieldError}
                                         </label>
                                         : null}
                                 </div>
