@@ -15,9 +15,23 @@ const ServerActions = {
         });
     },
 
+    receiveTokenRefreshSuccess: function(data) {
+        Dispatcher.dispatch({
+            type: 'RECEIVE_TOKEN_REFRESH_SUCCESS',
+            response: data
+        })
+    },
+
+    receiveTokenRefreshError: function(data) {
+        Dispatcher.dispatch({
+           type: 'RECEIVE_TOKEN_REFRESH_ERROR',
+            response: data
+        });
+    },
+
     receiveUserLoginSuccess: function(data) {
         Dispatcher.dispatch({
-           type: 'RECEIVE_USER_LOGIN_SUCCESS',
+            type: 'RECEIVE_USER_LOGIN_SUCCESS',
             response: data
         });
     },

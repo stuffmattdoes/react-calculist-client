@@ -61,6 +61,10 @@ const App = React.createClass({
         // Check browser localStorage for token
         // AuthUtils.checkForToken();
 
+        // WebAPIUtils.tokenRefresh().done( () => {
+        //     console.log('token refresh done!');
+        // });
+
         // Get list & item data
          WebAPIUtils.listGetAll().done( () => {
             this.setState({

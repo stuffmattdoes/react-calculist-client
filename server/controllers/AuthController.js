@@ -1,18 +1,11 @@
 // Libraries
 var config = require('../Config'),
     express = require('express'),
-    jsonwebtoken = require('jsonwebtoken');
+    jsonwebtoken = require('jsonwebtoken'),
     User = require('../models/User');
 
 // Utilities
 var FormValidationUtils = require('../utils/FormValidationUtils');
-
-// Generate JSON web token (JWT) from user object we pass in
-function generateToken(user) {
-    return jsonwebtoken.sign(user, config.secret, {
-        expiresIn: 60 * 60 * 24 // 24 hours in seconds
-    });
-}
 
 function setUserInfo(request) {
     return {
@@ -20,6 +13,13 @@ function setUserInfo(request) {
         email: request.email,
         role: request.role,
     };
+}
+
+// Generate JSON web token (JWT) from user object we pass in
+function generateToken (user, secret) {
+    return jsonwebtoken.sign(user, secret, {
+        expiresIn: 60 * 60 * 24 * 7 // 1 week
+    });
 }
 
 // ==================================================
@@ -79,7 +79,7 @@ exports.register = (req, res, next) => {
             let userInfo = setUserInfo(user);
 
             res.status(201).json({
-                jwt: generateToken(userInfo),
+                jwt: generateToken(userInfo, config.secret),
                 user: userInfo
             });
         });
@@ -109,7 +109,7 @@ exports.login = (req, res, next) => {
                 // Respond with JWT if user was created
                 let userInfo = setUserInfo(user);
                 res.status(200).json({
-                    jwt: generateToken(userInfo),
+                    jwt: generateToken(userInfo, config.secret),
                     user: userInfo
                 });
             }
@@ -138,6 +138,41 @@ exports.logout = (req, res, next) => {
     }
 }
 
+
+exports.refreshToken = (req, res, next) => {
+    var token = req.body.token || req.query.token;
+
+    // Check for token
+    if (!token) {
+        return res.status(401).json({
+            message: 'You must provide a token.'
+        });
+    }
+
+    // Decode & verify token
+    jsonwebtoken.verify(token, config.secret, (err, user) => {
+        if (err) {
+            return next(err);
+        }
+
+        //return user using the id from w/in JWTToken
+        User.findById({'_id': user._id}, (err, user) => {
+            if (err) {
+                return next(err);
+            }
+
+            //Note: you can renew token by creating new token(i.e.
+            //refresh it)w/ new expiration time at this point, but I’m
+            //passing the old token back.
+            // var token = utils.generateToken(user);
+            res.json({
+                user: user,
+                token: token
+            });
+        });
+    });
+
+}
 
 // ==================================================
 // Authorization Middleware

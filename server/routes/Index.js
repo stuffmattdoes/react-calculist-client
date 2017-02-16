@@ -11,6 +11,10 @@ const 	APIRoutes = new express.Router(),
     	listRoutes = new express.Router(),
     	itemRoutes = new express.Router();
 
+function requireAuth(req, res, next) {
+	console.log('Authorization required');
+	return next();
+}
 
 // ==================================================
 // Auth Route
@@ -25,6 +29,9 @@ authRoutes.post('/register', AuthenticationController.register);
 // Login route
 authRoutes.post('/login', AuthenticationController.login);
 
+// Refresh route
+authRoutes.get('/refresh', AuthenticationController.refreshToken);
+
 
 // ==================================================
 // Lists Route
@@ -38,16 +45,16 @@ listRoutes.get('/', ListController.getLists);
 
 // Create a new list
 // /lists/asdvm3t
-// listRoutes.post('/lists', requireAuth, ListController.createList);
-listRoutes.post('/:listID', ListController.createList);
+listRoutes.post('/:listID', requireAuth, ListController.createList);
+// listRoutes.post('/:listID', ListController.createList);
 
 // Update existing list
 // /lists/asdvm3t
-listRoutes.put('/:listID', ListController.updateList);
+listRoutes.put('/:listID', requireAuth, ListController.updateList);
 
 // Remove existing list
 // /lists/asdvm3t
-listRoutes.delete('/:listID', ListController.deleteList);
+listRoutes.delete('/:listID', requireAuth, ListController.deleteList);
 
 
 // ==================================================
@@ -66,12 +73,12 @@ itemRoutes.get('/', ItemController.getItems);
 
 // Create a new item
 // itemRoutes.post('/:listID/:itemID', ItemController.createItem);
-itemRoutes.post('/:itemID', ItemController.createItem);
+itemRoutes.post('/:itemID', requireAuth, ItemController.createItem);
 
 // Update an existing item
-itemRoutes.put('/:itemID', ItemController.updateItem);
+itemRoutes.put('/:itemID', requireAuth, ItemController.updateItem);
 
 // Delete an existing item
-itemRoutes.delete('/:itemID', ItemController.deleteItem);
+itemRoutes.delete('/:itemID', requireAuth, ItemController.deleteItem);
 
 module.exports = APIRoutes;

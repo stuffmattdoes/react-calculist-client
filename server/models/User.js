@@ -13,12 +13,7 @@ var UserSchema = new mongoose.Schema({
 		required: true
 	},
     profile: {
-        firstName : {
-            type: String,
-            required: false,
-            trim: true
-        },
-        lastName : {
+        name : {
             type: String,
             required: false,
             trim: true
@@ -28,6 +23,28 @@ var UserSchema = new mongoose.Schema({
             enum: ['Member', 'Client', 'Owner', 'Admin'],
             default: 'Member'
         }
+        /*
+        createdAt: {
+            type: Date,
+            required: false
+        },
+        updatedAt: {
+            type: Date,
+            required: false
+        },
+        emailVerified: {
+            type: Boolean,
+            required: false
+        },
+        verifyEmailToken: {
+            type: String,
+            required: false
+        },
+        verifyEmailTokenExpires: {
+            type: Date,
+            required: false
+        }
+        */
     },
     resetPasswordToken: {
         type: String

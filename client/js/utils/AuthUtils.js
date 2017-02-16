@@ -14,20 +14,23 @@ const AuthUtils = {
         authData.jwt = localStorage.getItem('jwt');
         authData.user = localStorage.getItem('user');
 
-        console.log(authData.user);
-
         if (authData.jwt && authData.user) {
-            AuthActions.default.userAuth(authData);
+            // AuthActions.default.userAuth(authData);
             return true;
         }
         return false;
     },
 
     requireAuth: function() {
-        if (!AuthStore.isUserAuth()) {
+        // console.log(this);
+
+        if (!AuthUtils.checkForToken()) {
             console.log('Sure aren\'t logged in, are we?');
             browserHistory.push('/login');
+            return false;
         }
+        console.log('Good to go lul');
+        return true;
     },
 
     userLogout: function() {
