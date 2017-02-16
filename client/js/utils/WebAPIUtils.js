@@ -259,6 +259,7 @@ const WebAPIUtils = {
     },
 
     tokenRefresh: function(token) {
+        console.log('token refresh');
         var d = $.Deferred();
 
         $.ajax({
@@ -269,12 +270,14 @@ const WebAPIUtils = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
             },
-            method: 'POST',
+            method: 'GET',
             url: API_URLS.auth + '/refresh'
         }).done((data, textStatus, jqXHR) => {
             ServerActions.default.receiveTokenRefreshSuccess(data);
+            console.log('token refresh!!!');
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
+            console.log('token refresh :(');
             ServerActions.default.receiveTokenRefreshError(jqXHR);
             d.reject();
         });

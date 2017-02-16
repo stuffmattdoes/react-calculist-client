@@ -11,6 +11,7 @@ import ListView from './ListView';
 import * as ListActions from '../actions/ListActions';
 
 // Stores
+import AuthStore from '../stores/AuthStore';
 import ListStore from '../stores/ListStore';
 import ItemStore from '../stores/ItemStore';
 
@@ -23,14 +24,13 @@ const App = React.createClass({
 
     getInitialState: function() {
         return {
-            // currentListID: this.checkForCurrentList(),
             currentListID: null,
             listsData: [],
-            // currentList: ListStore.getCurrentList(),
             currentList: null,
             receivedLists: false,
             receivedItems: false,
-            ListSettingsActive: false
+            ListSettingsActive: false,
+            userAuth: false
         };
     },
 
@@ -55,15 +55,29 @@ const App = React.createClass({
         }
     },
 
+    componentDidUpdate: function() {
+        // console.log(AuthStore.getUser(), AuthStore.getToken());
+    },
+
     componentWillMount: function() {
 
-        // localStorage.clear();
-        // Check browser localStorage for token
-        // AuthUtils.checkForToken();
+        localStorage.clear();
 
-        // WebAPIUtils.tokenRefresh().done( () => {
-        //     console.log('token refresh done!');
-        // });
+        // Token refresh
+        // if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
+        //     console.log('token refresh');
+        //     WebAPIUtils.tokenRefresh().done( () => {
+        //         console.log('token refresh done!');
+        //         this.setState({
+        //             userAuth: true
+        //         })
+        //     });
+        // }
+
+        // if (AuthStore.geUser() === null && AuthStore.getToken() === null) {
+        //     AuthActioins.default.setUser();
+        //     AuthActioins.default.setToken();
+        // }
 
         // Get list & item data
          WebAPIUtils.listGetAll().done( () => {
@@ -80,11 +94,13 @@ const App = React.createClass({
             });
         });
 
-        ListStore.on("CHANGE_LIST", this.onStoreChange);
+        AuthStore.on('USER_AUTH', this.onStoreChange);
+        ListStore.on('CHANGE_LIST', this.onStoreChange);
     },
 
     componentWillUnmount: function() {
-        ListStore.removeListener("CHANGE_LIST", this.onStoreChange);
+        AuthStore.removeListener('USER_AUTH', this.onStoreChange);
+        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
     },
 
     toggleSettings: function() {
@@ -95,8 +111,7 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-        if (!this.state.receivedLists
-            || !this.state.receivedItems) {
+        if (!this.state.receivedLists || !this.state.receivedItems) {
             return (
                 <div className="loader">Loading...</div>
             );

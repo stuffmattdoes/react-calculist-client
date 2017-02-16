@@ -18,9 +18,12 @@ const Routes = (
     <Router history={browserHistory} >
         <Route path='/' component={App} >
             <IndexRedirect to='/lists' />
-            <Route path='/lists' component={ListView} onEnter={ AuthUtils.requireAuth } />
-            <Route path='/lists/:listID' component={ItemView} onEnter={ AuthUtils.requireAuth } />
-            <Route path='/lists/:listID/settings' component={ListSettings} onEnter={ AuthUtils.requireAuth } />
+            {/*<Route path='/lists' component={ListView} onEnter={ AuthUtils.requireAuth } />*/}
+            {/*<Route path='/lists/:listID' component={ItemView} onEnter={ AuthUtils.requireAuth } />*/}
+            {/*<Route path='/lists/:listID/settings' component={ListSettings} onEnter={ AuthUtils.requireAuth } />*/}
+            <Route path='/lists' component={ListView} />
+            <Route path='/lists/:listID' component={ItemView} />
+            <Route path='/lists/:listID/settings' component={ListSettings} />
         </Route>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />

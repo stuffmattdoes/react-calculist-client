@@ -7,12 +7,12 @@ var config = require('../Config'),
 // Utilities
 var FormValidationUtils = require('../utils/FormValidationUtils');
 
-function setUserInfo(request) {
+function setUserInfo(userData) {
     return {
-        _id: request._id,
-        email: request.email,
-        role: request.role,
-    };
+        _id: userData._id,
+        email: userData.email,
+        role: userData.role
+    }
 }
 
 // Generate JSON web token (JWT) from user object we pass in
@@ -140,7 +140,8 @@ exports.logout = (req, res, next) => {
 
 
 exports.refreshToken = (req, res, next) => {
-    var token = req.body.token || req.query.token;
+    var token = req.headers['authorization'];
+    console.log(token);
 
     // Check for token
     if (!token) {
@@ -165,7 +166,7 @@ exports.refreshToken = (req, res, next) => {
             //refresh it)w/ new expiration time at this point, but I’m
             //passing the old token back.
             // var token = utils.generateToken(user);
-            res.json({
+            res.status(200).json({
                 user: user,
                 token: token
             });

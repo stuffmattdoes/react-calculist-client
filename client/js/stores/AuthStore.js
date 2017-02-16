@@ -14,8 +14,20 @@ class AuthStore extends EventEmitter {
         return _jwt;
     }
 
+    setToken(token) {
+        localStorage.setItem('jwt', token);
+        _jwt = token;
+        this.emit(CHANGE_EVENT);
+    }
+
     getUser() {
         return _user;
+    }
+
+    setUser(user) {
+        localStorage.setItem('user', user);
+        _user = user;
+        this.emit(CHANGE_EVENT);
     }
 
     isUserAuth() {
@@ -23,10 +35,8 @@ class AuthStore extends EventEmitter {
     }
 
     userLoginSuccess(data) {
-        localStorage.setItem('jwt', data.jwt);
-        localStorage.setItem('user', data.user);
-        _jwt = data.jwt;
-        _user = data.user;
+        this.setToken(data.jwt);
+        this.setUser(data.user);
         _authErrors  = {};
         this.emit(CHANGE_EVENT);
     }
@@ -42,13 +52,13 @@ class AuthStore extends EventEmitter {
 
     tokenRefreshSuccess(data) {
         console.log(data.jwt);
-        _jwt = data.jwt;
-        _user = data.user;
+        this.setToken(data.jwt);
+        this.setUser(data.user);
         this.emit(CHANGE_EVENT);
     }
 
-    tokenRefreshError(token) {
-        console.log(token);
+    tokenRefreshError(response) {
+        console.log(response);
         _jwt = null;
         _user = null;
         this.emit(CHANGE_EVENT);

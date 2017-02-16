@@ -26,12 +26,14 @@ app.use(parser.urlencoded({ extended: false }));
 // app.use(express.static(__dirname + './public'));
 
 // Enable CORS from client-side
+/*
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Controll-Allow-Credentials');
     next();
 });
+*/
 
 // Serve static files like CSS, HTML & JS
 app.use('/', express.static('public'));
