@@ -256,31 +256,32 @@ const WebAPIUtils = {
             ServerActions.default.receiveUserLoginError(jqXHR);
             d.reject();
         });
+
+
     },
 
-    tokenRefresh: function(token) {
-        console.log('token refresh');
+    tokenRefresh: function() {
         var d = $.Deferred();
 
         $.ajax({
-            contentType: 'application/json; charset=UTF-8',
+            // contentType: 'application/json; charset=UTF-8',
             context: document.body,
-            data: JSON.stringify(token),
-            dataType: 'json',
             headers: {
                 'Authorization': localStorage.getItem('jwt')
             },
             method: 'GET',
             url: API_URLS.auth + '/refresh'
         }).done((data, textStatus, jqXHR) => {
+            // console.log('token refresh success!', data);
             ServerActions.default.receiveTokenRefreshSuccess(data);
-            console.log('token refresh!!!');
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            console.log('token refresh :(');
+            // console.log('token refresh failure');
             ServerActions.default.receiveTokenRefreshError(jqXHR);
             d.reject();
         });
+
+        return d;
     }
 
 };

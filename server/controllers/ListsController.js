@@ -13,11 +13,12 @@ exports.getLists = (req, res, next) => {
         if (err) {
             res.status(500).json({message: err.message});
             return next();
+        } else {
+            res.status(200).json({
+                lists: lists
+            });
+            return next();
         }
-        res.status(200).json({
-            lists: lists
-        });
-        return next();
     });
 };
 
@@ -33,12 +34,13 @@ exports.createList = (req, res, next) => {
     List.create(list, (err, list) => {
         if (err) {
             return res.status(500).json({message: err.message});
+        } else {
+            res.status(200).json({
+                list: list,
+                message: "List created."
+            });
+            return next();
         }
-        res.status(200).json({
-            list: list,
-            message: "List created."
-        });
-        return next();
     });
 };
 
@@ -59,12 +61,13 @@ exports.updateList = (req, res, next) => {
     List.update({listID: id}, listUpdates, {new: true}, (err, list) => {
         if (err) {
             return res.status(500).json({errorMessage: err.message});
+        } else {
+            res.status(200).json({
+                list: list,
+                successMessage: "List updated"
+            });
+            return next();
         }
-        res.status(200).json({
-            list: list,
-            successMessage: "List updated"
-        });
-        return next();
     });
 
 };

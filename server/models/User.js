@@ -24,14 +24,6 @@ var UserSchema = new mongoose.Schema({
             default: 'Member'
         }
         /*
-        createdAt: {
-            type: Date,
-            required: false
-        },
-        updatedAt: {
-            type: Date,
-            required: false
-        },
         emailVerified: {
             type: Boolean,
             required: false

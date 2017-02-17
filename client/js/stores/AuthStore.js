@@ -51,7 +51,7 @@ class AuthStore extends EventEmitter {
     }
 
     tokenRefreshSuccess(data) {
-        console.log(data.jwt);
+        // console.log(data.jwt);
         this.setToken(data.jwt);
         this.setUser(data.user);
         this.emit(CHANGE_EVENT);

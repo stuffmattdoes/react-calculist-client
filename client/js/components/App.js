@@ -55,28 +55,22 @@ const App = React.createClass({
         }
     },
 
-    componentDidUpdate: function() {
-        // console.log(AuthStore.getUser(), AuthStore.getToken());
-    },
+    // componentDidUpdate: function() {
+    //     console.log('Updated', this.state);
+    // },
 
     componentWillMount: function() {
 
-        localStorage.clear();
+        // localStorage.clear();
 
         // Token refresh
         // if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-        //     console.log('token refresh');
-        //     WebAPIUtils.tokenRefresh().done( () => {
-        //         console.log('token refresh done!');
-        //         this.setState({
-        //             userAuth: true
-        //         })
-        //     });
-        // }
-
-        // if (AuthStore.geUser() === null && AuthStore.getToken() === null) {
-        //     AuthActioins.default.setUser();
-        //     AuthActioins.default.setToken();
+            WebAPIUtils.tokenRefresh().done( () => {
+                console.log('Token refreshed!');
+                this.setState({
+                    userAuth: true
+                });
+            });
         // }
 
         // Get list & item data
@@ -111,7 +105,7 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-        if (!this.state.receivedLists || !this.state.receivedItems) {
+        if (!this.state.receivedLists || !this.state.receivedItems || !this.state.userAuth) {
             return (
                 <div className="loader">Loading...</div>
             );

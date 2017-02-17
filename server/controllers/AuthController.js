@@ -17,9 +17,15 @@ function setUserInfo(userData) {
 
 // Generate JSON web token (JWT) from user object we pass in
 function generateToken (user, secret) {
-    return jsonwebtoken.sign(user, secret, {
-        expiresIn: 60 * 60 * 24 * 7 // 1 week
-    });
+    return jsonwebtoken.sign(
+        {
+            user: user
+        },
+        secret,
+        {
+            expiresIn: 60 * 60 * 24 * 7 // 1 week
+        }
+    );
 }
 
 // ==================================================
@@ -78,7 +84,7 @@ exports.register = (req, res, next) => {
             // Respond with JWT if user was created
             let userInfo = setUserInfo(user);
 
-            res.status(201).json({
+            return res.status(201).json({
                 jwt: generateToken(userInfo, config.secret),
                 user: userInfo
             });
@@ -108,7 +114,7 @@ exports.login = (req, res, next) => {
                 // Authorization token here
                 // Respond with JWT if user was created
                 let userInfo = setUserInfo(user);
-                res.status(200).json({
+                return res.status(200).json({
                     jwt: generateToken(userInfo, config.secret),
                     user: userInfo
                 });
@@ -141,7 +147,6 @@ exports.logout = (req, res, next) => {
 
 exports.refreshToken = (req, res, next) => {
     var token = req.headers['authorization'];
-    console.log(token);
 
     // Check for token
     if (!token) {
@@ -151,13 +156,13 @@ exports.refreshToken = (req, res, next) => {
     }
 
     // Decode & verify token
-    jsonwebtoken.verify(token, config.secret, (err, user) => {
+    jsonwebtoken.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return next(err);
         }
 
         //return user using the id from w/in JWTToken
-        User.findById({'_id': user._id}, (err, user) => {
+        User.findById({'_id': decoded.user._id}, (err, user) => {
             if (err) {
                 return next(err);
             }
@@ -165,10 +170,10 @@ exports.refreshToken = (req, res, next) => {
             //Note: you can renew token by creating new token(i.e.
             //refresh it)w/ new expiration time at this point, but I’m
             //passing the old token back.
-            // var token = utils.generateToken(user);
-            res.status(200).json({
-                user: user,
-                token: token
+            let userInfo = setUserInfo(user);
+            return res.status(200).json({
+                jwt: generateToken(userInfo, config.secret),
+                user: userInfo
             });
         });
     });
@@ -179,8 +184,15 @@ exports.refreshToken = (req, res, next) => {
 // Authorization Middleware
 // ==================================================
 
+exports.authorizeUser = (req, res, next) => {
+    var token = req.headers['authorization'];
+    // console.log(token);
+    console.log(jsonwebtoken.verify('Verify:', token));
+    return next();
+}
+
 // Role authorization check
-exports.roleAuthorization = role => {
+exports.authorizeRole = role => {
     return (req, res, next) => {
         var user = req.user;
 
