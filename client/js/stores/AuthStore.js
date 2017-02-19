@@ -50,15 +50,15 @@ class AuthStore extends EventEmitter {
         return _authErrors;
     }
 
-    tokenRefreshSuccess(data) {
+    // tokenRefreshSuccess() {
         // console.log(data.jwt);
-        this.setToken(data.jwt);
-        this.setUser(data.user);
-        this.emit(CHANGE_EVENT);
-    }
+        // this.setToken(data.jwt);
+        // this.setUser(data.user);
+        // this.emit(CHANGE_EVENT);
+    // }
 
-    tokenRefreshError(response) {
-        console.log(response);
+    tokenRefreshError() {
+        // console.log(response);
         _jwt = null;
         _user = null;
         this.emit(CHANGE_EVENT);
@@ -88,12 +88,12 @@ class AuthStore extends EventEmitter {
                 this.userAuthError(action.response);
                 break;
             }
-            case 'RECEIVE_TOKEN_REFRESH_SUCCESS' : {
-                this.tokenRefreshSuccess(action.response);
-                break;
-            }
+            // case 'RECEIVE_TOKEN_REFRESH_SUCCESS' : {
+            //     this.tokenRefreshSuccess();
+            //     break;
+            // }
             case 'RECEIVE_TOKEN_REFRESH_ERROR' : {
-                this.tokenRefreshError(action.response);
+                this.tokenRefreshError();
                 break;
             }
         }

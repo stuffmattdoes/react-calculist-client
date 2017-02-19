@@ -8,7 +8,7 @@ const   express = require('express'),
 
 // GET route - receive all items
 exports.getItems = (req, res, next) => {
-    // console.log('getItems');
+
     Item.find({}, (err, items) => {
         if (err) {
             res.status(500).json({message: err.message});
@@ -24,7 +24,6 @@ exports.getItems = (req, res, next) => {
 // GET route - receive items for current list
 exports.getItemsForList = (req, res, next) => {
     var id = req.params.listID;
-    // console.log(id);
 
     Item.find({ listID: id}, (err, items) => {
         if (err) {

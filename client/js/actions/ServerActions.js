@@ -17,15 +17,15 @@ const ServerActions = {
 
     receiveTokenRefreshSuccess: function(data) {
         Dispatcher.dispatch({
-            type: 'RECEIVE_TOKEN_REFRESH_SUCCESS',
-            response: data
-        })
+            type: 'RECEIVE_TOKEN_REFRESH_SUCCESS'
+            // response: data
+        });
     },
 
     receiveTokenRefreshError: function(data) {
         Dispatcher.dispatch({
-           type: 'RECEIVE_TOKEN_REFRESH_ERROR',
-            response: data
+           type: 'RECEIVE_TOKEN_REFRESH_ERROR'
+            // response: data
         });
     },
 

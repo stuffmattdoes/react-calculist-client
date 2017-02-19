@@ -273,7 +273,7 @@ const WebAPIUtils = {
             url: API_URLS.auth + '/refresh'
         }).done((data, textStatus, jqXHR) => {
             // console.log('token refresh success!', data);
-            ServerActions.default.receiveTokenRefreshSuccess(data);
+            // ServerActions.default.receiveTokenRefreshSuccess(data);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
             // console.log('token refresh failure');

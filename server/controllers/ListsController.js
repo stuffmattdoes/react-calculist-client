@@ -8,17 +8,17 @@ const   Item = require('../models/Item'),
 
 // GET route - receive all existing lists
 exports.getLists = (req, res, next) => {
-    // console.log('getLists');
     List.find({}, (err, lists) => {
         if (err) {
-            res.status(500).json({message: err.message});
-            return next();
+            res.status(500).json({
+                message: err.message
+            });
         } else {
             res.status(200).json({
                 lists: lists
             });
-            return next();
         }
+
     });
 };
 

@@ -65,12 +65,12 @@ const App = React.createClass({
 
         // Token refresh
         // if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-            WebAPIUtils.tokenRefresh().done( () => {
-                console.log('Token refreshed!');
-                this.setState({
-                    userAuth: true
-                });
-            });
+        //     WebAPIUtils.tokenRefresh().done( () => {
+        //         console.log('Token refreshed!');
+        //         this.setState({
+        //             userAuth: true
+        //         });
+        //     });
         // }
 
         // Get list & item data
@@ -105,7 +105,7 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-        if (!this.state.receivedLists || !this.state.receivedItems || !this.state.userAuth) {
+        if (!this.state.receivedLists || !this.state.receivedItems) {
             return (
                 <div className="loader">Loading...</div>
             );
