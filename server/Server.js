@@ -56,7 +56,7 @@ app.get('*', (req, res) => {
 });
 
 // 404 missing resource
-app.all( '*' , ( req , res , next ) => {
+app.all( '*' , ( req, res, next ) => {
     res.status( 404 );
 
     // DEPENDING ON API OR VIEW, RENDER 404 OR SEND 404
@@ -71,15 +71,17 @@ app.all( '*' , ( req , res , next ) => {
 });
 
 // Configure Error Handling
-app.use(( err , req , res , next ) => {
-    var errorStatus = err.status || 500;
+app.use(( err, req, res, next ) => {
+    let errorStatus = err.status || 500;
 
-    if ( res.statusCode == 200 ) { res.status( errorStatus ); }
+    if ( res.statusCode == 200 ) {
+        res.status( errorStatus );
+    }
 
-    var status = res.statusCode;
-    var message = err.message || 'no message';
-    var stack = err.stack || 'no stack';
-    var raw = err._raw || 'no raw';
+    let status = res.statusCode;
+    let message = err.message || 'no message';
+    let stack = err.stack || 'no stack';
+    let raw = err._raw || 'no raw';
 
     // logger.log( 'error' , { 'status': status , 'message': message , 'stack': stack , 'raw': raw } );
 
@@ -87,11 +89,12 @@ app.use(( err , req , res , next ) => {
 
 });
 
-app.use(( err , req , res , next ) => {
+app.use(( err, req, res, next ) => {
 
     res.send({
         'status': res.statusCode,
-        'message': err.message
+        'message': err.message,
+        'errors' : err.errors
     });
 
     if ( err.stack ) { console.log( err.stack ); }

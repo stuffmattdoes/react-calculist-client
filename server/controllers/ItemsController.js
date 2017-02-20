@@ -7,11 +7,14 @@ const   Item = require('../models/Item');
 
 // GET route - receive all items
 exports.getItems = (req, res, next) => {
-
     Item.find({}, (err, items) => {
         if (err) {
-            res.status(500).json({message: err.message});
-            return;
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
         res.status(200).json({
             items: items
@@ -26,8 +29,12 @@ exports.getItemsForList = (req, res, next) => {
 
     Item.find({ listID: id}, (err, items) => {
         if (err) {
-            res.status(500).json({message: err.message});
-            return;
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
 
         res.status(200).json({
@@ -50,7 +57,12 @@ exports.createItem = (req, res, next) => {
     var item = req.body;
     Item.create(item, (err, item) => {
         if (err) {
-            return res.status(500).json({message: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
         res.status(200).json({
             "item": item,
@@ -83,7 +95,12 @@ exports.updateItem = (req, res, next) => {
 
     Item.update({ itemID: id }, itemUpdates, {new: true}, (err, item) => {
         if (err) {
-            return res.status(500).json({errorMessage: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
         // console.log('Item upated', itemUpdates);
         res.status(200).json({
@@ -126,7 +143,12 @@ exports.deleteItem = (req, res, next) => {
 
     Item.remove({ itemID: id }, (err, item) => {
         if (err) {
-            return res.status(500).json({errorMessage: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
         res.status(200).json({
             successMessage: "Item deleted"

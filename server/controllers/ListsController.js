@@ -8,15 +8,15 @@ const   Item = require('../models/Item'),
 
 // GET route - receive all existing lists
 exports.getLists = (req, res, next) => {
-    user = req._user;
 
-    console.log(user);
-
-    List.find({owner: user.email}, (err, lists) => {
+    List.find({owner: req._user.email}, (err, lists) => {
         if (err) {
-            res.status(500).json({
+            console.log(err);
+            res.status(500);
+            let err = {
                 message: err.message
-            });
+            };
+            return next(err);
         } else {
             res.status(200).json({
                 lists: lists
@@ -36,7 +36,12 @@ exports.createList = (req, res, next) => {
     var list = req.body;
     List.create(list, (err, list) => {
         if (err) {
-            return res.status(500).json({message: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         } else {
             res.status(200).json({
                 list: list,
@@ -63,7 +68,12 @@ exports.updateList = (req, res, next) => {
     // Query our list for our ID, then update it
     List.update({listID: id}, listUpdates, {new: true}, (err, list) => {
         if (err) {
-            return res.status(500).json({errorMessage: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         } else {
             res.status(200).json({
                 list: list,
@@ -82,14 +92,24 @@ exports.deleteList = (req, res, next) => {
     // Delete the list
     List.remove({listID: id}, (err, list) => {
         if (err) {
-            return res.status(500).json({errorMessage: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
     });
 
     // Delete the list's items
     Item.remove({listID: id}, (err, item) => {
         if (err) {
-            return res.status(500).json({message: err.message});
+            console.log(err);
+            res.status(500);
+            let err = {
+                message: err.message
+            };
+            return next(err);
         }
     });
 

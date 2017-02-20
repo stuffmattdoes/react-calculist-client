@@ -56,22 +56,20 @@ const App = React.createClass({
         }
     },
 
-    // componentDidUpdate: function() {
-    //     console.log('Updated', this.state);
-    // },
-
     componentWillMount: function() {
         // localStorage.clear();
 
         // Token refresh
         // If we've gotten to this component, we've clearly got credentials in local storage. Let's verify those.
         if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
+            // console.log('Refresh token');
             ApiUtils.tokenRefresh().done( () => {
-                // console.log(localStorage.getItem('user'), localStorage.getItem('jwt'));
+                // console.log('Refresh success!');
                 AuthActions.default.setUser(localStorage.getItem('user'));
                 AuthActions.default.setToken(localStorage.getItem('jwt'));
                 this.initData();
             }).fail( () => {
+                // console.log('Refresh failure :/');
                 AuthActions.default.userLogout();
             });
         } else {
@@ -92,6 +90,7 @@ const App = React.createClass({
 
     getLists: function() {
         let user = AuthStore.getUser();
+
         ApiUtils.listGetAll(user).done( () => {
             this.setState({
                 listsData: ListStore.getAll()
@@ -128,8 +127,8 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-
-        if (!this.state.receivedLists || !this.state.receivedItems) {
+        // console.log(this.state.receivedLists, this.state.receivedItems, this.state.userAuth);
+        if (!this.state.receivedLists || !this.state.receivedItems || !this.state.userAuth) {
             return (
                 <div className="loader">Loading...</div>
             );

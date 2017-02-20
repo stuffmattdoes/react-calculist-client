@@ -16,6 +16,7 @@ const ServerActions = {
     },
 
     receiveTokenRefreshSuccess: function(data) {
+        console.log(data);
         Dispatcher.dispatch({
             type: 'RECEIVE_TOKEN_REFRESH_SUCCESS'
             // response: data
@@ -23,6 +24,7 @@ const ServerActions = {
     },
 
     receiveTokenRefreshError: function(data) {
+        console.log(data);
         Dispatcher.dispatch({
            type: 'RECEIVE_TOKEN_REFRESH_ERROR'
             // response: data

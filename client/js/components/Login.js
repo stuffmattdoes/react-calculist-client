@@ -13,13 +13,13 @@ const inputFieldGroups = [
         label: 'Email',
         name: 'email',
         type: 'text',
-        required: true
+        // required: true
     },
     {
         label: 'Password',
         name: 'password',
         type: 'password',
-        required: true
+        // required: true
     }
 ];
 
