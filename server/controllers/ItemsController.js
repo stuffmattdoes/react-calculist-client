@@ -1,5 +1,4 @@
-const   express = require('express'),
-        Item = require('../models/Item'),
+const   Item = require('../models/Item');
         List = require('../models/List');
 
 // ==================================================

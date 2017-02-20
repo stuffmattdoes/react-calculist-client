@@ -60,18 +60,20 @@ const App = React.createClass({
     // },
 
     componentWillMount: function() {
-
         // localStorage.clear();
 
         // Token refresh
-        // if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-        //     WebAPIUtils.tokenRefresh().done( () => {
-        //         console.log('Token refreshed!');
-        //         this.setState({
-        //             userAuth: true
-        //         });
-        //     });
-        // }
+        if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
+            WebAPIUtils.tokenRefresh().done( () => {
+                console.log('Token refreshed!');
+                AuthActions.default.setUser(localStorage.getItem('user'));
+                AuthActions.default.setToken(localStorage.getItem('jwt'));
+                console.log(AuthStore.getUser(), AuthStore.getToken(), localStorage.getItem('user'), localStorage.getItem('jwt'));
+                this.setState({
+                    userAuth: true
+                });
+            });
+        }
 
         // Get list & item data
          WebAPIUtils.listGetAll().done( () => {

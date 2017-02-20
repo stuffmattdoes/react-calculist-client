@@ -3,6 +3,9 @@ import React from 'react';
 // Actions
 import * as ListActions from '../actions/ListActions';
 import * as ItemActions from '../actions/ItemActions';
+
+// Stores
+import AuthStore from '../stores/AuthStore';
 import ListStore from '../stores/ListStore';
 
 var ENTER_KEY_CODE = 13;
@@ -11,7 +14,6 @@ const ListAdd = React.createClass({
 
     propTypes: {
         condActions: React.PropTypes.string.isRequired,
-        // currentListID: React.PropTypes.string.isRequired
     },
 
     getInitialState: function() {
@@ -67,7 +69,7 @@ const ListAdd = React.createClass({
                 // console.log("ListActions");
                 ListActions.default.listCreate(
                     this.state.title,
-                    ""
+                    AuthStore.getUser()
                 );
 
             // Create a new item

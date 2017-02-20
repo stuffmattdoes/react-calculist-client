@@ -18,7 +18,6 @@ exports.getLists = (req, res, next) => {
                 lists: lists
             });
         }
-
     });
 };
 

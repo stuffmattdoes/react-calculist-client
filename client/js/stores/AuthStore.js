@@ -25,8 +25,9 @@ class AuthStore extends EventEmitter {
     }
 
     setUser(user) {
-        localStorage.setItem('user', user);
+        localStorage.setItem('user', user.email);
         _user = user;
+        console.log(_user);
         this.emit(CHANGE_EVENT);
     }
 

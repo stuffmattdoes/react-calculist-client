@@ -15,7 +15,7 @@ const AuthActions = {
     },
 
     userLogout: function() {
-        dispatcher.dispatch({
+        Dispatcher.dispatch({
             type: 'USER_LOGOUT'
         });
     },
@@ -23,6 +23,20 @@ const AuthActions = {
     userRegister: function(creds) {
         WebAPIUtils.userRegister(creds);
     },
+
+    setUser: function(user) {
+        Dispatcher.dispatch({
+            type: 'SET_USER',
+            user: user
+        });
+    },
+
+    setToken: function(token) {
+        Dispatcher.dispatch({
+            type: 'SET_TOKEN',
+            token: token
+        });
+    }
 
 }
 

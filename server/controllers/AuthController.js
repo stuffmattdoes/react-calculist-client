@@ -18,8 +18,8 @@ function setUserInfo(userData) {
 function generateToken (user, secret) {
     return jsonwebtoken.sign(
         {
-            // exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-            exp: 60,
+            exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+            // exp: 60,
             user: user
         },
         secret
