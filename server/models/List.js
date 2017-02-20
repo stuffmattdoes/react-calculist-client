@@ -12,6 +12,7 @@ var listSchema = new mongoose.Schema({
     title: String,
     listID: String,
     owner: String,
+    collaborators: Array
 },
 {
 	timestamps: true

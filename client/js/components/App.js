@@ -8,6 +8,7 @@ import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Actions
+import * as AuthActions from '../actions/AuthActions';
 import * as ListActions from '../actions/ListActions';
 
 // Stores
@@ -17,7 +18,7 @@ import ItemStore from '../stores/ItemStore';
 
 // Utils
 import AuthUtils from '../utils/AuthUtils';
-import WebAPIUtils from '../utils/WebAPIUtils';
+import ApiUtils from '../utils/ApiUtils';
 
 // Application class
 const App = React.createClass({
@@ -63,35 +64,55 @@ const App = React.createClass({
         // localStorage.clear();
 
         // Token refresh
+        // If we've gotten to this component, we've clearly got credentials in local storage. Let's verify those.
         if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-            WebAPIUtils.tokenRefresh().done( () => {
-                console.log('Token refreshed!');
+            ApiUtils.tokenRefresh().done( () => {
+                // console.log(localStorage.getItem('user'), localStorage.getItem('jwt'));
                 AuthActions.default.setUser(localStorage.getItem('user'));
                 AuthActions.default.setToken(localStorage.getItem('jwt'));
-                console.log(AuthStore.getUser(), AuthStore.getToken(), localStorage.getItem('user'), localStorage.getItem('jwt'));
-                this.setState({
-                    userAuth: true
-                });
+                this.initData();
+            }).fail( () => {
+                AuthActions.default.userLogout();
             });
+        } else {
+            this.initData();
         }
-
-        // Get list & item data
-         WebAPIUtils.listGetAll().done( () => {
-            this.setState({
-                receivedLists: true,
-                listsData: ListStore.getAll()
-            });
-        });
-
-        WebAPIUtils.itemGetAll().done(() => {
-            this.setState({
-                receivedItems: true,
-                itemsData: ItemStore.getAll()
-            });
-        });
 
         AuthStore.on('USER_AUTH', this.onStoreChange);
         ListStore.on('CHANGE_LIST', this.onStoreChange);
+    },
+
+    initData: function() {
+        this.getLists();
+        this.getItems();
+        this.setState({
+            userAuth: true
+        });
+    },
+
+    getLists: function() {
+        let user = AuthStore.getUser();
+        ApiUtils.listGetAll(user).done( () => {
+            this.setState({
+                listsData: ListStore.getAll()
+            });
+        }).always( () => {
+            this.setState({
+                receivedLists: true
+            })
+        });
+    },
+
+    getItems: function() {
+        ApiUtils.itemGetAll().done(() => {
+            this.setState({
+                itemsData: ItemStore.getAll()
+            });
+        }).always( () => {
+            this.setState({
+                receivedItems: true
+            })
+        });;
     },
 
     componentWillUnmount: function() {
@@ -107,6 +128,7 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
+
         if (!this.state.receivedLists || !this.state.receivedItems) {
             return (
                 <div className="loader">Loading...</div>

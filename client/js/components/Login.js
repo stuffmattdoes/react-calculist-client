@@ -46,7 +46,7 @@ const Login = React.createClass({
     },
 
     onUserAuthSuccess: function() {
-        browserHistory.push('/lists/');
+        browserHistory.push('/lists');
     },
 
     componentWillMount: function() {

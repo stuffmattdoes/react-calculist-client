@@ -1,17 +1,17 @@
 import Dispatcher from '../dispatcher/Dispatcher';
 
 const ServerActions = {
-    receiveAllItems: function(rawItems) {
+    receiveAllItems: function(data) {
         Dispatcher.dispatch({
             type: 'RECEIVE_RAW_ITEMS',
-            rawItems: rawItems
+            rawItems: data
         });
     },
 
-    receiveAllLists: function(rawLists) {
+    receiveAllLists: function(data) {
         Dispatcher.dispatch({
             type: 'RECEIVE_RAW_LISTS',
-            rawLists: rawLists
+            rawLists: data
         });
     },
 

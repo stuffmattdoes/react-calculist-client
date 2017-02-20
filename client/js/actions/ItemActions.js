@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher/Dispatcher";
-import WebAPIUtils from "../utils/WebAPIUtils";
+import ApiUtils from "../utils/ApiUtils";
 
 const ItemActions = {
 
@@ -14,7 +14,7 @@ const ItemActions = {
         });
 
         // API action call
-        WebAPIUtils.itemCreate(title, listID, itemID);
+        ApiUtils.itemCreate(title, listID, itemID);
     },
 
     itemDelete: function(itemID) {
@@ -25,7 +25,7 @@ const ItemActions = {
         });
 
         // API action call
-        WebAPIUtils.itemDelete(itemID);
+        ApiUtils.itemDelete(itemID);
     },
 
     itemSetVisibilityFilter: function(filter) {
@@ -44,7 +44,7 @@ const ItemActions = {
         });
 
         // API action call
-        WebAPIUtils.itemUpdate(
+        ApiUtils.itemUpdate(
             itemID,
             updates
         );

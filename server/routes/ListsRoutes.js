@@ -9,18 +9,18 @@ ListRoutes.use('/lists', ListRoutes);
 
 // Get all lists
 // /lists
-ListRoutes.get('/', AuthenticationController.authorizeUser, ListController.getLists);
+ListRoutes.get('/', AuthenticationController.authUser, ListController.getLists);
 
 // Create a new list
 // /lists/asdvm3t
-ListRoutes.post('/:listID', AuthenticationController.authorizeUser, ListController.createList);
+ListRoutes.post('/:listID', AuthenticationController.authUser, ListController.createList);
 
 // Update existing list
 // /lists/asdvm3t
-ListRoutes.put('/:listID', AuthenticationController.authorizeUser, ListController.updateList);
+ListRoutes.put('/:listID', AuthenticationController.authUser, ListController.updateList);
 
 // Remove existing list
 // /lists/asdvm3t
-ListRoutes.delete('/:listID', AuthenticationController.authorizeUser, ListController.deleteList);
+ListRoutes.delete('/:listID', AuthenticationController.authUser, ListController.deleteList);
 
 module.exports = ListRoutes;

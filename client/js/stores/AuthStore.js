@@ -17,6 +17,7 @@ class AuthStore extends EventEmitter {
     setToken(token) {
         localStorage.setItem('jwt', token);
         _jwt = token;
+        // console.log(_jwt);
         this.emit(CHANGE_EVENT);
     }
 
@@ -25,9 +26,9 @@ class AuthStore extends EventEmitter {
     }
 
     setUser(user) {
-        localStorage.setItem('user', user.email);
+        localStorage.setItem('user', user);
         _user = user;
-        console.log(_user);
+        // console.log(_user);
         this.emit(CHANGE_EVENT);
     }
 
@@ -37,13 +38,22 @@ class AuthStore extends EventEmitter {
 
     userLoginSuccess(data) {
         this.setToken(data.jwt);
-        this.setUser(data.user);
+        this.setUser(data.user.email);
         _authErrors  = {};
         this.emit(CHANGE_EVENT);
     }
 
     userAuthError(data) {
         _authErrors = data.responseJSON.errors;
+        this.emit(CHANGE_EVENT);
+    }
+
+    userLogout() {
+        _user = null;
+        _jwt = null;
+        _userRole = null;
+        localStorage.removeItem('user');
+        localStorage.removeItem('jwt');
         this.emit(CHANGE_EVENT);
     }
 
@@ -68,7 +78,15 @@ class AuthStore extends EventEmitter {
     handleActions(action) {
         switch(action.type) {
             case 'USER_LOGOUT' : {
-                this.setToken(null, null);
+                this.userLogout();
+                break;
+            }
+            case 'SET_USER' : {
+                this.setUser(action.user);
+                break;
+            }
+            case 'SET_TOKEN' : {
+                this.setToken(action.token);
                 break;
             }
             case 'RECEIVE_USER_REGISTER_SUCCESS' : {

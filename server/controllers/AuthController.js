@@ -16,6 +16,7 @@ function setUserInfo(userData) {
 
 // Generate JSON web token (JWT) from user object we pass in
 function generateToken (user, secret) {
+    console.log('generate token');
     return jsonwebtoken.sign(
         {
             exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
@@ -155,16 +156,12 @@ exports.refreshToken = (req, res, next) => {
 
     // Decode & verify token
     jsonwebtoken.verify(token, config.secret, (err, decoded) => {
-        console.log('Error 1:', err);
-
         if (err) {
             return next(err);
         }
 
         //return user using the id from w/in JWTToken
         User.findById({'_id': decoded.user._id}, (err, user) => {
-            console.log('Error 2:', err);
-
             if (err) {
                 return next(err);
             }
@@ -172,48 +169,28 @@ exports.refreshToken = (req, res, next) => {
             return res.status(200).send();
         });
     });
-
-    // console.log('Here we is');
 }
 
 // ==================================================
 // Authorization Middleware
 // ==================================================
 
-exports.authorizeUser = (req, res, next) => {
+exports.authUser = (req, res, next) => {
     var token = req.headers['authorization'];
     var decoded = jsonwebtoken.decode(token, config.secret);
 
     if (decoded.exp < Date.now()) {
+        // throw 401 status code & error message, return next(err);
         console.log('Date expired');
     }
+
+    req._user = decoded.user;
 
     return next();
 }
 
 // Role authorization check
-exports.authorizeRole = role => {
-    return (req, res, next) => {
-        var user = req.user;
+exports.authRole = (req, res, next) => {
 
-        User.findById(user._id, (err, foundUser) => {
-            if (err) {
-                res.status(422).json({
-                    error: 'No user was found.'
-                });
-                return next(err);
-            }
-
-            if (foundUser.role == role) {
-                return next();
-            }
-
-            res.status(401).json({
-                error: 'You are not authorized to view this content.'
-            });
-
-            return next('Unauthorized');
-        });
-    }
 }
 

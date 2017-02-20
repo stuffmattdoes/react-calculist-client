@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import * as AuthActions from '../actions/AuthActions';
 
 // Stores
-// import AuthStore from '../stores/AuthStore';
+import AuthStore from '../stores/AuthStore';
 
 const AuthUtils = {
 
@@ -22,14 +22,10 @@ const AuthUtils = {
     },
 
     requireAuth: function() {
-        // console.log(this);
-
         if (!AuthUtils.checkForToken()) {
-            // console.log('Sure aren\'t logged in, are we?');
             browserHistory.push('/login');
             return false;
         }
-        // console.log('Good to go lul');
         return true;
     },
 

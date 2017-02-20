@@ -1,10 +1,11 @@
+import ApiUtils from "../utils/ApiUtils";
+import { browserHistory } from 'react-router';
 import Dispatcher from "../dispatcher/Dispatcher";
-import WebAPIUtils from "../utils/WebAPIUtils";
 
 const AuthActions = {
 
     userLogin: function(creds) {
-        WebAPIUtils.userLogin(creds);
+        ApiUtils.userLogin(creds);
     },
 
     userAuth: function(data) {
@@ -18,10 +19,11 @@ const AuthActions = {
         Dispatcher.dispatch({
             type: 'USER_LOGOUT'
         });
+        browserHistory.push('/login');
     },
 
     userRegister: function(creds) {
-        WebAPIUtils.userRegister(creds);
+        ApiUtils.userRegister(creds);
     },
 
     setUser: function(user) {

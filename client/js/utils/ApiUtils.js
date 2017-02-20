@@ -155,7 +155,6 @@ const WebAPIUtils = {
         var d = $.Deferred();
 
         $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
             context: document.body,
             headers: {
                 'Authorization': localStorage.getItem('jwt')
@@ -171,12 +170,18 @@ const WebAPIUtils = {
         return d;
     },
 
-    listGetAll: function() {
+    listGetAll: function(user) {
         var d = $.Deferred();
 
+        var listUser = {
+            user: user
+        };
+
         $.ajax({
+            contentType: 'application/json; charset=UTF-8', // This is the money shot
             context: document.body,
             dataType: "json",
+            data: JSON.stringify(listUser),
             headers: {
                 'Authorization': localStorage.getItem('jwt')
             },

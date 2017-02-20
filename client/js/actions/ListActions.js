@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher/Dispatcher";
-import WebAPIUtils from "../utils/WebAPIUtils";
+import ApiUtils from "../utils/ApiUtils";
 
 const ListActions = {
 
@@ -22,7 +22,7 @@ const ListActions = {
         });
 
         // API action call
-        WebAPIUtils.listCreate(listID, title, owner);
+        ApiUtils.listCreate(listID, title, owner);
     },
 
     listDelete: function(listID) {
@@ -31,7 +31,7 @@ const ListActions = {
             listID: listID
         });
 
-        WebAPIUtils.listDelete(listID);
+        ApiUtils.listDelete(listID);
     },
 
     listUpdate: function(listID, updates) {
@@ -42,7 +42,7 @@ const ListActions = {
         });
 
         // API action call
-        WebAPIUtils.listUpdate(
+        ApiUtils.listUpdate(
             listID,
             updates
         );

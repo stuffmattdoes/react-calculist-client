@@ -8,7 +8,11 @@ const   Item = require('../models/Item'),
 
 // GET route - receive all existing lists
 exports.getLists = (req, res, next) => {
-    List.find({}, (err, lists) => {
+    user = req._user;
+
+    console.log(user);
+
+    List.find({owner: user.email}, (err, lists) => {
         if (err) {
             res.status(500).json({
                 message: err.message
