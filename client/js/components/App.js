@@ -60,7 +60,7 @@ const App = React.createClass({
         // localStorage.clear();
 
         // Token refresh
-        // If we've gotten to this component, we've clearly got credentials in local storage. Let's verify those.
+        // If we've gotten to this component, we've got a token in local storage. Let's verify it
         if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
             // console.log('Refresh token');
             ApiUtils.tokenRefresh().done( () => {

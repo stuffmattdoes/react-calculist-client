@@ -18,9 +18,9 @@ function setUserInfo(userData) {
 function generateToken (user, secret) {
     return jsonwebtoken.sign(
         {
-            // exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+            exp: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
             // exp: Date.now() + 2000, // 2 seconds
-            exp: 60,
+            // exp: 60,
             user: user
         },
         secret
@@ -180,13 +180,13 @@ exports.refreshToken = (req, res, next) => {
         // }
 
         if (err) {
-            console.log('Verify error:', err);
+            // console.log('Verify error:', err);
             return next(err);
         }
 
         if (decoded.exp < Date.now()) {
             // throw 401 status code & error message, return next(err);
-            console.log('Token expired');
+            // console.log('Token expired');
             res.status(401);
 
             let err = {
@@ -199,7 +199,7 @@ exports.refreshToken = (req, res, next) => {
         //return user using the id from w/in JWTToken
         User.findById({'_id': decoded.user._id}, (err, user) => {
             if (err) {
-                console.log('user error:', err);
+                // console.log('user error:', err);
                 return next(err);
             }
 
@@ -213,7 +213,7 @@ exports.refreshToken = (req, res, next) => {
 // ==================================================
 
 exports.authUser = (req, res, next) => {
-    console.log('auth user');
+    // console.log('auth user');
 
     let token = req.headers['authorization'];
     let decoded = jsonwebtoken.decode(token, config.secret);
