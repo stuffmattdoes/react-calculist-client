@@ -3,7 +3,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 
 // Actions
-import * as AuthActions from '../actions/AuthActions';
+import AuthActions from '../actions/AuthActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -83,7 +83,7 @@ const Login = React.createClass({
         // method="POST" action="/api/auth/login"
         if (this.checkValidation(errorMessages)) {
             formSubmitted = true;
-            AuthActions.default.userLogin(formData);
+            AuthActions.userLogin(formData);
         }
 
         this.setState({

@@ -8,11 +8,12 @@ import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Actions
-import * as AuthActions from '../actions/AuthActions';
+import AuthActions from '../actions/AuthActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
 import ListStore from '../stores/ListStore';
+import ItemStore from '../stores/ItemStore';
 
 // Utils
 import ApiUtils from '../utils/ApiUtils';
@@ -23,16 +24,25 @@ const App = React.createClass({
     getInitialState: function() {
         return {
             currentList: null,
-            receivedLists: false,
-            receivedItems: false,
-            ListSettingsActive: false,
-            userAuth: false
+            listSettingsActive: false,
+            loading: true
         };
     },
 
     getStateFromStores: function() {
+        let isLoading = true;
+        let user = !!AuthStore.getUser();
+        let token = !!AuthStore.getToken();
+        let lists = !!ListStore.getAll();
+        let items = !!ItemStore.getAll();
+
+        if (user && token && lists && items) {
+            isLoading = false;
+        }
+
         return {
-            currentList: ListStore.getCurrentList()
+            currentList: ListStore.getCurrentList(),
+            loading: isLoading
         };
     },
 
@@ -44,65 +54,44 @@ const App = React.createClass({
         // localStorage.clear();
         this.tokenRefresh();
         AuthStore.on('USER_AUTH', this.onStoreChange);
+        ItemStore.on('CHANGE_ITEM', this.onStoreChange);
         ListStore.on('CHANGE_LIST', this.onStoreChange);
     },
 
+    componentWillUnmount: function() {
+        AuthStore.removeListener('USER_AUTH', this.onStoreChange);
+        ItemStore.removeListener('CHANGE_ITEM', this.onStoreChange);
+        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
+    },
+
     initData: function() {
-        this.getListsFromAPI();
-        this.getItemsFromAPI();
-        this.setState({
-            userAuth: true
-        });
+        ApiUtils.listGetAll();
+        ApiUtils.itemGetAll();
     },
 
     tokenRefresh: function() {
         // Token refresh
         // If we've gotten to this component, we've got a token in local storage. Let's verify it
         if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-            ApiUtils.tokenRefresh().done( () => {
-                AuthActions.default.setUser(localStorage.getItem('user'));
-                AuthActions.default.setToken(localStorage.getItem('jwt'));
+            ApiUtils.tokenRefresh().then(() => {
                 this.initData();
-            }).fail( () => {
-                AuthActions.default.userLogout();
+            }).catch(() => {
+                AuthActions.userLogout();
             });
         } else {
             this.initData();
         }
     },
 
-    getListsFromAPI: function() {
-        let user = AuthStore.getUser();
-
-        ApiUtils.listGetAll(user).always( () => {
-            this.setState({
-                receivedLists: true
-            });
-        });
-    },
-
-    getItemsFromAPI: function() {
-        ApiUtils.itemGetAll().always( () => {
-            this.setState({
-                receivedItems: true
-            });
-        });;
-    },
-
-    componentWillUnmount: function() {
-        AuthStore.removeListener('USER_AUTH', this.onStoreChange);
-        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
-    },
-
     toggleSettings: function() {
         this.setState({
-            ListSettingsActive: !this.state.ListSettingsActive
+            listSettingsActive: !this.state.listSettingsActive
         });
     },
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-        if (!this.state.receivedLists || !this.state.receivedItems || !this.state.userAuth) {
+        if (this.state.loading) {
             return (
                 <div className="loader">Loading...</div>
             );
@@ -131,7 +120,7 @@ const App = React.createClass({
 
         return (
             <div className="app">
-                {!this.state.ListSettingsActive ?
+                {!this.state.listSettingsActive ?
                     <Header
                         title={this.state.currentList ? this.state.currentList.title : 'Calculist'}
                         route={this.props.route}

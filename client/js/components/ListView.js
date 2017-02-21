@@ -5,7 +5,7 @@ import React from 'react';
 import ListItemAdd from './ListItemAdd';
 
 // Actions
-import * as ListActions from '../actions/ListActions';
+import ListActions from '../actions/ListActions';
 
 // Stores
 import ListStore from '../stores/ListStore';
@@ -28,7 +28,7 @@ const ListView = React.createClass({
     },
 
     onListClick: function(listID) {
-        ListActions.default.setCurrentList(listID);
+        ListActions.setCurrentList(listID);
         this.props.router.push('/lists/' + listID);
     },
 

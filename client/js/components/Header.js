@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 
 // Stores
-import * as ListActions from '../actions/ListActions';
+import ListActions from '../actions/ListActions';
 
 const Header = React.createClass({
 
@@ -17,7 +17,7 @@ const Header = React.createClass({
 
     backNav: function() {
         browserHistory.push('/lists');
-        ListActions.default.resetListView();
+        ListActions.resetListView();
     },
 
     toggleSettings: function() {

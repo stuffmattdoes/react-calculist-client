@@ -1,7 +1,7 @@
 import React from 'react';
 
 // actions
-import * as ItemActions from '../actions/ItemActions';
+import ItemActions from '../actions/ItemActions';
 
 // stores
 import ItemStore from '../stores/ItemStore';
@@ -14,7 +14,7 @@ const ItemFilter = React.createClass({
     },
 
     onFilterClick: function(filter) {
-        ItemActions.default.itemSetVisibilityFilter(
+        ItemActions.itemSetVisibilityFilter(
             filter
         );
     },

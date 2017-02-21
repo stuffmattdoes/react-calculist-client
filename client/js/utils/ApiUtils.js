@@ -1,9 +1,9 @@
-// Actions
-var ServerActions = require("../actions/ServerActions");
-import $ from 'jquery';
+// Libraries
+import axios from 'axios';
 
-// Stores
-import AuthStore from '../stores/AuthStore';
+// Actions
+import ServerResponseActions from '../actions/ServerResponseActions';
+import AuthActions from '../actions/AuthActions';
 
 const API_PREFIX = '/api';
 const API_VERSION = '/v1.0';
@@ -76,24 +76,20 @@ const WebAPIUtils = {
     },
 
     itemGetAll: function() {
-        var d = $.Deferred();
-
-        $.ajax({
-            context: document.body,
-            dataType: "json",
+        let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
-            },
-            method: "GET",
-            url: API_URLS.items
-        }).done((data, textStatus, jqXHR) => {
-            ServerActions.default.receiveAllItems(data);
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
-        });
+            }
+        };
 
-        return d;
+        axios.get(API_URLS.items, config)
+        .then(response => {
+            // console.log(response);
+            ServerResponseActions.receiveAllItems(response.data);
+        })
+        .catch(error => {
+            // console.log('Error:', error);
+        });
     },
 
     itemUpdate: function(itemID, updates) {
@@ -171,30 +167,21 @@ const WebAPIUtils = {
     },
 
     listGetAll: function(user) {
-        var d = $.Deferred();
-
-        var listUser = {
-            user: user
-        };
-
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
-            context: document.body,
-            dataType: "json",
-            data: JSON.stringify(listUser),
+        let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
-            },
-            method: "GET",
-            url: API_URLS.lists
-        }).done((data, textStatus, jqXHR) => {
-            ServerActions.default.receiveAllLists(data);
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
+            }
+        };
+
+        axios.get(API_URLS.lists, config)
+        .then(response => {
+            // console.log(response);
+            ServerResponseActions.receiveAllLists(response.data);
+        })
+        .catch(error => {
+            // console.log('Error:', error);
         });
 
-        return d;
     },
 
     listUpdate: function(listID, updates) {
@@ -236,57 +223,53 @@ const WebAPIUtils = {
             method: 'POST',
             url: API_URLS.auth + '/register'
         }).done((data, textStatus, jqXHR) => {
-            ServerActions.default.receiveUserRegisterSuccess(data);
+            ServerResponseActions.default.receiveUserRegisterSuccess(data);
             d.resolve();
         }).fail((jqXHR, textStatus, errorThrown) => {
-            ServerActions.default.receiveUserRegisterError(jqXHR);
+            ServerResponseActions.default.receiveUserRegisterError(jqXHR);
             d.reject();
         });
     },
 
     userLogin: function(creds) {
-        var d = $.Deferred();
-
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8',
-            context: document.body,
-            data: JSON.stringify(creds),
-            dataType: 'json',
-            method: 'POST',
-            url: API_URLS.auth + '/login'
-        }).done((data, textStatus, jqXHR) => {
-            ServerActions.default.receiveUserLoginSuccess(data);
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            ServerActions.default.receiveUserLoginError(jqXHR);
-            d.reject();
+        axios.post(API_URLS.auth + '/login', creds)
+        .then(response => {
+            ServerResponseActions.receiveUserLoginSuccess(response.data);
+        })
+        .catch(error => {
+            AuthActions.default.userLogout();
+            ServerResponseActions.receiveUserLoginError(error);
         });
-
-
     },
 
     tokenRefresh: function() {
-        var d = $.Deferred();
-
-        $.ajax({
-            // contentType: 'application/json; charset=UTF-8',
-            context: document.body,
+        let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
-            },
-            method: 'GET',
-            url: API_URLS.auth + '/refresh'
-        }).done((data, textStatus, jqXHR) => {
-            // console.log('token refresh success!', data);
-            // ServerActions.default.receiveTokenRefreshSuccess(data);
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            // console.log('token refresh failure');
-            ServerActions.default.receiveTokenRefreshError(jqXHR);
-            d.reject();
+            }
+        };
+
+        let data = {
+            jwt: localStorage.getItem('jwt'),
+            user: localStorage.getItem('user')
+        };
+
+        let p1 = new Promise((resolve, reject) => {
+            axios.get(API_URLS.auth + '/refresh', config)
+            .then(response => {
+                // console.log(response);
+                ServerResponseActions.receiveTokenRefreshSuccess(data);
+                resolve();
+            })
+            .catch(error => {
+                // console.log(error);
+                ServerResponseActions.receiveTokenRefreshError(error);
+                AuthActions.userLogout();
+                reject();
+            });
         });
 
-        return d;
+        return p1;
     }
 
 };

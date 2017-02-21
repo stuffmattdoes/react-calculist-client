@@ -1,8 +1,8 @@
 import React from 'react';
 
 // Actions
-import * as ListActions from '../actions/ListActions';
-import * as ItemActions from '../actions/ItemActions';
+import ListActions from '../actions/ListActions';
+import ItemActions from '../actions/ItemActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -66,16 +66,14 @@ const ListAdd = React.createClass({
 
             // Create a new list
             if (this.props.condActions == "ListActions") {
-                // console.log("ListActions");
-                ListActions.default.listCreate(
+                ListActions.listCreate(
                     this.state.title,
                     AuthStore.getUser()
                 );
 
             // Create a new item
             } else if (this.props.condActions == "ItemActions") {
-                // console.log("ItemActions");
-                ItemActions.default.itemCreate(
+                ItemActions.itemCreate(
                     this.state.title,
                     ListStore.getCurrentListID()
                 );

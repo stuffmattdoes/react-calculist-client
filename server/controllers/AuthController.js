@@ -123,6 +123,7 @@ exports.login = (req, res, next) => {
                 // Authorization token here
                 // Respond with JWT if user was created
                 let userInfo = setUserInfo(user);
+                console.log(userInfo);
                 return res.status(200).json({
                     jwt: generateToken(userInfo, config.secret),
                     user: userInfo

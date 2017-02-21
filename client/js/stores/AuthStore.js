@@ -17,7 +17,6 @@ class AuthStore extends EventEmitter {
     setToken(token) {
         localStorage.setItem('jwt', token);
         _jwt = token;
-        // console.log(_jwt);
         this.emit(CHANGE_EVENT);
     }
 
@@ -28,7 +27,6 @@ class AuthStore extends EventEmitter {
     setUser(user) {
         localStorage.setItem('user', user);
         _user = user;
-        // console.log(_user);
         this.emit(CHANGE_EVENT);
     }
 
@@ -36,15 +34,15 @@ class AuthStore extends EventEmitter {
         return !!_user && !!_jwt;
     }
 
-    userLoginSuccess(data) {
+    setUserInfo(data) {
         this.setToken(data.jwt);
-        this.setUser(data.user.email);
+        this.setUser(data.user);
         _authErrors  = {};
         this.emit(CHANGE_EVENT);
     }
 
     userAuthError(data) {
-        _authErrors = data.responseJSON.errors;
+        _authErrors = data.errors;
         this.emit(CHANGE_EVENT);
     }
 
@@ -61,15 +59,7 @@ class AuthStore extends EventEmitter {
         return _authErrors;
     }
 
-    // tokenRefreshSuccess() {
-        // console.log(data.jwt);
-        // this.setToken(data.jwt);
-        // this.setUser(data.user);
-        // this.emit(CHANGE_EVENT);
-    // }
-
     tokenRefreshError() {
-        // console.log(response);
         _jwt = null;
         _user = null;
         this.emit(CHANGE_EVENT);
@@ -90,29 +80,28 @@ class AuthStore extends EventEmitter {
                 break;
             }
             case 'RECEIVE_USER_REGISTER_SUCCESS' : {
-                // this.setToken(action.response.jwt, action.response.user);
-                this.userLoginSuccess(action.response);
+                this.setUserInfo(action.data);
                 break;
             }
             case 'RECEIVE_USER_REGISTER_ERROR' : {
-                this.userAuthError(action.response);
+                this.userAuthError(action.data);
                 break;
             }
             case 'RECEIVE_USER_LOGIN_SUCCESS' : {
-                // this.setToken(action.response.jwt, action.response.user);
-                this.userLoginSuccess(action.response);
+                this.setUserInfo(action.data);
                 break;
             }
             case 'RECEIVE_USER_LOGIN_ERROR' : {
-                this.userAuthError(action.response);
+                this.userAuthError(action.data);
                 break;
             }
-            // case 'RECEIVE_TOKEN_REFRESH_SUCCESS' : {
-            //     this.tokenRefreshSuccess();
-            //     break;
-            // }
+            case 'RECEIVE_TOKEN_REFRESH_SUCCESS' : {
+                this.setUserInfo(action.data);
+                break;
+            }
             case 'RECEIVE_TOKEN_REFRESH_ERROR' : {
-                this.tokenRefreshError();
+                console.log('token refresh error');
+                // this.tokenRefreshError();
                 break;
             }
         }

@@ -9,18 +9,14 @@ var CHANGE_EVENT = "CHANGE_LIST";
 class ListStore extends EventEmitter {
 
     getAll() {
-        // console.log("ListStore: getAll", _lists);
         return _lists;
     }
 
     getCurrentListID() {
-        // console.log("ListStore: getCurrentListID", _currentID);
         return _currentID;
     }
 
     getCurrentList() {
-        // console.log("getCurrentList");
-
         if (!_lists
             || !_currentID) {
             return null;
@@ -35,13 +31,11 @@ class ListStore extends EventEmitter {
     }
 
     setCurrentList(listID) {
-        // console.log("ListStore: Set current list:", listID);
         _currentID = listID;
         this.emit(CHANGE_EVENT);
     }
 
     listCreate(listID, title, owner) {
-        // console.log("Create list");
         _lists.push({
             listID: listID,
             owner: owner,
@@ -51,7 +45,6 @@ class ListStore extends EventEmitter {
     }
 
     listDelete(listID) {
-        // console.log("Delete list", listID);
         _lists.forEach((value, index) => {
             if (listID == value.listID) {
                 _lists.splice(index, 1);
@@ -61,14 +54,12 @@ class ListStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    listsPopulate(rawLists) {
-        // console.log("Populate lists", rawLists.lists);
-        _lists = rawLists.lists;
-        // this.emit(CHANGE_EVENT);
+    listsPopulate(data) {
+        _lists = data.lists;
+        this.emit(CHANGE_EVENT);
     }
 
     listUpdate(listID, updates) {
-
         _lists.forEach((list, index) => {
 
             // Match our list ID
@@ -118,10 +109,8 @@ class ListStore extends EventEmitter {
                 this.listDelete(action.listID);
                 break;
             }
-            case "RECEIVE_RAW_LISTS" : {
-                this.listsPopulate(
-                    action.rawLists
-                )
+            case "RECEIVE_LISTS" : {
+                this.listsPopulate(action.data);
                 break;
             }
             case "RESET_LIST_VIEW" : {

@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Actions
-import * as ItemActions from '../actions/ItemActions';
+import ItemActions from '../actions/ItemActions';
 
 // Components
 import ItemSettings from './ItemSettings';
@@ -45,7 +45,7 @@ const ListItem = React.createClass({
 
     onAmountSave: function() {
         var amount = this.amountFormat(this.state.amount);
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 amount: amount
@@ -67,7 +67,7 @@ const ListItem = React.createClass({
     onCheckedChange: function(e) {
         const inputValue = e.target.checked;
 
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 checked: inputValue
@@ -112,7 +112,7 @@ const ListItem = React.createClass({
         const inputValue = e.target.value;
 
         if (inputValue.trim() != "") {
-            ItemActions.default.itemUpdate(
+            ItemActions.itemUpdate(
                 this.props.itemProps.itemID,
                 {
                     title: this.state.title

@@ -1,6 +1,8 @@
 // Libraries
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
+
+// Stores
 import ListStore from './ListStore';
 
 var _items = null;
@@ -10,14 +12,11 @@ var CHANGE_EVENT = "CHANGE_ITEM";
 class ItemStore extends EventEmitter {
 
     getAll() {
-        // console.log("getAll");
         return _items;
     }
 
     getAllForCurrentList(filterActive) {
-        // console.log("getAllForCurrentList");
         if (filterActive) {
-            // console.log("Filter active");
             return this.getAllForListFilter(ListStore.getCurrentListID());
         } else {
             return this.getAllForList(ListStore.getCurrentListID());
@@ -26,7 +25,6 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForList(listID) {
-        // console.log("getAllForList", _items);
         var listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
@@ -37,7 +35,6 @@ class ItemStore extends EventEmitter {
     }
 
     getAllForListFilter(listID) {
-        // console.log("getAllForListFilter");
         var listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
@@ -65,12 +62,10 @@ class ItemStore extends EventEmitter {
     }
 
     getCurrentFilter() {
-        // console.log("getCurrentFilter");
         return _filter;
     }
 
     getListItemCount(listID) {
-        // console.log("getListItemCount");
         var itemCount = {
             checked: 0,
             unchecked: 0
@@ -89,7 +84,6 @@ class ItemStore extends EventEmitter {
     }
 
     getCurrentListItemCount() {
-        // console.log("getCurrentListItemCount");
         return this.getListItemCount(ListStore.getCurrentListID());
     }
 
@@ -110,16 +104,11 @@ class ItemStore extends EventEmitter {
             itemID: itemID,
             listID: ListStore.getCurrentListID()
         }
-
-        // console.log(newItem);
-        
         _items.push(newItem);
-
         this.emit(CHANGE_EVENT);
     }
 
     itemDelete(itemID) {
-        // console.log("Store: Delete list item");
         _items.forEach((value, index) => {
             if (itemID == value.itemID) {
                 _items.splice(index, 1);
@@ -129,21 +118,17 @@ class ItemStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    itemPopulate(rawItems) {
-        // console.log("itemPopulate", rawItems);
-        _items = rawItems.items;
-        // console.log("Populate items:", _items);
-        // this.emit(CHANGE_EVENT);
+    itemPopulate(data) {
+        _items = data.items;
+        this.emit(CHANGE_EVENT);
     }
 
     itemSetVisibilityFilter(filter) {
-        // console.log("itemSetVisibilityFilter");
         _filter = filter;
         this.emit(CHANGE_EVENT);
     }
 
     itemUpdate(itemID, updates) {
-        // console.log("itemUpdate");
         _items.forEach((item, index) => {
 
             // // Match our item ID
@@ -152,16 +137,10 @@ class ItemStore extends EventEmitter {
             }
 
         });
-
-        // console.log("Done!");
-
         this.emit(CHANGE_EVENT);
     }
 
     updateProperties(item, updates) {
-
-        // console.log("updateProperties");
-
         // Iterate through our updates
         for (var key in updates) {
             // console.log(_items);
@@ -202,10 +181,8 @@ class ItemStore extends EventEmitter {
                 this.itemSetVisibilityFilter(action.filter);
                 break;
             }
-            case "RECEIVE_RAW_ITEMS" : {
-                this.itemPopulate(
-                    action.rawItems
-                )
+            case "RECEIVE_ITEMS" : {
+                this.itemPopulate(action.data);
                 break;
             }
             case "RESET_LIST_VIEW" : {
@@ -216,7 +193,7 @@ class ItemStore extends EventEmitter {
                 this.itemUpdate(
                     action.itemID,
                     action.updates
-                )
+                );
                 break;
             }
             default : {

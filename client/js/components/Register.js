@@ -4,7 +4,7 @@ import FormValidationUtils from '../utils/FormValidationUtils';
 import { browserHistory } from 'react-router';
 
 // Actions
-import * as AuthActions from '../actions/AuthActions';
+import AuthActions from '../actions/AuthActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -98,7 +98,7 @@ const Register = React.createClass({
         // let validSubmit = true;
         if (this.checkValidation(formValidationResults)) {
             formSubmitted = true;
-            AuthActions.default.userRegister(formData);
+            AuthActions.userRegister(formData);
         }
 
         this.setState({

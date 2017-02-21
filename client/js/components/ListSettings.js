@@ -3,7 +3,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 
 // Actions
-import * as ListActions from '../actions/ListActions';
+import ListActions from '../actions/ListActions';
 
 // Stores
 import ListStore from '../stores/ListStore';
@@ -26,8 +26,8 @@ const ListSettings = React.createClass({
 
     onListDelete: function() {
         browserHistory.push('/lists/');
-        ListActions.default.resetListView();
-        ListActions.default.listDelete(this.props.currentList.listID);
+        ListActions.resetListView();
+        ListActions.listDelete(this.props.currentList.listID);
         this.props.toggleSettings();
     },
 
@@ -46,7 +46,7 @@ const ListSettings = React.createClass({
         const inputValue = e.target.value;
 
         if (inputValue.trim() != "") {
-            ListActions.default.listUpdate(
+            ListActions.listUpdate(
                 this.props.currentList.listID,
                 {
                     title: this.state.title

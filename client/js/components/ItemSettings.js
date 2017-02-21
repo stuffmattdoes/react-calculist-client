@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Actions
-import * as ItemActions from '../actions/ItemActions';
+import ItemActions from '../actions/ItemActions';
 
 const ItemSettings = React.createClass({
 
@@ -22,7 +22,7 @@ const ItemSettings = React.createClass({
 
     onTaxChecked: function(e) {
         const inputValue = e.target.checked;
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 tax: {
@@ -37,7 +37,7 @@ const ItemSettings = React.createClass({
 
     onUnitPricingChecked: function(e) {
         const inputValue = e.target.checked;
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 unitPricing: {
@@ -59,7 +59,7 @@ const ItemSettings = React.createClass({
     },
 
     onUnitPricingSaved: function() {
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 unitPricing: {
@@ -79,7 +79,7 @@ const ItemSettings = React.createClass({
     },
 
     onUnitQuantitySaved : function() {
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 unitPricing: {
@@ -115,7 +115,7 @@ const ItemSettings = React.createClass({
 
         calcUnitPrice = (Math.round(calcUnitPrice * 100) / 100 ).toFixed(2);
 
-        ItemActions.default.itemUpdate(
+        ItemActions.itemUpdate(
             this.props.itemProps.itemID,
             {
                 amount: calcUnitPrice
@@ -126,7 +126,7 @@ const ItemSettings = React.createClass({
     onListItemDelete: function() {
         var itemID = this.props.itemProps.itemID;
 
-        ItemActions.default.itemDelete(itemID);
+        ItemActions.itemDelete(itemID);
         this.setState(this.state);
     },
 
