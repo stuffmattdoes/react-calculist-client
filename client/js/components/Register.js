@@ -41,6 +41,7 @@ const Register = React.createClass({
 
     onStoreChange: function() {
         let _authErrors = AuthStore.getUserAuthErrors();
+        console.log(_authErrors);
 
         if (this.checkValidation(_authErrors)) {
             this.onUserAuthSuccess();
@@ -95,9 +96,9 @@ const Register = React.createClass({
 
         // If no errors, send off to the register
         // method="POST" action="/api/auth/register"
-        // let validSubmit = true;
         if (this.checkValidation(formValidationResults)) {
             formSubmitted = true;
+            // AuthActions.clearCredentials();
             AuthActions.userRegister(formData);
         }
 

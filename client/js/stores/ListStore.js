@@ -109,7 +109,7 @@ class ListStore extends EventEmitter {
                 this.listDelete(action.listID);
                 break;
             }
-            case "RECEIVE_LISTS" : {
+            case "GET_LISTS" : {
                 this.listsPopulate(action.data);
                 break;
             }

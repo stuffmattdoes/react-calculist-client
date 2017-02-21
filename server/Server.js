@@ -72,33 +72,33 @@ app.all( '*' , ( req, res, next ) => {
 
 // Configure Error Handling
 app.use(( err, req, res, next ) => {
-    let errorStatus = err.status || 500;
+    let _errorStatus = err.status || 500;
 
     if ( res.statusCode == 200 ) {
-        res.status( errorStatus );
+        res.status( _errorStatus );
     }
 
-    let status = res.statusCode;
-    let message = err.message || 'no message';
-    let stack = err.stack || 'no stack';
-    let raw = err._raw || 'no raw';
+    // let status = res.statusCode;
+    // let message = err.message || 'no message';
+    // let errors = err.errors || 'no errors';
+    // let stack = err.stack || 'no stack';
+    // let raw = err._raw || 'no raw';
 
     // logger.log( 'error' , { 'status': status , 'message': message , 'stack': stack , 'raw': raw } );
 
+    console.log('Error1:', err);
     next( err );
-
 });
 
 app.use(( err, req, res, next ) => {
-
-    res.send({
+    let responseError = {
         'status': res.statusCode,
         'message': err.message,
         'errors' : err.errors
-    });
-
+    };
+    console.log('Error2:', responseError);
+    res.send(responseError);
     if ( err.stack ) { console.log( err.stack ); }
-
 });
 
 // Start the server

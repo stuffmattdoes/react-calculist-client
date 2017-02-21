@@ -17,9 +17,15 @@ const AuthActions = {
 
     userLogout: function() {
         Dispatcher.dispatch({
-            type: 'USER_LOGOUT'
+            type: 'CLEAR_CREDENTIALS'
         });
         browserHistory.push('/login');
+    },
+
+    clearCredentials: function() {
+        Dispatcher.dispatch({
+            type: 'CLEAR_CREDENTIALS'
+        });
     },
 
     userRegister: function(creds) {

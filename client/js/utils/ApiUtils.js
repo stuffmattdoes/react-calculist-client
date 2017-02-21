@@ -20,8 +20,12 @@ const WebAPIUtils = {
     // ==================================================
 
     itemCreate: function(title, listID, itemID) {
-        var d = $.Deferred();
-        var newItem = {
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem('jwt')
+            }
+        }
+        let newItem = {
             title: title,
             checked: false,
             amount: 0.00,
@@ -36,43 +40,31 @@ const WebAPIUtils = {
             },
             itemID: itemID,
             listID: listID
-        };
+        }
 
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
-            context: document.body,
-            data: JSON.stringify(newItem),
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            },
-            method: "POST",
-            url: API_URLS.items + '/'+ itemID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
+        axios.post(API_URLS.items + '/'+ itemID, newItem, config)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
         });
-
-        return d;
     },
 
     itemDelete: function(itemID) {
-        var d = $.Deferred();
-
-        $.ajax({
-            context: document.body,
+        let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
-            },
-            method: "DELETE",
-            url: API_URLS.items + '/' + itemID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
-        });
+            }
+        }
 
-        return d;
+        axios.delete(API_URLS.items + '/' + itemID, config)
+        .then(response => {
+           console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
     },
 
     itemGetAll: function() {
@@ -84,35 +76,30 @@ const WebAPIUtils = {
 
         axios.get(API_URLS.items, config)
         .then(response => {
-            // console.log(response);
             ServerResponseActions.receiveAllItems(response.data);
         })
         .catch(error => {
-            // console.log('Error:', error);
+            console.log('Error:', error);
         });
     },
 
     itemUpdate: function(itemID, updates) {
-        var d = $.Deferred();
-        var updateItem =  {
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem('jwt')
+            }
+        }
+        let updateItem =  {
             itemID: itemID,
             updates: updates
         }
 
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
-            context: document.body,
-            data: JSON.stringify(updateItem),
-            dataType: "json",
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            },
-            method: "PUT",
-            url: API_URLS.items + '/' + itemID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
+        axios.put(API_URLS.items + '/' + itemID, updateItem, config)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
         });
     },
 
@@ -122,48 +109,41 @@ const WebAPIUtils = {
     // ==================================================
 
     listCreate: function(listID, listTitle, listOwner) {
-        var d = $.Deferred();
-        var newList =  {
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem('jwt')
+            }
+        }
+        let newList =  {
             listID: listID,
             owner: listOwner,
             title: listTitle
         }
 
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
-            context: document.body,
-            data: JSON.stringify(newList),
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            },
-            method: "POST",
-            url: API_URLS.lists + '/' + listID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
-        });
-
-        return d;
+        axios.post(API_URLS.lists + '/' + listID, newList, config)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
     },
 
     listDelete: function(listID) {
-        var d = $.Deferred();
-
-        $.ajax({
-            context: document.body,
+        let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
-            },
-            method: "DELETE",
-            url: API_URLS.lists + '/' + listID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            d.reject();
-        });
+            }
+        }
 
-        return d;
+        axios.delete(API_URLS.lists + '/' + listID, config)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
     },
 
     listGetAll: function(user) {
@@ -175,35 +155,30 @@ const WebAPIUtils = {
 
         axios.get(API_URLS.lists, config)
         .then(response => {
-            // console.log(response);
             ServerResponseActions.receiveAllLists(response.data);
         })
         .catch(error => {
-            // console.log('Error:', error);
+            console.log(error);
         });
 
     },
 
     listUpdate: function(listID, updates) {
-        var d = $.Deferred();
-        var updateList =  {
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem('jwt')
+            }
+        }
+        let updateList =  {
             updates: updates
         }
 
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8', // This is the money shot
-            context: document.body,
-            data: JSON.stringify(updateList),
-            dataType: "json",
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            },
-            method: "PUT",
-            url: API_URLS.lists + '/' + listID
-        }).done((data, textStatus, jqXHR) => {
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            d.reject();
+        axios.put(API_URLS.lists + '/' + listID, updateList, config)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
         });
     },
 
@@ -213,21 +188,12 @@ const WebAPIUtils = {
     // ==================================================
 
     userRegister: function(creds) {
-        var d = $.Deferred();
-
-        $.ajax({
-            contentType: 'application/json; charset=UTF-8',
-            context: document.body,
-            data: JSON.stringify(creds),
-            dataType: 'json',
-            method: 'POST',
-            url: API_URLS.auth + '/register'
-        }).done((data, textStatus, jqXHR) => {
-            ServerResponseActions.default.receiveUserRegisterSuccess(data);
-            d.resolve();
-        }).fail((jqXHR, textStatus, errorThrown) => {
-            ServerResponseActions.default.receiveUserRegisterError(jqXHR);
-            d.reject();
+        axios.post(API_URLS.auth + '/register', creds)
+        .then(response => {
+            ServerResponseActions.receiveUserRegisterSuccess(response.data);
+        })
+        .catch(error => {
+            ServerResponseActions.receiveUserRegisterError(error.response.data);
         });
     },
 
@@ -238,7 +204,7 @@ const WebAPIUtils = {
         })
         .catch(error => {
             AuthActions.default.userLogout();
-            ServerResponseActions.receiveUserLoginError(error);
+            ServerResponseActions.receiveUserLoginError(error.response.data);
         });
     },
 
@@ -257,12 +223,10 @@ const WebAPIUtils = {
         let p1 = new Promise((resolve, reject) => {
             axios.get(API_URLS.auth + '/refresh', config)
             .then(response => {
-                // console.log(response);
                 ServerResponseActions.receiveTokenRefreshSuccess(data);
                 resolve();
             })
             .catch(error => {
-                // console.log(error);
                 ServerResponseActions.receiveTokenRefreshError(error);
                 AuthActions.userLogout();
                 reject();

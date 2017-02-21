@@ -181,7 +181,7 @@ class ItemStore extends EventEmitter {
                 this.itemSetVisibilityFilter(action.filter);
                 break;
             }
-            case "RECEIVE_ITEMS" : {
+            case "GET_ITEMS" : {
                 this.itemPopulate(action.data);
                 break;
             }

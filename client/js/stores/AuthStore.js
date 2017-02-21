@@ -46,7 +46,7 @@ class AuthStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    userLogout() {
+    clearCreds() {
         _user = null;
         _jwt = null;
         _userRole = null;
@@ -67,8 +67,8 @@ class AuthStore extends EventEmitter {
 
     handleActions(action) {
         switch(action.type) {
-            case 'USER_LOGOUT' : {
-                this.userLogout();
+            case 'CLEAR_CREDENTIALS' : {
+                this.clearCreds();
                 break;
             }
             case 'SET_USER' : {
@@ -79,29 +79,28 @@ class AuthStore extends EventEmitter {
                 this.setToken(action.token);
                 break;
             }
-            case 'RECEIVE_USER_REGISTER_SUCCESS' : {
+            case 'USER_REGISTER_SUCCESS' : {
                 this.setUserInfo(action.data);
                 break;
             }
-            case 'RECEIVE_USER_REGISTER_ERROR' : {
+            case 'USER_REGISTER_ERROR' : {
                 this.userAuthError(action.data);
                 break;
             }
-            case 'RECEIVE_USER_LOGIN_SUCCESS' : {
+            case 'USER_LOGIN_SUCCESS' : {
                 this.setUserInfo(action.data);
                 break;
             }
-            case 'RECEIVE_USER_LOGIN_ERROR' : {
+            case 'USER_LOGIN_ERROR' : {
                 this.userAuthError(action.data);
                 break;
             }
-            case 'RECEIVE_TOKEN_REFRESH_SUCCESS' : {
+            case 'TOKEN_REFRESH_SUCCESS' : {
                 this.setUserInfo(action.data);
                 break;
             }
-            case 'RECEIVE_TOKEN_REFRESH_ERROR' : {
-                console.log('token refresh error');
-                // this.tokenRefreshError();
+            case 'TOKEN_REFRESH_ERROR' : {
+                this.clearCreds();
                 break;
             }
         }

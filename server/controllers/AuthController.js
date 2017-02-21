@@ -49,7 +49,6 @@ exports.register = (req, res, next) => {
         let err = {
             errors: formValidationResults
         };
-
         return next(err);
     }
 
@@ -61,13 +60,13 @@ exports.register = (req, res, next) => {
 
         // Check for existing email
         if (existingUser) {
+            console.log('User exists already.');
             res.status(422)
             let err = {
                 errors: {
                     'email': 'That email address is already in use.'
                 }
             };
-
             return next(err);
         }
 
