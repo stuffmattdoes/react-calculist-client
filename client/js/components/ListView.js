@@ -13,8 +13,18 @@ import ItemStore from '../stores/ItemStore';
 
 const ListView = React.createClass({
 
-    propTypes: {
-        listsData: React.PropTypes.array
+    getInitialState: function() {
+        return this.getStateFromStores();
+    },
+
+    getStateFromStores: function() {
+        return {
+            lists: ListStore.getAll()
+        }
+    },
+
+    onStoreChange: function() {
+        this.setState(this.getStateFromStores());
     },
 
     onListClick: function(listID) {
@@ -22,8 +32,16 @@ const ListView = React.createClass({
         this.props.router.push('/lists/' + listID);
     },
 
+    componentWillMount: function() {
+        ListStore.on('CHANGE_LIST', this.onStoreChange);
+    },
+
+    componentWillUnmount: function() {
+        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
+    },
+
     render: function() {
-        var totalLists = this.props.listsData.map((list, index) => {
+        var totalLists = this.state.lists.map((list, index) => {
             var itemCount = ItemStore.getListItemCount(list.listID).unchecked;
 
             return (

@@ -9,15 +9,12 @@ import ListView from './ListView';
 
 // Actions
 import * as AuthActions from '../actions/AuthActions';
-import * as ListActions from '../actions/ListActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
 import ListStore from '../stores/ListStore';
-import ItemStore from '../stores/ItemStore';
 
 // Utils
-import AuthUtils from '../utils/AuthUtils';
 import ApiUtils from '../utils/ApiUtils';
 
 // Application class
@@ -25,8 +22,6 @@ const App = React.createClass({
 
     getInitialState: function() {
         return {
-            currentListID: null,
-            listsData: [],
             currentList: null,
             receivedLists: false,
             receivedItems: false,
@@ -37,8 +32,6 @@ const App = React.createClass({
 
     getStateFromStores: function() {
         return {
-            currentListID: ListStore.getCurrentListID(),
-            listsData: ListStore.getAll(),
             currentList: ListStore.getCurrentList()
         };
     },
@@ -47,70 +40,52 @@ const App = React.createClass({
         this.setState(this.getStateFromStores());
     },
 
-    checkForCurrentList: function() {
-        // Check for current List ID
-        if (!ListStore.getCurrentListID()
-            && this.props.params.listID) {
-            ListActions.default.setCurrentList(this.props.params.listID);
-            return ListStore.getCurrentListID();
-        }
-    },
-
     componentWillMount: function() {
         // localStorage.clear();
-
-        // Token refresh
-        // If we've gotten to this component, we've got a token in local storage. Let's verify it
-        if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
-            // console.log('Refresh token');
-            ApiUtils.tokenRefresh().done( () => {
-                // console.log('Refresh success!');
-                AuthActions.default.setUser(localStorage.getItem('user'));
-                AuthActions.default.setToken(localStorage.getItem('jwt'));
-                this.initData();
-            }).fail( () => {
-                // console.log('Refresh failure :/');
-                AuthActions.default.userLogout();
-            });
-        } else {
-            this.initData();
-        }
-
+        this.tokenRefresh();
         AuthStore.on('USER_AUTH', this.onStoreChange);
         ListStore.on('CHANGE_LIST', this.onStoreChange);
     },
 
     initData: function() {
-        this.getLists();
-        this.getItems();
+        this.getListsFromAPI();
+        this.getItemsFromAPI();
         this.setState({
             userAuth: true
         });
     },
 
-    getLists: function() {
+    tokenRefresh: function() {
+        // Token refresh
+        // If we've gotten to this component, we've got a token in local storage. Let's verify it
+        if (AuthStore.getUser() === null && AuthStore.getToken() === null) {
+            ApiUtils.tokenRefresh().done( () => {
+                AuthActions.default.setUser(localStorage.getItem('user'));
+                AuthActions.default.setToken(localStorage.getItem('jwt'));
+                this.initData();
+            }).fail( () => {
+                AuthActions.default.userLogout();
+            });
+        } else {
+            this.initData();
+        }
+    },
+
+    getListsFromAPI: function() {
         let user = AuthStore.getUser();
 
-        ApiUtils.listGetAll(user).done( () => {
-            this.setState({
-                listsData: ListStore.getAll()
-            });
-        }).always( () => {
+        ApiUtils.listGetAll(user).always( () => {
             this.setState({
                 receivedLists: true
-            })
+            });
         });
     },
 
-    getItems: function() {
-        ApiUtils.itemGetAll().done(() => {
-            this.setState({
-                itemsData: ItemStore.getAll()
-            });
-        }).always( () => {
+    getItemsFromAPI: function() {
+        ApiUtils.itemGetAll().always( () => {
             this.setState({
                 receivedItems: true
-            })
+            });
         });;
     },
 
@@ -127,7 +102,6 @@ const App = React.createClass({
 
     render: function() {
         // Don't wanna render no components if we ain't got all the lists and items
-        // console.log(this.state.receivedLists, this.state.receivedItems, this.state.userAuth);
         if (!this.state.receivedLists || !this.state.receivedItems || !this.state.userAuth) {
             return (
                 <div className="loader">Loading...</div>
@@ -139,16 +113,11 @@ const App = React.createClass({
 
             switch(child.type) {
                 case ListView : {
-                    return React.cloneElement(child, {
-                        listsData: this.state.listsData
-                    });
+                    return React.cloneElement(child, {});
                     break;
                 }
                 case ItemView : {
-                    return React.cloneElement(child, {
-                        itemsData: [],
-                        routeParams: this.props.params
-                    });
+                    return React.cloneElement(child, {});
                     break;
                 }
                 case ListSettings : {
