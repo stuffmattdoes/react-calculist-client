@@ -59,7 +59,7 @@ const ListSettings = React.createClass({
     },
 
     toggleSettings: function() {
-        browserHistory.push('/lists/' + this.props.params.listID);
+        browserHistory.push('/lists/' + this.props.params.listID) + '/';
         this.props.toggleSettings();
     },
 

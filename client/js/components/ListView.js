@@ -29,7 +29,7 @@ const ListView = React.createClass({
 
     onListClick: function(listID) {
         ListActions.setCurrentList(listID);
-        this.props.router.push('/lists/' + listID);
+        this.props.router.push('/lists/' + listID + '/');
     },
 
     componentWillMount: function() {

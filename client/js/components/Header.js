@@ -16,18 +16,16 @@ const Header = React.createClass({
     },
 
     backNav: function() {
-        browserHistory.push('/lists');
+        browserHistory.push('/lists/');
         ListActions.resetListView();
     },
 
     toggleSettings: function() {
-        browserHistory.push(this.props.location.pathname + '/settings');
+        browserHistory.push(this.props.location.pathname + 'settings/');
         this.props.toggleSettings();
     },
 
     render: function() {
-        var thisLocation = this.props.location.pathname;
-
         return (
             <div className="header">
                 {this.props.params.listID ?

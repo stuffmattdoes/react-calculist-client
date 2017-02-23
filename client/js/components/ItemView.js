@@ -7,6 +7,9 @@ import Item from './Item';
 import ItemFilter from './ItemFilter';
 import ListItemAdd from './ListItemAdd';
 
+// Actions
+import ListActions from '../actions/ListActions';
+
 // Stores
 import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
@@ -14,11 +17,17 @@ import ListStore from '../stores/ListStore';
 const ItemView = React.createClass({
 
     getInitialState: function() {
+        // console.log(ItemStore.getAll());
+        // ListActions.setCurrentList(this.props.params.listID);
         return this.getStateFromStores();
     },
 
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
+    },
+
+    componentDidMount: function() {
+        // ListActions.setCurrentList(this.props.params.listID);
     },
 
     componentWillUnmount: function() {
@@ -27,7 +36,7 @@ const ItemView = React.createClass({
 
     getStateFromStores: function() {
         return {
-            itemsData: ItemStore.getAllForCurrentList(true),
+            items: ItemStore.getAllForCurrentList(true),
             itemsCount: ItemStore.getCurrentListItemCount(),
             currentFilter: ItemStore.getCurrentFilter()
         };
@@ -38,7 +47,7 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        var listItems = this.state.itemsData.map((listItem, index) => {
+        var listItems = this.state.items.map((listItem, index) => {
             return (
                 <Item
                     itemProps={listItem}
@@ -58,7 +67,7 @@ const ItemView = React.createClass({
                         condActions={"ItemActions"}
                     />
                 </div>
-                <Footer items={this.state.itemsData} />
+                <Footer items={this.state.items} />
             </div>            
         );
     }

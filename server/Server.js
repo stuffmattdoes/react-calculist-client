@@ -40,6 +40,11 @@ app.use((req, res, next) => {
 
 // Serve static files like CSS, HTML & JS
 app.use('/', express.static('public'));
+app.use('/lists', express.static('public'));
+app.use('/lists/*', express.static('public'));
+app.use('/lists/*/settings', express.static('public'));
+app.use('/login', express.static('public'));
+app.use('/register', express.static('public'));
 
 // Give our App access to our routes
 // Set URL for API group routes
@@ -51,9 +56,9 @@ app.use('/api', ListRoutes);
 
 // Route catch all
 // Allows static files to be served from URLs other than from '/'
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
+// });
 
 // 404 missing resource
 app.all( '*' , ( req, res, next ) => {
