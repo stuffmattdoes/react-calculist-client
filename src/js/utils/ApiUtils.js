@@ -5,14 +5,24 @@ import axios from 'axios';
 import ServerResponseActions from '../actions/ServerResponseActions';
 import AuthActions from '../actions/AuthActions';
 
-const DEV_ROOT = 'http://localhost:8001';
-const HEROKU_ROOT = 'https://calculist-api.herokuapp.com';
-const API_PREFIX = HEROKU_ROOT + '/api';
+// const API_ROOT
+const DEV_API = 'http://localhost:8001';
+const HEROKU_API = 'https://calculist-api.herokuapp.com';
+var BASE_URL = getEnvURL();
+const API_PREFIX = '/api';
 const API_VERSION = '/v1.0';
 const API_URLS = {
-    items: API_PREFIX + '/items',
-    lists: API_PREFIX + '/lists',
-    auth: API_PREFIX + '/auth'
+    items: BASE_URL + API_PREFIX + '/items',
+    lists: BASE_URL + API_PREFIX + '/lists',
+    auth: BASE_URL + API_PREFIX + '/auth'
+}
+
+function getEnvURL() {
+    if (window.location.hostname === 'localhost') {
+        return DEV_API;
+    } else if (window.location.hostname.indexOf('calculist.stuffmattdoes.com')) {
+        return HEROKU_API;
+    }
 }
 
 const WebAPIUtils = {
@@ -216,18 +226,16 @@ const WebAPIUtils = {
             }
         };
 
-        let data = {
-            jwt: localStorage.getItem('jwt'),
-            user: localStorage.getItem('user')
-        };
+        console.log(config);
 
         let p1 = new Promise((resolve, reject) => {
             axios.get(API_URLS.auth + '/refresh', config)
             .then(response => {
-                ServerResponseActions.receiveTokenRefreshSuccess(data);
+                ServerResponseActions.receiveTokenRefreshSuccess(response.data);
                 resolve();
             })
             .catch(error => {
+                console.log(error);
                 ServerResponseActions.receiveTokenRefreshError(error);
                 AuthActions.userLogout();
                 reject();
