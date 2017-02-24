@@ -22,16 +22,25 @@ html {
 #container {
     background-color: #353535;
     height: 100vh;
-    padding: 60px 0;
 }
 
 .app {
     position: relative;
     width: 100%;
-    max-width: 320px;
     height: 100%;
     overflow: hidden;
     margin: 0 auto;
     background-color: #F5F5F5;
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (min-width: $screen-md-min) {
+    #container {
+        padding: 60px 0;
+    }
+
+    .app {
+        max-width: 320px;
+    }
+
 }
