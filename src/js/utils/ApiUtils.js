@@ -226,8 +226,6 @@ const WebAPIUtils = {
             }
         };
 
-        console.log(config);
-
         let p1 = new Promise((resolve, reject) => {
             axios.get(API_URLS.auth + '/refresh', config)
             .then(response => {
