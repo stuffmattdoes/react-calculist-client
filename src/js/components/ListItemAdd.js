@@ -68,7 +68,7 @@ const ListAdd = React.createClass({
             if (this.props.condActions == "ListActions") {
                 ListActions.listCreate(
                     this.state.title,
-                    AuthStore.getUser()
+                    AuthStore.getUser()._id
                 );
 
             // Create a new item
