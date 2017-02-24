@@ -5,7 +5,8 @@ import axios from 'axios';
 import ServerResponseActions from '../actions/ServerResponseActions';
 import AuthActions from '../actions/AuthActions';
 
-const API_PREFIX = '/api';
+const API_ROOT = 'http://localhost:8000/';
+const API_PREFIX = 'http://localhost:8001/api';
 const API_VERSION = '/v1.0';
 const API_URLS = {
     items: API_PREFIX + '/items',

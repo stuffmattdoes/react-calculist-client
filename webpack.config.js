@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
-    context: __dirname + '/client/js',          // The directory of our main app file
+    context: __dirname + '/src/js',          // The directory of our main app file
     entry: './Index.js',                        // The main file for our app
     output: {
         path: __dirname + '/public/js',         // What directory should our compiled asset go?
@@ -36,7 +36,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('../css/main.css', {      // Write an actual .CSS file
+        new ExtractTextPlugin('./css/main.css', {      // Write an actual .CSS file
             allChunks: true
         })
     ]
