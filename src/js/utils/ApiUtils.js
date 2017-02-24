@@ -5,8 +5,9 @@ import axios from 'axios';
 import ServerResponseActions from '../actions/ServerResponseActions';
 import AuthActions from '../actions/AuthActions';
 
-const API_ROOT = 'http://localhost:8000/';
-const API_PREFIX = 'http://localhost:8001/api';
+const DEV_ROOT = 'http://localhost:8001';
+const HEROKU_ROOT = 'https://calculist-api.herokuapp.com';
+const API_PREFIX = HEROKU_ROOT + '/api';
 const API_VERSION = '/v1.0';
 const API_URLS = {
     items: API_PREFIX + '/items',
