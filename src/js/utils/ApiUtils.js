@@ -20,7 +20,7 @@ const API_URLS = {
 function getEnvURL() {
     if (window.location.hostname === 'localhost') {
         return DEV_API;
-    } else if (window.location.hostname.indexOf('calculist.stuffmattdoes.com')) {
+    } else if (window.location.hostname === 'calculist.stuffmattdoes.com') {
         return HEROKU_API;
     }
 }
