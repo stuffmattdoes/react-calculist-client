@@ -36,7 +36,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('./css/main.css', {      // Write an actual .CSS file
+        new ExtractTextPlugin('../css/main.css', {      // Write an actual .CSS file
             allChunks: true
         })
     ]
