@@ -53,7 +53,6 @@ const WebAPIUtils = {
             itemID: itemID,
             listID: listID
         }
-
         axios.post(API_URLS.items + '/'+ itemID, newItem, config)
         .then(response => {
             console.log(response);
@@ -69,7 +68,6 @@ const WebAPIUtils = {
                 'Authorization': localStorage.getItem('jwt')
             }
         }
-
         axios.delete(API_URLS.items + '/' + itemID, config)
         .then(response => {
            console.log(response);
@@ -85,7 +83,6 @@ const WebAPIUtils = {
                 'Authorization': localStorage.getItem('jwt')
             }
         };
-
         axios.get(API_URLS.items, config)
         .then(response => {
             ServerResponseActions.receiveAllItems(response.data);
@@ -105,7 +102,6 @@ const WebAPIUtils = {
             itemID: itemID,
             updates: updates
         }
-
         axios.put(API_URLS.items + '/' + itemID, updateItem, config)
         .then(response => {
             console.log(response);
@@ -131,7 +127,6 @@ const WebAPIUtils = {
             owner: listOwner,
             title: listTitle
         }
-
         axios.post(API_URLS.lists + '/' + listID, newList, config)
         .then(response => {
             console.log(response);
@@ -147,7 +142,6 @@ const WebAPIUtils = {
                 'Authorization': localStorage.getItem('jwt')
             }
         }
-
         axios.delete(API_URLS.lists + '/' + listID, config)
         .then(response => {
             console.log(response);
@@ -164,7 +158,6 @@ const WebAPIUtils = {
                 'Authorization': localStorage.getItem('jwt')
             }
         };
-
         axios.get(API_URLS.lists, config)
         .then(response => {
             ServerResponseActions.receiveAllLists(response.data);
@@ -184,7 +177,6 @@ const WebAPIUtils = {
         let updateList =  {
             updates: updates
         }
-
         axios.put(API_URLS.lists + '/' + listID, updateList, config)
         .then(response => {
             console.log(response);

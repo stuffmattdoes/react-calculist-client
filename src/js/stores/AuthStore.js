@@ -35,7 +35,11 @@ class AuthStore extends EventEmitter {
     }
 
     setUserInfo(data) {
-        this.setToken(data.jwt);
+        let jwt = data.jwt;
+        if (!jwt) {
+            jwt = localStorage.getItem('jwt');
+        }
+        this.setToken(jwt);
         this.setUser(data.user);
         _authErrors  = {};
         this.emit(CHANGE_EVENT);
