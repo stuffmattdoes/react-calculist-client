@@ -8,7 +8,7 @@ import ItemFilter from './ItemFilter';
 import ListItemAdd from './ListItemAdd';
 
 // Actions
-import ListActions from '../actions/ListActions';
+// import ListActions from '../actions/ListActions';
 
 // Stores
 import ItemStore from '../stores/ItemStore';

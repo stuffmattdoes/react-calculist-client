@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // Actions
 import AuthActions from '../actions/AuthActions';
@@ -46,7 +46,7 @@ const Login = React.createClass({
     },
 
     onUserAuthSuccess: function() {
-        browserHistory.push('/lists');
+        hashHistory.push('/lists');
     },
 
     componentWillMount: function() {

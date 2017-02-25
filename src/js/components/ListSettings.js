@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // Actions
 import ListActions from '../actions/ListActions';
@@ -25,7 +25,7 @@ const ListSettings = React.createClass({
     },
 
     onListDelete: function() {
-        browserHistory.push('/lists/');
+        hashHistory.push('/lists/');
         ListActions.resetListView();
         ListActions.listDelete(this.props.currentList.listID);
         this.props.toggleSettings();
@@ -59,7 +59,7 @@ const ListSettings = React.createClass({
     },
 
     toggleSettings: function() {
-        browserHistory.push('/lists/' + this.props.params.listID) + '/';
+        hashHistory.push('/lists/' + this.props.params.listID) + '/';
         this.props.toggleSettings();
     },
 

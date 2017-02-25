@@ -4,7 +4,7 @@ import React from 'react';
 import ItemActions from '../actions/ItemActions';
 
 // stores
-import ItemStore from '../stores/ItemStore';
+// import ItemStore from '../stores/ItemStore';
 
 const ItemFilter = React.createClass({
 
