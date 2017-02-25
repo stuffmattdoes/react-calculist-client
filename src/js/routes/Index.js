@@ -17,14 +17,14 @@ import AuthUtils from '../utils/AuthUtils';
 const Routes = (
     <Router history={browserHistory} >
         <Route path='/' component={App} >
-            <IndexRedirect to='/lists' />
-            <Route path='/lists' component={ListView} onEnter={ AuthUtils.requireAuth } />
-            <Route path='/lists/:listID' component={ItemView} onEnter={ AuthUtils.requireAuth } />
-            <Route path='/lists/:listID/settings' component={ListSettings} onEnter={ AuthUtils.requireAuth } />
+            <IndexRedirect to='/#/lists' />
+            <Route path='/#/lists' component={ListView} onEnter={ AuthUtils.requireAuth } />
+            <Route path='/#/lists/:listID' component={ItemView} onEnter={ AuthUtils.requireAuth } />
+            <Route path='/#/lists/:listID/settings' component={ListSettings} onEnter={ AuthUtils.requireAuth } />
         </Route>
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-        <Route path='*' component={NotFound} />
+        <Route path='/#/login' component={Login} />
+        <Route path='/#/register' component={Register} />
+        <Route path='/#/*' component={NotFound} />
     </Router>
 );
 

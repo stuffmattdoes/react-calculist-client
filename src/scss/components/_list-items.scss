@@ -91,8 +91,6 @@
         height: 35px;
         text-align: center;
         padding: 6px 12px;
-        opacity: 0;
-        visibility: hidden;
         cursor: pointer;
     }
 }
@@ -100,13 +98,6 @@
 .list-item {
     background-color: white;
     border-bottom: 1px solid #d7d7d7;
-
-    &:hover {
-        .list-item-options-button {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
 
     &.list-item-checked {
         background: none;
@@ -129,4 +120,21 @@
             border-bottom: 2px solid #43BFA4;
         }
     }
+}
+
+@media screen and (min-width: $screen-md-min) {
+    .list-item-options-button {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .list-item {
+        &:hover {
+            .list-item-options-button {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
 }
