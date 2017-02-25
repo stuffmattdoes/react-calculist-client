@@ -1,5 +1,5 @@
 import ApiUtils from "../utils/ApiUtils";
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import Dispatcher from "../dispatcher/Dispatcher";
 
 const AuthActions = {
@@ -19,7 +19,7 @@ const AuthActions = {
         Dispatcher.dispatch({
             type: 'CLEAR_CREDENTIALS'
         });
-        browserHistory.push('/login');
+        hashHistory.push('/login');
     },
 
     clearCredentials: function() {

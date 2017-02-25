@@ -1,5 +1,5 @@
 // Libraries
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // Actions
 import * as AuthActions from '../actions/AuthActions';
@@ -23,7 +23,7 @@ const AuthUtils = {
 
     requireAuth: function() {
         if (!AuthUtils.checkForToken()) {
-            browserHistory.push('/login');
+            hashHistory.push('/login');
             return false;
         }
         return true;

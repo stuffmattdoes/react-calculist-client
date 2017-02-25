@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // Stores
 import ListActions from '../actions/ListActions';
@@ -16,12 +16,12 @@ const Header = React.createClass({
     },
 
     backNav: function() {
-        browserHistory.push('/lists/');
+        hashHistory.push('/lists/');
         ListActions.resetListView();
     },
 
     toggleSettings: function() {
-        browserHistory.push(this.props.location.pathname + 'settings/');
+        hashHistory.push(this.props.location.pathname + 'settings/');
         this.props.toggleSettings();
     },
 

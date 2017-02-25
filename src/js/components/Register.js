@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react';
 import FormValidationUtils from '../utils/FormValidationUtils';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // Actions
 import AuthActions from '../actions/AuthActions';
@@ -54,7 +54,7 @@ const Register = React.createClass({
     },
 
     onUserAuthSuccess: function() {
-        browserHistory.push('/lists/');
+        hashHistory.push('/lists/');
     },
 
     componentWillMount: function() {
