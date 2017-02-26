@@ -40,6 +40,7 @@ const ListAdd = React.createClass({
 
     onInputKeyDown: function(e) {
         if (e.keyCode === ENTER_KEY_CODE) {
+            e.target.blur();
             this.onSubmit(e);
         }
     },

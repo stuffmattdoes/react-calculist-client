@@ -8,6 +8,8 @@ import ListActions from '../actions/ListActions';
 // Stores
 import ListStore from '../stores/ListStore';
 
+const ENTER_KEY_CODE = 13;
+
 const ListSettings = React.createClass({
 
     propTypes: {
@@ -42,6 +44,12 @@ const ListSettings = React.createClass({
         });
     },
 
+    onInputKeyDown: function(e) {
+        if (e.keyCode === ENTER_KEY_CODE) {
+            e.target.blur();
+        }
+    },
+
     onTitleSave: function(e) {
         const inputValue = e.target.value;
 
@@ -59,7 +67,7 @@ const ListSettings = React.createClass({
     },
 
     toggleSettings: function() {
-        hashHistory.push('/lists/' + this.props.params.listID) + '/';
+        hashHistory.push('/lists/' + this.props.params.listID + '/');
         this.props.toggleSettings();
     },
 
@@ -86,8 +94,9 @@ const ListSettings = React.createClass({
                             className="input-standard input-standard-large input-standard-light"
                             type="text"
                             value={this.state.title}
-                            onChange={this.onTitleChange}
                             onBlur={this.onTitleSave}
+                            onChange={this.onTitleChange}
+                            onKeyDown={this.onInputKeyDown}
                         />
                         <input
                             className="input-hidden"

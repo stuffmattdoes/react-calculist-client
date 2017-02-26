@@ -7,7 +7,7 @@ import ItemActions from '../actions/ItemActions';
 // Components
 import ItemSettings from './ItemSettings';
 
-var ENTER_KEY_CODE = 13;
+const ENTER_KEY_CODE = 13;
 
 const ListItem = React.createClass({
 
@@ -87,7 +87,7 @@ const ListItem = React.createClass({
 
     onInputKeyDown: function(e) {
         if (e.keyCode === ENTER_KEY_CODE) {
-            console.log("LOL");
+            e.target.blur();
         }
     },
 
@@ -130,7 +130,6 @@ const ListItem = React.createClass({
         var uniqueID = "checkbox-" + this.props.itemProps.itemID;
         var listItemClass = 'list-item';
         var checkboxClass = 'list-item-checkbox';
-        var itemPrice = 0;
 
         // List item state
         if (this.state.checked) {
@@ -158,6 +157,7 @@ const ListItem = React.createClass({
                         id={uniqueID}
                         type="checkbox"
                         onChange={this.onCheckedChange}
+                        onKeyDown={this.onInputKeyDown}
                         checked={this.state.checked}
                         value=""
                     />
@@ -165,16 +165,17 @@ const ListItem = React.createClass({
                         className="list-item-checkbox-label"
                         htmlFor={uniqueID}
                     >
-                        <span className={checkboxClass}></span>
+                        <span className={checkboxClass}>&nbsp;</span>
                     </label>
 
                     <input
                         className="list-item-title"
                         type="text"
                         value={this.state.title}
+                        onBlur={this.onTitleSave}
                         onChange={this.onTitleChange}
                         onClick={this.onInputClick}
-                        onBlur={this.onTitleSave}
+                        onKeyDown={this.onInputKeyDown}
                     />
 
                     {/* ------
@@ -188,9 +189,10 @@ const ListItem = React.createClass({
                         <input
                             className="list-item-input-number list-item-amount"
                             type="tel"
+                            onBlur={this.onAmountSave}
                             onChange={this.onAmountChanged}
                             onClick={this.onInputClick}
-                            onBlur={this.onAmountSave}
+                            onKeyDown={this.onInputKeyDown}
                             value={this.state.amount != 0 ? this.state.amount : ''}
                             disabled={this.props.itemProps.unitPricing.active}
                         />

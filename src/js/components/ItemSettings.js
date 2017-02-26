@@ -4,6 +4,8 @@ import React from 'react';
 // Actions
 import ItemActions from '../actions/ItemActions';
 
+const ENTER_KEY_CODE = 13;
+
 const ItemSettings = React.createClass({
 
     propTypes: {
@@ -18,6 +20,12 @@ const ItemSettings = React.createClass({
             unitPrice: this.props.itemProps.unitPricing.price,
             unitQuantity: this.props.itemProps.unitPricing.quantity,
         };
+    },
+
+    onInputKeyDown: function(e) {
+        if (e.keyCode === ENTER_KEY_CODE) {
+            e.target.blur();
+        }
     },
 
     onTaxChecked: function(e) {
@@ -125,7 +133,6 @@ const ItemSettings = React.createClass({
 
     onListItemDelete: function() {
         var itemID = this.props.itemProps.itemID;
-
         ItemActions.itemDelete(itemID);
         this.setState(this.state);
     },
@@ -146,6 +153,7 @@ const ItemSettings = React.createClass({
                             id={uniqueId3}
                             type="checkbox"
                             onChange={this.onUnitPricingChecked}
+                            onKeyDown={this.onInputKeyDown}
                             checked={this.state.unitPriceActive}
                             value=""
                         />
@@ -162,8 +170,9 @@ const ItemSettings = React.createClass({
                             <input
                                 className="list-item-input-number"
                                 type="text"
-                                onChange={this.onUnitPricingChanged}
                                 onBlur={this.onUnitPricingSaved}
+                                onChange={this.onUnitPricingChanged}
+                                onKeyDown={this.onInputKeyDown}
                                 value={this.state.unitPrice != 0 ? this.state.unitPrice : ''}
                                 placeholder="0.00"
                             />
@@ -177,8 +186,9 @@ const ItemSettings = React.createClass({
                             <input
                                 className="list-item-input-number"
                                 type="text"
-                                onChange={this.onUnitQuantityChanged}
                                 onBlur={this.onUnitQuantitySaved}
+                                onChange={this.onUnitQuantityChanged}
+                                onKeyDown={this.onInputKeyDown}
                                 value={this.state.unitQuantity != 0 ? this.state.unitQuantity : ''}
                                 placeholder="0"
                             />
@@ -193,6 +203,7 @@ const ItemSettings = React.createClass({
                             id={uniqueId2}
                             type="checkbox"
                             onChange={this.onTaxChecked}
+                            onKeyDown={this.onInputKeyDown}
                             checked={this.state.taxed}
                             value=""
                         />
