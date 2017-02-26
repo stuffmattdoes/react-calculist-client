@@ -72,7 +72,6 @@ const ListSettings = React.createClass({
     },
 
     render: function() {
-
         return (
             <div className="list-options">
                 <div className="list-options-header">
@@ -82,7 +81,7 @@ const ListSettings = React.createClass({
                     >
                         Back
                     </div>
-                    <form onSubmit={this.onSubmit} className="form-standard">
+                    <form className="form-standard" onSubmit={this.onSubmit} >
                         <label
                             htmlFor="list-title"
                             className="label-standard label-standard-light"

@@ -87,7 +87,8 @@ const ListItem = React.createClass({
 
     onInputKeyDown: function(e) {
         if (e.keyCode === ENTER_KEY_CODE) {
-            e.target.blur();
+            console.log(document.activeElement);
+            document.activeElement.blur();
         }
     },
 
@@ -149,7 +150,7 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <form className="list-item-container" onSubmit={this.onItemSubmit}>
+                <form className="list-item-container" onSubmit={this.onItemSubmit} >
                     {/* -----
                         Title
                         ----- */}
@@ -157,7 +158,6 @@ const ListItem = React.createClass({
                         id={uniqueID}
                         type="checkbox"
                         onChange={this.onCheckedChange}
-                        onKeyDown={this.onInputKeyDown}
                         checked={this.state.checked}
                         value=""
                     />
@@ -188,12 +188,12 @@ const ListItem = React.createClass({
                         <label className="currency-prefix">$</label>
                         <input
                             className="list-item-input-number list-item-amount"
-                            type="tel"
+                            type="number"
+                            value={this.state.amount != 0 ? this.state.amount : ''}
                             onBlur={this.onAmountSave}
                             onChange={this.onAmountChanged}
                             onClick={this.onInputClick}
                             onKeyDown={this.onInputKeyDown}
-                            value={this.state.amount != 0 ? this.state.amount : ''}
                             disabled={this.props.itemProps.unitPricing.active}
                         />
                         <div
