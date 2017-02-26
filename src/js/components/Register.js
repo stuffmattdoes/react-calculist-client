@@ -174,7 +174,7 @@ const Register = React.createClass({
                     </form>
                     <div className="login-alt">
                         <p>Already have an account?</p>
-                        <a href="/#/login">Sign in</a>
+                        <a href="/#/login/">Sign in</a>
                     </div>
                 </div>
             </div>

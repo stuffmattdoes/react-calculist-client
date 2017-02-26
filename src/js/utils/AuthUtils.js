@@ -23,7 +23,7 @@ const AuthUtils = {
 
     requireAuth: function() {
         if (!AuthUtils.checkForToken()) {
-            hashHistory.push('/login');
+            hashHistory.push('/login/');
             return false;
         }
         return true;
