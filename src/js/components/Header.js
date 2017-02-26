@@ -49,7 +49,7 @@ const Header = React.createClass({
                         className="header-options"
                         onClick={this.toggleSettings}
                     >
-                        <span className="icon-dots-vertical"></span>
+                        <span className="icon-dots-vertical">&nbsp;</span>
                     </a>
                 : null}
             </div>

@@ -19,8 +19,12 @@ const API_URLS = {
 
 function getEnvURL() {
     if (window.location.hostname === 'localhost') {
+        console.log('Dev environment API');
         return DEV_API;
     } else if (window.location.hostname === 'calculist.stuffmattdoes.com') {
+        return HEROKU_API;
+    } else if ('192.168.2'.indexOf(window.location.hostname)) {
+        console.log('Heroku environment API');
         return HEROKU_API;
     }
 }
@@ -202,6 +206,7 @@ const WebAPIUtils = {
     },
 
     userLogin: function(creds) {
+        console.log(creds);
         axios.post(API_URLS.auth + '/login', creds)
         .then(response => {
             ServerResponseActions.receiveUserLoginSuccess(response.data);

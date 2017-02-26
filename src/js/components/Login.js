@@ -46,7 +46,7 @@ const Login = React.createClass({
     },
 
     onUserAuthSuccess: function() {
-        hashHistory.push('/lists');
+        hashHistory.push('/lists/');
     },
 
     componentWillMount: function() {
