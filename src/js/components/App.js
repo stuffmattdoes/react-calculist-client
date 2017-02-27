@@ -91,13 +91,6 @@ const App = React.createClass({
     },
 
     render: function() {
-        // Don't wanna render no components if we ain't got all the lists and items
-        if (this.state.loading) {
-            return (
-                <div className="loader">Loading...</div>
-            );
-        };
-        
         // Send properties to children
         const childrenWithProps = React.Children.map(this.props.children, child => {
 
@@ -130,7 +123,7 @@ const App = React.createClass({
                         toggleSettings={this.toggleSettings}
                     />
                 : null}
-                {childrenWithProps}
+                {this.state.loading ? <div className="loader"></div> : childrenWithProps}
             </div>
         );
     }
