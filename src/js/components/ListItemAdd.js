@@ -8,7 +8,7 @@ import ItemActions from '../actions/ItemActions';
 import AuthStore from '../stores/AuthStore';
 import ListStore from '../stores/ListStore';
 
-var ENTER_KEY_CODE = 13;
+const ENTER_KEY_CODE = 13;
 
 const ListAdd = React.createClass({
 
@@ -17,15 +17,23 @@ const ListAdd = React.createClass({
     },
 
     getInitialState: function() {
-        // console.log(this.props.condActions);
+        let addText = '';
+
+        if (this.props.condActions == 'ListActions') {
+            addText = 'Add New List'
+        } else if (this.props.condActions == 'ItemActions') {
+            addText = 'Add New Item';
+        }
+
         return {
-            title: "",
-            isEditing: false
+            title: '',
+            isEditing: false,
+            addText: addText
         }
     },
 
     onInputBlur: function() {
-        if (this.state.title.trim() == "") {
+        if (this.state.title.trim() == '') {
             this.onReset();
         }
     },
@@ -56,24 +64,24 @@ const ListAdd = React.createClass({
             e.preventDefault();
         }
         this.setState({
-            title: "",
+            title: '',
             isEditing: false
         });
     },
 
     onSubmit: function(e) {
         e.preventDefault();
-        if (this.state.title.trim() != "") {
+        if (this.state.title.trim() != '') {
 
             // Create a new list
-            if (this.props.condActions == "ListActions") {
+            if (this.props.condActions == 'ListActions') {
                 ListActions.listCreate(
                     this.state.title,
                     AuthStore.getUser()._id
                 );
 
             // Create a new item
-            } else if (this.props.condActions == "ItemActions") {
+            } else if (this.props.condActions == 'ItemActions') {
                 ItemActions.itemCreate(
                     this.state.title,
                     ListStore.getCurrentListID()
@@ -85,7 +93,8 @@ const ListAdd = React.createClass({
     },
 
     render: function() {
-        var formClass = "list-item-add-form";
+        let formClass = 'list-item-add-form';
+        let addText = 'Add New Item';
         if (this.state.isEditing) {
             formClass += ' list-item-add-form-active';
         }
@@ -108,14 +117,14 @@ const ListAdd = React.createClass({
                         className="list-item-title"
                         type="text"
                         value={this.state.title}
-                        placeholder="Add Item"
+                        placeholder={this.state.addText}
                         onChange={this.onInputChange}
                         onFocus={this.onInputFocus}
                         onKeyDown={this.onInputKeyDown}
                         onBlur={this.onInputBlur}
                     />
                     {this.state.isEditing
-                    && this.state.title.trim() != "" ?
+                    && this.state.title.trim() != '' ?
                     <div
                         className="button-circle button-confirm"
                         onClick={this.onSubmit}
