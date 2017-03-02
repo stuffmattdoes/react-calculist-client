@@ -109,7 +109,9 @@ const ListAdd = React.createClass({
                     <label
                         htmlFor="list-item-add-input"
                         onClick={this.onReset}
-                    ><span className="icon-plus">&nbsp;</span></label>
+                    >
+                        <svg className="icon icon-add"><use href="./svg/svg-defs.svg#icon-add"></use></svg>
+                    </label>
                     <input
                         id="list-item-add-input"
                         type="text"

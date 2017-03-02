@@ -5,7 +5,7 @@
 .header {
     position: relative;
     padding: 15px 30px;
-    background-color: #A588BF;
+    background-color: $purple;
     color: white;
     text-align: center;
 
@@ -36,7 +36,7 @@
 
     .icon-menu,
     .icon-arrow_back,
-    .more_vert {
+    .icon-more_vert {
         fill: white;
         height: 24px;
         width: 24px;

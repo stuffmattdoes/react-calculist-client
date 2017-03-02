@@ -52,7 +52,7 @@ const Header = React.createClass({
                         className="header-right-button"
                         onClick={this.toggleSettings}
                     >
-                        <svg className="icon icon-menu"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
+                        <svg className="icon icon-more_vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
                     </a>
                 : null}
             </div>

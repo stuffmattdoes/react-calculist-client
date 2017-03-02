@@ -100,8 +100,8 @@ const ItemSettings = React.createClass({
     },
 
     getTaxPricing: function() {
-        var taxRate = 6.5;
-        var amountTaxed = this.props.itemProps.amount;
+        let taxRate = 6.5;
+        let amountTaxed = this.props.itemProps.amount;
 
         if (this.props.itemProps.tax.active) {
             taxRate = (taxRate / 100) + 1;
@@ -113,7 +113,7 @@ const ItemSettings = React.createClass({
     },
 
     getUnitPricing: function() {
-        var calcUnitPrice = this.state.unitPrice * this.state.unitQuantity;
+        let calcUnitPrice = this.state.unitPrice * this.state.unitQuantity;
 
         if (!this.props.itemProps.unitPricing.active
             || this.state.unitPrice == 0
@@ -132,15 +132,18 @@ const ItemSettings = React.createClass({
     },
 
     onListItemDelete: function() {
-        var itemID = this.props.itemProps.itemID;
+        let itemID = this.props.itemProps.itemID;
         ItemActions.itemDelete(itemID);
         this.setState(this.state);
     },
 
     render: function() {
-        var uniqueId2 = "checkbox-" + this.props.itemProps.itemID + "-2";
-        var uniqueId3 = "checkbox-" + this.props.itemProps.itemID + "-3";
-        var checkboxClass = 'list-item-checkbox';
+        let uniqueId2 = 'checkbox-' + this.props.itemProps.itemID + '-2';
+        let uniqueId3 = 'checkbox-' + this.props.itemProps.itemID + '-';
+        let unitPricingToggleClass = 'toggle';
+        let taxToggleClass = 'toggle';
+        this.state.unitPriceActive ? unitPricingToggleClass += ' active' : '';
+        this.state.taxed ? taxToggleClass+= ' active' : '';
 
         return (
             <div className="list-item-options">
@@ -157,7 +160,12 @@ const ItemSettings = React.createClass({
                             checked={this.state.unitPriceActive}
                             value=""
                         />
-                        <label className="list-item-checkbox-label" htmlFor={uniqueId3}><span className={checkboxClass}></span></label>
+                        <label className="list-item-checkbox-label" htmlFor={uniqueId3}>
+                            <div className={unitPricingToggleClass}>
+                                <div className="toggle__base"></div>
+                                <div className="toggle__slider"></div>
+                            </div>
+                        </label>
                         <p>Unit pricing</p>
                     </div>
 
@@ -207,7 +215,12 @@ const ItemSettings = React.createClass({
                             checked={this.state.taxed}
                             value=""
                         />
-                        <label className="list-item-checkbox-label" htmlFor={uniqueId2}><span className={checkboxClass}></span></label>
+                        <label className="list-item-checkbox-label" htmlFor={uniqueId2}>
+                            <div className={taxToggleClass}>
+                                <div className="toggle__base"></div>
+                                <div className="toggle__slider"></div>
+                            </div>
+                        </label>
                         <p>This item is taxed</p>
                     </div>
 

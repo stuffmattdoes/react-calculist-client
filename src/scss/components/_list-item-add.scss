@@ -13,31 +13,23 @@
         font-size: 14px;
         padding: 5px 5px 5px 0;
         margin: 5px 0;
-        width: 33%;
+        width: 75%;
         outline: none;
         border: none;
         background: none;
     }
 
-    .icon-plus {
-        top: 2px;
+    .icon-add {
+        width: 24px;
+        height: 24px;
+        fill: $green;
         transition: 0.2s;
-
-        &:before,
-        &:after {
-            transition: 0.2s;
-            background-color: $green;
-        }
     }
 
     .list-item-add-form-active {
-        .icon-plus {
+        .icon-add {
             transform: rotate(45deg);
-
-            &:before,
-            &:after {
-                background-color: #bbb;
-            }
+            fill: #bbb;
         }
     }
 

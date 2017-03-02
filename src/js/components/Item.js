@@ -96,7 +96,7 @@ const ListItem = React.createClass({
         e.preventDefault();
     },
 
-    onOptionsExpand: function() {
+    optionsToggle: function() {
         this.state.settingsOpen = !this.state.settingsOpen;
         this.setState(this.state);
     },
@@ -165,7 +165,11 @@ const ListItem = React.createClass({
                         className="list-item-checkbox-label"
                         htmlFor={uniqueID}
                     >
-                        <span className={checkboxClass}>&nbsp;</span>
+                        {this.state.checked ?
+                            <svg className="icon icon-done"><use href="./svg/svg-defs.svg#icon-done"></use></svg>
+                            :
+                            <span className={checkboxClass}>&nbsp;</span>
+                        }
                     </label>
 
                     <input
@@ -182,9 +186,12 @@ const ListItem = React.createClass({
                         Amount
                         ------ */}
                     <div className="input-group">
+                        {this.props.itemProps.unitPricing.active ?
+                            <svg className="icon icon-functions"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
+                            : null}
                         {this.props.itemProps.tax.active ?
-                            <span>*</span>
-                        : null}
+                            <svg className="icon icon-tag"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
+                            : null}
                         <input
                             className="list-item-input-number list-item-amount"
                             type="number"
@@ -197,9 +204,13 @@ const ListItem = React.createClass({
                         />
                         <div
                             className="list-item-options-button"
-                            onClick={this.onOptionsExpand}
+                            onClick={this.optionsToggle}
                         >
-                            <div className="icon-dots-vertical"></div>
+                            {this.state.settingsOpen ?
+                                <svg className="icon icon-keyboard_arrow_up"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_up"></use></svg>
+                                :
+                                <svg className="icon icon-keyboard_arrow_down"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
+                            }
                         </div>
                         <input
                             className="input-hidden"
