@@ -23,4 +23,4 @@ Run the following commands in terminal/console in order to develop locally:
 2. Dev away!
 
 ## Deployment ##
-You shouldn't be deploying my code!
+You shouldn't be deploying my code! But if you must know, I host the this client-side portion of the app on my own Digital Ocean droplet at [calculist.stuffmattdoes.com](https://calculist.stuffmattdoes.com)
