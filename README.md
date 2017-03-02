@@ -24,3 +24,6 @@ Run the following commands in terminal/console in order to develop locally:
 
 ## Deployment ##
 You shouldn't be deploying my code! But if you must know, I host the this client-side portion of the app on my own Digital Ocean droplet at [calculist.stuffmattdoes.com](https://calculist.stuffmattdoes.com). Head over there to register and shop on a budget!
+
+## Roadmap ##
+This app is in active development. To see a list of planned features, check out my [Calculist Trello board](https://trello.com/b/ZQUkXrIX/calculist).
