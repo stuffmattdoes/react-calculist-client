@@ -40,7 +40,7 @@ const Header = React.createClass({
                     <a
                         className="header-left-button"
                     >
-                        Menu
+                        <span className="icon-bars"></span>
                     </a>
                 }
                 <h1 className="header-title">{this.props.title}</h1>

@@ -16,10 +16,10 @@
 
     .header-left-button {
         position: absolute;
-        left: 15px;
-        top: 18px;
+        left: 0;
+        top: 0;
         cursor: pointer;
-        font-size: 12px;
+        padding: 16px;
     }
     .header-title {
         display: inline-block;
@@ -35,7 +35,7 @@
 
     .header-options {
         position: absolute;
-        width: 40px;
+        width: 60px;
         height: 100%;
         top: 0;
         right: 0;

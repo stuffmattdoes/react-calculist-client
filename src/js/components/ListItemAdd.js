@@ -108,7 +108,7 @@ const ListAdd = React.createClass({
                             className="button-circle button-cancel"
                         ><span>+</span></div>
                         <label
-                            className="button-circle button-add"
+                            className="icon-plus"
                             htmlFor="list-item-add-input"
                         ><span>+</span></label>
                     </div>
