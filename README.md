@@ -1,4 +1,4 @@
-# react-calculist-client
+# Calculist (client-side) #
 A list + calculator app made for my wife &amp; I to help grocery shop. I am currently responsible for all design & development efforts.
 
 ![alt tag](Mockup.png)
@@ -19,7 +19,7 @@ Run the following commands in terminal/console in order to get setup locally:
 ## Development ##
 Run the following commands in terminal/console in order to develop locally:
 
-1. `npm start` to start up webpack-dev-server, which will serve as out static file server here.
+1. `npm start` to start up webpack-dev-server, which will serve as our local static file server.
 2. Dev away!
 
 ## Deployment ##
