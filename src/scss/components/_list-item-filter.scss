@@ -14,11 +14,11 @@
             display: inline-block;
             cursor: pointer;
             font-size: 12px;
-            border-radius: 2px;
 
             &.active {
+                font-weight: bold;
                 color: #353535;
-                border-bottom: 2px solid #43BFA4;
+                border-bottom: 3px solid $green;
             }
         }
     }

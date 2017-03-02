@@ -14,13 +14,11 @@
     overflow-x: scroll;
 }
 
-.list-item,
-.list-item-add {
+.list-item {
     font-size: 14px;
 
     input {
         display: inline-block;
-        font-size: 14px;
         padding: 5px;
         margin: 5px 0;
         width: 33%;
@@ -92,6 +90,15 @@
         text-align: center;
         padding: 6px 12px;
         cursor: pointer;
+
+        .icon-dots-vertical {
+            background-color: #bbb;
+
+            &:before,
+            &:after {
+                background-color: #bbb;
+            }
+        }
     }
 }
 

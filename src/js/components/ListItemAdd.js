@@ -63,6 +63,11 @@ const ListAdd = React.createClass({
         if (e) {
             e.preventDefault();
         }
+
+        if (!this.state.isEditing) {
+            return;
+        }
+
         this.setState({
             title: '',
             isEditing: false
@@ -94,7 +99,6 @@ const ListAdd = React.createClass({
 
     render: function() {
         let formClass = 'list-item-add-form';
-        let addText = 'Add New Item';
         if (this.state.isEditing) {
             formClass += ' list-item-add-form-active';
         }
@@ -102,19 +106,12 @@ const ListAdd = React.createClass({
         return (
             <div className="list-item-add">
                 <form className={formClass} onSubmit={this.onSubmit} >
-                    <div className="input-group-buttons">
-                        <div
-                            onClick={this.onReset}
-                            className="button-circle button-cancel"
-                        ><span>+</span></div>
-                        <label
-                            className="icon-plus"
-                            htmlFor="list-item-add-input"
-                        ><span>+</span></label>
-                    </div>
+                    <label
+                        htmlFor="list-item-add-input"
+                        onClick={this.onReset}
+                    ><span className="icon-plus">&nbsp;</span></label>
                     <input
                         id="list-item-add-input"
-                        className="list-item-title"
                         type="text"
                         value={this.state.title}
                         placeholder={this.state.addText}
@@ -123,15 +120,6 @@ const ListAdd = React.createClass({
                         onKeyDown={this.onInputKeyDown}
                         onBlur={this.onInputBlur}
                     />
-                    {this.state.isEditing
-                    && this.state.title.trim() != '' ?
-                    <div
-                        className="button-circle button-confirm"
-                        onClick={this.onSubmit}
-                    >
-                        <span>&#10004;</span>
-                    </div>
-                    : null}
                     <input
                         className="input-hidden"
                         type="submit"

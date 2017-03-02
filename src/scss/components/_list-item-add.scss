@@ -1,34 +1,43 @@
 .list-item-add {
-
     .list-item-add-form {
         display: flex;
     }
 
-    .input-group-buttons {
-        display: block;
-        width: 35px;
-        height: 35px;
-    }
-
-    .button-cancel {
-        display: none;
+    label {
+        display: inline-block;
+        padding: 16px 20px;
     }
 
     input {
+        display: inline-block;
+        font-size: 14px;
+        padding: 5px 5px 5px 0;
+        margin: 5px 0;
+        width: 33%;
+        outline: none;
+        border: none;
+        background: none;
+    }
 
-        &.list-item-title {
-            width: 100%;
-            padding: 12px 8px;
+    .icon-plus {
+        top: 2px;
+        transition: 0.2s;
+
+        &:before,
+        &:after {
+            transition: 0.2s;
+            background-color: $green;
         }
     }
 
     .list-item-add-form-active {
-        .button-add {
-            display: none;
-        }
+        .icon-plus {
+            transform: rotate(45deg);
 
-        .button-cancel {
-            display: block;
+            &:before,
+            &:after {
+                background-color: #bbb;
+            }
         }
     }
 

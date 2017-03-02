@@ -5,7 +5,7 @@
     display: inline-block;
     width: 22px;
     height: 2px;
-    background-color: white;
+    background-color: black;
 
     &:before,
     &:after {
@@ -14,7 +14,7 @@
         position: absolute;
         width: 100%;
         height: 2px;
-        background-color: white;
+        background-color: black;
     }
 
     &:before {
@@ -26,13 +26,42 @@
     }
 }
 
+.icon-plus {
+    position: relative;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+
+    &:before,
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        background-color: black;
+    }
+
+    &:before {
+        width: 100%;
+        height: 2px;
+        top: 6px;
+        left: 0;
+    }
+
+    &:after {
+        width: 2px;
+        height: 100%;
+        top: 0;
+        left: 6px;
+    }
+}
+
 .icon-dots-vertical {
     position: relative;
     display: inline-block;
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background-color: #bbb;
+    background-color: black;
 
     &:before,
     &:after {
@@ -42,7 +71,7 @@
         width: 3px;
         height: 3px;
         border-radius: 50%;
-        background-color: #bbb;
+        background-color: black;
     }
 
     &:before {

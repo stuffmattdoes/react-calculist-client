@@ -21,6 +21,16 @@
         cursor: pointer;
         padding: 16px;
     }
+
+    .icon-bars {
+        background-color: white;
+
+        &:before,
+        &:after {
+            background-color: white;
+        }
+    }
+
     .header-title {
         display: inline-block;
         position: relative;
