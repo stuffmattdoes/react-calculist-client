@@ -16,17 +16,41 @@
 
 .list-item {
     font-size: 14px;
+    background-color: white;
+    border-bottom: 1px solid #E6E6E6;
+
+    &.list-item-checked {
+        background: none;
+        color: #898989;
+
+        .list-item-title {
+            font-style: italic;
+            text-decoration: line-through;
+        }
+
+        .list-item-input-number {
+            background: #eaeaea;
+        }
+    }
+
+    &.list-item-editing {
+        border-bottom: none;
+
+        .list-item-container {
+            border-bottom: 2px solid #43BFA4;
+        }
+    }
 
     input {
         display: inline-block;
         padding: 5px;
         margin: 5px 0;
-        width: 33%;
+        //width: 33%;
         outline: none;
         border: none;
         background: none;
     }
-    
+
     .input-group {
         position: relative;
         display: flex;
@@ -39,8 +63,8 @@
 
     .list-item-checkbox-label {
         display: inline-block;
-        width: 45px;
-        padding: 10px;
+        width: 55px;
+        padding: 15px 15px 15px 20px;
     }
 
     input[type="checkbox"]:checked + .list-item-checkbox-label span {
@@ -68,16 +92,9 @@
         width: 100%;
     }
 
-    .currency-prefix {
-        color: #bbb;
-        position: absolute;
-        right: 95px;
-        z-index: 100;
-    }
-
     .list-item-input-number {
         text-align: right;
-        width: 75px;
+        width: 60px;
         background-color: #F5F5F5;
         border-radius: 2px;
         margin-left: 4px;
@@ -98,33 +115,6 @@
             &:after {
                 background-color: #bbb;
             }
-        }
-    }
-}
-
-.list-item {
-    background-color: white;
-    border-bottom: 1px solid #E6E6E6;
-
-    &.list-item-checked {
-        background: none;
-        color: #898989;
-
-        .list-item-title {
-            font-style: italic;
-            text-decoration: line-through;
-        }
-
-        .list-item-input-number {
-            background: #eaeaea;
-        }
-    }
-
-    &.list-item-editing {
-        border-bottom: none;
-
-        .list-item-container {
-            border-bottom: 2px solid #43BFA4;
         }
     }
 }

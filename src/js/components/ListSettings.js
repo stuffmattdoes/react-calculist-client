@@ -76,10 +76,10 @@ const ListSettings = React.createClass({
             <div className="list-options">
                 <div className="list-options-header">
                     <div
-                        className="header-back"
+                        className="header-left-button"
                         onClick={this.toggleSettings}
                     >
-                        Back
+                        <svg className="icon icon-arrow_back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
                     </div>
                     <form className="form-standard" onSubmit={this.onSubmit} >
                         <label

@@ -8,12 +8,18 @@
         color: white;
     }
 
-    .header-back {
+    .header-left-button {
         position: absolute;
-        left: 15px;
-        top: 18px;
+        left: 0;
+        top: 0;
+        padding: 12px;
         cursor: pointer;
-        font-size: 12px;
+    }
+
+    .icon-arrow_back {
+        fill: white;
+        height: 24px;
+        width: 24px;
     }
 
     // Container

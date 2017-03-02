@@ -19,16 +19,27 @@
         left: 0;
         top: 0;
         cursor: pointer;
-        padding: 16px;
+        padding: 12px;
+        height: 100%;
     }
 
-    .icon-bars {
-        background-color: white;
+    .header-right-button {
+        position: absolute;
+        width: 60px;
+        height: 100%;
+        top: 0;
+        right: 0;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+    }
 
-        &:before,
-        &:after {
-            background-color: white;
-        }
+    .icon-menu,
+    .icon-arrow_back,
+    .more_vert {
+        fill: white;
+        height: 24px;
+        width: 24px;
     }
 
     .header-title {
@@ -41,26 +52,6 @@
         right: -30px;
         padding: 10px;
         top: -10px;
-    }
-
-    .header-options {
-        position: absolute;
-        width: 60px;
-        height: 100%;
-        top: 0;
-        right: 0;
-        padding: 12px;
-        text-align: center;
-        cursor: pointer;
-    }
-
-    .icon-dots-vertical {
-        background-color: white;
-
-        &:before,
-        &:after {
-            background-color: white;
-        }
     }
 
 }

@@ -185,7 +185,6 @@ const ListItem = React.createClass({
                         {this.props.itemProps.tax.active ?
                             <span>*</span>
                         : null}
-                        <label className="currency-prefix">$</label>
                         <input
                             className="list-item-input-number list-item-amount"
                             type="number"

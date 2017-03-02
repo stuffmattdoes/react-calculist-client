@@ -15,12 +15,14 @@ const Header = React.createClass({
         toggleSettings: React.PropTypes.func.isRequired
     },
 
-    backNav: function() {
+    backNav: function(e) {
+        e.preventDefault();
         hashHistory.push('/lists/');
         ListActions.resetListView();
     },
 
-    toggleSettings: function() {
+    toggleSettings: function(e) {
+        e.preventDefault();
         hashHistory.push(this.props.location.pathname + 'settings/');
         this.props.toggleSettings();
     },
@@ -30,26 +32,27 @@ const Header = React.createClass({
             <div className="header">
                 {this.props.params.listID ?
                     <a
-                        href="/settings"
+                        href="#"
                         className="header-left-button"
                         onClick={this.backNav}
                     >
-                        Back
+                        <svg className="icon icon-arrow_back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
                     </a>
                 :
                     <a
                         className="header-left-button"
                     >
-                        <span className="icon-bars"></span>
+                        <svg className="icon icon-menu"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
                     </a>
                 }
                 <h1 className="header-title">{this.props.title}</h1>
                 {this.props.params.listID ?
                     <a
-                        className="header-options"
+                        href="#"
+                        className="header-right-button"
                         onClick={this.toggleSettings}
                     >
-                        <span className="icon-dots-vertical">&nbsp;</span>
+                        <svg className="icon icon-menu"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
                     </a>
                 : null}
             </div>
