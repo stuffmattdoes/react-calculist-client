@@ -124,19 +124,19 @@ const Register = React.createClass({
             <div className="app">
                 <div className="login-view">
                     <h1>Register</h1>
-                    <form className="form-standard"  onSubmit={this.formValidate} >
+                    <form className="form"  onSubmit={this.formValidate} >
                         {inputFieldGroups.map((inputField) => {
                             let fieldError = this.state.validation[inputField.name];
-                            let inputGroupClass = 'input-group';
+                            let inputGroupClass = 'form__group';
                             
                             if (typeof fieldError === 'string') {
-                                inputGroupClass += ' input-error';
+                                inputGroupClass += ' form__group--error';
                             }
 
                             return(
                                 <div className={inputGroupClass} key={inputField.name} >
                                     <label
-                                        className="label-standard"
+                                        className="form__label"
                                         htmlFor={inputField.name}
                                     >
                                         {inputField.label}
@@ -144,13 +144,13 @@ const Register = React.createClass({
                                     </label>
                                     <input
                                         id={inputField.name}
-                                        className="input-standard"
+                                        className="form__input"
                                         name={inputField.name}
                                         type={inputField.type}
                                     />
                                     {fieldError ?
                                     <label
-                                        className="label-error"
+                                        className="form__label--error"
                                         htmlFor={inputField.name}
                                         >
                                         {fieldError}
@@ -160,21 +160,21 @@ const Register = React.createClass({
                             );
 
                         })}
-                        <p className="label-small">* required fields</p>
+                        <p className="form__label--small">* required fields</p>
                         <input
-                            className="button-full button-main"
-                            type="submit"
+                            className="button button--main"
+                            type='submit'
                             value={this.state.formSubmitted ?
-                                "Loading...": "Submit"
+                                'Loading...': 'Submit'
                             }
                             disabled={this.state.formSubmitted ?
-                                "disabled": ""
+                                'disabled': ''
                             }
                         />
                     </form>
-                    <div className="login-alt">
+                    <div className='login__alt-link'>
                         <p>Already have an account?</p>
-                        <a href="/#/login/">Sign in</a>
+                        <a href='/#/login/'>Sign in</a>
                     </div>
                 </div>
             </div>

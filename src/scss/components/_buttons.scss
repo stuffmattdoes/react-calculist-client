@@ -3,25 +3,38 @@
 // -----------------------------------------------------------------------------
 
 .button {
-    display: inline-block;
-    width: auto;
-    padding: 5px 10px;
+    display: block;
+    width: 100%;
+    font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
+    border: none;
+    padding: 14px;
+    margin: 20px 0;
+    outline: none;
+    color: white;
+}
+
+.button--main {
+    background-color: $purple;
+    transition: 0.2s;
+ }
+
+.button--disabled {
+    opacity: 0.4;
 }
 
 .button--warning {
     background-color: $red;
-    color: white;
 }
 
 .button--success {
     background-color: green;
-    color: white;
 }
 
 .button--text {
+    background-color: grey;
     background-color: transparent;
 }
 
