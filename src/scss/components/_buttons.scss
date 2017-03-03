@@ -6,58 +6,25 @@
     display: inline-block;
     width: auto;
     padding: 5px 10px;
-}
-
-.button-full {
-    display: block;
-    padding: 10px;
-    text-align: center;
-}
-
-.button-main {
-    background-color: #A588BF;
-    color: white;
-    text-transform: uppercase;
     font-weight: bold;
-    border: none;
-    outline: none;
-}
-
-.button-outline {
-    cursor: pointer;
-    background: none;
-    border: 1px solid #EB5365;
-    border-radius: 15px;
-    color: #EB5365;
-    font-size: 12px;
-}
-
-.button-circle {
-    display: block;
-    padding: 15px 12px;
+    text-transform: uppercase;
     cursor: pointer;
 
-    span {
-        display: block;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        color: #F5F5F5;
-        padding: 1px 6px;
+    &.button--red {
+        background-color: $red;
+        color: white;
     }
 
-    &.button-add,
-    &.button-confirm {
-        span {
-            background-color: #43BFA4;
+    &.button--green{
+        background-color: green;
+        color: white;
+    }
+
+    &.button--text {
+        background-color: transparent;
+
+        &.button--red {
+            color: $red;
         }
     }
-
-    &.button-cancel {
-        span {
-            background-color: #EB5365;
-            transform: rotate(45deg);
-        }
-    }
-
 }
