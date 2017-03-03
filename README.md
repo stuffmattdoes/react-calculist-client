@@ -10,6 +10,9 @@ Your development environment needs the following software installed:
 * [Node.js & NPM](https://nodejs.org/en/)
 * [Webpack](https://webpack.github.io/)
 
+## The Tech Stack ##
+
+
 ## Setup ##
 Run the following commands in terminal/console in order to get setup locally:
 
