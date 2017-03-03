@@ -1,0 +1,25 @@
+.filter {
+    width: 100%;
+
+    .filter__list {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        border-bottom: 1px solid #d7d7d7;
+    }
+
+    .filter__option {
+        color: #757575;
+        padding: 14px 10px;
+        list-style: none;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 12px;
+
+        &.active {
+            font-weight: bold;
+            color: #353535;
+            border-bottom: 3px solid $green;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import React from 'react';
 // Components
 import Footer from './Footer';
 import Item from './Item';
-import ItemFilter from './ItemFilter';
+import Filter from './Filter';
 import ListItemAdd from './ListItemAdd';
 
 // Actions
@@ -59,7 +59,7 @@ const ItemView = React.createClass({
         return (
             <div className="item-view">
                 <div className="list-item-scroll">
-                    <ItemFilter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
+                    <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
                     <div className="list-container">
                         {listItems.length > 0 ? listItems : null}
                     </div>

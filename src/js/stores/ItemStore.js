@@ -39,17 +39,17 @@ class ItemStore extends EventEmitter {
         _items.forEach((value, index) => {
             if (listID == value.listID) {
                 switch (_filter) {
-                    case "SHOW_ALL" : {
+                    case 'SHOW_ALL' : {
                         listItems.push(value);
                         break;
                     }
-                    case "SHOW_UNCHECKED" : {
+                    case 'SHOW_INCOMPLETE' : {
                         if (!value.checked) {
                             listItems.push(value);
                         }
                         break;
                     }
-                    case "SHOW_CHECKED" : {
+                    case 'SHOW_COMPLETE' : {
                         if (value.checked) {
                             listItems.push(value);
                         }
