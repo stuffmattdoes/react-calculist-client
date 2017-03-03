@@ -14,7 +14,7 @@
         text-decoration: none;
     }
 
-    .header-left-button {
+    .header__left-button {
         position: absolute;
         left: 0;
         top: 0;
@@ -23,7 +23,7 @@
         height: 100%;
     }
 
-    .header-right-button {
+    .header__right-button {
         position: absolute;
         width: 60px;
         height: 100%;
@@ -34,24 +34,17 @@
         cursor: pointer;
     }
 
-    .icon-menu,
-    .icon-arrow_back,
-    .icon-more_vert {
+    .icon__menu,
+    .icon__arrow-back,
+    .icon__more-vert {
         fill: white;
         height: 24px;
         width: 24px;
     }
 
-    .header-title {
+    .header__title {
         display: inline-block;
         position: relative;
-    }
-
-    .title-edit {
-        position: absolute;
-        right: -30px;
-        padding: 10px;
-        top: -10px;
     }
 
 }

@@ -33,26 +33,26 @@ const Header = React.createClass({
                 {this.props.params.listID ?
                     <a
                         href="#"
-                        className="header-left-button"
+                        className="header__left-button"
                         onClick={this.backNav}
                     >
-                        <svg className="icon icon-arrow_back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
+                        <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
                     </a>
                 :
                     <a
-                        className="header-left-button"
+                        className="header__left-button"
                     >
-                        <svg className="icon icon-menu"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
+                        <svg className="icon icon__menu"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
                     </a>
                 }
-                <h1 className="header-title">{this.props.title}</h1>
+                <h1 className="header__title">{this.props.title}</h1>
                 {this.props.params.listID ?
                     <a
                         href="#"
-                        className="header-right-button"
+                        className="header__right-button"
                         onClick={this.toggleSettings}
                     >
-                        <svg className="icon icon-more_vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
+                        <svg className="icon icon__more-vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
                     </a>
                 : null}
             </div>
