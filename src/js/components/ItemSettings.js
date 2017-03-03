@@ -241,12 +241,12 @@ const ItemSettings = React.createClass({
                     : null}
 
                     <div className="list-item-delete">
-                        <span
-                            className="list-item-delete-button button button--text button--red"
+                        <div
+                            className="button button--text button--text-red"
                             onClick={this.onListItemDelete}
                         >
                             Delete
-                        </span>
+                        </div>
                     </div>
                 </form>
             </div>

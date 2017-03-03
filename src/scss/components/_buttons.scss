@@ -9,22 +9,28 @@
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
+}
 
-    &.button--red {
-        background-color: $red;
-        color: white;
-    }
+.button--warning {
+    background-color: $red;
+    color: white;
+}
 
-    &.button--green{
-        background-color: green;
-        color: white;
-    }
+.button--success {
+    background-color: green;
+    color: white;
+}
 
-    &.button--text {
-        background-color: transparent;
+.button--text {
+    background-color: transparent;
+}
 
-        &.button--red {
-            color: $red;
-        }
-    }
+.button--text-warn {
+    background-color: transparent;
+    color: $red;
+}
+
+.button--text-success {
+    background-color: transparent;
+    color: $red;
 }
