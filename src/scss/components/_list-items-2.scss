@@ -16,19 +16,19 @@
     //border-bottom: 1px solid #E6E6E6;
     //transition: 0.2s;
 
-    &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        transform: translateX(50%);
-        width: 50%;
-        height: 2px;
-        opacity: 0;
-        background-color: $green;
-        transition: 0.2s;
-    }
+    //&:after {
+    //    content: '';
+    //    display: block;
+    //    position: absolute;
+    //    bottom: -1px;
+    //    left: 0;
+    //    transform: translateX(50%);
+    //    width: 50%;
+    //    height: 2px;
+    //    opacity: 0;
+    //    background-color: $green;
+    //    transition: 0.2s;
+    //}
 }
 
 .list-item {
@@ -67,12 +67,12 @@
         }
     }
 
-    .icon-done {
-        width: 24px;
-        height: 24px;
-        fill: #bbb;
-        //animation: checked 0.35s linear;
-    }
+    //.icon-done {
+    //    width: 24px;
+    //    height: 24px;
+    //    fill: #bbb;
+    //    //animation: checked 0.35s linear;
+    //}
 
     &.list-item-editing {
         .list-item-container {
@@ -111,54 +111,54 @@
         text-align: right;
     }
 
-    .list-item-checkbox-label {
-        display: inline-block;
-        padding: 15px 15px 15px 20px;
-    }
+    //.list-item-checkbox-label {
+    //    display: inline-block;
+    //    padding: 15px 15px 15px 20px;
+    //}
 
-    .list-item-checkbox {
-        position: relative;
-        display: block;
-        width: 15px;
-        height: 15px;
-        border: 2px solid #999999;
-    }
+    //.list-item-checkbox {
+    //    position: relative;
+    //    display: block;
+    //    width: 15px;
+    //    height: 15px;
+    //    border: 2px solid #999999;
+    //}
 
-    input[type="checkbox"] {
-        display: none;
-    }
+    //input[type="checkbox"] {
+    //    display: none;
+    //}
 
-    .list-item-title {
-        width: 100%;
-    }
+    //.list-item-title {
+    //    width: 100%;
+    //}
 
-    .list-item-input-number {
-        text-align: right;
-        width: 60px;
-        background-color: #F5F5F5;
-        border-radius: 2px;
-        margin-left: 6px;
-    }
+    //.list-item-input-number {
+    //    text-align: right;
+    //    width: 60px;
+    //    background-color: #F5F5F5;
+    //    border-radius: 2px;
+    //    margin-left: 6px;
+    //}
 
-    .list-item-options-button {
-        padding: 6px;
-        cursor: pointer;
+    //.list-item-options-button {
+    //    padding: 6px;
+    //    cursor: pointer;
+    //
+    //    .icon-keyboard_arrow_down,
+    //    .icon-keyboard_arrow_up {
+    //        width: 24px;
+    //        height: 24px;
+    //        fill: #ddd;
+    //    }
+    //}
 
-        .icon-keyboard_arrow_down,
-        .icon-keyboard_arrow_up {
-            width: 24px;
-            height: 24px;
-            fill: #ddd;
-        }
-    }
-
-    .icon-tag,
-    .icon-functions {
-        width: 16px;
-        height: 16px;
-        fill: $purple;
-        margin: 4px;
-    }
+    //.icon-tag,
+    //.icon-functions {
+    //    width: 16px;
+    //    height: 16px;
+    //    fill: $purple;
+    //    margin: 4px;
+    //}
 }
 
 @media screen and (min-width: $screen-md-min) {

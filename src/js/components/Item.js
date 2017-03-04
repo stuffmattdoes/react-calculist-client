@@ -150,30 +150,31 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <form className="list-item-container" onSubmit={this.onItemSubmit} >
+                <form className="list-item__container" onSubmit={this.onItemSubmit} >
                     {/* -----
                         Title
                         ----- */}
                     <input
                         id={uniqueID}
+                        className="list-item__checkbox"
                         type="checkbox"
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
                     />
                     <label
-                        className="list-item-checkbox-label"
+                        className="list-item__label--check"
                         htmlFor={uniqueID}
                     >
                         {this.state.checked ?
-                            <svg className="icon icon-done"><use href="./svg/svg-defs.svg#icon-done"></use></svg>
+                            <svg className="icon icon__done"><use href="./svg/svg-defs.svg#icon-done"></use></svg>
                             :
                             <span className={checkboxClass}>&nbsp;</span>
                         }
                     </label>
 
                     <input
-                        className="list-item-title"
+                        className="list-item__title"
                         type="text"
                         value={this.state.title}
                         onBlur={this.onTitleSave}
@@ -187,13 +188,13 @@ const ListItem = React.createClass({
                         ------ */}
                     <div className="input-group">
                         {this.props.itemProps.unitPricing.active ?
-                            <svg className="icon icon-functions"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
+                            <svg className="icon icon__functions"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
                             : null}
                         {this.props.itemProps.tax.active ?
-                            <svg className="icon icon-tag"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
+                            <svg className="icon icon__tag"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
                             : null}
                         <input
-                            className="list-item-input-number list-item-amount"
+                            className="list-item__price list-item-amount"
                             type="number"
                             value={this.state.amount != 0 ? this.state.amount : ''}
                             onBlur={this.onAmountSave}
@@ -203,17 +204,17 @@ const ListItem = React.createClass({
                             disabled={this.props.itemProps.unitPricing.active}
                         />
                         <div
-                            className="list-item-options-button"
+                            className="list-item__option-button"
                             onClick={this.optionsToggle}
                         >
                             {this.state.settingsOpen ?
-                                <svg className="icon icon-keyboard_arrow_up"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_up"></use></svg>
+                                <svg className="icon icon__keyboard-arrow-up"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_up"></use></svg>
                                 :
-                                <svg className="icon icon-keyboard_arrow_down"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
+                                <svg className="icon icon__keyboard-arrow-down"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
                             }
                         </div>
                         <input
-                            className="input-hidden"
+                            className="list-item__submit"
                             type="submit"
                         />
                     </div>

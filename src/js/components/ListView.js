@@ -64,7 +64,7 @@ const ListView = React.createClass({
 
         return (
             <div className="list-view">
-                <div className="list__scroll">
+                <div className="list__scroll list__scroll--full">
                     <div className="list__container">
                         {totalLists.length > 0 ? totalLists : null}
                     </div>
