@@ -1,0 +1,33 @@
+.add-item__form {
+    display: flex;
+}
+
+.add-item__input {
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 5px 5px 0;
+    margin: 5px 0;
+    width: 75%;
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.add-item__label {
+    display: inline-block;
+    padding: 15px;
+}
+
+.add-item__icon {
+    width: 24px;
+    height: 24px;
+    fill: $green;
+    transition: 0.2s;
+}
+
+.add-item__form--editing {
+    .add-item__icon {
+        transform: rotate(45deg);
+        fill: #bbb;
+    }
+}

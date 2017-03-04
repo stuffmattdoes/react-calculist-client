@@ -1,12 +1,12 @@
 .list-item {
   font-size: 14px;
   display: block;
-  cursor: pointer;
-  border-bottom: 1px solid #E6E6E6;
+  //border-bottom: 1px solid #E6E6E6;
 }
 
 .list-item--big {
   .list-item__container {
+    cursor: pointer;
     padding: 15px 15px 14px;
   }
 }
@@ -59,10 +59,6 @@
   padding: 5px 9px;
 }
 
-.list-item__submit {
-  display: none;
-}
-
 .list-item__input {
   display: inline-block;
   padding: 5px;
@@ -107,15 +103,10 @@
     background: $grey-lighter;
   }
 
-  .icon__functions,
-  .icon__tag {
+  .icon {
     fill: $grey-light-2;
   }
 
-  .icon__keyboard-arrow-down,
-  .icon__keyboard-arrow-up {
-    fill: $grey-light-2;
-  }
 }
 
 

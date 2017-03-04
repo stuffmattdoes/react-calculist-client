@@ -5,7 +5,7 @@ import React from 'react';
 import Footer from './Footer';
 import Item from './Item';
 import Filter from './Filter';
-import ListItemAdd from './ListItemAdd';
+import AddItem from './AddItem';
 
 // Actions
 // import ListActions from '../actions/ListActions';
@@ -63,7 +63,7 @@ const ItemView = React.createClass({
                     <div className="list__container">
                         {listItems.length > 0 ? listItems : null}
                     </div>
-                    <ListItemAdd
+                    <AddItem
                         condActions={"ItemActions"}
                     />
                 </div>

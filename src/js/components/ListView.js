@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import ListItemAdd from './ListItemAdd';
+import AddItem from './AddItem';
 
 // Actions
 import ListActions from '../actions/ListActions';
@@ -68,7 +68,7 @@ const ListView = React.createClass({
                     <div className="list__container">
                         {totalLists.length > 0 ? totalLists : null}
                     </div>
-                    <ListItemAdd condActions={"ListActions"} />
+                    <AddItem condActions={"ListActions"} />
                 </div>
             </div>
         );

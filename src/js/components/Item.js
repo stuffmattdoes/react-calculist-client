@@ -216,7 +216,7 @@ const ListItem = React.createClass({
                             }
                         </div>
                         <input
-                            className="list-item__submit"
+                            className="input--hidden"
                             type="submit"
                         />
                     </div>

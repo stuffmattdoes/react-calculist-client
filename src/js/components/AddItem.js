@@ -10,7 +10,7 @@ import ListStore from '../stores/ListStore';
 
 const ENTER_KEY_CODE = 13;
 
-const ListAdd = React.createClass({
+const AddItem = React.createClass({
 
     propTypes: {
         condActions: React.PropTypes.string.isRequired,
@@ -98,22 +98,24 @@ const ListAdd = React.createClass({
     },
 
     render: function() {
-        let formClass = 'list-item-add-form';
+        let formClass = 'add-item__form';
         if (this.state.isEditing) {
-            formClass += ' list-item-add-form-active';
+            formClass += ' add-item__form--editing';
         }
 
         return (
-            <div className="list-item-add">
+            <div className="add-item">
                 <form className={formClass} onSubmit={this.onSubmit} >
                     <label
+                        className="add-item__label"
                         htmlFor="list-item-add-input"
                         onClick={this.onReset}
                     >
-                        <svg className="icon icon-add"><use href="./svg/svg-defs.svg#icon-add"></use></svg>
+                        <svg className="icon add-item__icon"><use href="./svg/svg-defs.svg#icon-add"></use></svg>
                     </label>
                     <input
                         id="list-item-add-input"
+                        className="add-item__input"
                         type="text"
                         value={this.state.title}
                         placeholder={this.state.addText}
@@ -123,7 +125,7 @@ const ListAdd = React.createClass({
                         onBlur={this.onInputBlur}
                     />
                     <input
-                        className="input-hidden"
+                        className="input--hidden"
                         type="submit"
                     />
                 </form>
@@ -132,4 +134,4 @@ const ListAdd = React.createClass({
     }
 });
 
-export default ListAdd;
+export default AddItem;
