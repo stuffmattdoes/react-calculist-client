@@ -35,7 +35,7 @@ const Footer = React.createClass({
 
         return (
             <div className="footer">
-                <p className="items-total">Total: <strong>${totalCost}</strong></p>
+                <p className="footer__total">Total: <strong>${totalCost}</strong></p>
             </div>
         );
     }
