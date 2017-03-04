@@ -58,9 +58,9 @@ const ItemView = React.createClass({
 
         return (
             <div className="item-view">
-                <div className="list-item-scroll">
+                <div className="list-item__scroll">
                     <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
-                    <div className="list-container">
+                    <div className="list-item__container">
                         {listItems.length > 0 ? listItems : null}
                     </div>
                     <ListItemAdd

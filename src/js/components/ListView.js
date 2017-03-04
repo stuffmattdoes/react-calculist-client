@@ -46,17 +46,16 @@ const ListView = React.createClass({
 
             return (
                 <div
-                    className="list-item"
+                    className="list-item list-item--big"
                     key={list.listID}
                     onClick={() => {this.onListClick(list.listID);}}
                 >
-                    <div className="list-item-container">
-                        <p className="list-item-title">{list.title}</p>
+                    <div className="list-item__container">
+                        <p className="list-item__title">{list.title}</p>
                         {itemCount > 0 ?
-                            <div className="list-count">{itemCount}</div>
+                            <div className="list-item__count">{itemCount}</div>
                         :
                             null
-                            // <div className="checkmark">&#10004;</div>
                         }
                     </div>
                 </div>
@@ -65,8 +64,8 @@ const ListView = React.createClass({
 
         return (
             <div className="list-view">
-                <div className="list-item-scroll">
-                    <div className="list-container">
+                <div className="list__scroll">
+                    <div className="list__container">
                         {totalLists.length > 0 ? totalLists : null}
                     </div>
                     <ListItemAdd condActions={"ListActions"} />

@@ -1,51 +1,12 @@
-.list-view {
+// Delete this
 
-    .list-item-container {
-        padding: 15px 15px 14px;
-    }
+.list-view {
 
     .list-item-scroll {
         bottom: 0;
     }
 
-    .list-item {
-        cursor: pointer;
-    }
-
-    p {
-        width: 100%;
-        margin: 0;
-    }
-
     .list-container {
         background-color: #F5F5F5;
-    }
-
-    .list-count {
-        background: #A588BF;
-        color: white;
-        border-radius: 14px;
-        min-width: 26px;
-        width: auto;
-        height: 26px;
-        padding: 5px 9px;
-    }
-
-    .list-item-container {
-        display: block;
-    }
-
-    .list-item-title,
-    .list-count {
-        display: inline-block;
-        width: auto;
-    }
-
-    .list-item-title {
-        margin: 5px 10px;
-    }
-
-    .list-count {
-        float: right;
     }
 }
