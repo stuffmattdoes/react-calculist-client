@@ -1,0 +1,36 @@
+.checkbox {
+
+}
+
+.checkbox--hidden {
+  display: none;
+}
+
+.checkbox__label {
+  display: inline-block;
+  padding: 15px 15px 15px 20px;
+}
+
+.checkbox__checkmark {
+  position: relative;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #999999;
+}
+
+.checkbox__icon {
+  width: 24px;
+  height: 24px;
+  fill: #bbb;
+  //animation: checkmark--checked 0.35s linear;
+}
+
+@keyframes checkmark--checked {
+  25% {
+    transform: scale(1.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

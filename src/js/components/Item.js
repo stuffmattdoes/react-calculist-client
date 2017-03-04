@@ -130,12 +130,12 @@ const ListItem = React.createClass({
     render: function() {
         var uniqueID = "checkbox-" + this.props.itemProps.itemID;
         var listItemClass = 'list-item';
-        var checkboxClass = 'list-item__checkmark';
+        var checkboxClass = 'checkbox__checkmark';
 
         // List item state
         if (this.state.checked) {
             listItemClass += ' list-item--checked';
-            checkboxClass += ' list-item__checkmark--checked';
+            checkboxClass += ' checkbox__checkmark--checked';
         } else {
             listItemClass += ' list-item--unchecked';
         }
@@ -156,22 +156,24 @@ const ListItem = React.createClass({
                         ----- */}
                     <input
                         id={uniqueID}
-                        className="list-item__input--checkbox"
+                        className="checkbox--hidden"
                         type="checkbox"
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
                     />
-                    <label
-                        className="list-item__label--checkmark"
-                        htmlFor={uniqueID}
-                    >
-                        {this.state.checked ?
-                            <svg className="icon icon__done"><use href="./svg/svg-defs.svg#icon-done"></use></svg>
-                            :
-                            <span className={checkboxClass}>&nbsp;</span>
-                        }
-                    </label>
+                    <div className="checkbox">
+                        <label
+                            className="checkbox__label"
+                            htmlFor={uniqueID}
+                        >
+                            {this.state.checked ?
+                                <svg className="checkbox__icon"><use href="./svg/svg-defs.svg#icon-done"></use></svg>
+                                :
+                                <span className={checkboxClass}>&nbsp;</span>
+                            }
+                        </label>
+                    </div>
 
                     <input
                         className="list-item__input list-item__input--title"
@@ -186,12 +188,12 @@ const ListItem = React.createClass({
                     {/* ------
                         Amount
                         ------ */}
-                    <div className="list-item__group">
+                    <div className="list-item__group--flex">
                         {this.props.itemProps.unitPricing.active ?
-                            <svg className="icon icon__functions"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
+                            <svg className="icon icon__functions--list-item"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
                             : null}
                         {this.props.itemProps.tax.active ?
-                            <svg className="icon icon__tag"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
+                            <svg className="icon icon__tag--list-item"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
                             : null}
                         <input
                             className="list-item__input list-item__input--price"
@@ -208,9 +210,9 @@ const ListItem = React.createClass({
                             onClick={this.optionsToggle}
                         >
                             {this.state.settingsOpen ?
-                                <svg className="icon icon__keyboard-arrow-up"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_up"></use></svg>
+                                <svg className="icon icon__keyboard-arrow-up--list-item"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_up"></use></svg>
                                 :
-                                <svg className="icon icon__keyboard-arrow-down"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
+                                <svg className="icon icon__keyboard-arrow-down--list-item"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
                             }
                         </div>
                         <input

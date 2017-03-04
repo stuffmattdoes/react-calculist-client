@@ -37,6 +37,10 @@
   }
 }
 
+.label--toggle {
+  padding: 10px 15px;
+}
+
 input[type="checkbox"]:checked ~ .toggle {
   .toggle__base {
     background-color: #A8E3DB;

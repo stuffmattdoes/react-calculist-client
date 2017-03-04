@@ -16,34 +16,30 @@
   align-items: center;
   position: relative;
   background-color: white;
-  //border-bottom: 1px solid #E6E6E6;
-  transition: 0.2s;
+  border-bottom: 1px solid #E6E6E6;
+
+  :after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    transform: translateX(50%);
+    width: 50%;
+    height: 2px;
+    opacity: 0;
+    background-color: $green;
+    transition: 0.2s;
+  }
 }
 
-
-// That green "editing" line
-
-//.list-item__container:after {
-//  content: '';
-//  display: block;
-//  position: absolute;
-//  bottom: -1px;
-//  left: 0;
-//  transform: translateX(50%);
-//  width: 50%;
-//  height: 2px;
-//  opacity: 0;
-//  background-color: $green;
-//  transition: 0.2s;
-//}
-
-.list-item__group {
+.list-item__group--flex {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.list-item__group--sub {
+.list-item__group--right {
   text-align: right;
 }
 
@@ -54,7 +50,7 @@
 }
 
 .list-item__count {
-  background: #A588BF;
+  background: $purple;
   color: white;
   border-radius: 14px;
   font-weight: bold;
@@ -63,17 +59,8 @@
   padding: 5px 9px;
 }
 
-.list-item__input--checkbox,
 .list-item__submit {
   display: none;
-}
-
-.list-item__label--checkmark {
-  position: relative;
-  display: block;
-  width: 15px;
-  height: 15px;
-  border: 2px solid #999999;
 }
 
 .list-item__input {
@@ -99,29 +86,64 @@
 }
 
 
-// Icons
+// --------------------
+// List Item Checked
+// --------------------
 
-.icon__done {
-  width: 24px;
-  height: 24px;
-  fill: #bbb;
-  //animation: checkmark--checked 0.35s linear;
+.list-item--checked .list-item__container {
+  color: $grey-light;
+  background: none;
+
+  .checkbox__label {
+    padding: 9px 10px 9px 15px;
+  }
+
+  .list-item__input--title {
+    font-style: italic;
+    text-decoration: line-through;
+  }
+
+  .list-item__input--price {
+    background: $grey-lighter;
+  }
+
+  .icon__functions,
+  .icon__tag {
+    fill: $grey-light-2;
+  }
+
+  .icon__keyboard-arrow-down,
+  .icon__keyboard-arrow-up {
+    fill: $grey-light-2;
+  }
 }
 
-.icon__tag,
-.icon__functions {
-  width: 16px;
-  height: 16px;
-  fill: $purple;
-  margin: 4px;
+
+// --------------------
+// Editing
+// --------------------
+
+.list-item--editing .list-item__container {
+  &:after {
+    opacity: 1;
+    width: 100%;
+    transform: translateX(0);
+  }
 }
 
-.icon__keyboard-arrow-down,
-.icon__keyboard-arrow-up {
-  width: 24px;
-  height: 24px;
-  fill: #ddd;
+
+// --------------------
+// Expanded
+// --------------------
+
+.list-item--expanded .list-item__container {
+  box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.15);
 }
+
+
+// --------------------
+// Responsive
+// --------------------
 
 @media screen and (min-width: $screen-md-min) {
   .list-item__options-button {
@@ -134,14 +156,5 @@
       opacity: 1;
       visibility: visible;
     }
-  }
-}
-
-@keyframes checkmark--checked {
-  25% {
-    transform: scale(1.75);
-  }
-  100% {
-    transform: scale(1);
   }
 }

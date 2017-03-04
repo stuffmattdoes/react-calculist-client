@@ -147,20 +147,21 @@ const ItemSettings = React.createClass({
 
         return (
             <div className="list-item-options">
-                <form className="list-item-form">
+                <form className="list-item-options__container">
                     {/* -------------------
                         Unit pricing active
                         ------------------- */}
-                    <div className="input-group">
+                    <div className="list-item__group--flex">
                         <input
                             id={uniqueId3}
                             type="checkbox"
+                            className="checkbox--hidden"
                             onChange={this.onUnitPricingChecked}
                             onKeyDown={this.onInputKeyDown}
                             checked={this.state.unitPriceActive}
                             value=""
                         />
-                        <label className="list-item-checkbox-label" htmlFor={uniqueId3}>
+                        <label className="label--toggle" htmlFor={uniqueId3}>
                             <div className={unitPricingToggleClass}>
                                 <div className="toggle__base"></div>
                                 <div className="toggle__slider"></div>
@@ -173,10 +174,10 @@ const ItemSettings = React.createClass({
                         Unit price
                         ---------- */}
                     {this.state.unitPriceActive ?
-                        <div className="input-group-sub">
+                        <div className="list-item__group--right">
                             <p>Price per unit</p>
                             <input
-                                className="list-item-input-number"
+                                className="list-item__input list-item__input--price"
                                 type="text"
                                 onBlur={this.onUnitPricingSaved}
                                 onChange={this.onUnitPricingChanged}
@@ -192,7 +193,7 @@ const ItemSettings = React.createClass({
                                 ------------- */}
                             <p>Quantity</p>
                             <input
-                                className="list-item-input-number"
+                                className="list-item__input list-item__input--price"
                                 type="text"
                                 onBlur={this.onUnitQuantitySaved}
                                 onChange={this.onUnitQuantityChanged}
@@ -203,19 +204,20 @@ const ItemSettings = React.createClass({
                         </div>
                     : null}
 
-                    <div className="input-group">
+                    <div className="list-item__group--flex">
                         {/* ---
                             Tax
                             --- */}
                         <input
                             id={uniqueId2}
                             type="checkbox"
+                            className="checkbox--hidden"
                             onChange={this.onTaxChecked}
                             onKeyDown={this.onInputKeyDown}
                             checked={this.state.taxed}
                             value=""
                         />
-                        <label className="list-item-checkbox-label" htmlFor={uniqueId2}>
+                        <label className="label--toggle" htmlFor={uniqueId2}>
                             <div className={taxToggleClass}>
                                 <div className="toggle__base"></div>
                                 <div className="toggle__slider"></div>
@@ -228,10 +230,10 @@ const ItemSettings = React.createClass({
                         Tax rate
                         -------- */}
                     {this.state.taxed ?
-                        <div className="input-group-sub">
+                        <div className="list-item__group--right">
                             <p>Price after tax:</p>
                             <input
-                                className="list-item-input-number"
+                                className="list-item__input list-item__input--price"
                                 type="text"
                                 value={this.getTaxPricing() != 0 ? this.getTaxPricing() : ''}
                                 placeholder="0"
@@ -240,7 +242,7 @@ const ItemSettings = React.createClass({
                         </div>
                     : null}
 
-                    <div className="list-item-delete">
+                    <div className="list-item__group--right">
                         <div
                             className="button button--text button--text-warning"
                             onClick={this.onListItemDelete}

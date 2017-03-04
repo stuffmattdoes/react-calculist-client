@@ -2,32 +2,32 @@
     padding: 0 15px 30px;
     box-shadow: inset 0 -3px 8px 0 rgba(black, 0.1);
     transition: 0.2s;
-
-    .list-item-form {
-        background-color: white;
-        border: 1px solid #E6E6E6;
-        border-top: none;
-        padding: 20px 15px 20px 7px;
-    }
-
-    .list-item-checkbox-label {
-        padding: 8px 10px;
-    }
-
-    .list-item-input-number {
-        margin: 0 0 10px 12px;
-    }
-
-    p {
-        display: inline-block;
-        font-size: 12px;
-        margin: 8px 0;
-        vertical-align: top;
-    }
-
-    .list-item-delete {
-        text-align: right;
-        margin-top: 30px;
-    }
-
+    border-bottom: 1px solid #E6E6E6;
 }
+
+.list-item-options__container {
+    background-color: white;
+    border: 1px solid #E6E6E6;
+    border-top: none;
+    padding: 20px 15px 20px 7px;
+}
+
+//.list-item-checkbox-label {
+//    padding: 8px 10px;
+//}
+
+//.list-item-input-number {
+//    margin: 0 0 10px 12px;
+//}
+
+//p {
+//    display: inline-block;
+//    font-size: 12px;
+//    margin: 8px 0;
+//    vertical-align: top;
+//}
+
+//.list-item-delete {
+//    text-align: right;
+//    margin-top: 30px;
+//}
