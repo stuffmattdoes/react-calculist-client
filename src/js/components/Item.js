@@ -130,22 +130,22 @@ const ListItem = React.createClass({
     render: function() {
         var uniqueID = "checkbox-" + this.props.itemProps.itemID;
         var listItemClass = 'list-item';
-        var checkboxClass = 'list-item-checkbox';
+        var checkboxClass = 'list-item__checkmark';
 
         // List item state
         if (this.state.checked) {
-            listItemClass += ' list-item-checked';
-            checkboxClass += ' list-item-checkbox-checked';
+            listItemClass += ' list-item--checked';
+            checkboxClass += ' list-item__checkmark--checked';
         } else {
-            listItemClass += ' list-item-unchecked';
+            listItemClass += ' list-item--unchecked';
         }
 
         if (this.state.settingsOpen) {
-            listItemClass += ' list-item-expanded';
+            listItemClass += ' list-item--expanded';
         }
 
         if (this.state.isEditing) {
-            listItemClass += ' list-item-editing';
+            listItemClass += ' list-item--editing';
         }
 
         return (
@@ -156,14 +156,14 @@ const ListItem = React.createClass({
                         ----- */}
                     <input
                         id={uniqueID}
-                        className="list-item__checkbox"
+                        className="list-item__input--checkbox"
                         type="checkbox"
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
                     />
                     <label
-                        className="list-item__label--check"
+                        className="list-item__label--checkmark"
                         htmlFor={uniqueID}
                     >
                         {this.state.checked ?
@@ -174,7 +174,7 @@ const ListItem = React.createClass({
                     </label>
 
                     <input
-                        className="list-item__title"
+                        className="list-item__input list-item__input--title"
                         type="text"
                         value={this.state.title}
                         onBlur={this.onTitleSave}
@@ -186,7 +186,7 @@ const ListItem = React.createClass({
                     {/* ------
                         Amount
                         ------ */}
-                    <div className="input-group">
+                    <div className="list-item__group">
                         {this.props.itemProps.unitPricing.active ?
                             <svg className="icon icon__functions"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
                             : null}
@@ -194,7 +194,7 @@ const ListItem = React.createClass({
                             <svg className="icon icon__tag"><use href="./svg/svg-defs.svg#icon-tag"></use></svg>
                             : null}
                         <input
-                            className="list-item__price list-item-amount"
+                            className="list-item__input list-item__input--price"
                             type="number"
                             value={this.state.amount != 0 ? this.state.amount : ''}
                             onBlur={this.onAmountSave}

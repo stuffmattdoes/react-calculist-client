@@ -32,7 +32,7 @@
 }
 
 .list-item {
-    font-size: 14px;
+    //font-size: 14px;
 
     &.list-item-checked {
         color: #898989;
@@ -92,24 +92,24 @@
         box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.15);
     }
 
-    input {
-        display: inline-block;
-        padding: 5px;
-        margin: 5px 0;
-        outline: none;
-        border: none;
-        background: none;
-    }
+    //input {
+    //    display: inline-block;
+    //    padding: 5px;
+    //    margin: 5px 0;
+    //    outline: none;
+    //    border: none;
+    //    background: none;
+    //}
 
-    .input-group {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .input-group-sub {
-        text-align: right;
-    }
+    //.input-group {
+    //    position: relative;
+    //    display: flex;
+    //    align-items: center;
+    //}
+    //
+    //.input-group-sub {
+    //    text-align: right;
+    //}
 
     //.list-item-checkbox-label {
     //    display: inline-block;
