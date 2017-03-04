@@ -59,7 +59,11 @@ cite {
 }
 
 hr {
-
+	outline: none;
+	background: none;
+	border: none;
+	border-bottom: 1px solid $grey-light-3;
+	margin: 25px 0;
 }
 
 figure {

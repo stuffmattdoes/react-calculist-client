@@ -174,33 +174,36 @@ const ItemSettings = React.createClass({
                         Unit price
                         ---------- */}
                     {this.state.unitPriceActive ?
-                        <div className="list-item__group--right">
-                            <p>Price per unit</p>
-                            <input
-                                className="list-item__input list-item__input--price"
-                                type="text"
-                                onBlur={this.onUnitPricingSaved}
-                                onChange={this.onUnitPricingChanged}
-                                onKeyDown={this.onInputKeyDown}
-                                value={this.state.unitPrice != 0 ? this.state.unitPrice : ''}
-                                placeholder="0.00"
-                            />
+                        <div>
+                            <div className="list-item__group--options">
+                                <p className="list-item__title">Price per unit</p>
+                                <input
+                                    className="list-item__input list-item__input--price"
+                                    type="text"
+                                    onBlur={this.onUnitPricingSaved}
+                                    onChange={this.onUnitPricingChanged}
+                                    onKeyDown={this.onInputKeyDown}
+                                    value={this.state.unitPrice != 0 ? this.state.unitPrice : ''}
+                                    placeholder="0.00"
+                                />
 
-                            <br></br>
-
-                            {/* -------------
-                                Unit quantity
-                                ------------- */}
-                            <p>Quantity</p>
-                            <input
-                                className="list-item__input list-item__input--price"
-                                type="text"
-                                onBlur={this.onUnitQuantitySaved}
-                                onChange={this.onUnitQuantityChanged}
-                                onKeyDown={this.onInputKeyDown}
-                                value={this.state.unitQuantity != 0 ? this.state.unitQuantity : ''}
-                                placeholder="0"
-                            />
+                            </div>
+                            <div className="list-item__group--options">
+                                {/* -------------
+                                    Unit quantity
+                                    ------------- */}
+                                <p className="list-item__title">Quantity</p>
+                                <input
+                                    className="list-item__input list-item__input--price"
+                                    type="text"
+                                    onBlur={this.onUnitQuantitySaved}
+                                    onChange={this.onUnitQuantityChanged}
+                                    onKeyDown={this.onInputKeyDown}
+                                    value={this.state.unitQuantity != 0 ? this.state.unitQuantity : ''}
+                                    placeholder="0"
+                                />
+                            </div>
+                            <hr />
                         </div>
                     : null}
 
@@ -230,8 +233,8 @@ const ItemSettings = React.createClass({
                         Tax rate
                         -------- */}
                     {this.state.taxed ?
-                        <div className="list-item__group--right">
-                            <p>Price after tax:</p>
+                        <div className="list-item__group--options">
+                            <p className="list-item__title">Price after tax:</p>
                             <input
                                 className="list-item__input list-item__input--price"
                                 type="text"
