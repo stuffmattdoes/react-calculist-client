@@ -34,12 +34,13 @@
 }
 
 .button--text {
-    background-color: grey;
+    width: auto;
+    display: inline-block;
     background-color: transparent;
+    margin: 0;
 }
 
-.button--text-warn {
-    background-color: transparent;
+.button--text-warning {
     color: $red;
 }
 

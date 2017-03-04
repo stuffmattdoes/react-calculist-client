@@ -242,7 +242,7 @@ const ItemSettings = React.createClass({
 
                     <div className="list-item-delete">
                         <div
-                            className="button button--text button--text-red"
+                            className="button button--text button--text-warning"
                             onClick={this.onListItemDelete}
                         >
                             Delete
