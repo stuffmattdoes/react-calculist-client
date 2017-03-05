@@ -1,5 +1,7 @@
 // Libraries
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group' // ES6
+
 
 // Components
 import Footer from './Footer';
@@ -57,18 +59,24 @@ const ItemView = React.createClass({
         });
 
         return (
-            <div className="item-view">
-                <div className="list__scroll">
-                    <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
-                    <div className="list__container">
-                        {listItems.length > 0 ? listItems : null}
+            <ReactCSSTransitionGroup
+                transitionName="view__items"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={500}
+            >
+                <div className="view__items">
+                    <div className="list__scroll">
+                        <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
+                        <div className="list__container">
+                            {listItems.length > 0 ? listItems : null}
+                        </div>
+                        <AddItem
+                            condActions={"ItemActions"}
+                        />
                     </div>
-                    <AddItem
-                        condActions={"ItemActions"}
-                    />
+                    <Footer items={this.state.items} />
                 </div>
-                <Footer items={this.state.items} />
-            </div>            
+            </ReactCSSTransitionGroup>
         );
     }
 });
