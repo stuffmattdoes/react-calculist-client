@@ -245,7 +245,7 @@ const ItemSettings = React.createClass({
                         </div>
                     : null}
 
-                    <div className="list-item__group--right">
+                    <div className="align--right">
                         <div
                             className="button button--text button--text-warning"
                             onClick={this.onListItemDelete}

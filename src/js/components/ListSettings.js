@@ -74,9 +74,9 @@ const ListSettings = React.createClass({
     render: function() {
         return (
             <div className="list-options">
-                <div className="list-options-header">
+                <div className="list-options__header">
                     <div
-                        className="header-left-button"
+                        className="header__left-button"
                         onClick={this.toggleSettings}
                     >
                         <svg className="icon icon-arrow_back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
@@ -84,13 +84,13 @@ const ListSettings = React.createClass({
                     <form className="form-standard" onSubmit={this.onSubmit} >
                         <label
                             htmlFor="list-title"
-                            className="label-standard label-standard-light"
+                            className="form__label form__label--light"
                         >
                             List Title
                         </label>
                         <input
                             id="list-title"
-                            className="input-standard input-standard-large input-standard-light"
+                            className="form__input form__input--large form__input--light"
                             type="text"
                             value={this.state.title}
                             onBlur={this.onTitleSave}
@@ -98,22 +98,22 @@ const ListSettings = React.createClass({
                             onKeyDown={this.onInputKeyDown}
                         />
                         <input
-                            className="input-hidden"
+                            className="input--hidden"
                             type="submit"
                         />
                     </form>
                 </div>
                 <div
-                    className="list-options-container"
+                    className="list-options__container"
                 >
-                    <p>Settings</p>
-                    <div
-                        className="button button-outline"
-                        onClick={this.onListDelete}
-                    >
-                        Delete List
+                    <div className="align--right">
+                        <div
+                            className="button button--text button--text-warning"
+                            onClick={this.onListDelete}
+                        >
+                            Delete List
+                        </div>
                     </div>
-
                 </div>
             </div>
         );

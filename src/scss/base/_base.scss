@@ -39,6 +39,18 @@ body {
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
 }
 
+.align--right {
+    text-align: right;
+}
+
+.align--left {
+    text-align: left;
+}
+
+.align--center {
+    text-align: center;
+}
+
 @media screen and (min-width: $screen-md-min) {
     #container {
         padding: 60px 0;

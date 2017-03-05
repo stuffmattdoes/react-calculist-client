@@ -1,14 +1,14 @@
 .list-options {
 
     // Header
-    .list-options-header {
+    .list-options__header {
         position: relative;
         padding: 50px 50px 35px;
         background-color: #A588BF;
         color: white;
     }
 
-    .header-left-button {
+    .header__left-button {
         position: absolute;
         left: 0;
         top: 0;
@@ -23,7 +23,7 @@
     }
 
     // Container
-    .list-options-container {
+    .list-options__container {
         padding: 15px;
     }
 }
