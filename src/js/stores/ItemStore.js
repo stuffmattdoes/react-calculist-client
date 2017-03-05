@@ -6,7 +6,6 @@ import dispatcher from '../dispatcher/Dispatcher';
 import ListStore from './ListStore';
 
 var _items = null;
-var _filter = "SHOW_ALL";
 var CHANGE_EVENT = "CHANGE_ITEM";
 
 class ItemStore extends EventEmitter {
@@ -15,76 +14,18 @@ class ItemStore extends EventEmitter {
         return _items;
     }
 
-    getAllForCurrentList(filterActive) {
-        if (filterActive) {
-            return this.getAllForListFilter(ListStore.getCurrentListID());
-        } else {
-            return this.getAllForList(ListStore.getCurrentListID());
-        }
-
+    getAllForCurrentList() {
+        return this.getAllForList(ListStore.getCurrentListID());
     }
 
     getAllForList(listID) {
-        var listItems = [];
+        let listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
                 listItems.push(value);
             }
         });
         return listItems;
-    }
-
-    getAllForListFilter(listID) {
-        var listItems = [];
-        _items.forEach((value, index) => {
-            if (listID == value.listID) {
-                switch (_filter) {
-                    case 'SHOW_ALL' : {
-                        listItems.push(value);
-                        break;
-                    }
-                    case 'SHOW_INCOMPLETE' : {
-                        if (!value.checked) {
-                            listItems.push(value);
-                        }
-                        break;
-                    }
-                    case 'SHOW_COMPLETE' : {
-                        if (value.checked) {
-                            listItems.push(value);
-                        }
-                        break;
-                    }
-                }
-            }
-        });
-        return listItems;
-    }
-
-    getCurrentFilter() {
-        return _filter;
-    }
-
-    getListItemCount(listID) {
-        var itemCount = {
-            checked: 0,
-            unchecked: 0
-        }
-
-        _items.forEach((value, index) => {
-            if (listID == value.listID) {
-                if (value.checked) {
-                    itemCount.checked ++;
-                } else {
-                    itemCount.unchecked ++;
-                }
-            }
-        });
-        return itemCount;
-    }
-
-    getCurrentListItemCount() {
-        return this.getListItemCount(ListStore.getCurrentListID());
     }
 
     itemCreate(listID, itemID, title) {
@@ -123,11 +64,6 @@ class ItemStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
-    itemSetVisibilityFilter(filter) {
-        _filter = filter;
-        this.emit(CHANGE_EVENT);
-    }
-
     itemUpdate(itemID, updates) {
         _items.forEach((item, index) => {
 
@@ -161,10 +97,6 @@ class ItemStore extends EventEmitter {
             }
         }
 
-    }
-
-    resetItemFilter() {
-        _filter = "SHOW_ALL";
     }
 
     handleActions(action) {

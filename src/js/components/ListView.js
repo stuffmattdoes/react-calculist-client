@@ -13,36 +13,41 @@ import ItemStore from '../stores/ItemStore';
 
 const ListView = React.createClass({
 
-    getInitialState: function() {
-        return this.getStateFromStores();
-    },
-
-    getStateFromStores: function() {
-        return {
-            lists: ListStore.getAll()
-        }
-    },
-
-    onStoreChange: function() {
-        this.setState(this.getStateFromStores());
-    },
+    // getInitialState: function() {
+    //     return this.getStateFromStores();
+    // },
+    //
+    // getStateFromStores: function() {
+    //     return {
+    //         lists: ListStore.getAll()
+    //     }
+    // },
+    //
+    // onStoreChange: function() {
+    //     this.setState(this.getStateFromStores());
+    // },
 
     onListClick: function(listID) {
         ListActions.setCurrentList(listID);
         this.props.router.push('/lists/' + listID + '/');
     },
 
-    componentWillMount: function() {
-        ListStore.on('CHANGE_LIST', this.onStoreChange);
-    },
-
-    componentWillUnmount: function() {
-        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
-    },
+    // componentWillMount: function() {
+    //     ListStore.on('CHANGE_LIST', this.onStoreChange);
+    // },
+    //
+    // componentWillUnmount: function() {
+    //     ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
+    // },
 
     render: function() {
-        var totalLists = this.state.lists.map((list, index) => {
-            var itemCount = ItemStore.getListItemCount(list.listID).unchecked;
+        let lists = ListStore.getAll();
+
+        let totalLists = lists.map((list, index) => {
+            let listItemCount = ItemStore.getAllForList((list.listID)).reduce((acc, item) => {
+                !item.checked ? acc ++ : acc;
+                return acc;
+            }, 0);
 
             return (
                 <div
@@ -52,8 +57,8 @@ const ListView = React.createClass({
                 >
                     <div className="list-item__container">
                         <p className="list-item__title">{list.title}</p>
-                        {itemCount > 0 ?
-                            <div className="list-item__count">{itemCount}</div>
+                        {listItemCount > 0 ?
+                            <div className="list-item__count">{listItemCount}</div>
                         :
                             null
                         }

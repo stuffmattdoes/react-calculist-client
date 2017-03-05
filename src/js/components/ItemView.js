@@ -17,6 +17,7 @@ import ListStore from '../stores/ListStore';
 const ItemView = React.createClass({
 
     getInitialState: function() {
+        console.log(this);
         // console.log(ItemStore.getAll());
         // ListActions.setCurrentList(this.props.params.listID);
         return this.getStateFromStores();
@@ -47,7 +48,10 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        var listItems = this.state.items.map((listItem, index) => {
+        let items = ItemStore.getAllForCurrentList(true);
+        let itemsCount = ItemStore.getCurrentListItemCount();
+        let currentFilter = ItemStore.getCurrentFilter();
+        let listItems = items.map((listItem, index) => {
             return (
                 <Item
                     itemProps={listItem}
@@ -59,7 +63,7 @@ const ItemView = React.createClass({
         return (
             <div className="item-view">
                 <div className="list__scroll">
-                    <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
+                    <Filter filter={currentFilter} itemsCount={itemsCount} />
                     <div className="list__container">
                         {listItems.length > 0 ? listItems : null}
                     </div>
@@ -67,7 +71,7 @@ const ItemView = React.createClass({
                         condActions={"ItemActions"}
                     />
                 </div>
-                <Footer items={this.state.items} />
+                <Footer items={items} />
             </div>            
         );
     }
