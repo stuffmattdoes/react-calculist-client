@@ -1,25 +1,24 @@
 // Libraries
 import React from 'react';
 
+// Actions
+import ItemActions from '../actions/ItemActions';
+
 // Stores
 import ItemStore from '../stores/ItemStore';
 
 const Filter = React.createClass({
-    getInitialState: function() {
-        return {
-            filter: 'SHOW_ALL'
-        }
+
+    propTypes: {
+        filter: React.PropTypes.string
     },
 
     onFilterClick: function(filter) {
-        this.setState({
-            filter: filter
-        })
+        ItemActions.setVisibilityFilter(filter);
     },
 
     render: function() {
-        let items = ItemStore.getAll();
-
+        let items = ItemStore.getAllForCurrentList();
         let itemsCount = 0;
         let itemsCheckedCount = 0;
         let itemsUncheckedCount = 0;
@@ -33,7 +32,7 @@ const Filter = React.createClass({
         let classIncomplete = 'filter__option';
         let classComplete = 'filter__option';
 
-        switch (this.state.filter) {
+        switch (this.props.filter) {
             case 'SHOW_ALL' :
                 classAll += ' active';
                 break;

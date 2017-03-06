@@ -6,6 +6,7 @@ import dispatcher from '../dispatcher/Dispatcher';
 import ListStore from './ListStore';
 
 let _items = null;
+let _filter = "SHOW_ALL";
 let CHANGE_EVENT = "CHANGE_ITEM";
 
 class ItemStore extends EventEmitter {
@@ -76,6 +77,19 @@ class ItemStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
     }
 
+    getCurrentFilter() {
+        return _filter;
+    }
+
+    setVisibilityFilter(filter) {
+        _filter = filter;
+        this.emit(CHANGE_EVENT);
+    }
+
+    resetItemFilter() {
+        _filter = "SHOW_ALL";
+    }
+
     updateProperties(item, updates) {
         // Iterate through our updates
         for (var key in updates) {
@@ -111,6 +125,10 @@ class ItemStore extends EventEmitter {
             }
             case "GET_ITEMS" : {
                 this.itemPopulate(action.data);
+                break;
+            }
+            case "SET_VISIBILITY_FILTER" : {
+                this.setVisibilityFilter(action.filter);
                 break;
             }
             case "UPDATE_ITEM" : {

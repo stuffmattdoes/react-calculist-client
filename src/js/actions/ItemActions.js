@@ -42,6 +42,14 @@ const ItemActions = {
         );
     },
 
+    setVisibilityFilter: function(filter) {
+        dispatcher.dispatch({
+            type: "SET_VISIBILITY_FILTER",
+            filter: filter
+        });
+    }
+
+
 }
 
 export default ItemActions;

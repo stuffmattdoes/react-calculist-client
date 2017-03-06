@@ -16,10 +16,46 @@ import ItemStore from '../stores/ItemStore';
 
 const ItemView = React.createClass({
 
+    getInitialState: function() {
+        // ListActions.setCurrentList(this.props.params.listID);
+        return this.getStateFromStores();
+    },
+
+    componentWillMount: function() {
+        ItemStore.on("CHANGE_ITEM", this.onStoreChange);
+    },
+
+    componentWillUnmount: function() {
+        ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
+    },
+
+    getStateFromStores: function() {
+        return {
+            currentFilter: ItemStore.getCurrentFilter()
+        };
+    },
+
+    onStoreChange: function() {
+        this.setState(this.getStateFromStores());
+    },
+
     render: function() {
         let items = ItemStore.getAllForCurrentList();
+        let currentFilter = ItemStore.getCurrentFilter();
 
-        let listItems = items.map((listItem, index) => {
+        let listItems = items.filter((listItem) => {
+            switch (currentFilter) {
+                case 'SHOW_ALL' :
+                    return listItem;
+                    break;
+                case 'SHOW_INCOMPLETE' :
+                    return !listItem.checked;
+                    break;
+                case 'SHOW_COMPLETE' :
+                    return listItem.checked;
+                    break;
+            }
+        }).map((listItem, index) => {
             return (
                 <Item
                     itemProps={ listItem }
@@ -31,7 +67,7 @@ const ItemView = React.createClass({
         return (
             <div className="item-view">
                 <div className="list__scroll">
-                    <Filter />
+                    <Filter filter={ currentFilter } />
                     <div className="list__container">
                         { listItems }
                     </div>
