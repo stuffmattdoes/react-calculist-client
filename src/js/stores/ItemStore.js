@@ -5,8 +5,8 @@ import dispatcher from '../dispatcher/Dispatcher';
 // Stores
 import ListStore from './ListStore';
 
-var _items = null;
-var CHANGE_EVENT = "CHANGE_ITEM";
+let _items = null;
+let CHANGE_EVENT = "CHANGE_ITEM";
 
 class ItemStore extends EventEmitter {
 
@@ -28,8 +28,8 @@ class ItemStore extends EventEmitter {
         return listItems;
     }
 
-    itemCreate(listID, itemID, title) {
-        var newItem = {
+    itemCreate(itemID, title) {
+        let newItem = {
             title: title,
             checked: false,
             amount: 0.00,
@@ -102,7 +102,7 @@ class ItemStore extends EventEmitter {
     handleActions(action) {
         switch(action.type) {
             case "CREATE_ITEM" : {
-                this.itemCreate(action.listID, action.itemID, action.title);
+                this.itemCreate(action.itemID, action.title);
                 break;
             }
             case "DELETE_ITEM" : {

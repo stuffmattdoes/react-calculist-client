@@ -2,9 +2,9 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _lists = null;
-var _currentID = null;
-var CHANGE_EVENT = "CHANGE_LIST";
+let _lists = null;
+let _currentID = null;
+let CHANGE_EVENT = "CHANGE_LIST";
 
 class ListStore extends EventEmitter {
 

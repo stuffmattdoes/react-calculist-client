@@ -44,9 +44,9 @@ const ListView = React.createClass({
         let lists = ListStore.getAll();
 
         let totalLists = lists.map((list, index) => {
-            let listItemCount = ItemStore.getAllForList((list.listID)).reduce((acc, item) => {
-                !item.checked ? acc ++ : acc;
-                return acc;
+            let listItemCount = ItemStore.getAllForList((list.listID)).reduce((total, item) => {
+                !item.checked ? total ++ : total;
+                return total;
             }, 0);
 
             return (

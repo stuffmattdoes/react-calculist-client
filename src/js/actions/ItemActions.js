@@ -9,7 +9,6 @@ const ItemActions = {
         dispatcher.dispatch({
             type: "CREATE_ITEM",
             itemID: itemID,
-            listID: listID,
             title: title
         });
 
@@ -26,13 +25,6 @@ const ItemActions = {
 
         // API action call
         ApiUtils.itemDelete(itemID);
-    },
-
-    itemSetVisibilityFilter: function(filter) {
-        dispatcher.dispatch({
-            type: "SET_VISIBILITY_FILTER",
-            filter: filter
-        });
     },
 
     itemUpdate: function(itemID, updates) {

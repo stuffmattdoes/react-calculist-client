@@ -16,33 +16,6 @@ import ItemStore from '../stores/ItemStore';
 
 const ItemView = React.createClass({
 
-    // getInitialState: function() {
-    //     console.log(this);
-    //     console.log(ItemStore.getAll());
-    //     ListActions.setCurrentList(this.props.params.listID);
-    //     return this.getStateFromStores();
-    // },
-
-    // componentWillMount: function() {
-    //     ItemStore.on("CHANGE_ITEM", this.onStoreChange);
-    // },
-
-    // componentWillUnmount: function() {
-    //     ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
-    // },
-
-    // getStateFromStores: function() {
-    //     return {
-    //         items: ItemStore.getAllForCurrentList(true),
-    //         itemsCount: ItemStore.getCurrentListItemCount(),
-    //         currentFilter: ItemStore.getCurrentFilter()
-    //     };
-    // },
-
-    // onStoreChange: function() {
-    //     this.setState(this.getStateFromStores());
-    // },
-
     render: function() {
         let items = ItemStore.getAllForCurrentList();
 
