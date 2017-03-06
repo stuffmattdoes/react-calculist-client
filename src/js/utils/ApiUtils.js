@@ -82,21 +82,6 @@ const WebAPIUtils = {
         });
     },
 
-    itemGetAll: function() {
-        let config = {
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            }
-        };
-        axios.get(API_URLS.items, config)
-        .then(response => {
-            ServerResponseActions.receiveAllItems(response.data);
-        })
-        .catch(error => {
-            console.log('Error:', error);
-        });
-    },
-
     itemUpdate: function(itemID, updates) {
         let config = {
             headers: {
@@ -154,10 +139,9 @@ const WebAPIUtils = {
         .catch(error => {
             console.log(error);
         })
-
     },
 
-    listGetAll: function(user) {
+    GetListsAndItems: function() {
         let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
@@ -165,12 +149,13 @@ const WebAPIUtils = {
         };
         axios.get(API_URLS.lists, config)
         .then(response => {
-            ServerResponseActions.receiveAllLists(response.data);
+            console.log('Done:', response.data);
+            ServerResponseActions.receiveAllLists(response.data.lists);
+            ServerResponseActions.receiveAllItems(response.data.items);
         })
         .catch(error => {
             console.log(error);
         });
-
     },
 
     listUpdate: function(listID, updates) {

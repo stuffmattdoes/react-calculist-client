@@ -1,9 +1,7 @@
+// Libraries
 import React from 'react';
 
-// actions
-import ItemActions from '../actions/ItemActions';
-
-// stores
+// Stores
 import ItemStore from '../stores/ItemStore';
 
 const Filter = React.createClass({

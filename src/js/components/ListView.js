@@ -13,32 +13,10 @@ import ItemStore from '../stores/ItemStore';
 
 const ListView = React.createClass({
 
-    // getInitialState: function() {
-    //     return this.getStateFromStores();
-    // },
-    //
-    // getStateFromStores: function() {
-    //     return {
-    //         lists: ListStore.getAll()
-    //     }
-    // },
-    //
-    // onStoreChange: function() {
-    //     this.setState(this.getStateFromStores());
-    // },
-
     onListClick: function(listID) {
         ListActions.setCurrentList(listID);
         this.props.router.push('/lists/' + listID + '/');
     },
-
-    // componentWillMount: function() {
-    //     ListStore.on('CHANGE_LIST', this.onStoreChange);
-    // },
-    //
-    // componentWillUnmount: function() {
-    //     ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
-    // },
 
     render: function() {
         let lists = ListStore.getAll();

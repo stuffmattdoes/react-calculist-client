@@ -55,7 +55,7 @@ class ListStore extends EventEmitter {
     }
 
     listsPopulate(data) {
-        _lists = data.lists;
+        _lists = data;
         this.emit(CHANGE_EVENT);
     }
 

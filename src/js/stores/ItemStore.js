@@ -60,7 +60,7 @@ class ItemStore extends EventEmitter {
     }
 
     itemPopulate(data) {
-        _items = data.items;
+        _items = data;
         this.emit(CHANGE_EVENT);
     }
 

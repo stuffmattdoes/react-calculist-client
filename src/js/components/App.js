@@ -66,8 +66,7 @@ const App = React.createClass({
     },
 
     initData: function() {
-        ApiUtils.listGetAll();
-        ApiUtils.itemGetAll();
+        ApiUtils.GetListsAndItems();
     },
 
     tokenRefresh: function() {
