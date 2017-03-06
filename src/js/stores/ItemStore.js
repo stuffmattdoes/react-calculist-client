@@ -109,16 +109,8 @@ class ItemStore extends EventEmitter {
                 this.itemDelete(action.itemID);
                 break;
             }
-            case "SET_VISIBILITY_FILTER" : {
-                this.itemSetVisibilityFilter(action.filter);
-                break;
-            }
             case "GET_ITEMS" : {
                 this.itemPopulate(action.data);
-                break;
-            }
-            case "RESET_LIST_VIEW" : {
-                this.resetItemFilter();
                 break;
             }
             case "UPDATE_ITEM" : {

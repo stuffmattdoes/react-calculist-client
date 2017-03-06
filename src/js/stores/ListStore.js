@@ -124,10 +124,6 @@ class ListStore extends EventEmitter {
                 );
                 break;
             }
-            case "UPDATE_LIST_TITLE" : {
-                this.listUpdate(action.listID, {title: action.title});
-                break;
-            }
         }
     }
 }

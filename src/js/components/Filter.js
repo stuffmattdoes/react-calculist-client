@@ -4,28 +4,38 @@ import React from 'react';
 import ItemActions from '../actions/ItemActions';
 
 // stores
-// import ItemStore from '../stores/ItemStore';
+import ItemStore from '../stores/ItemStore';
 
 const Filter = React.createClass({
-
-    propTypes: {
-        filter: React.PropTypes.string.isRequired,
-        itemsCount: React.PropTypes.object.isRequired
+    getInitialState: function() {
+        return {
+            filter: 'SHOW_ALL'
+        }
     },
 
     onFilterClick: function(filter) {
-        ItemActions.itemSetVisibilityFilter(
-            filter
-        );
+        this.setState({
+            filter: filter
+        })
     },
 
     render: function() {
-        let count = this.props.itemsCount.unchecked + this.props.itemsCount.checked;
+        let items = ItemStore.getAll();
+
+        let itemsCount = 0;
+        let itemsCheckedCount = 0;
+        let itemsUncheckedCount = 0;
+
+        items.forEach((value, index) => {
+            value.checked ? itemsCheckedCount ++ : itemsUncheckedCount ++;
+            itemsCount ++;
+        });
+
         let classAll = 'filter__option';
         let classIncomplete = 'filter__option';
         let classComplete = 'filter__option';
 
-        switch (this.props.filter) {
+        switch (this.state.filter) {
             case 'SHOW_ALL' :
                 classAll += ' active';
                 break;
@@ -43,15 +53,15 @@ const Filter = React.createClass({
                     <li
                         className={ classAll }
                         onClick={ () => {this.onFilterClick('SHOW_ALL')} }
-                    >All ({count})</li>
+                    >All ({ itemsCount })</li>
                     <li
                         className={ classIncomplete }
                         onClick={ () => { this.onFilterClick('SHOW_INCOMPLETE')} }
-                    >Unchecked ({ this.props.itemsCount.unchecked})</li>
+                    >Unchecked ({ itemsUncheckedCount })</li>
                     <li
                         className={ classComplete }
                         onClick={ () => {this.onFilterClick('SHOW_COMPLETE')} }
-                    >Checked ({ this.props.itemsCount.checked })</li>
+                    >Checked ({ itemsCheckedCount })</li>
                 </ul>
             </div>
         );

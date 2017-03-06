@@ -22,6 +22,7 @@ function getEnvURL() {
         console.log('Dev environment API');
         return DEV_API;
     } else if (window.location.hostname === 'calculist.stuffmattdoes.com') {
+        console.log('Heroku environment API');
         return HEROKU_API;
     } else if ('192.168.2'.indexOf(window.location.hostname)) {
         console.log('Heroku environment API');
