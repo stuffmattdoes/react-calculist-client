@@ -22,6 +22,7 @@ function getEnvURL() {
         console.log('Dev environment API');
         return DEV_API;
     } else if (window.location.hostname === 'calculist.stuffmattdoes.com') {
+        console.log('Heroku environment API');
         return HEROKU_API;
     } else if ('192.168.2'.indexOf(window.location.hostname)) {
         console.log('Heroku environment API');
@@ -78,21 +79,6 @@ const WebAPIUtils = {
         })
         .catch(error => {
             console.log(error);
-        });
-    },
-
-    itemGetAll: function() {
-        let config = {
-            headers: {
-                'Authorization': localStorage.getItem('jwt')
-            }
-        };
-        axios.get(API_URLS.items, config)
-        .then(response => {
-            ServerResponseActions.receiveAllItems(response.data);
-        })
-        .catch(error => {
-            console.log('Error:', error);
         });
     },
 
@@ -153,10 +139,9 @@ const WebAPIUtils = {
         .catch(error => {
             console.log(error);
         })
-
     },
 
-    listGetAll: function(user) {
+    GetListsAndItems: function() {
         let config = {
             headers: {
                 'Authorization': localStorage.getItem('jwt')
@@ -164,12 +149,13 @@ const WebAPIUtils = {
         };
         axios.get(API_URLS.lists, config)
         .then(response => {
-            ServerResponseActions.receiveAllLists(response.data);
+            console.log(response.data);
+            ServerResponseActions.receiveAllLists(response.data.lists);
+            ServerResponseActions.receiveAllItems(response.data.items);
         })
         .catch(error => {
             console.log(error);
         });
-
     },
 
     listUpdate: function(listID, updates) {

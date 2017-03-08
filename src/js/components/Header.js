@@ -18,7 +18,6 @@ const Header = React.createClass({
     backNav: function(e) {
         e.preventDefault();
         hashHistory.push('/lists/');
-        ListActions.resetListView();
     },
 
     toggleSettings: function(e) {

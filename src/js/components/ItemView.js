@@ -12,12 +12,11 @@ import AddItem from './AddItem';
 
 // Stores
 import ItemStore from '../stores/ItemStore';
-import ListStore from '../stores/ListStore';
+// import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
 
     getInitialState: function() {
-        // console.log(ItemStore.getAll());
         // ListActions.setCurrentList(this.props.params.listID);
         return this.getStateFromStores();
     },
@@ -26,18 +25,12 @@ const ItemView = React.createClass({
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
     },
 
-    componentDidMount: function() {
-        // ListActions.setCurrentList(this.props.params.listID);
-    },
-
     componentWillUnmount: function() {
         ItemStore.removeListener("CHANGE_ITEM", this.onStoreChange);
     },
 
     getStateFromStores: function() {
         return {
-            items: ItemStore.getAllForCurrentList(true),
-            itemsCount: ItemStore.getCurrentListItemCount(),
             currentFilter: ItemStore.getCurrentFilter()
         };
     },
@@ -47,11 +40,26 @@ const ItemView = React.createClass({
     },
 
     render: function() {
-        var listItems = this.state.items.map((listItem, index) => {
+        let items = ItemStore.getAllForCurrentList();
+        let currentFilter = ItemStore.getCurrentFilter();
+
+        let listItems = items.filter((listItem) => {
+            switch (currentFilter) {
+                case 'SHOW_ALL' :
+                    return listItem;
+                    break;
+                case 'SHOW_INCOMPLETE' :
+                    return !listItem.checked;
+                    break;
+                case 'SHOW_COMPLETE' :
+                    return listItem.checked;
+                    break;
+            }
+        }).map((listItem, index) => {
             return (
                 <Item
-                    itemProps={listItem}
-                    key={listItem.itemID}
+                    itemProps={ listItem }
+                    key={ listItem.itemID }
                 />
             );
         });
@@ -59,15 +67,15 @@ const ItemView = React.createClass({
         return (
             <div className="item-view">
                 <div className="list__scroll">
-                    <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
+                    <Filter filter={ currentFilter } />
                     <div className="list__container">
-                        {listItems.length > 0 ? listItems : null}
+                        { listItems }
                     </div>
                     <AddItem
                         condActions={"ItemActions"}
                     />
                 </div>
-                <Footer items={this.state.items} />
+                <Footer items={ items } />
             </div>            
         );
     }

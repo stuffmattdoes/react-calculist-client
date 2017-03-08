@@ -2,9 +2,9 @@
 import { EventEmitter } from "events";
 import dispatcher from '../dispatcher/Dispatcher';
 
-var _lists = null;
-var _currentID = null;
-var CHANGE_EVENT = "CHANGE_LIST";
+let _lists = null;
+let _currentID = null;
+let CHANGE_EVENT = "CHANGE_LIST";
 
 class ListStore extends EventEmitter {
 
@@ -55,7 +55,7 @@ class ListStore extends EventEmitter {
     }
 
     listsPopulate(data) {
-        _lists = data.lists;
+        _lists = data;
         this.emit(CHANGE_EVENT);
     }
 
@@ -122,10 +122,6 @@ class ListStore extends EventEmitter {
                     action.listID,
                     action.updates
                 );
-                break;
-            }
-            case "UPDATE_LIST_TITLE" : {
-                this.listUpdate(action.listID, {title: action.title});
                 break;
             }
         }
