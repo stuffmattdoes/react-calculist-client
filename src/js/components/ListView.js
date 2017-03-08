@@ -1,8 +1,10 @@
 // Libraries
 import React from 'react';
+import { hashHistory } from 'react-router';
 
 // Components
 import AddItem from './AddItem';
+import Header from './Header';
 
 // Actions
 import ListActions from '../actions/ListActions';
@@ -32,6 +34,11 @@ const ListView = React.createClass({
         this.props.router.push('/lists/' + listID + '/');
     },
 
+    toggleAccount: function(e) {
+        console.log('toggleAccount');
+        hashHistory.push(this.props.location.pathname + 'account/');
+        this.props.toggleAccount();
+    },
     // componentWillMount: function() {
     //     ListStore.on('CHANGE_LIST', this.onStoreChange);
     // },
@@ -71,6 +78,12 @@ const ListView = React.createClass({
 
         return (
             <div className="list-view">
+                <Header
+                    title="Calculist"
+                    toggleSettings={this.toggleSettings}
+                    buttonLeft={this.toggleAccount}
+                    buttonRight={null}
+                />
                 <div className="list__scroll list__scroll--full">
                     <div className="list__container">
                         {totalLists.length > 0 ? totalLists : null}

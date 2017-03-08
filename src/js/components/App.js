@@ -2,7 +2,6 @@
 import React from 'react';
 
 // Components
-import Header from './Header';
 import ItemView from './ItemView';
 import ListSettings from './ListSettings';
 import ListView from './ListView';
@@ -93,7 +92,7 @@ const App = React.createClass({
     toggleAccount: function() {
         this.setState({
             accountActive: !this.state.accountActive
-        })
+        });
     },
 
     render: function() {
@@ -120,16 +119,7 @@ const App = React.createClass({
 
         return (
             <div className="app">
-                {!this.state.listSettingsActive ?
-                    <Header
-                        title={this.state.currentList ? this.state.currentList.title : 'Calculist'}
-                        route={this.props.route}
-                        params={this.props.params}
-                        location={this.props.location}
-                        toggleSettings={this.toggleSettings}
-                    />
-                : null}
-                {this.state.loading ? <div className="loader"></div> : childrenWithProps}
+                {this.state.loading ?<div className="loader"></div> : childrenWithProps}
             </div>
         );
     }

@@ -1,8 +1,10 @@
 // Libraries
 import React from 'react';
+import { hashHistory } from 'react-router';
 
 // Components
 import Footer from './Footer';
+import Header from './Header';
 import Item from './Item';
 import Filter from './Filter';
 import AddItem from './AddItem';
@@ -21,6 +23,7 @@ const ItemView = React.createClass({
         return this.getStateFromStores();
     },
 
+
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
     },
@@ -37,6 +40,16 @@ const ItemView = React.createClass({
 
     onStoreChange: function() {
         this.setState(this.getStateFromStores());
+    },
+
+    toggleListSettings: function(e) {
+        e.preventDefault();
+        hashHistory.push(this.props.location.pathname + 'settings/');
+    },
+
+    navBack: function(e) {
+        e.preventDefault();
+        hashHistory.push('/lists/');
     },
 
     render: function() {
@@ -66,6 +79,11 @@ const ItemView = React.createClass({
 
         return (
             <div className="item-view">
+                <Header
+                    title="Calculist"
+                    buttonLeft={this.navBack}
+                    buttonRight={this.toggleListSettings}
+                />
                 <div className="list__scroll">
                     <Filter filter={ currentFilter } />
                     <div className="list__container">
