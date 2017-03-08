@@ -24,6 +24,7 @@ const App = React.createClass({
 
     getInitialState: function() {
         return {
+            accountActive: false,
             currentList: null,
             listSettingsActive: false,
             loading: true
@@ -87,6 +88,12 @@ const App = React.createClass({
         this.setState({
             listSettingsActive: !this.state.listSettingsActive
         });
+    },
+
+    toggleAccount: function() {
+        this.setState({
+            accountActive: !this.state.accountActive
+        })
     },
 
     render: function() {

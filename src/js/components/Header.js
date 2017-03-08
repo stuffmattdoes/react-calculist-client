@@ -26,6 +26,12 @@ const Header = React.createClass({
         this.props.toggleSettings();
     },
 
+    toggleAccount: function(e) {
+        e.preventDefault();
+        hashHistory.push(this.props.location.pathname + 'account/');
+        this.props.toggleAccount();
+    },
+
     render: function() {
         return (
             <div className="header">

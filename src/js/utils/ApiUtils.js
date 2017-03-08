@@ -149,7 +149,7 @@ const WebAPIUtils = {
         };
         axios.get(API_URLS.lists, config)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             ServerResponseActions.receiveAllLists(response.data.lists);
             ServerResponseActions.receiveAllItems(response.data.items);
         })
