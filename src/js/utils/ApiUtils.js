@@ -149,7 +149,6 @@ const WebAPIUtils = {
         };
         axios.get(API_URLS.lists, config)
         .then(response => {
-            // console.log(response.data);
             ServerResponseActions.receiveAllLists(response.data.lists);
             ServerResponseActions.receiveAllItems(response.data.items);
         })
@@ -192,7 +191,6 @@ const WebAPIUtils = {
     },
 
     userLogin: function(creds) {
-        console.log(creds);
         axios.post(API_URLS.auth + '/login', creds)
         .then(response => {
             ServerResponseActions.receiveUserLoginSuccess(response.data);
@@ -216,7 +214,6 @@ const WebAPIUtils = {
                 resolve();
             })
             .catch(error => {
-                console.log(error);
                 ServerResponseActions.receiveTokenRefreshError(error);
                 AuthActions.userLogout();
                 reject();

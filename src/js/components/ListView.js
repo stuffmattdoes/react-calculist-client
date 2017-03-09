@@ -35,10 +35,9 @@ const ListView = React.createClass({
     },
 
     toggleAccount: function(e) {
-        console.log('toggleAccount');
-        hashHistory.push(this.props.location.pathname + 'account/');
-        this.props.toggleAccount();
+        hashHistory.push('/account/');
     },
+
     // componentWillMount: function() {
     //     ListStore.on('CHANGE_LIST', this.onStoreChange);
     // },
@@ -79,10 +78,9 @@ const ListView = React.createClass({
         return (
             <div className="list-view">
                 <Header
-                    title="Calculist"
-                    toggleSettings={this.toggleSettings}
                     buttonLeft={this.toggleAccount}
-                    buttonRight={null}
+                    params={this.props.params}
+                    title="Calculist"
                 />
                 <div className="list__scroll list__scroll--full">
                     <div className="list__container">

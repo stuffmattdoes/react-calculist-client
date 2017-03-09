@@ -12,25 +12,16 @@ const ENTER_KEY_CODE = 13;
 
 const ListSettings = React.createClass({
 
-    propTypes: {
-        currentList: React.PropTypes.object,
-
-        // Passing up
-        toggleSettings: React.PropTypes.func
-    },
-
     getInitialState: function() {
         return {
-            currentList: ListStore.getCurrentList(),
             title: ListStore.getCurrentList().title
         };
     },
 
     onListDelete: function() {
-        hashHistory.push('/lists/');
+        ListActions.listDelete(ListStore.getCurrentListID());
         ListActions.resetListView();
-        ListActions.listDelete(this.props.currentList.listID);
-        this.props.toggleSettings();
+        hashHistory.push('/lists/');
     },
 
     onSubmit: function(e) {
@@ -55,7 +46,7 @@ const ListSettings = React.createClass({
 
         if (inputValue.trim() != "") {
             ListActions.listUpdate(
-                this.props.currentList.listID,
+                ListStore.getCurrentListID(),
                 {
                     title: this.state.title
                 }
@@ -68,7 +59,6 @@ const ListSettings = React.createClass({
 
     toggleSettings: function() {
         hashHistory.push('/lists/' + this.props.params.listID + '/');
-        this.props.toggleSettings();
     },
 
     render: function() {

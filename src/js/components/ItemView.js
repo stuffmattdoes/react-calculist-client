@@ -14,15 +14,9 @@ import AddItem from './AddItem';
 
 // Stores
 import ItemStore from '../stores/ItemStore';
-// import ListStore from '../stores/ListStore';
+import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
-
-    getInitialState: function() {
-        // ListActions.setCurrentList(this.props.params.listID);
-        return this.getStateFromStores();
-    },
-
 
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
@@ -80,9 +74,10 @@ const ItemView = React.createClass({
         return (
             <div className="item-view">
                 <Header
-                    title="Calculist"
                     buttonLeft={this.navBack}
                     buttonRight={this.toggleListSettings}
+                    params={this.props.params}
+                    title={ListStore.getCurrentList().title}
                 />
                 <div className="list__scroll">
                     <Filter filter={ currentFilter } />

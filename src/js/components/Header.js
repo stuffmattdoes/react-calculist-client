@@ -4,11 +4,11 @@ const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
-        // params: React.PropTypes.object,
-        // location: React.PropTypes.object.isRequired,
+        params: React.PropTypes.object,
 
         // Passing up
-        // toggleSettings: React.PropTypes.func.isRequired
+        buttonLeft: React.PropTypes.func,
+        buttonRight: React.PropTypes.func
     },
 
     buttonRight: function(e) {
@@ -22,6 +22,12 @@ const Header = React.createClass({
     },
 
     render: function() {
+        let itemView = false;
+
+        if (this.props.params.listID) {
+            itemView = true;
+        }
+
         return (
             <div className="header">
                 <a
@@ -29,7 +35,11 @@ const Header = React.createClass({
                     className="header__left-button"
                     onClick={this.buttonLeft}
                 >
-                    <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
+                    {itemView ?
+                        <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
+                        :
+                        <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
+                    }
                 </a>
 
                 <h1 className="header__title">{this.props.title}</h1>
@@ -38,7 +48,9 @@ const Header = React.createClass({
                     className="header__right-button"
                     onClick={this.buttonRight}
                 >
+                    {itemView ?
                     <svg className="icon icon__more-vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
+                        : null}
                 </a>
             </div>
         );

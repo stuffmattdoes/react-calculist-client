@@ -2,13 +2,14 @@
 import React from 'react';
 
 // Components
+import Account from './Account';
 import ItemView from './ItemView';
 import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Actions
 import AuthActions from '../actions/AuthActions';
-import ListActions from '../actions/ListActions';
+// import ListActions from '../actions/ListActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -54,6 +55,11 @@ const App = React.createClass({
     componentWillMount: function() {
         // localStorage.clear();
         this.tokenRefresh();
+
+        if (this.props.params.listID) {
+            ListStore.setCurrentList(this.props.params.listID);
+        }
+
         AuthStore.on('USER_AUTH', this.onStoreChange);
         ItemStore.on('CHANGE_ITEM', this.onStoreChange);
         ListStore.on('CHANGE_LIST', this.onStoreChange);
@@ -83,43 +89,11 @@ const App = React.createClass({
         }
     },
 
-    toggleSettings: function() {
-        this.setState({
-            listSettingsActive: !this.state.listSettingsActive
-        });
-    },
-
-    toggleAccount: function() {
-        this.setState({
-            accountActive: !this.state.accountActive
-        });
-    },
-
     render: function() {
-        // Send properties to children
-        const childrenWithProps = React.Children.map(this.props.children, child => {
-
-            switch(child.type) {
-                case ListView : {
-                    return React.cloneElement(child, {});
-                    break;
-                }
-                case ItemView : {
-                    return React.cloneElement(child, {});
-                    break;
-                }
-                case ListSettings : {
-                    return React.cloneElement(child, {
-                        currentList: this.state.currentList,
-                        toggleSettings: this.toggleSettings
-                    });
-                }
-            }
-        });
 
         return (
             <div className="app">
-                {this.state.loading ?<div className="loader"></div> : childrenWithProps}
+                {this.state.loading ?<div className="loader"></div> : this.props.children}
             </div>
         );
     }
