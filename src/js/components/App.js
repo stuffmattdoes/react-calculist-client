@@ -1,15 +1,9 @@
 // Libraries
 import React from 'react';
-
-// Components
-import Account from './Account';
-import ItemView from './ItemView';
-import ListSettings from './ListSettings';
-import ListView from './ListView';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // Actions
 import AuthActions from '../actions/AuthActions';
-// import ListActions from '../actions/ListActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -90,10 +84,20 @@ const App = React.createClass({
     },
 
     render: function() {
+        var path = this.props.location.pathname;
+        var segment = path.split('/')[2] || 'root';
+
+        console.log(path, path.split('/'));
 
         return (
             <div className="app">
-                {this.state.loading ?<div className="loader"></div> : this.props.children}
+                {this.state.loading ?<div className="loader"></div> :
+                    <ReactCSSTransitionGroup
+                        transitionName="view-transition"
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={150}>
+                        {React.cloneElement(this.props.children, { key: path })}
+                    </ReactCSSTransitionGroup>}
             </div>
         );
     }

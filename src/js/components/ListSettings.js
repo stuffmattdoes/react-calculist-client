@@ -63,7 +63,7 @@ const ListSettings = React.createClass({
 
     render: function() {
         return (
-            <div className="list-options">
+            <div className="list-options view-transition">
                 <div className="list-options__header">
                     <div
                         className="header__left-button"

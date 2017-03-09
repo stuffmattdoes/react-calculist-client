@@ -1,0 +1,31 @@
+.view-transition {
+  background-color: #F5F5F5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.15s;
+}
+
+.view-transition-enter {
+  transform: translate3D(25%, 0, 0);
+  opacity: 0.01;
+  z-index: 100;
+}
+
+.view-transition-enter.view-transition-enter-active {
+  transform: translate3D(0, 0, 0);
+  opacity: 1;
+  z-index: 100;
+}
+
+.view-transition-leave {
+  transform: translate3D(0, 0, 0);
+  opacity: 1;
+}
+
+.view-transition-enter.view-transition-leave-active {
+  transform: translate3D(0, 0, 0);
+  opacity: 1;
+}

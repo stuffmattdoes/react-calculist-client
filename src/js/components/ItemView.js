@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import { hashHistory } from 'react-router';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // Components
 import Footer from './Footer';
@@ -72,7 +73,7 @@ const ItemView = React.createClass({
         });
 
         return (
-            <div className="item-view">
+            <div className="item-view view-transition">
                 <Header
                     buttonLeft={this.navBack}
                     buttonRight={this.toggleListSettings}
@@ -82,14 +83,19 @@ const ItemView = React.createClass({
                 <div className="list__scroll">
                     <Filter filter={ currentFilter } />
                     <div className="list__container">
-                        { listItems }
+                        <ReactCSSTransitionGroup
+                            transitionName="list-item-transition"
+                            transitionEnterTimeout={10}
+                            transitionLeaveTimeout={200}>
+                            { listItems }
+                        </ReactCSSTransitionGroup>
                     </div>
                     <AddItem
                         condActions={"ItemActions"}
                     />
                 </div>
                 <Footer items={ items } />
-            </div>            
+            </div>
         );
     }
 });

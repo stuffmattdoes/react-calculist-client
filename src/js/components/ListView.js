@@ -1,6 +1,7 @@
 // Libraries
 import React from 'react';
 import { hashHistory } from 'react-router';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // Components
 import AddItem from './AddItem';
@@ -18,16 +19,17 @@ const ListView = React.createClass({
     // getInitialState: function() {
     //     return this.getStateFromStores();
     // },
-    //
+
     // getStateFromStores: function() {
     //     return {
     //         lists: ListStore.getAll()
     //     }
     // },
-    //
-    // onStoreChange: function() {
-    //     this.setState(this.getStateFromStores());
-    // },
+
+    onStoreChange: function() {
+        this.forceUpdate();
+        // this.setState(this.getStateFromStores());
+    },
 
     onListClick: function(listID) {
         ListActions.setCurrentList(listID);
@@ -38,13 +40,13 @@ const ListView = React.createClass({
         hashHistory.push('/account/');
     },
 
-    // componentWillMount: function() {
-    //     ListStore.on('CHANGE_LIST', this.onStoreChange);
-    // },
-    //
-    // componentWillUnmount: function() {
-    //     ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
-    // },
+    componentWillMount: function() {
+        ListStore.on('CHANGE_LIST', this.onStoreChange);
+    },
+
+    componentWillUnmount: function() {
+        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
+    },
 
     render: function() {
         let lists = ListStore.getAll();
@@ -76,7 +78,7 @@ const ListView = React.createClass({
         });
 
         return (
-            <div className="list-view">
+            <div className="list-view view-transition" >
                 <Header
                     buttonLeft={this.toggleAccount}
                     params={this.props.params}
@@ -84,7 +86,12 @@ const ListView = React.createClass({
                 />
                 <div className="list__scroll list__scroll--full">
                     <div className="list__container">
-                        {totalLists.length > 0 ? totalLists : null}
+                        <ReactCSSTransitionGroup
+                            transitionName="list-item-transition"
+                            transitionEnterTimeout={10}
+                            transitionLeaveTimeout={200}>
+                            { totalLists }
+                        </ReactCSSTransitionGroup>
                     </div>
                     <AddItem condActions={"ListActions"} />
                 </div>

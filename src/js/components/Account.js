@@ -17,7 +17,7 @@ const Account = React.createClass({
 
 	render: function() {
 		return (
-			<div className="account-view" >
+			<div className="account-view view-transition" >
 				<Header
 					buttonLeft={this.toggleAccount}
 					params={this.props.params}

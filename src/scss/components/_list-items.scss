@@ -1,7 +1,9 @@
 .list-item {
   font-size: 14px;
   display: block;
-  //border-bottom: 1px solid #E6E6E6;
+  transition: 0.2s;
+  //opacity: 1;
+  //transform: translate3D(0, 0, 0);
 }
 
 .list-item--big {
@@ -125,6 +127,23 @@
 
 .list-item--expanded .list-item__container {
   box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+
+// --------------------
+// Transition
+// --------------------
+
+.list-item-transition-leave,
+.list-item-transition-enter-active {
+  transform: translate3D(0, 0, 0);
+  opacity: 1;
+  transition: 0.2s;
+}
+.list-item-transition-enter,
+.list-item-transition-leave-active {
+  transform: translate3D(50%, 0, 0);
+  opacity: 0.01;
 }
 
 
