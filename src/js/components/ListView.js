@@ -1,8 +1,10 @@
 // Libraries
 import React from 'react';
+import { hashHistory } from 'react-router';
 
 // Components
 import AddItem from './AddItem';
+import Header from './Header';
 
 // Actions
 import ListActions from '../actions/ListActions';
@@ -13,36 +15,47 @@ import ItemStore from '../stores/ItemStore';
 
 const ListView = React.createClass({
 
-    getInitialState: function() {
-        return this.getStateFromStores();
-    },
-
-    getStateFromStores: function() {
-        return {
-            lists: ListStore.getAll()
-        }
-    },
-
-    onStoreChange: function() {
-        this.setState(this.getStateFromStores());
-    },
+    // getInitialState: function() {
+    //     return this.getStateFromStores();
+    // },
+    //
+    // getStateFromStores: function() {
+    //     return {
+    //         lists: ListStore.getAll()
+    //     }
+    // },
+    //
+    // onStoreChange: function() {
+    //     this.setState(this.getStateFromStores());
+    // },
 
     onListClick: function(listID) {
         ListActions.setCurrentList(listID);
         this.props.router.push('/lists/' + listID + '/');
     },
 
-    componentWillMount: function() {
-        ListStore.on('CHANGE_LIST', this.onStoreChange);
+    toggleAccount: function(e) {
+        hashHistory.push('/account/');
     },
 
-    componentWillUnmount: function() {
-        ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
-    },
+    // componentWillMount: function() {
+    //     ListStore.on('CHANGE_LIST', this.onStoreChange);
+    // },
+    //
+    // componentWillUnmount: function() {
+    //     ListStore.removeListener('CHANGE_LIST', this.onStoreChange);
+    // },
 
     render: function() {
-        var totalLists = this.state.lists.map((list, index) => {
-            var itemCount = ItemStore.getListItemCount(list.listID).unchecked;
+        let lists = ListStore.getAll();
+
+        let totalLists = lists.map((list, index) => {
+            let listItemCount = ItemStore.getAllForList((list.listID)).reduce((total, item) => {
+                if (!item.checked) {
+                    total++;
+                }
+                return total;
+            }, 0);
 
             return (
                 <div
@@ -52,8 +65,8 @@ const ListView = React.createClass({
                 >
                     <div className="list-item__container">
                         <p className="list-item__title">{list.title}</p>
-                        {itemCount > 0 ?
-                            <div className="list-item__count">{itemCount}</div>
+                        {listItemCount > 0 ?
+                            <div className="list-item__count">{listItemCount}</div>
                         :
                             null
                         }
@@ -63,7 +76,12 @@ const ListView = React.createClass({
         });
 
         return (
-            <div className="view__lists">
+            <div className="list-view">
+                <Header
+                    buttonLeft={this.toggleAccount}
+                    params={this.props.params}
+                    title="Calculist"
+                />
                 <div className="list__scroll list__scroll--full">
                     <div className="list__container">
                         {totalLists.length > 0 ? totalLists : null}

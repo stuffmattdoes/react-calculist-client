@@ -1,60 +1,57 @@
 import React from 'react';
-import { hashHistory } from 'react-router';
-
-// Stores
-import ListActions from '../actions/ListActions';
 
 const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
         params: React.PropTypes.object,
-        location: React.PropTypes.object.isRequired,
 
         // Passing up
-        toggleSettings: React.PropTypes.func.isRequired
+        buttonLeft: React.PropTypes.func,
+        buttonRight: React.PropTypes.func
     },
 
-    backNav: function(e) {
+    buttonRight: function(e) {
         e.preventDefault();
-        hashHistory.push('/lists/');
-        ListActions.resetListView();
+        this.props.buttonRight(e);
     },
 
-    toggleSettings: function(e) {
+    buttonLeft: function(e) {
         e.preventDefault();
-        hashHistory.push(this.props.location.pathname + 'settings/');
-        this.props.toggleSettings();
+        this.props.buttonLeft(e);
     },
 
     render: function() {
+        let itemView = false;
+
+        if (this.props.params.listID) {
+            itemView = true;
+        }
+
         return (
             <div className="header">
-                {this.props.params.listID ?
-                    <a
-                        href="#"
-                        className="header__left-button"
-                        onClick={this.backNav}
-                    >
+                <a
+                    href="#"
+                    className="header__left-button"
+                    onClick={this.buttonLeft}
+                >
+                    {itemView ?
                         <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
-                    </a>
-                :
-                    <a
-                        className="header__left-button"
-                    >
-                        <svg className="icon icon__menu"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
-                    </a>
-                }
+                        :
+                        <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
+                    }
+                </a>
+
                 <h1 className="header__title">{this.props.title}</h1>
-                {this.props.params.listID ?
-                    <a
-                        href="#"
-                        className="header__right-button"
-                        onClick={this.toggleSettings}
-                    >
-                        <svg className="icon icon__more-vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
-                    </a>
-                : null}
+                <a
+                    href="#"
+                    className="header__right-button"
+                    onClick={this.buttonRight}
+                >
+                    {itemView ?
+                    <svg className="icon icon__more-vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
+                        : null}
+                </a>
             </div>
         );
     }

@@ -1,10 +1,10 @@
 // Libraries
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group' // ES6
-
+import { hashHistory } from 'react-router';
 
 // Components
 import Footer from './Footer';
+import Header from './Header';
 import Item from './Item';
 import Filter from './Filter';
 import AddItem from './AddItem';
@@ -18,18 +18,8 @@ import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
 
-    getInitialState: function() {
-        // console.log(ItemStore.getAll());
-        // ListActions.setCurrentList(this.props.params.listID);
-        return this.getStateFromStores();
-    },
-
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
-    },
-
-    componentDidMount: function() {
-        // ListActions.setCurrentList(this.props.params.listID);
     },
 
     componentWillUnmount: function() {
@@ -38,8 +28,6 @@ const ItemView = React.createClass({
 
     getStateFromStores: function() {
         return {
-            items: ItemStore.getAllForCurrentList(true),
-            itemsCount: ItemStore.getCurrentListItemCount(),
             currentFilter: ItemStore.getCurrentFilter()
         };
     },
@@ -48,35 +36,60 @@ const ItemView = React.createClass({
         this.setState(this.getStateFromStores());
     },
 
+    toggleListSettings: function(e) {
+        e.preventDefault();
+        hashHistory.push(this.props.location.pathname + 'settings/');
+    },
+
+    navBack: function(e) {
+        e.preventDefault();
+        hashHistory.push('/lists/');
+    },
+
     render: function() {
-        var listItems = this.state.items.map((listItem, index) => {
+        let items = ItemStore.getAllForCurrentList();
+        let currentFilter = ItemStore.getCurrentFilter();
+
+        let listItems = items.filter((listItem) => {
+            switch (currentFilter) {
+                case 'SHOW_ALL' :
+                    return listItem;
+                    break;
+                case 'SHOW_INCOMPLETE' :
+                    return !listItem.checked;
+                    break;
+                case 'SHOW_COMPLETE' :
+                    return listItem.checked;
+                    break;
+            }
+        }).map((listItem, index) => {
             return (
                 <Item
-                    itemProps={listItem}
-                    key={listItem.itemID}
+                    itemProps={ listItem }
+                    key={ listItem.itemID }
                 />
             );
         });
 
         return (
-            <ReactCSSTransitionGroup
-                transitionName="view__items"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={500}
-            >
-                <div className="view__items">
-                    <div className="list__scroll">
-                        <Filter filter={this.state.currentFilter} itemsCount={this.state.itemsCount} />
-                        <div className="list__container">
-                            {listItems.length > 0 ? listItems : null}
-                        </div>
-                        <AddItem
-                            condActions={"ItemActions"}
-                        />
+            <div className="item-view">
+                <Header
+                    buttonLeft={this.navBack}
+                    buttonRight={this.toggleListSettings}
+                    params={this.props.params}
+                    title={ListStore.getCurrentList().title}
+                />
+                <div className="list__scroll">
+                    <Filter filter={ currentFilter } />
+                    <div className="list__container">
+                        { listItems }
                     </div>
-                    <Footer items={this.state.items} />
+                    <AddItem
+                        condActions={"ItemActions"}
+                    />
                 </div>
-            </ReactCSSTransitionGroup>
+                <Footer items={ items } />
+            </div>            
         );
     }
 });

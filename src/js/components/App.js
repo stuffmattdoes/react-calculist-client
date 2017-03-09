@@ -2,14 +2,14 @@
 import React from 'react';
 
 // Components
-import Header from './Header';
+import Account from './Account';
 import ItemView from './ItemView';
 import ListSettings from './ListSettings';
 import ListView from './ListView';
 
 // Actions
 import AuthActions from '../actions/AuthActions';
-import ListActions from '../actions/ListActions';
+// import ListActions from '../actions/ListActions';
 
 // Stores
 import AuthStore from '../stores/AuthStore';
@@ -24,6 +24,7 @@ const App = React.createClass({
 
     getInitialState: function() {
         return {
+            accountActive: false,
             currentList: null,
             listSettingsActive: false,
             loading: true
@@ -54,6 +55,11 @@ const App = React.createClass({
     componentWillMount: function() {
         // localStorage.clear();
         this.tokenRefresh();
+
+        if (this.props.params.listID) {
+            ListStore.setCurrentList(this.props.params.listID);
+        }
+
         AuthStore.on('USER_AUTH', this.onStoreChange);
         ItemStore.on('CHANGE_ITEM', this.onStoreChange);
         ListStore.on('CHANGE_LIST', this.onStoreChange);
@@ -66,8 +72,7 @@ const App = React.createClass({
     },
 
     initData: function() {
-        ApiUtils.listGetAll();
-        ApiUtils.itemGetAll();
+        ApiUtils.GetListsAndItems();
     },
 
     tokenRefresh: function() {
@@ -84,46 +89,11 @@ const App = React.createClass({
         }
     },
 
-    toggleSettings: function() {
-        this.setState({
-            listSettingsActive: !this.state.listSettingsActive
-        });
-    },
-
     render: function() {
-        // Send properties to children
-        const childrenWithProps = React.Children.map(this.props.children, child => {
-
-            switch(child.type) {
-                case ListView : {
-                    return React.cloneElement(child, {});
-                    break;
-                }
-                case ItemView : {
-                    return React.cloneElement(child, {});
-                    break;
-                }
-                case ListSettings : {
-                    return React.cloneElement(child, {
-                        currentList: this.state.currentList,
-                        toggleSettings: this.toggleSettings
-                    });
-                }
-            }
-        });
 
         return (
             <div className="app">
-                {!this.state.listSettingsActive ?
-                    <Header
-                        title={this.state.currentList ? this.state.currentList.title : 'Calculist'}
-                        route={this.props.route}
-                        params={this.props.params}
-                        location={this.props.location}
-                        toggleSettings={this.toggleSettings}
-                    />
-                : null}
-                {this.state.loading ? <div className="loader"></div> : childrenWithProps}
+                {this.state.loading ?<div className="loader"></div> : this.props.children}
             </div>
         );
     }

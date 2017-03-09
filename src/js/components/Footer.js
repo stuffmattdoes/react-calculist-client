@@ -1,16 +1,16 @@
+// Libraries
 import React from 'react';
+
+// Stores
+import ItemStore from '../stores/ItemStore';
 
 const Footer = React.createClass({
 
-    propTypes: {
-        items: React.PropTypes.array.isRequired
-    },
-
     getTotalCost: function() {
-        var items = this.props.item;
-        var taxRate = 6.5;
-        var totalCost = this.props.items.reduce(function(total, item) {
-            var addAmount = 0;
+        let items = ItemStore.getAll();
+        let taxRate = 6.5;
+        let totalCost = items.reduce((total, item) => {
+            let addAmount = 0;
 
             if (item.checked) {
                 addAmount = parseFloat(item.amount);
@@ -31,11 +31,11 @@ const Footer = React.createClass({
     },
 
     render: function() {
-        var totalCost = this.getTotalCost();
+        let totalCost = this.getTotalCost();
 
         return (
             <div className="footer">
-                <p className="footer__total">Total: <strong>${totalCost}</strong></p>
+                <p className="footer__total">Total: <strong>{ totalCost }</strong></p>
             </div>
         );
     }

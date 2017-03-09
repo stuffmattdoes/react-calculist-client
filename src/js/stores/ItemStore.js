@@ -5,9 +5,9 @@ import dispatcher from '../dispatcher/Dispatcher';
 // Stores
 import ListStore from './ListStore';
 
-var _items = null;
-var _filter = "SHOW_ALL";
-var CHANGE_EVENT = "CHANGE_ITEM";
+let _items = null;
+let _filter = "SHOW_ALL";
+let CHANGE_EVENT = "CHANGE_ITEM";
 
 class ItemStore extends EventEmitter {
 
@@ -15,17 +15,12 @@ class ItemStore extends EventEmitter {
         return _items;
     }
 
-    getAllForCurrentList(filterActive) {
-        if (filterActive) {
-            return this.getAllForListFilter(ListStore.getCurrentListID());
-        } else {
-            return this.getAllForList(ListStore.getCurrentListID());
-        }
-
+    getAllForCurrentList() {
+        return this.getAllForList(ListStore.getCurrentListID());
     }
 
     getAllForList(listID) {
-        var listItems = [];
+        let listItems = [];
         _items.forEach((value, index) => {
             if (listID == value.listID) {
                 listItems.push(value);
@@ -34,61 +29,8 @@ class ItemStore extends EventEmitter {
         return listItems;
     }
 
-    getAllForListFilter(listID) {
-        var listItems = [];
-        _items.forEach((value, index) => {
-            if (listID == value.listID) {
-                switch (_filter) {
-                    case 'SHOW_ALL' : {
-                        listItems.push(value);
-                        break;
-                    }
-                    case 'SHOW_INCOMPLETE' : {
-                        if (!value.checked) {
-                            listItems.push(value);
-                        }
-                        break;
-                    }
-                    case 'SHOW_COMPLETE' : {
-                        if (value.checked) {
-                            listItems.push(value);
-                        }
-                        break;
-                    }
-                }
-            }
-        });
-        return listItems;
-    }
-
-    getCurrentFilter() {
-        return _filter;
-    }
-
-    getListItemCount(listID) {
-        var itemCount = {
-            checked: 0,
-            unchecked: 0
-        }
-
-        _items.forEach((value, index) => {
-            if (listID == value.listID) {
-                if (value.checked) {
-                    itemCount.checked ++;
-                } else {
-                    itemCount.unchecked ++;
-                }
-            }
-        });
-        return itemCount;
-    }
-
-    getCurrentListItemCount() {
-        return this.getListItemCount(ListStore.getCurrentListID());
-    }
-
-    itemCreate(listID, itemID, title) {
-        var newItem = {
+    itemCreate(itemID, title) {
+        let newItem = {
             title: title,
             checked: false,
             amount: 0.00,
@@ -119,12 +61,7 @@ class ItemStore extends EventEmitter {
     }
 
     itemPopulate(data) {
-        _items = data.items;
-        this.emit(CHANGE_EVENT);
-    }
-
-    itemSetVisibilityFilter(filter) {
-        _filter = filter;
+        _items = data;
         this.emit(CHANGE_EVENT);
     }
 
@@ -138,6 +75,19 @@ class ItemStore extends EventEmitter {
 
         });
         this.emit(CHANGE_EVENT);
+    }
+
+    getCurrentFilter() {
+        return _filter;
+    }
+
+    setVisibilityFilter(filter) {
+        _filter = filter;
+        this.emit(CHANGE_EVENT);
+    }
+
+    resetItemFilter() {
+        _filter = "SHOW_ALL";
     }
 
     updateProperties(item, updates) {
@@ -163,30 +113,22 @@ class ItemStore extends EventEmitter {
 
     }
 
-    resetItemFilter() {
-        _filter = "SHOW_ALL";
-    }
-
     handleActions(action) {
         switch(action.type) {
             case "CREATE_ITEM" : {
-                this.itemCreate(action.listID, action.itemID, action.title);
+                this.itemCreate(action.itemID, action.title);
                 break;
             }
             case "DELETE_ITEM" : {
                 this.itemDelete(action.itemID);
                 break;
             }
-            case "SET_VISIBILITY_FILTER" : {
-                this.itemSetVisibilityFilter(action.filter);
-                break;
-            }
             case "GET_ITEMS" : {
                 this.itemPopulate(action.data);
                 break;
             }
-            case "RESET_LIST_VIEW" : {
-                this.resetItemFilter();
+            case "SET_VISIBILITY_FILTER" : {
+                this.setVisibilityFilter(action.filter);
                 break;
             }
             case "UPDATE_ITEM" : {
