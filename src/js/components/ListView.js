@@ -87,9 +87,10 @@ const ListView = React.createClass({
                 <div className="list__scroll list__scroll--full">
                     <div className="list__container">
                         <ReactCSSTransitionGroup
-                            transitionName="list-item-transition"
-                            transitionEnterTimeout={10}
-                            transitionLeaveTimeout={200}>
+                            transitionName='list-item-transition'
+                            transitionEnterTimeout={200}
+                            transitionLeaveTimeout={200}
+                        >
                             { totalLists }
                         </ReactCSSTransitionGroup>
                     </div>

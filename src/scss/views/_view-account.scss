@@ -1,0 +1,22 @@
+.account-view {
+  &.view-transition-enter {
+    transform: translate3D(0, 25%, 0);
+    opacity: 0.01;
+    z-index: 100;
+  }
+  &.view-transition-enter.view-transition-enter-active {
+    transform: translate3D(0, 0, 0);
+    opacity: 1;
+    z-index: 100;
+  }
+
+  //&.view-transition-leave {
+  //  transform: translate3D(0, 0, 0);
+  //  opacity: 1;
+  //}
+  //
+  //&.view-transition-leave.view-transition-leave-active {
+  //  transform: translate3D(0, 0, 0);
+  //  opacity: 1;
+  //}
+}

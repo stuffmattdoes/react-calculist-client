@@ -85,7 +85,7 @@ const ItemView = React.createClass({
                     <div className="list__container">
                         <ReactCSSTransitionGroup
                             transitionName="list-item-transition"
-                            transitionEnterTimeout={10}
+                            transitionEnterTimeout={200}
                             transitionLeaveTimeout={200}>
                             { listItems }
                         </ReactCSSTransitionGroup>

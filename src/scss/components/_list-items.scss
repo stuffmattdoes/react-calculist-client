@@ -134,18 +134,17 @@
 // Transition
 // --------------------
 
-.list-item-transition-leave,
-.list-item-transition-enter-active {
-  transform: translate3D(0, 0, 0);
-  opacity: 1;
-  transition: 0.2s;
-}
 .list-item-transition-enter,
-.list-item-transition-leave-active {
+.list-item-transition-leave.list-item-transition-leave-active {
   transform: translate3D(50%, 0, 0);
   opacity: 0.01;
 }
 
+.list-item-transition-leave,
+.list-item-transition-enter.list-item-transition-enter-active {
+  transform: translate3D(0, 0, 0);
+  opacity: 1;
+}
 
 // --------------------
 // Responsive
