@@ -35,6 +35,7 @@ class AuthStore extends EventEmitter {
     }
 
     setUserInfo(data) {
+        console.log(data);
         let jwt = data.jwt;
         if (!jwt) {
             jwt = localStorage.getItem('jwt');

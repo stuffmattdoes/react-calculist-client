@@ -9,7 +9,7 @@ import Header from './Header';
 import AuthActions from '../actions/AuthActions';
 
 // stores
-// import ListStore from '../stores/ListStore';
+import AuthStore from '../stores/AuthStore';
 
 const Account = React.createClass({
 
@@ -36,6 +36,11 @@ const Account = React.createClass({
 	},
 
 	render: function() {
+    	let name = AuthStore.getUser().profile.name;
+    	let photo = AuthStore.getUser().profile.photo;
+    	let email = AuthStore.getUser().email;
+    	let firstInitial = name ? name.substr(0, 1).toUpperCase() : email.substr(0, 1).toUpperCase();
+
 		return (
 			<div className="account-view view-transition" >
 				<Header
@@ -46,21 +51,29 @@ const Account = React.createClass({
 					params={this.props.params}
 					title="Account"
 				/>
-				<div className="section section--divided" onClick={this.changePhoto}>
+				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Photo</label>
-					<div className="user-avatar"></div>
+					{photo ?
+						<div className="user-avatar"></div>
+						:
+						<p className="p--standard">{firstInitial}</p>
+					}
 				</div>
-				<div className="section section--divided" onClick={this.changePhoto}>
+				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Name</label>
-					<p>Matthew Morrison</p>
+					{name ?
+						<p className="p--standard">{name}</p>
+						:
+						<p className="text--placeholder">Your name here</p>
+					}
 				</div>
-				<div className="section section--divided" onClick={this.changePhoto}>
+				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Email</label>
-					<p>m.james.morrison00@gmail.com</p>
+					<p className="p--standard">{email}</p>
 				</div>
-				<div className="section section--divided" onClick={this.changePhoto}>
+				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Password</label>
-					<p>•••••••</p>
+					<p className="p--standard">•••••••</p>
 				</div>
 				<div className="section align--right">
 					<div className="button button--warning" onClick={this.userLogout}>Log Out</div>
