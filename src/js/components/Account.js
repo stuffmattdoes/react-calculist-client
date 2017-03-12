@@ -54,9 +54,9 @@ const Account = React.createClass({
 				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Photo</label>
 					{photo ?
-						<div className="user-avatar"></div>
-						:
 						<p className="p--standard">{firstInitial}</p>
+						:
+						<div className="user-avatar user-avatar--standard"><img src="http://placehold.it/48x48" /></div>
 					}
 				</div>
 				<div className="section section--divided section--edit" onClick={this.changePhoto}>
