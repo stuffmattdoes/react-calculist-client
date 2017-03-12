@@ -93,16 +93,12 @@ const ListSettings = React.createClass({
                         />
                     </form>
                 </div>
-                <div
-                    className="list-options__container"
-                >
-                    <div className="align--right">
-                        <div
-                            className="button button--text button--text-warning"
-                            onClick={this.onListDelete}
-                        >
-                            Delete List
-                        </div>
+                <div className="section align--right">
+                    <div
+                        className="button button--text button--text-warning"
+                        onClick={this.onListDelete}
+                    >
+                        Delete List
                     </div>
                 </div>
             </div>

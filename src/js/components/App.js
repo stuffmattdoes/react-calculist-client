@@ -85,14 +85,18 @@ const App = React.createClass({
 
     render: function() {
         var path = this.props.location.pathname;
-        var segment = path.split('/')[2] || 'root';
-        console.log(path, segment);
+        var segment = path.split('/').filter((element) => {
+           return element.length != 0;
+        });
+
+        // var segment = path.split('/')[2] || 'root';
 
         return (
             <div className="app">
                 {this.state.loading ?<div className="loader"></div> :
                     <ReactCSSTransitionGroup
                         transitionName='view-transition'
+                        transitionAppearTimeout={2500}
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={250}>
                         {React.cloneElement(this.props.children, { key: path })}

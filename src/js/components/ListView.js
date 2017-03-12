@@ -81,6 +81,9 @@ const ListView = React.createClass({
             <div className="list-view view-transition" >
                 <Header
                     buttonLeft={this.toggleAccount}
+                    buttonRight={null}
+                    buttonBack={false}
+                    buttonOptions={false}
                     params={this.props.params}
                     title="Calculist"
                 />

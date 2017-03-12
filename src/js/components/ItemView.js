@@ -1,6 +1,6 @@
 // Libraries
 import React from 'react';
-import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // Components
@@ -18,6 +18,32 @@ import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
+
+    // React Transition Groups
+    componentWillAppear: function() {
+        console.log('componentWillAppear');
+    },
+
+    componentDidAppear: function() {
+        console.log('componentDidAppear');
+    },
+
+    componentWillEnter: function() {
+        console.log('componentWillEnter');
+    },
+
+    componentDidEnter: function() {
+        console.log('componentDidEnter');
+    },
+
+    componentWillLeave: function() {
+        console.log('componentWillLeave');
+    },
+
+    componentDidLeave: function() {
+        console.log('componentDidLeave');
+    },
+
 
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
@@ -77,6 +103,8 @@ const ItemView = React.createClass({
                 <Header
                     buttonLeft={this.navBack}
                     buttonRight={this.toggleListSettings}
+                    buttonBack={true}
+                    buttonOptions={true}
                     params={this.props.params}
                     title={ListStore.getCurrentList().title}
                 />

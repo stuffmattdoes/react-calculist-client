@@ -5,24 +5,21 @@
   left: 0;
   width: 100%;
   height: 100%;
-  transition: .25s ease-in-out;
+  transition: .15s ease-in-out;
 }
 
 .view-transition-enter {
   transform: translate3D(100%, 0, 0);
-  //opacity: 0.01;
   z-index: 100;
 }
 
 .view-transition-enter.view-transition-enter-active {
   transform: translate3D(0, 0, 0);
-  //opacity: 1;
   z-index: 100;
 }
 
 .view-transition-leave {
   transform: translate3D(0, 0, 0);
-  //opacity: 1;
 
   &:after {
     content: '';
@@ -40,10 +37,9 @@
 
 .view-transition-leave.view-transition-leave-active {
   transform: translate3D(-100%, 0, 0);
-  //opacity: 1;
 
   &:after {
-    opacity: 0.5;
+    opacity: 0.15;
   }
 }
 

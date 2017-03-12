@@ -1,10 +1,14 @@
+// Libraries
 import React from 'react';
+import { hashHistory } from 'react-router';
 
 const Header = React.createClass({
 
     PropTypes: {
         title: React.PropTypes.string.isRequired,
         params: React.PropTypes.object,
+        buttonBack: React.PropTypes.bool,
+        buttonOptions: React.PropTypes.bool,
 
         // Passing up
         buttonLeft: React.PropTypes.func,
@@ -22,11 +26,8 @@ const Header = React.createClass({
     },
 
     render: function() {
-        let itemView = false;
-
-        if (this.props.params.listID) {
-            itemView = true;
-        }
+        let buttonBack = this.props.buttonBack;
+        let buttonOptions = this.props.buttonOptions;
 
         return (
             <div className="header">
@@ -35,7 +36,7 @@ const Header = React.createClass({
                     className="header__left-button"
                     onClick={this.buttonLeft}
                 >
-                    {itemView ?
+                    {buttonBack ?
                         <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-arrow_back"></use></svg>
                         :
                         <svg className="icon icon__arrow-back"><use href="./svg/svg-defs.svg#icon-menu"></use></svg>
@@ -48,7 +49,7 @@ const Header = React.createClass({
                     className="header__right-button"
                     onClick={this.buttonRight}
                 >
-                    {itemView ?
+                    {buttonOptions ?
                     <svg className="icon icon__more-vert"><use href="./svg/svg-defs.svg#icon-more_vert"></use></svg>
                         : null}
                 </a>

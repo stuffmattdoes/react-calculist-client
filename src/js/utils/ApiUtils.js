@@ -200,6 +200,10 @@ const WebAPIUtils = {
         });
     },
 
+    userLogout: function() {
+
+    },
+
     tokenRefresh: function() {
         let config = {
             headers: {

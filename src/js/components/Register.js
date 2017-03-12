@@ -162,7 +162,7 @@ const Register = React.createClass({
                         })}
                         <p className="form__label--small">* required fields</p>
                         <input
-                            className="button button--main"
+                            className="button button--main button--full"
                             type='submit'
                             value={this.state.formSubmitted ?
                                 'Loading...': 'Submit'

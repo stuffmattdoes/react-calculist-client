@@ -3,18 +3,23 @@
 // -----------------------------------------------------------------------------
 
 .button {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: auto;
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
     border: none;
-    padding: 14px;
+    padding: 14px 25px;
     margin: 20px 0;
     outline: none;
     color: white;
+
+    &.button--full {
+        width: 100%
+    }
 }
+
 
 .button--main {
     background-color: $purple;

@@ -147,7 +147,7 @@ const Login = React.createClass({
                         })}
 
                         <input
-                            className="button button--main"
+                            className="button button--main button--full"
                             type='submit'
                             value={this.state.formSubmitted ?
                                 'Loading...' : 'Submit'
