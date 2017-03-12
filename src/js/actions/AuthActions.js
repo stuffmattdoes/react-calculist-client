@@ -19,7 +19,7 @@ const AuthActions = {
         Dispatcher.dispatch({
             type: 'CLEAR_CREDENTIALS'
         });
-        hashHistory.push('/login');
+        hashHistory.push('/login/');
     },
 
     clearCredentials: function() {
