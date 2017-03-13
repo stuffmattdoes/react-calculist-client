@@ -30,7 +30,6 @@
 // 5. Components
 @import
   'components/add-item',
-  'components/avatar',
   'components/buttons',
   'components/checkbox',
   'components/forms',
@@ -43,11 +42,12 @@
   'components/loader',
   'components/modal',
   'components/section',
-  'components/toggle';
+  'components/toggle',
+  'components/user-avatar';
 
 // 6. Page-specific styles
 @import
-  //'views/view-account',
+  'views/view-account',
   'views/view-transition',
   'views/view-login',
   'views/view-items';

@@ -2,6 +2,9 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 
+// components
+import Modal from './Modal';
+
 // Actions
 import ListActions from '../actions/ListActions';
 
@@ -14,8 +17,17 @@ const ListSettings = React.createClass({
 
     getInitialState: function() {
         return {
-            title: ListStore.getCurrentList().title
+            title: ListStore.getCurrentList().title,
+            showModal: false
         };
+    },
+
+    cancelDelete: function() {
+        this.setState({showModal: false});
+    },
+
+    toggleModal: function() {
+        this.setState({showModal: true});
     },
 
     onListDelete: function() {
@@ -64,6 +76,15 @@ const ListSettings = React.createClass({
     render: function() {
         return (
             <div className="list-options view-transition">
+                <Modal
+                    showModal={this.state.showModal}
+                    headlineText="Delete List"
+                    bodyText="Are you sure you want to delete this list?"
+                    cancelText="Cancel"
+                    confirmText="Delete"
+                    cancelClick={this.cancelDelete}
+                    confirmClick={this.onListDelete}
+                />
                 <div className="list-options__header">
                     <div
                         className="header__left-button"
@@ -96,7 +117,7 @@ const ListSettings = React.createClass({
                 <div className="section align--right">
                     <div
                         className="button button--text button--text-warning"
-                        onClick={this.onListDelete}
+                        onClick={this.toggleModal}
                     >
                         Delete List
                     </div>

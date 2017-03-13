@@ -96,7 +96,6 @@ const App = React.createClass({
                 {this.state.loading ?<div className="loader"></div> :
                     <ReactCSSTransitionGroup
                         transitionName='view-transition'
-                        transitionAppearTimeout={2500}
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={250}>
                         {React.cloneElement(this.props.children, { key: path })}

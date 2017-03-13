@@ -10,8 +10,8 @@
     text-transform: uppercase;
     cursor: pointer;
     border: none;
-    padding: 14px 25px;
-    margin: 20px 0;
+    padding: 14px 20px;
+    margin: 20px 0 0;
     outline: none;
     color: white;
 
@@ -20,6 +20,9 @@
     }
 }
 
+.button + .button {
+    margin-left: 20px;
+}
 
 .button--main {
     background-color: $purple;
@@ -42,7 +45,11 @@
     width: auto;
     display: inline-block;
     background-color: transparent;
-    margin: 20px 0 0;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: rgba(black, 0.08);
+    }
 }
 
 .button--text-warning {

@@ -4,6 +4,7 @@ import { hashHistory } from 'react-router';
 
 // components
 import Header from './Header';
+import Modal from './Modal';
 
 // actions
 import AuthActions from '../actions/AuthActions';
@@ -12,6 +13,12 @@ import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
 
 const Account = React.createClass({
+
+	getInitialState: function() {
+		return {
+			showModal: false
+		}
+	},
 
     toggleAccount: function(e) {
         hashHistory.push('/lists/');
@@ -30,8 +37,16 @@ const Account = React.createClass({
     	console.log('Change password');
 	},
 
-    userLogout: function() {
-		console.log('User logout');
+	toggleModal: function() {
+    	this.setState({showModal: true});
+	},
+
+	cancelLogout: function() {
+    	this.setState({showModal: false});
+	},
+
+    confirmLogout: function() {
+        this.setState({showModal: false});
     	AuthActions.userLogout();
 	},
 
@@ -43,6 +58,15 @@ const Account = React.createClass({
 
 		return (
 			<div className="account-view view-transition" >
+				<Modal
+					showModal={this.state.showModal}
+					headlineText="Log Out"
+					bodyText="Are you sure you want to log out?"
+					cancelText="Cancel"
+					confirmText="Log Out"
+					cancelClick={this.cancelLogout}
+					confirmClick={this.confirmLogout}
+				/>
 				<Header
 					buttonLeft={this.toggleAccount}
 					buttonRight={null}
@@ -54,9 +78,9 @@ const Account = React.createClass({
 				<div className="section section--divided section--edit" onClick={this.changePhoto}>
 					<label className="form__label">Photo</label>
 					{photo ?
-						<p className="p--standard">{firstInitial}</p>
-						:
 						<div className="user-avatar user-avatar--standard"><img src="http://placehold.it/48x48" /></div>
+						:
+						<div className="user-avatar user-avatar--placeholder">{firstInitial}</div>
 					}
 				</div>
 				<div className="section section--divided section--edit" onClick={this.changePhoto}>
@@ -76,7 +100,7 @@ const Account = React.createClass({
 					<p className="p--standard">•••••••</p>
 				</div>
 				<div className="section align--right">
-					<div className="button button--warning" onClick={this.userLogout}>Log Out</div>
+					<div className="button button--warning" onClick={this.toggleModal}>Log Out</div>
 				</div>
 			</div>
 		);

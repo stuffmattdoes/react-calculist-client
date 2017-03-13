@@ -1,0 +1,21 @@
+.user-avatar {
+  display: block;
+  border-radius: 48px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.user-avatar--standard {
+  width: 48px;
+  height: 48px;
+}
+
+.user-avatar--placeholder {
+  width: 48px;
+  height: 48px;
+  background-color: $purple;
+  color: white;
+  padding: 12px;
+  font-size: 24px;
+  text-align: center;
+}
