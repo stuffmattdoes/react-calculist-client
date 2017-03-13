@@ -87,7 +87,7 @@ const ListView = React.createClass({
                     params={this.props.params}
                     title="Calculist"
                 />
-                <div className="list__scroll list__scroll--full">
+                <div className="container--scroll container--full">
                     <div className="list__container">
                         <ReactCSSTransitionGroup
                             transitionName='list-item-transition'

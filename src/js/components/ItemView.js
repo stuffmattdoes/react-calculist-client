@@ -108,7 +108,7 @@ const ItemView = React.createClass({
                     params={this.props.params}
                     title={ListStore.getCurrentList().title}
                 />
-                <div className="list__scroll">
+                <div className="container--scroll">
                     <Filter filter={ currentFilter } />
                     <div className="list__container">
                         <ReactCSSTransitionGroup

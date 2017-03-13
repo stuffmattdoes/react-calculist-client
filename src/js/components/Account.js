@@ -75,32 +75,34 @@ const Account = React.createClass({
 					params={this.props.params}
 					title="Account"
 				/>
-				<div className="section section--divided section--edit" onClick={this.changePhoto}>
-					<label className="form__label">Photo</label>
-					{photo ?
-						<div className="user-avatar user-avatar--standard"><img src="http://placehold.it/48x48" /></div>
-						:
-						<div className="user-avatar user-avatar--placeholder">{firstInitial}</div>
-					}
-				</div>
-				<div className="section section--divided section--edit" onClick={this.changePhoto}>
-					<label className="form__label">Name</label>
-					{name ?
-						<p className="p--standard">{name}</p>
-						:
-						<p className="text--placeholder">Your name here</p>
-					}
-				</div>
-				<div className="section section--divided section--edit" onClick={this.changePhoto}>
-					<label className="form__label">Email</label>
-					<p className="p--standard">{email}</p>
-				</div>
-				<div className="section section--divided section--edit" onClick={this.changePhoto}>
-					<label className="form__label">Password</label>
-					<p className="p--standard">•••••••</p>
-				</div>
-				<div className="section align--right">
-					<div className="button button--warning" onClick={this.toggleModal}>Log Out</div>
+				<div className="container--scroll container--full">
+					<div className="section section--divided section--edit" onClick={this.changePhoto}>
+						<label className="form__label">Photo</label>
+						{photo ?
+							<div className="user-avatar user-avatar--standard"><img src="http://placehold.it/48x48" /></div>
+							:
+							<div className="user-avatar user-avatar--placeholder">{firstInitial}</div>
+						}
+					</div>
+					<div className="section section--divided section--edit" onClick={this.changePhoto}>
+						<label className="form__label">Name</label>
+						{name ?
+							<p className="p--standard">{name}</p>
+							:
+							<p className="text--placeholder">Your name here</p>
+						}
+					</div>
+					<div className="section section--divided section--edit" onClick={this.changePhoto}>
+						<label className="form__label">Email</label>
+						<p className="p--standard">{email}</p>
+					</div>
+					<div className="section section--divided section--edit" onClick={this.changePhoto}>
+						<label className="form__label">Password</label>
+						<p className="p--standard">•••••••</p>
+					</div>
+					<div className="section align--right">
+						<div className="button button--warning" onClick={this.toggleModal}>Log Out</div>
+					</div>
 				</div>
 			</div>
 		);

@@ -32,10 +32,10 @@
   'components/add-item',
   'components/buttons',
   'components/checkbox',
+  'components/containers',
   'components/forms',
   'components/filter',
   'components/icons',
-  'components/list-containers',
   'components/list-items',
   'components/list-item-options',
   'components/list-options',
@@ -47,7 +47,7 @@
 
 // 6. Page-specific styles
 @import
-  'views/view-account',
+  //'views/view-account',
   'views/view-transition',
   'views/view-login',
   'views/view-items';
