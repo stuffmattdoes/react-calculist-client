@@ -1,4 +1,10 @@
-.list__scroll {
+.flex-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.container__scroll {
   overflow-y: scroll;
   max-height: 100%;
   position: absolute;
@@ -8,7 +14,7 @@
   top: 50px;
 }
 
-.list__scroll--full {
+.container__scroll--full {
   bottom: 0;
 }
 

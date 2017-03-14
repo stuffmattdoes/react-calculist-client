@@ -32,7 +32,7 @@ const Modal = React.createClass({
                             <p>{this.props.bodyText}</p>
                             <div className="align--right">
                                 {this.props.cancelText ?
-                                    <div className="button button--text button--text-success" onClick={this.props.cancelClick}>{this.props.cancelText}</div>
+                                    <div className="button button--text button--text" onClick={this.props.cancelClick}>{this.props.cancelText}</div>
                                     : null}
                                 <div className="button button--text button--text-success" onClick={this.props.confirmClick}>{this.props.confirmText}</div>
                             </div>

@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // Components
 import Footer from './Footer';
 import Header from './Header';
-import Item from './Item';
+import Item from './items/Item';
 import Filter from './Filter';
 import AddItem from './AddItem';
 
@@ -18,32 +18,6 @@ import ItemStore from '../stores/ItemStore';
 import ListStore from '../stores/ListStore';
 
 const ItemView = React.createClass({
-
-    // React Transition Groups
-    componentWillAppear: function() {
-        console.log('componentWillAppear');
-    },
-
-    componentDidAppear: function() {
-        console.log('componentDidAppear');
-    },
-
-    componentWillEnter: function() {
-        console.log('componentWillEnter');
-    },
-
-    componentDidEnter: function() {
-        console.log('componentDidEnter');
-    },
-
-    componentWillLeave: function() {
-        console.log('componentWillLeave');
-    },
-
-    componentDidLeave: function() {
-        console.log('componentDidLeave');
-    },
-
 
     componentWillMount: function() {
         ItemStore.on("CHANGE_ITEM", this.onStoreChange);
@@ -108,7 +82,7 @@ const ItemView = React.createClass({
                     params={this.props.params}
                     title={ListStore.getCurrentList().title}
                 />
-                <div className="list__scroll">
+                <div className="container__scroll">
                     <Filter filter={ currentFilter } />
                     <div className="list__container">
                         <ReactCSSTransitionGroup

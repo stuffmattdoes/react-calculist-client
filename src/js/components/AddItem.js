@@ -48,7 +48,7 @@ const AddItem = React.createClass({
 
     onInputKeyDown: function(e) {
         if (e.keyCode === ENTER_KEY_CODE) {
-            e.target.blur();
+            // e.target.blur();
             this.onSubmit(e);
         }
     },
