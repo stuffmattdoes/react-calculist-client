@@ -65,7 +65,7 @@ const ListView = React.createClass({
                     key={list.listID}
                     onClick={() => {this.onListClick(list.listID);}}
                 >
-                    <div className="list-item__container">
+                    <div className="list-item__container flex-group">
                         <p className="list-item__title">{list.title}</p>
                         {listItemCount > 0 ?
                             <div className="list-item__count">{listItemCount}</div>
@@ -87,7 +87,7 @@ const ListView = React.createClass({
                     params={this.props.params}
                     title="Calculist"
                 />
-                <div className="container--scroll container--full">
+                <div className="container__scroll container__scroll--full">
                     <div className="list__container">
                         <ReactCSSTransitionGroup
                             transitionName='list-item-transition'

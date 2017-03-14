@@ -1,19 +1,13 @@
-.list-item-options {
+.item-options {
     padding: 0 15px 30px;
     box-shadow: inset 0 -3px 8px 0 rgba(black, 0.1);
     transition: 0.2s;
     border-bottom: 1px solid #E6E6E6;
 }
 
-.list-item-options__container {
+.item-options__container {
     background-color: white;
     border: 1px solid #E6E6E6;
     border-top: none;
     padding: 20px 15px;
-}
-
-.list-item__group--options {
-    display: flex;
-    align-items: center;
-    padding-left: 45px;
 }

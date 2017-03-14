@@ -2,10 +2,10 @@
 import React from 'react';
 
 // Actions
-import ItemActions from '../actions/ItemActions';
+import ItemActions from '../../actions/ItemActions';
 
 // Components
-import ItemSettings from './ItemSettings';
+import ItemSettings from './ItemOptions';
 
 const ENTER_KEY_CODE = 13;
 
@@ -150,7 +150,7 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <form className="list-item__container" onSubmit={this.onItemSubmit} >
+                <form className="list-item__container flex-group" onSubmit={this.onItemSubmit} >
                     {/* -----
                         Title
                         ----- */}
@@ -188,7 +188,7 @@ const ListItem = React.createClass({
                     {/* ------
                         Amount
                         ------ */}
-                    <div className="list-item__group--flex">
+                    <div className="flex-group">
                         {this.props.itemProps.unitPricing.active ?
                             <svg className="icon icon__functions--list-item"><use href="./svg/svg-defs.svg#icon-functions"></use></svg>
                             : null}
@@ -206,7 +206,7 @@ const ListItem = React.createClass({
                             disabled={this.props.itemProps.unitPricing.active}
                         />
                         <div
-                            className="list-item__option-button"
+                            className="arrow-button"
                             onClick={this.optionsToggle}
                         >
                             {this.state.settingsOpen ?

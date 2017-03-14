@@ -46,6 +46,7 @@
     display: inline-block;
     background-color: transparent;
     transition: 0.2s;
+    color: $grey-light;
 
     &:hover {
         background-color: rgba(black, 0.08);
@@ -57,6 +58,5 @@
 }
 
 .button--text-success {
-    background-color: transparent;
     color: $red;
 }
