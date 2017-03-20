@@ -133,7 +133,7 @@ const ItemSettings = React.createClass({
                             <p className="list-item__title">Price per unit</p>
                             <input
                                 className="list-item__input list-item__input--price"
-                                type="text"
+                                type="number"
                                 onBlur={this.onUnitPricingSaved}
                                 onChange={this.onUnitPricingChanged}
                                 onKeyDown={this.onInputKeyDown}
@@ -149,7 +149,7 @@ const ItemSettings = React.createClass({
                             <p className="list-item__title">Quantity</p>
                             <input
                                 className="list-item__input list-item__input--price"
-                                type="text"
+                                type="number"
                                 onBlur={this.onUnitQuantitySaved}
                                 onChange={this.onUnitQuantityChanged}
                                 onKeyDown={this.onInputKeyDown}

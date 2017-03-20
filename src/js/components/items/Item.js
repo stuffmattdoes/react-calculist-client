@@ -150,7 +150,7 @@ const ListItem = React.createClass({
 
         return (
             <div className={listItemClass} >
-                <form className="list-item__container flex-group" onSubmit={this.onItemSubmit} >
+                <div className="list-item__container flex-group" >
                     {/* -----
                         Title
                         ----- */}
@@ -161,7 +161,6 @@ const ListItem = React.createClass({
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
-                        tabIndex="0"
                     />
                     <div className="checkbox">
                         <label
@@ -184,7 +183,6 @@ const ListItem = React.createClass({
                         onChange={this.onTitleChange}
                         onClick={this.onInputClick}
                         onKeyDown={this.onInputKeyDown}
-                        tabIndex="0"
                     />
 
                     {/* ------
@@ -206,7 +204,6 @@ const ListItem = React.createClass({
                             onClick={this.onInputClick}
                             onKeyDown={this.onInputKeyDown}
                             disabled={this.props.itemProps.unitPricing.active}
-                            tabIndex="0"
                         />
                         <div
                             className="arrow-button"
@@ -218,12 +215,8 @@ const ListItem = React.createClass({
                                 <svg className="icon icon__keyboard-arrow-down--list-item"><use href="./svg/svg-defs.svg#icon-keyboard_arrow_down"></use></svg>
                             }
                         </div>
-                        <input
-                            className="input--hidden"
-                            type="submit"
-                        />
                     </div>
-                </form>
+                </div>
                 {this.state.settingsOpen ?
                     <ItemSettings
                         itemProps={this.props.itemProps}
