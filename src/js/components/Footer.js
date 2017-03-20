@@ -7,7 +7,7 @@ import ItemStore from '../stores/ItemStore';
 const Footer = React.createClass({
 
     getTotalCost: function() {
-        let items = ItemStore.getAll();
+        let items = ItemStore.getAllForCurrentList();
         let taxRate = 6.5;
         let totalCost = items.reduce((total, item) => {
             let addAmount = 0;
