@@ -161,6 +161,7 @@ const ListItem = React.createClass({
                         onChange={this.onCheckedChange}
                         checked={this.state.checked}
                         value=""
+                        tabIndex="0"
                     />
                     <div className="checkbox">
                         <label
@@ -183,6 +184,7 @@ const ListItem = React.createClass({
                         onChange={this.onTitleChange}
                         onClick={this.onInputClick}
                         onKeyDown={this.onInputKeyDown}
+                        tabIndex="0"
                     />
 
                     {/* ------
@@ -204,6 +206,7 @@ const ListItem = React.createClass({
                             onClick={this.onInputClick}
                             onKeyDown={this.onInputKeyDown}
                             disabled={this.props.itemProps.unitPricing.active}
+                            tabIndex="0"
                         />
                         <div
                             className="arrow-button"
