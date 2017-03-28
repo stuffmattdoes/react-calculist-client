@@ -1,9 +1,6 @@
 # Calculist (client-side) #
 Your in-store shopping cart total. Know what you're spending before you spend it.
 
-## Personnel ##
-[Matthew Morrison](m.james.morrison00@gmail.com) - literally everything
-
 ![alt tag](Mockup.png)
 
 ## Requirements ##
@@ -35,3 +32,6 @@ You shouldn't be deploying my code! But if you must know, I host the this client
 
 ## Roadmap ##
 This app is in active development. To see a list of planned features, check out my [Calculist Trello board](https://trello.com/b/ZQUkXrIX/calculist).
+
+## Personnel ##
+[Matthew Morrison](m.james.morrison00@gmail.com) - literally everything
