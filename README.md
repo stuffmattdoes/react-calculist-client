@@ -9,8 +9,8 @@ I am currently responsible for all design & development efforts.
 This repository contains the client-facing app, and needs the server-side repository in order to run locally. You can download the server code [here](https://github.com/stuffmattdoes/react-calculist-server).
 
 Your development environment needs the following software installed:
+
 * [Node.js & NPM](https://nodejs.org/en/)
-* [Webpack](https://webpack.github.io/)
 
 ## The Tech Stack ##
 
