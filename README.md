@@ -13,7 +13,9 @@ Your development environment needs the following software installed:
 * [Node.js & NPM](https://nodejs.org/en/)
 
 ## The Tech Stack ##
-
+* [React](https://facebook.github.io/react/) - *(Javascript)* a front-end library 
+* [React Router](https://github.com/ReactTraining/react-router) - *(Javascript)* handles dynamic URLs and routing on the client environment. Integrates with the browser history API, which is pretty sweet.
+* (The Flux Pattern)[https://github.com/facebook/flux/tree/master/examples/flux-concepts] - *(Javascript)* a methodology on how to architect the flow of data throughout your app.
 
 ## Setup ##
 Run the following commands in terminal/console in order to get setup locally:
