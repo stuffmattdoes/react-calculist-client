@@ -22,9 +22,12 @@ Run the following commands in terminal/console in order to get setup locally:
 2. `webpack` to compile static files, such as CSS and the classic Webpack Javascript bundle.
 
 ## Development ##
+As mentioned above, you'll need the server side code repository in order to run this web app on your local machine.
+
 Run the following commands in terminal/console in order to develop locally:
 
-1. `npm start` to start up webpack-dev-server, which will serve as our local static file server.
+1. ` cd /path/to/server-code && npm start` to spin up our local server environment. This will handle all API calls we make locally.
+2. `cd /path/to/client-code && npm start` to start up our dev server & asset watcher, which will serve as our local static file server.
 2. Dev away!
 
 ## Deployment ##
