@@ -122,7 +122,7 @@ const Register = React.createClass({
 
         return (
             <div className="app">
-                <div className="login-view">
+                <div className="view--login">
                     <h1>Register</h1>
                     <form className="form"  onSubmit={this.formValidate} >
                         {inputFieldGroups.map((inputField) => {
