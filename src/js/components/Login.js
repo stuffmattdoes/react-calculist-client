@@ -106,7 +106,7 @@ const Login = React.createClass({
 
         return (
             <div className="app">
-                <div className="view__login">
+                <div className="view--login">
                     <h1>Login</h1>
                     <form method="POST" className="form" onSubmit={this.formValidate} >
                         <label

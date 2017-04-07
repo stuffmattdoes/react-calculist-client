@@ -26,8 +26,11 @@ const ItemSettings = React.createClass({
         return (
             <div className="item-options">
                 <form className="item-options__container">
+
                     <ItemUnitPrice itemProps={this.props.itemProps} />
+
                     <ItemTax itemProps={this.props.itemProps} />
+
                     <div className="align--right">
                         <div
                             className="button button--text button--text-warning"
