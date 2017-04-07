@@ -1,5 +1,5 @@
 # Calculist (client-side) #
-A list + calculator app made for my wife &amp; I to help grocery shop. I am currently responsible for all design & development efforts.
+Your in-store shopping cart total. Know what you're spending before you spend it.
 
 ![alt tag](Mockup.png)
 
@@ -7,11 +7,13 @@ A list + calculator app made for my wife &amp; I to help grocery shop. I am curr
 This repository contains the client-facing app, and needs the server-side repository in order to run locally. You can download the server code [here](https://github.com/stuffmattdoes/react-calculist-server).
 
 Your development environment needs the following software installed:
+
 * [Node.js & NPM](https://nodejs.org/en/)
-* [Webpack](https://webpack.github.io/)
 
 ## The Tech Stack ##
-
+* [React](https://facebook.github.io/react/) - *(Javascript)* a front-end library responsible for dynamically rendering components
+* [React Router](https://github.com/ReactTraining/react-router) - *(Javascript)* handles dynamic URLs and routing on the client environment. Integrates with the browser history API, which is pretty sweet.
+* [The Flux Pattern](https://github.com/facebook/flux/tree/master/examples/flux-concepts) - *(Javascript)* a methodology on how to architect the flow of data throughout your app.
 
 ## Setup ##
 Run the following commands in terminal/console in order to get setup locally:
@@ -20,9 +22,12 @@ Run the following commands in terminal/console in order to get setup locally:
 2. `webpack` to compile static files, such as CSS and the classic Webpack Javascript bundle.
 
 ## Development ##
+As mentioned above, you'll need the server side code repository in order to run this web app on your local machine.
+
 Run the following commands in terminal/console in order to develop locally:
 
-1. `npm start` to start up webpack-dev-server, which will serve as our local static file server.
+1. ` cd /path/to/server-code && npm start` to spin up our local server environment. This will handle all API calls we make locally.
+2. `cd /path/to/client-code && npm start` to start up our dev server & asset watcher, which will serve as our local static file server.
 2. Dev away!
 
 ## Deployment ##
@@ -30,3 +35,6 @@ You shouldn't be deploying my code! But if you must know, I host the this client
 
 ## Roadmap ##
 This app is in active development. To see a list of planned features, check out my [Calculist Trello board](https://trello.com/b/ZQUkXrIX/calculist).
+
+## Personnel ##
+[Matthew Morrison](m.james.morrison00@gmail.com) - literally everything
